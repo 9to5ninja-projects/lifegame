@@ -295,42 +295,43 @@ class MortalityGameV2 {
     }
   }
 
-  clampPlayerStats() {
-    this.player.health.physical.current = Math.max(
+  clampPlayerStats(player = this.player) {
+    const p = player;
+    p.health.physical.current = Math.max(
       0,
-      Math.min(100, this.player.health.physical.current)
+      Math.min(100, p.health.physical.current)
     );
-    this.player.health.physical.baseline = Math.max(
+    p.health.physical.baseline = Math.max(
       1,
-      Math.min(100, this.player.health.physical.baseline)
+      Math.min(100, p.health.physical.baseline)
     );
-    this.player.health.mental.current = Math.max(
+    p.health.mental.current = Math.max(
       0,
-      Math.min(100, this.player.health.mental.current)
+      Math.min(100, p.health.mental.current)
     );
-    this.player.health.mental.baseline = Math.max(
+    p.health.mental.baseline = Math.max(
       1,
-      Math.min(100, this.player.health.mental.baseline)
+      Math.min(100, p.health.mental.baseline)
     );
-    this.player.survival = Math.max(1, Math.min(99, this.player.survival));
-    this.player.economics.resources.current = Math.max(
+    p.survival = Math.max(1, Math.min(99, p.survival));
+    p.economics.resources.current = Math.max(
       0,
-      this.player.economics.resources.current
+      p.economics.resources.current
     );
 
     // Update orphan status based on parent state
-    const motherAlive = this.player.relationships.parents.mother.alive;
-    const fatherAlive = this.player.relationships.parents.father.alive;
+    const motherAlive = p.relationships.parents.mother.alive;
+    const fatherAlive = p.relationships.parents.father.alive;
     
     if (!motherAlive && !fatherAlive) {
-      this.player.circumstances.vulnerability.orphan = true;
-      this.player.circumstances.vulnerability.halfOrphan = false;
+      p.circumstances.vulnerability.orphan = true;
+      p.circumstances.vulnerability.halfOrphan = false;
     } else if (!motherAlive || !fatherAlive) {
-      this.player.circumstances.vulnerability.halfOrphan = true;
-      this.player.circumstances.vulnerability.orphan = false;
+      p.circumstances.vulnerability.halfOrphan = true;
+      p.circumstances.vulnerability.orphan = false;
     } else {
-      this.player.circumstances.vulnerability.orphan = false;
-      this.player.circumstances.vulnerability.halfOrphan = false;
+      p.circumstances.vulnerability.orphan = false;
+      p.circumstances.vulnerability.halfOrphan = false;
     }
   }
 
@@ -606,7 +607,7 @@ class MortalityGameV2 {
       p.health.physical.baseline = Math.max(15, p.health.physical.baseline - 2);
     }
 
-    this.clampPlayerStats();
+    this.clampPlayerStats(player);
   }
 
   driftEconomics(player) {
@@ -636,7 +637,7 @@ class MortalityGameV2 {
       );
     }
 
-    this.clampPlayerStats();
+    this.clampPlayerStats(player);
   }
 
   driftRelationships(player) {
