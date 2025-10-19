@@ -224,18 +224,67 @@ class MortalityGameV2 {
 
   // ============================================================================
   // HELPER: Generate initial siblings
+  // Based on regional demographics (UN data on average children per woman)
   // ============================================================================
   generateSiblings() {
-    const siblingCount = Math.floor(Math.random() * 5); // 0-4 siblings
+    const birthRegion = this.player?.demographics?.birthRegion || "North America - Middle Class";
+    
+    // Average family sizes by region (UN World Population data)
+    const familySizes = {
+      "Nordic Country": { avg: 1.4, max: 4 },
+      "Western Europe": { avg: 1.5, max: 4 },
+      "Japan/South Korea": { avg: 1.1, max: 3 },
+      "North America - Middle Class": { avg: 1.9, max: 5 },
+      "Eastern Europe": { avg: 1.4, max: 4 },
+      "Urban China": { avg: 1.3, max: 2 }, // One-child policy legacy
+      "Urban Latin America": { avg: 1.8, max: 5 },
+      "Southeast Asia": { avg: 2.3, max: 6 },
+      "Urban South Asia": { avg: 2.1, max: 7 },
+      "Rural South Asia": { avg: 3.8, max: 12 },
+      "Rural Sub-Saharan Africa": { avg: 5.2, max: 15 },
+      "Urban Sub-Saharan Africa": { avg: 3.1, max: 10 },
+      "Middle East / North Africa": { avg: 2.9, max: 10 },
+      "Sub-Saharan Africa": { avg: 4.7, max: 14 },
+      "Active War Zone": { avg: 3.5, max: 12 }
+    };
+
+    const stats = familySizes[birthRegion] || familySizes["North America - Middle Class"];
+    
+    // Generate sibling count using Poisson-like distribution around regional average
+    let siblingCount = Math.max(0, Math.round(stats.avg + (Math.random() - 0.5) * 2));
+    siblingCount = Math.min(siblingCount, stats.max); // Cap at regional maximum
+    
     const siblings = [];
+    let playerBirthOrder = Math.floor(Math.random() * (siblingCount + 1)); // 0 = oldest, siblingCount = youngest
 
     for (let i = 0; i < siblingCount; i++) {
-      const ageGap = Math.floor(Math.random() * 8) - 4; // -4 to +4 years
+      // Age gap: if player is oldest, all siblings are younger
+      // if player is youngest, all siblings are older
+      // if player is middle, mix of older and younger
+      let ageGap;
+      
+      if (i < playerBirthOrder) {
+        // Older siblings
+        ageGap = -(Math.floor(Math.random() * 6) + 1); // 1-6 years older
+      } else if (i >= playerBirthOrder) {
+        // Younger siblings
+        ageGap = Math.floor(Math.random() * 6) + 1; // 1-6 years younger
+      }
+
+      // Age-appropriate survival rates (higher child mortality in poor regions)
+      let survivalRate = 0.95;
+      if (["Rural Sub-Saharan Africa", "Sub-Saharan Africa", "Rural South Asia", "Active War Zone"].includes(birthRegion)) {
+        survivalRate = 0.85; // 15% infant/child mortality in high-mortality regions
+      } else if (["Urban South Asia", "Southeast Asia", "Urban Sub-Saharan Africa"].includes(birthRegion)) {
+        survivalRate = 0.90;
+      }
+
       siblings.push({
         age: ageGap,
-        alive: Math.random() > 0.05, // 95% survival initially
+        alive: Math.random() < survivalRate,
         relationship: 70 + Math.random() * 20,
-        sex: Math.random() > 0.5 ? "male" : "female"
+        sex: Math.random() > 0.5 ? "male" : "female",
+        birthOrder: i // 0 = oldest, increasing for younger
       });
     }
 
@@ -607,6 +656,33 @@ class MortalityGameV2 {
       p.health.physical.baseline = Math.max(15, p.health.physical.baseline - 2);
     }
 
+    // FAMILY CROWDING: Multiple siblings during childhood affects mental health
+    // Crowded households create stress, but siblings can also provide support
+    if (p.demographics.age < 18 && p.relationships.siblings && p.relationships.siblings.length > 0) {
+      const aliveSliblings = p.relationships.siblings.filter(s => s.alive).length;
+      
+      if (aliveSliblings >= 3) {
+        // 3+ siblings: household is very crowded
+        // Mental health slight decline (stress), but also more immune exposure
+        p.health.mental.current = Math.max(
+          0,
+          p.health.mental.current - (0.3 * aliveSliblings)
+        );
+        // But shared illness exposure helps build immunity
+        p.health.physical.baseline = Math.max(
+          40,
+          p.health.physical.baseline - (0.2 * aliveSliblings)
+        );
+      } else if (aliveSliblings === 1 || aliveSliblings === 2) {
+        // 1-2 siblings: moderate benefit
+        // Social support from siblings helps mental health
+        p.health.mental.current = Math.min(
+          100,
+          p.health.mental.current + (0.5 * aliveSliblings)
+        );
+      }
+    }
+
     this.clampPlayerStats(player);
   }
 
@@ -615,13 +691,68 @@ class MortalityGameV2 {
 
     // Calculate drift based on income vs expenses
     let baseLiving = 10;
+    
+    // SIBLINGS: Up to age 18, siblings create household burden
+    // Vulnerability increases for youngest children (last born)
+    // Older siblings can contribute to household
+    let siblingCost = 0;
+    let vulnerabilityFromBirthOrder = 0;
+    
+    if (p.demographics.age < 18 && p.relationships.siblings && p.relationships.siblings.length > 0) {
+      const aliveSliblings = p.relationships.siblings.filter(s => s.alive).length;
+      const totalSiblings = p.relationships.siblings.length;
+      
+      // Determine player's birth order relative to alive siblings
+      const olderSiblings = p.relationships.siblings.filter(s => s.alive && s.age < 0).length;
+      const playerBirthOrder = olderSiblings; // 0 = oldest
+      const isYoungest = playerBirthOrder === totalSiblings - 1 || totalSiblings === 0;
+      
+      if (p.demographics.age < 12) {
+        // Young years: each sibling costs 4 resources/year (food, care, housing)
+        siblingCost = aliveSliblings * 4;
+        
+        // Youngest child in large family has increased vulnerability
+        // (parents prioritize oldest for limited resources)
+        if (isYoungest && aliveSliblings >= 5) {
+          vulnerabilityFromBirthOrder = 0.15; // 15% additional mortality risk
+        } else if (isYoungest && aliveSliblings >= 3) {
+          vulnerabilityFromBirthOrder = 0.08; // 8% additional mortality risk
+        }
+      } else {
+        // Teen years: siblings cost less (2) - they can contribute
+        siblingCost = aliveSliblings * 2;
+        
+        // Older siblings can help reduce burden
+        if (olderSiblings >= 2) {
+          siblingCost = Math.max(0, siblingCost - 1); // Oldest siblings help
+        }
+      }
+    }
+    
     let childrenCost = p.relationships.children.length * 5;
     let medicalCost = p.health.physical.chronic.length * 3;
     let houseCost = p.circumstances.housing.quality / 10;
 
-    let drift = p.economics.income.current - (baseLiving + childrenCost + medicalCost + houseCost);
+    let drift = p.economics.income.current - (baseLiving + siblingCost + childrenCost + medicalCost + houseCost);
 
     p.economics.resources.current += drift;
+
+    // STARVATION RISK: If resources critically low, immediate health impact
+    // This models malnutrition/starvation deaths (71/sec globally)
+    if (p.economics.resources.current < 0 && p.demographics.age < 18) {
+      const starvationIntensity = Math.abs(p.economics.resources.current);
+      
+      // Physical health degradation from starvation
+      p.health.physical.current = Math.max(
+        5, // Don't go below 5 to avoid automatic death
+        p.health.physical.current - (starvationIntensity * 0.5)
+      );
+      
+      // Additional vulnerability for youngest in large families
+      if (vulnerabilityFromBirthOrder > 0) {
+        p.survival = Math.max(1, p.survival - (starvationIntensity * vulnerabilityFromBirthOrder));
+      }
+    }
 
     // Accumulate debt if resources go negative
     if (p.economics.resources.current < 0) {
@@ -856,6 +987,16 @@ class MortalityGameV2 {
 
   applyEffect(player, path, value, type = 'modify') {
     if (!path) return;
+
+    // SPECIAL: Kill a random sibling (for sibling death events)
+    if (path === 'relationships.siblings.kill_random' && value === true) {
+      const aliveSiblings = player.relationships.siblings.filter(s => s.alive);
+      if (aliveSiblings.length > 0) {
+        const randomSibling = aliveSiblings[Math.floor(Math.random() * aliveSiblings.length)];
+        randomSibling.alive = false;
+      }
+      return;
+    }
 
     const current = this.getNestedValue(player, path);
 

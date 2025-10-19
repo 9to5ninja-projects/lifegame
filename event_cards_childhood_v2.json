@@ -23,38 +23,23 @@
       0,
       12
     ],
-    "description": "Your younger sibling dies from preventable disease. The grief is heavy.",
-    "weight": 5,
-    "requires": {
-      "any": [
-        {
-          "circumstances.economic": {
-            "<": 40
-          }
-        },
-        {
-          "circumstances.conflict": true
-        },
-        {
-          "circumstances.economic": {
-            "<": 40
-          }
-        },
-        {
-          "circumstances.conflict": true
-        }
-      ]
-    },
+    "description": "Your younger sibling dies from preventable disease. One less mouth to feed, but the grief and sense of loss weighs heavy.",
+    "weight": 8,
     "effects": [
       {
-        "path": "health.physical.current",
+        "path": "relationships.siblings.kill_random",
+        "type": "set",
+        "value": true
+      },
+      {
+        "path": "health.mental.current",
         "type": "modify",
-        "value": 2
+        "value": -20
       },
       {
         "path": "economics.resources.current",
         "type": "modify",
-        "value": 1
+        "value": 8
       }
     ]
   },
