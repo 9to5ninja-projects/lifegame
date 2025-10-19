@@ -5,6 +5,7 @@
 const { getGlobalBaseline, getAdjustedProbability, getSuicideMethodsForRegion } = require('./global_statistics_v2.js');
 const { shouldBeEmployed, getUnemploymentPenalty } = require('./employment_by_region.js');
 const { calculateHouseholdCost, calculateHouseholdIncome, calculateHouseholdCashFlow, getPovertyStatus } = require('./cost_of_living.js');
+const { getEducationStage, shouldAttendEducation, getEducationCost, getStressFromIncome } = require('./education_system.js');
 
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards) {
@@ -231,7 +232,10 @@ class MortalityGameV2 {
           yearsCompleted: 0,
           level: "none", // none, primary, secondary, tertiary, university
           inSchool: false,
-          schoolQuality: 0 // 0-100, affects learning speed
+          schoolQuality: 0, // 0-100, affects learning speed
+          stages: [], // Track education stages: [{stage: "primary", completed: true, years: 6}]
+          cost: 0, // Annual education cost
+          stress: 0, // Stress from being in school
         },
         skills: [], // ["farming", "trade", "music", "medicine"]
         cognitive: {
@@ -683,6 +687,9 @@ class MortalityGameV2 {
 
     // 1c. Update employment status based on age/gender/region and random turnover
     this.updateEmploymentStatus(player);
+
+    // 1d. Update education status (compulsory until 16, optional after)
+    this.updateEducationStatus(player);
 
     // 2. Drift all homeostatic systems
     this.driftHealth(player);
@@ -1695,6 +1702,56 @@ class MortalityGameV2 {
       p.economics.income.unemploymentMonths = (p.economics.income.unemploymentMonths || 0) + 12;
     } else {
       p.economics.income.unemploymentMonths = 0;
+    }
+  }
+
+  // Update education status based on age and region
+  updateEducationStatus(player) {
+    const p = player;
+    const age = p.demographics.age;
+    const region = this.mapRegionForStatistics(p.demographics.birthRegion);
+
+    // Get education stage for this age
+    const stage = getEducationStage(age);
+
+    // Before age 6, no formal education
+    if (age < 6) {
+      p.development.education.inSchool = false;
+      p.development.education.cost = 0;
+      return;
+    }
+
+    // Check if should attend (compulsory ages 6-15 in most regions)
+    const shouldAttend = shouldAttendEducation(
+      age,
+      region,
+      p.economics.resources.current + p.economics.resources.baseline, // Estimate family resources
+      p.development.education.level
+    );
+
+    p.development.education.inSchool = shouldAttend.shouldAttend;
+    p.development.education.cost = shouldAttend.cost || 0;
+
+    // If attending, chance to complete stage
+    if (shouldAttend.shouldAttend && age >= 18) {
+      // Post-secondary: can drop out or complete
+      const completionRate = 0.85; // 85% of those who attend post-secondary complete
+      if (Math.random() < completionRate) {
+        p.development.education.yearsCompleted = (p.development.education.yearsCompleted || 0) + 1;
+        if (p.development.education.yearsCompleted >= 4) {
+          p.development.education.level = "tertiary_bachelor";
+        }
+      } else {
+        p.development.education.inSchool = false; // Drop out
+      }
+    } else if (shouldAttend.shouldAttend && age >= 12 && age < 18) {
+      // Secondary school: automatic progression, no dropout
+      p.development.education.yearsCompleted = Math.min(6, age - 11);
+      p.development.education.level = "secondary";
+    } else if (shouldAttend.shouldAttend && age >= 6 && age < 12) {
+      // Primary school: automatic progression
+      p.development.education.yearsCompleted = Math.min(6, age - 5);
+      p.development.education.level = "primary";
     }
   }
 
