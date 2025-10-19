@@ -54,14 +54,6 @@
   - [ ] Commune/collective
   - [ ] Religious households
 
-### Event Choices (Priority: HIGH)
-- [ ] Implement choice system for events
-  - [ ] Education choices (school vs work)
-  - [ ] Career choices (stability vs risk)
-  - [ ] Relationship choices (marry vs stay single)
-  - [ ] Health choices (treatment vs ignore)
-- [ ] Resource/agency gates for choices
-- [ ] Branching consequences based on choices
 
 ### Balance & Testing (Priority: MEDIUM)
 - [ ] Run 10,000 simulation suite

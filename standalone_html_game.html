@@ -199,6 +199,301 @@
     .hidden {
       display: none;
     }
+
+    /* ============================================================================
+       STATE SECTIONS (Collapsible subsystems)
+       ============================================================================ */
+    .state-sections {
+      margin: 30px 0;
+    }
+
+    .state-section {
+      margin: 15px 0;
+      border: 2px solid #444;
+      border-radius: 8px;
+      background: rgba(42, 42, 42, 0.9);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .state-section:hover {
+      border-color: #4ecdc4;
+      box-shadow: 0 0 10px rgba(78, 205, 196, 0.2);
+    }
+
+    .section-header {
+      padding: 15px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(60, 60, 60, 0.8);
+      user-select: none;
+      font-weight: bold;
+      color: #4ecdc4;
+      transition: background 0.2s ease;
+    }
+
+    .section-header:hover {
+      background: rgba(78, 205, 196, 0.1);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+      color: #4ecdc4;
+    }
+
+    .state-section.open .section-toggle {
+      transform: rotate(180deg);
+    }
+
+    .section-content {
+      display: none;
+      padding: 20px;
+      background: rgba(42, 42, 42, 0.9);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .state-section.open .section-content {
+      display: block;
+      max-height: 2000px;
+    }
+
+    /* ============================================================================
+       STAT ROWS (Key-value pairs with formatting)
+       ============================================================================ */
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #333;
+      gap: 15px;
+    }
+
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      color: #999;
+      font-size: 0.95rem;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .stat-value {
+      color: #4ecdc4;
+      font-weight: bold;
+      text-align: right;
+      flex: 0 0 auto;
+    }
+
+    .stat-change {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .stat-change.positive {
+      background: rgba(76, 175, 80, 0.25);
+      color: #4caf50;
+    }
+
+    .stat-change.negative {
+      background: rgba(244, 67, 54, 0.25);
+      color: #f44336;
+    }
+
+    .stat-change.neutral {
+      background: rgba(158, 158, 158, 0.25);
+      color: #9e9e9e;
+    }
+
+    /* ============================================================================
+       PROGRESS BARS (Visual ranges for numeric values)
+       ============================================================================ */
+    .progress-container {
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4caf50 0%, #4ecdc4 100%);
+      transition: width 0.3s ease;
+      border-radius: 5px;
+    }
+
+    .progress-fill.good {
+      background: linear-gradient(90deg, #4caf50 0%, #45b393 100%);
+    }
+
+    .progress-fill.moderate {
+      background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
+    }
+
+    .progress-fill.critical {
+      background: linear-gradient(90deg, #f44336 0%, #ff6b6b 100%);
+    }
+
+    .progress-fill.low {
+      background: linear-gradient(90deg, #f44336 0%, #e53935 100%);
+    }
+
+    /* ============================================================================
+       STATUS INDICATORS (Color coding for quick understanding)
+       ============================================================================ */
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    .status-good {
+      color: #4caf50;
+      background: rgba(76, 175, 80, 0.2);
+    }
+
+    .status-moderate {
+      color: #ff9800;
+      background: rgba(255, 152, 0, 0.2);
+    }
+
+    .status-critical {
+      color: #f44336;
+      background: rgba(244, 67, 54, 0.2);
+    }
+
+    .status-excellent {
+      color: #00bcd4;
+      background: rgba(0, 188, 212, 0.2);
+    }
+
+    /* ============================================================================
+       SUBSECTION HEADERS (Sub-categories within sections)
+       ============================================================================ */
+    .subsection-header {
+      margin-top: 12px;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #444;
+      color: #ff9800;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .subsection-header:first-child {
+      margin-top: 0;
+    }
+
+    /* ============================================================================
+       EVENT LOG ENHANCEMENTS (Show effects with formatting)
+       ============================================================================ */
+    .log-entry-detailed {
+      padding: 12px;
+      margin: 8px 0;
+      border-left: 3px solid #4ecdc4;
+      background: rgba(78, 205, 196, 0.05);
+      border-radius: 4px;
+    }
+
+    .log-entry-age {
+      color: #ff9800;
+      font-weight: bold;
+    }
+
+    .log-entry-name {
+      color: #4ecdc4;
+      font-weight: bold;
+    }
+
+    .log-entry-effects {
+      margin-top: 8px;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+      font-size: 0.9rem;
+    }
+
+    .effect-item {
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .effect-positive {
+      color: #4caf50;
+    }
+
+    .effect-negative {
+      color: #f44336;
+    }
+
+    .effect-neutral {
+      color: #999;
+    }
+
+    /* ============================================================================
+       RESPONSIVE LAYOUT (Mobile-friendly)
+       ============================================================================ */
+    @media (max-width: 768px) {
+      .stat-row {
+        flex-wrap: wrap;
+      }
+
+      .stat-label {
+        min-width: 100px;
+        flex: 1 1 auto;
+      }
+
+      .stat-value {
+        flex: 1 1 100%;
+        text-align: left;
+        margin-top: 5px;
+        padding-left: 20px;
+      }
+
+      .section-content {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -225,6 +520,71 @@
         <button onclick="playYear()">LIVE 1 YEAR</button>
         <button onclick="autoPlay()">AUTO-PLAY</button>
         <button onclick="foldLife()" style="background: #e67e22;">FOLD THIS LIFE</button>
+      </div>
+
+      <!-- ===================================================================
+           STATE SECTIONS (Collapsible subsystems showing full v2.0 state)
+           =================================================================== -->
+      <div class="state-sections">
+        <!-- HEALTH SECTION -->
+        <div class="state-section open" id="health-section" onclick="toggleSection(event, 'health-section')">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-toggle">▼</span>
+              <span>❤️ HEALTH STATUS</span>
+            </div>
+            <span id="health-brief"></span>
+          </div>
+          <div class="section-content" id="health-content"></div>
+        </div>
+
+        <!-- ECONOMICS SECTION -->
+        <div class="state-section" id="economics-section" onclick="toggleSection(event, 'economics-section')">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-toggle">▼</span>
+              <span>💰 ECONOMICS</span>
+            </div>
+            <span id="economics-brief"></span>
+          </div>
+          <div class="section-content" id="economics-content"></div>
+        </div>
+
+        <!-- RELATIONSHIPS SECTION -->
+        <div class="state-section" id="relationships-section" onclick="toggleSection(event, 'relationships-section')">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-toggle">▼</span>
+              <span>👥 RELATIONSHIPS</span>
+            </div>
+            <span id="relationships-brief"></span>
+          </div>
+          <div class="section-content" id="relationships-content"></div>
+        </div>
+
+        <!-- DEVELOPMENT SECTION -->
+        <div class="state-section" id="development-section" onclick="toggleSection(event, 'development-section')">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-toggle">▼</span>
+              <span>🧠 DEVELOPMENT</span>
+            </div>
+            <span id="development-brief"></span>
+          </div>
+          <div class="section-content" id="development-content"></div>
+        </div>
+
+        <!-- CIRCUMSTANCES SECTION -->
+        <div class="state-section" id="circumstances-section" onclick="toggleSection(event, 'circumstances-section')">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-toggle">▼</span>
+              <span>🏠 CIRCUMSTANCES</span>
+            </div>
+            <span id="circumstances-brief"></span>
+          </div>
+          <div class="section-content" id="circumstances-content"></div>
+        </div>
       </div>
 
       <div class="log">
@@ -389,35 +749,431 @@
     }
 
     // ============================================================================
-    // UPDATE UI (Display current game state)
+    // SECTION TOGGLING (Collapse/expand state subsystems)
     // ============================================================================
-    function updateUI() {
+    function toggleSection(event, sectionId) {
+      event.preventDefault();
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.classList.toggle('open');
+      }
+    }
+
+    // ============================================================================
+    // HELPER FUNCTIONS (Formatting and color coding)
+    // ============================================================================
+    function formatMoney(value) {
+      if (typeof value !== 'number') return '$0';
+      if (Math.abs(value) >= 1000000) {
+        return '$' + (value / 1000000).toFixed(1) + 'M';
+      } else if (Math.abs(value) >= 1000) {
+        return '$' + (value / 1000).toFixed(1) + 'k';
+      } else {
+        return '$' + Math.floor(value);
+      }
+    }
+
+    function getHealthStatus(value) {
+      if (value >= 80) return { text: 'Excellent', class: 'status-excellent' };
+      if (value >= 60) return { text: 'Good', class: 'status-good' };
+      if (value >= 40) return { text: 'Moderate', class: 'status-moderate' };
+      return { text: 'Critical', class: 'status-critical' };
+    }
+
+    function getProgressClass(value, maxValue = 100) {
+      const percent = (value / maxValue) * 100;
+      if (percent >= 75) return 'good';
+      if (percent >= 50) return 'moderate';
+      if (percent >= 25) return 'critical';
+      return 'low';
+    }
+
+    function formatPercent(value, decimals = 0) {
+      if (typeof value !== 'number') return '0%';
+      return Math.floor(value * 10 ** decimals) / 10 ** decimals + '%';
+    }
+
+    function getStatusBadge(value, maxValue = 100) {
+      const status = getHealthStatus((value / maxValue) * 100);
+      return `<span class="status-badge ${status.class}">${status.text}</span>`;
+    }
+
+    // ============================================================================
+    // UPDATE UI SECTIONS (Populate all subsystems)
+    // ============================================================================
+    function updatePrimaryStats() {
       if (!player) return;
-
-      // Calculate survival % (1-99 range for display)
-      const survivalPercent = Math.floor(game.player.health.physical.current);
-
-      // Display stats
+      
+      const survivalPercent = Math.floor(player.health.physical.current);
+      const lifeExpectancy = player.lifeExpectancy || 75;
+      const yearsRemaining = Math.max(0, lifeExpectancy - player.age);
+      const healthStatus = getHealthStatus(survivalPercent);
+      
       document.getElementById('stats').innerHTML = `
         <div class="stat">
           <div class="stat-label">Age</div>
-          <div class="stat-value">${player.age}</div>
+          <div class="stat-value">${player.age} / ${lifeExpectancy}</div>
         </div>
         <div class="stat">
-          <div class="stat-label">Health</div>
-          <div class="stat-value">${survivalPercent}%</div>
+          <div class="stat-label">Health Score</div>
+          <div class="stat-value">${survivalPercent} <span class="status-badge ${healthStatus.class}">${healthStatus.text}</span></div>
         </div>
         <div class="stat">
           <div class="stat-label">Resources</div>
-          <div class="stat-value">$${Math.floor(player.economics.resources.current)}</div>
+          <div class="stat-value">${formatMoney(player.economics.resources.current)}</div>
         </div>
         <div class="stat">
           <div class="stat-label">Community</div>
           <div class="stat-value">${Math.floor(player.relationships.social.community)}%</div>
         </div>
       `;
+    }
 
-      // Display birth and family cards
+    function updateHealthSection() {
+      if (!player) return;
+
+      const phys = player.health.physical;
+      const mental = player.health.mental;
+      const repro = player.health.reproductive;
+
+      let chronics = [];
+      if (player.health.chronic && player.health.chronic.disease) {
+        chronics.push(player.health.chronic.disease);
+      }
+
+      const html = `
+        <div class="stat-row">
+          <div class="stat-label">Physical Health</div>
+          <div class="stat-value">
+            ${Math.floor(phys.current)}/100
+            ${getStatusBadge(phys.current, 100)}
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill ${getProgressClass(phys.current)}" style="width: ${Math.min(100, phys.current)}%"></div>
+          </div>
+        </div>
+        <div class="stat-row" style="padding: 8px 0; font-size: 0.9rem;">
+          <span style="color: #999;">Baseline: ${Math.floor(phys.baseline)} | Recovery: +${phys.recovery}/year</span>
+        </div>
+
+        <div class="subsection-header">Mental Health</div>
+        <div class="stat-row">
+          <div class="stat-label">Mental Health</div>
+          <div class="stat-value">
+            ${Math.floor(mental.current)}/100
+            ${getStatusBadge(mental.current, 100)}
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill ${getProgressClass(mental.current)}" style="width: ${Math.min(100, mental.current)}%"></div>
+          </div>
+        </div>
+        <div class="stat-row" style="padding: 8px 0; font-size: 0.9rem;">
+          <span style="color: #999;">Baseline: ${Math.floor(mental.baseline)} | Recovery: +${mental.recovery}/year</span>
+        </div>
+
+        <div class="subsection-header">Reproductive Health</div>
+        <div class="stat-row">
+          <div class="stat-label">Status</div>
+          <div class="stat-value">${repro.fertile ? '✓ Fertile' : '✗ Not Fertile'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Pregnant</div>
+          <div class="stat-value">${repro.pregnant ? '✓ Yes' : '✗ No'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Children Born</div>
+          <div class="stat-value">${player.relationships.children.length}</div>
+        </div>
+        ${chronics.length > 0 ? `
+          <div class="subsection-header">Chronic Conditions</div>
+          <div class="stat-row">
+            <div class="stat-label">Condition</div>
+            <div class="stat-value">${chronics.join(', ')}</div>
+          </div>
+          <div style="padding: 8px 0; font-size: 0.9rem; color: #f44336;">
+            ⚠️ Permanently lowers baseline health by ${player.health.chronic.healthPenalty}
+          </div>
+        ` : ''}
+      `;
+
+      document.getElementById('health-content').innerHTML = html;
+      document.getElementById('health-brief').innerHTML = `${Math.floor(phys.current)}% Physical`;
+    }
+
+    function updateEconomicsSection() {
+      if (!player) return;
+
+      const income = player.economics.income.current;
+      const resources = player.economics.resources.current;
+      const resourcesBaseline = player.economics.resources.baseline;
+      const resourcesDrift = player.economics.resources.recovery;
+
+      const html = `
+        <div class="subsection-header">Income</div>
+        <div class="stat-row">
+          <div class="stat-label">Annual Income</div>
+          <div class="stat-value">${formatMoney(income)}/year</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Baseline</div>
+          <div class="stat-value">${formatMoney(player.economics.income.baseline)}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Employment Status</div>
+          <div class="stat-value">${income > 0 ? '✓ Employed' : '✗ Unemployed'}</div>
+        </div>
+
+        <div class="subsection-header">Resources</div>
+        <div class="stat-row">
+          <div class="stat-label">Current Savings</div>
+          <div class="stat-value">${formatMoney(resources)}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Target Level</div>
+          <div class="stat-value">${formatMoney(resourcesBaseline)}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Yearly Drift</div>
+          <div class="stat-value">
+            ${resourcesDrift > 0 ? '+' : ''}${formatMoney(resourcesDrift)}/year
+            ${resourcesDrift > 0 ? '<span class="status-badge status-good">Growing</span>' : '<span class="status-badge status-critical">Shrinking</span>'}
+          </div>
+        </div>
+        <div style="padding: 8px 0; font-size: 0.9rem; color: #999;">
+          💡 Resources drift toward baseline each year (expenses vs income)
+        </div>
+
+        <div class="subsection-header">Debt & Assets</div>
+        <div class="stat-row">
+          <div class="stat-label">Debt</div>
+          <div class="stat-value">${formatMoney(player.economics.debt || 0)}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Assets</div>
+          <div class="stat-value">${(player.economics.assets && player.economics.assets.length) || 0} items</div>
+        </div>
+      `;
+
+      document.getElementById('economics-content').innerHTML = html;
+      document.getElementById('economics-brief').innerHTML = formatMoney(resources);
+    }
+
+    function updateRelationshipsSection() {
+      if (!player) return;
+
+      const parents = player.relationships.parents || {};
+      const partner = player.relationships.partner;
+      const children = player.relationships.children || [];
+      const social = player.relationships.social || {};
+
+      let html = `
+        <div class="subsection-header">Parents</div>
+      `;
+
+      if (parents.mother) {
+        html += `
+          <div class="stat-row">
+            <div class="stat-label">Mother</div>
+            <div class="stat-value">
+              ${parents.mother.alive ? '✓ Alive' : '✗ Deceased'}
+              ${parents.mother.alive ? `(age ${parents.mother.age})` : `(died age ${parents.mother.age})`}
+            </div>
+          </div>
+        `;
+      }
+
+      if (parents.father) {
+        html += `
+          <div class="stat-row">
+            <div class="stat-label">Father</div>
+            <div class="stat-value">
+              ${parents.father.alive ? '✓ Alive' : '✗ Deceased'}
+              ${parents.father.alive ? `(age ${parents.father.age})` : `(died age ${parents.father.age})`}
+            </div>
+          </div>
+        `;
+      }
+
+      html += `
+        <div class="subsection-header">Partnership</div>
+        <div class="stat-row">
+          <div class="stat-label">Status</div>
+          <div class="stat-value">${partner ? `✓ ${partner.status}` : '✗ Single'}</div>
+        </div>
+      `;
+
+      if (partner) {
+        html += `
+          <div class="stat-row">
+            <div class="stat-label">Partner</div>
+            <div class="stat-value">${partner.name || 'Unnamed'}</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label">Duration</div>
+            <div class="stat-value">${partner.yearsPartner || 0} years</div>
+          </div>
+        `;
+      }
+
+      html += `
+        <div class="subsection-header">Children</div>
+        <div class="stat-row">
+          <div class="stat-label">Total Children</div>
+          <div class="stat-value">${children.length}</div>
+        </div>
+      `;
+
+      if (children.length > 0) {
+        html += `
+          <div style="margin-top: 8px;">
+            ${children.slice(0, 5).map((child, i) => `
+              <div class="stat-row" style="font-size: 0.9rem;">
+                <span style="color: #999;">• ${child.name || `Child ${i+1}`}</span>
+                <span style="color: #4ecdc4;">age ${child.age}</span>
+              </div>
+            `).join('')}
+            ${children.length > 5 ? `<div style="color: #999; font-size: 0.9rem; padding: 5px 0;">+ ${children.length - 5} more</div>` : ''}
+          </div>
+        `;
+      }
+
+      html += `
+        <div class="subsection-header">Social</div>
+        <div class="stat-row">
+          <div class="stat-label">Friends</div>
+          <div class="stat-value">${social.friends || 0} people</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Community Integration</div>
+          <div class="stat-value">${Math.floor(social.community || 0)}%</div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill ${getProgressClass(social.community, 100)}" style="width: ${Math.min(100, social.community || 0)}%"></div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Isolation</div>
+          <div class="stat-value">${social.isolated ? '✓ Yes' : '✗ No'}</div>
+        </div>
+      `;
+
+      document.getElementById('relationships-content').innerHTML = html;
+      document.getElementById('relationships-brief').innerHTML = `${children.length} children`;
+    }
+
+    function updateDevelopmentSection() {
+      if (!player) return;
+
+      const dev = player.development || {};
+      const education = dev.education || {};
+      const skills = dev.skills || [];
+
+      const html = `
+        <div class="subsection-header">Education</div>
+        <div class="stat-row">
+          <div class="stat-label">Level</div>
+          <div class="stat-value">${education.level || 'Unknown'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Years Completed</div>
+          <div class="stat-value">${education.yearsCompleted || 0} years</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Literacy</div>
+          <div class="stat-value">${education.literate ? '✓ Literate' : '✗ Not Literate'}</div>
+        </div>
+
+        <div class="subsection-header">Skills</div>
+        <div class="stat-row">
+          <div class="stat-label">Count</div>
+          <div class="stat-value">${skills.length} skills</div>
+        </div>
+        ${skills.length > 0 ? `
+          <div style="margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.3); border-radius: 3px;">
+            ${skills.map(skill => `<div style="padding: 2px 0; color: #4ecdc4;">• ${skill}</div>`).join('')}
+          </div>
+        ` : ''}
+
+        <div class="subsection-header">Cognitive Stage</div>
+        <div class="stat-row">
+          <div class="stat-label">Stage</div>
+          <div class="stat-value">${dev.cognitiveStage || 'Unknown'}</div>
+        </div>
+      `;
+
+      document.getElementById('development-content').innerHTML = html;
+      document.getElementById('development-brief').innerHTML = `${education.level || 'Unknown'}`;
+    }
+
+    function updateCircumstancesSection() {
+      if (!player) return;
+
+      const circ = player.circumstances || {};
+      const demo = player.demographics || {};
+
+      const html = `
+        <div class="subsection-header">Location</div>
+        <div class="stat-row">
+          <div class="stat-label">Birth Region</div>
+          <div class="stat-value">${demo.birthRegion || 'Unknown'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Current Region</div>
+          <div class="stat-value">${circ.location || 'Same'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Setting</div>
+          <div class="stat-value">${circ.setting || 'Urban/Rural'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Safety</div>
+          <div class="stat-value">${circ.safety ? `${circ.safety}` : 'Moderate'}</div>
+        </div>
+
+        <div class="subsection-header">Housing & Status</div>
+        <div class="stat-row">
+          <div class="stat-label">Housing</div>
+          <div class="stat-value">${circ.housing || 'Unknown'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Quality</div>
+          <div class="stat-value">${circ.housingQuality || 'Moderate'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Legal Status</div>
+          <div class="stat-value">${demo.citizenship || 'Citizen'}</div>
+        </div>
+
+        <div class="subsection-header">Employment & Vulnerability</div>
+        <div class="stat-row">
+          <div class="stat-label">Occupation</div>
+          <div class="stat-value">${circ.occupation || 'Unemployed'}</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Vulnerable Groups</div>
+          <div class="stat-value">${circ.vulnerableGroups && circ.vulnerableGroups.length ? circ.vulnerableGroups.join(', ') : 'None'}</div>
+        </div>
+      `;
+
+      document.getElementById('circumstances-content').innerHTML = html;
+      document.getElementById('circumstances-brief').innerHTML = `${circ.setting || 'Unknown'}`;
+    }
+
+    // ============================================================================
+    // UPDATE UI (Master function - calls all subsystems)
+    // ============================================================================
+    function updateUI() {
+      if (!player) return;
+
+      // Update primary stats at top
+      updatePrimaryStats();
+
+      // Update birth and family cards
       const birthCard = player.birthCards[0];
       const familyCard = player.birthCards[1];
       document.getElementById('birth-cards').innerHTML = `
@@ -425,18 +1181,67 @@
         <div class="card">
           <h3>${birthCard.name}</h3>
           <p>Life Expectancy: ${player.lifeExpectancy} years</p>
+          <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">Region: ${player.demographics.birthRegion || 'Unknown'}</p>
         </div>
         <div class="card">
           <h3>${familyCard.name}</h3>
           <p>Family Structure</p>
+          <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">${familyCard.description || 'Your starting family configuration'}</p>
         </div>
       `;
 
-      // Display event log
-      document.getElementById('event-log').innerHTML = player.eventHistory.slice().reverse().map(entry => 
-        `<div class="log-entry"><strong>Age ${entry.age}:</strong> ${entry.event}</div>`
-      ).join('');
+      // Update all state sections
+      updateHealthSection();
+      updateEconomicsSection();
+      updateRelationshipsSection();
+      updateDevelopmentSection();
+      updateCircumstancesSection();
+
+      // Update event log with details
+      updateEventLog();
     }
+
+    // ============================================================================
+    // UPDATE EVENT LOG (Show events with effects)
+    // ============================================================================
+    function updateEventLog() {
+      if (!player) return;
+
+      const logHtml = player.eventHistory.slice().reverse().map(entry => {
+        const event = EVENT_CARDS.find(e => e.id === entry.id);
+        if (!event) {
+          return `<div class="log-entry-detailed">
+            <span class="log-entry-age">Age ${entry.age}:</span>
+            <span class="log-entry-name">${entry.event}</span>
+          </div>`;
+        }
+
+        // Format effects if available
+        let effectsHtml = '';
+        if (event.effects && event.effects.length > 0) {
+          const effects = event.effects.slice(0, 3); // Show up to 3 effects
+          effectsHtml = `<div class="log-entry-effects">
+            ${effects.map(effect => {
+              const isPositive = effect.value > 0;
+              const sign = isPositive ? '+' : '';
+              return `<div class="effect-item ${isPositive ? 'effect-positive' : 'effect-negative'}">
+                ${isPositive ? '✓' : '✗'} ${sign}${effect.value} ${effect.path.split('.').pop()}
+              </div>`;
+            }).join('')}
+            ${event.effects.length > 3 ? `<div class="effect-item effect-neutral">... and ${event.effects.length - 3} more effects</div>` : ''}
+          </div>`;
+        }
+
+        return `<div class="log-entry-detailed">
+          <span class="log-entry-age">Age ${entry.age}:</span>
+          <span class="log-entry-name">${entry.event}</span>
+          ${effectsHtml}
+        </div>`;
+      }).join('');
+
+      document.getElementById('event-log').innerHTML = logHtml || '<div style="color: #999; padding: 20px; text-align: center;">No events yet. Live your life!</div>';
+    }
+
 
     // ============================================================================
     // PLAY ONE YEAR (Main gameplay loop)
@@ -497,7 +1302,7 @@
     }
 
     // ============================================================================
-    // SHOW DEATH SCREEN (Display end-of-life summary)
+    // SHOW DEATH SCREEN (Display end-of-life summary with details)
     // ============================================================================
     function showDeathScreen() {
       const score = game.calculateScore();
@@ -507,33 +1312,93 @@
       document.getElementById('game-screen').classList.add('hidden');
       document.getElementById('death-screen').classList.remove('hidden');
 
-      const causeText = player.folded
-        ? `<div class="cause" style="background: rgba(230, 126, 34, 0.3); border-color: #e67e22;">You folded at age ${player.age}</div>`
-        : `<div class="cause">You died at age ${player.age}</div>`;
+      // Determine cause of death
+      let causeSection = '';
+      if (player.folded) {
+        causeSection = `<div class="cause" style="background: rgba(230, 126, 34, 0.3); border-color: #e67e22;">
+          You folded at age ${player.age}
+          <div style="font-size: 0.9rem; margin-top: 8px; color: #ff9800;">
+            Voluntary exit with 30% score penalty
+          </div>
+        </div>`;
+      } else {
+        // Analyze death factors
+        const primaryFactor = player.health.physical.current <= 30 ? 'Poor health' : 
+                             player.age >= player.lifeExpectancy ? 'Advanced age' : 
+                             'Disease or accident';
+        const secondaryFactors = [];
+        
+        if (player.health.physical.current <= 50) secondaryFactors.push('Low physical health');
+        if (player.health.mental.current <= 40) secondaryFactors.push('Mental health stress');
+        if (player.economics.resources.current < -5000) secondaryFactors.push('Financial crisis');
+        if (player.relationships.social.isolated) secondaryFactors.push('Social isolation');
+        if (player.health.chronic && player.health.chronic.disease) {
+          secondaryFactors.push(`Chronic: ${player.health.chronic.disease}`);
+        }
+
+        causeSection = `<div class="cause">
+          You died at age ${player.age}
+          <div style="font-size: 0.9rem; margin-top: 8px; color: #ff9800;">
+            Primary cause: ${primaryFactor}
+          </div>
+          ${secondaryFactors.length > 0 ? `
+            <div style="font-size: 0.85rem; margin-top: 6px; color: #ccc;">
+              Contributing factors:
+              ${secondaryFactors.map(f => `<div>• ${f}</div>`).join('')}
+            </div>
+          ` : ''}
+        </div>`;
+      }
 
       const expectancyText = yearsOverUnder > 0
-        ? `<p style="color: #4ecdc4;"><strong>🎯 Beat life expectancy by ${yearsOverUnder} years!</strong></p>`
-        : `<p style="color: #ff6b6b;"><strong>Died ${Math.abs(yearsOverUnder)} years below expectancy</strong></p>`;
+        ? `<p style="color: #4ecdc4;"><strong>🎯 Beat life expectancy by ${yearsOverUnder} year${yearsOverUnder === 1 ? '' : 's'}!</strong></p>`
+        : yearsOverUnder < 0
+        ? `<p style="color: #ff6b6b;"><strong>Died ${Math.abs(yearsOverUnder)} year${Math.abs(yearsOverUnder) === 1 ? '' : 's'} below expectancy</strong></p>`
+        : `<p style="color: #ff9800;"><strong>Died at life expectancy (${player.age} years)</strong></p>`;
 
       const birthRegion = player.demographics.birthRegion;
-      const sex = player.demographics.sex === 'male' ? '♂' : '♀';
-      const childrenCount = player.relationships.children.length;
+      const sex = player.demographics.sex === 'male' ? '♂️ Male' : '♀️ Female';
+      const childrenCount = (player.relationships.children || []).length;
+      const eventCount = (player.eventHistory || []).length;
+
+      // Calculate milestones reached
+      const milestones = [];
+      if (player.age >= 10) milestones.push('✓ Reached age 10');
+      if (player.age >= 30) milestones.push('✓ Reached age 30');
+      if (player.age >= 60) milestones.push('✓ Reached age 60');
+      if (player.age >= 80) milestones.push('✓ Reached age 80');
+      if (childrenCount > 0) milestones.push(`✓ Had ${childrenCount} child${childrenCount === 1 ? '' : 'ren'}`);
 
       document.getElementById('death-summary').innerHTML = `
-        ${causeText}
+        ${causeSection}
         <div class="summary">
-          <h3>Life Summary</h3>
+          <h3>Your Life</h3>
           <p><strong>Region:</strong> ${birthRegion} ${sex}</p>
           <p><strong>Regional Life Expectancy:</strong> ${player.lifeExpectancy} years</p>
           ${expectancyText}
           <p><strong>Lived:</strong> ${percentOfExpectancy}% of expected lifespan</p>
-          <p><strong>Children:</strong> ${childrenCount}</p>
-          <p><strong>Major Events:</strong> ${player.eventHistory.length}</p>
-          ${player.folded ? '<p style="color: #e67e22;"><strong>⚠ Folded:</strong> -30% score penalty</p>' : ''}
-          <p style="margin-top: 15px; border-top: 1px solid #444; padding-top: 15px;"><strong style="color: #4ecdc4; font-size: 1.3rem;">Final Score: ${score} points</strong></p>
+          
+          <p style="margin-top: 15px; border-top: 1px solid #444; padding-top: 15px;"><strong>Achievements:</strong></p>
+          ${milestones.length > 0 ? milestones.map(m => `<p style="color: #4caf50; margin: 5px 0;">🏆 ${m}</p>`).join('') : '<p style="color: #999;">None</p>'}
+
+          <p style="margin-top: 15px; border-top: 1px solid #444; padding-top: 15px;"><strong>Life Statistics:</strong></p>
+          <p>• Major life events: ${eventCount}</p>
+          <p>• Children born: ${childrenCount}</p>
+          <p>• Final health: ${Math.floor(player.health.physical.current)}%</p>
+          <p>• Final resources: ${formatMoney(player.economics.resources.current)}</p>
+
+          ${player.folded ? '<p style="margin-top: 15px; color: #e67e22;"><strong>⚠ Folded:</strong> -30% score penalty</p>' : ''}
+
+          <p style="margin-top: 20px; border-top: 2px solid #4ecdc4; padding-top: 15px;">
+            <span style="color: #4ecdc4; font-size: 1.4rem; font-weight: bold;">FINAL SCORE: ${score} points</span>
+          </p>
+          <p style="font-size: 0.85rem; color: #999;">
+            (Age multiplier × difficulty + bonuses - penalties)
+          </p>
         </div>
       `;
     }
+
   </script>
 </body>
 </html>
