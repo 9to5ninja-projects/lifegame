@@ -2164,16 +2164,81 @@ class MortalityGameV2 {
       weights.set("Suicide", (weights.get("Suicide") || 1) * 2);
     }
 
-    // Conflict/war zones increase violence
-    if (player.demographics.birthRegion && player.demographics.birthRegion.includes("War Zone")) {
-      weights.set("Violence (Armed Conflict)", (weights.get("Violence (Armed Conflict)") || 1) * 5);
-      weights.set("Natural Disaster", (weights.get("Natural Disaster") || 1) * 2);
-      weights.set("Lack of Medical Care", (weights.get("Lack of Medical Care") || 1) * 3);
-    } else if (player.demographics.birthRegion && (player.demographics.birthRegion.includes("Sub-Saharan") || player.demographics.birthRegion.includes("South Asia"))) {
-      // Disease-endemic regions
-      weights.set("Malaria", (weights.get("Malaria") || 1) * 2);
-      weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 1.5);
-      weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 1.5);
+    // ===== REGION-BASED DEATH PATTERNS =====
+    // Real-world mortality causes vary dramatically by region
+    if (player.demographics.birthRegion) {
+      const region = player.demographics.birthRegion.toLowerCase();
+      
+      // HIGH-INCOME REGIONS: Nordic, Europe, North America, Japan, Korea
+      // Deaths: Heart Disease (35-40%), Cancer (25-30%), Stroke (8-10%), Respiratory (5%)
+      if (region.includes('nordic') || region.includes('western europe') || 
+          region.includes('north america') || region.includes('japan') || 
+          region.includes('korea')) {
+        // Amplify chronic disease deaths
+        weights.set("Heart Disease", (weights.get("Heart Disease") || 1) * 2.5);
+        weights.set("Cancer", (weights.get("Cancer") || 1) * 2);
+        weights.set("Stroke", (weights.get("Stroke") || 1) * 1.8);
+        weights.set("Dementia/Alzheimer's", (weights.get("Dementia/Alzheimer's") || 1) * 1.5);
+        // Suppress infectious/poverty causes
+        weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 0.1);
+        weights.set("Malaria", (weights.get("Malaria") || 1) * 0.01); // Virtually non-existent
+        weights.set("Malnutrition/Starvation", (weights.get("Malnutrition/Starvation") || 1) * 0.05);
+        // Remove armed conflict
+        weights.delete("Violence (Armed Conflict)");
+      }
+      // UPPER-MIDDLE-INCOME: Eastern Europe, Urban China, Middle East (stable)
+      // Mixed: Heart Disease (25-30%), Stroke (10%), Respiratory (10%), Diarrheal (8%)
+      else if (region.includes('eastern europe') || region.includes('urban china') || 
+               region.includes('middle east - stable')) {
+        weights.set("Heart Disease", (weights.get("Heart Disease") || 1) * 1.8);
+        weights.set("Stroke", (weights.get("Stroke") || 1) * 1.5);
+        weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 1.2);
+        weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 1.3);
+        weights.delete("Violence (Armed Conflict)");
+      }
+      // LOWER-MIDDLE-INCOME: Urban Latin America, Southeast Asia, Urban areas
+      // Deaths: Heart Disease (20%), Stroke (8%), Diarrheal (12%), Respiratory (15%)
+      else if (region.includes('urban latin') || region.includes('southeast') || 
+               region.includes('urban')) {
+        weights.set("Heart Disease", (weights.get("Heart Disease") || 1) * 1.3);
+        weights.set("Stroke", (weights.get("Stroke") || 1) * 1.2);
+        weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 1.5);
+        weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 1.8);
+        weights.set("Malaria", (weights.get("Malaria") || 1) * 0.5); // Less common in urban
+        weights.delete("Violence (Armed Conflict)"); // Remove unless specified otherwise
+      }
+      // LOW-INCOME REGIONS: Sub-Saharan, South Asia, Rural areas
+      // Deaths: Diarrheal (20-25%), Respiratory (15-20%), Malaria (10-15%), Malnutrition (8-12%)
+      else if (region.includes('sub-saharan') || region.includes('south asia') || 
+               region.includes('rural')) {
+        weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 2.5);
+        weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 2);
+        weights.set("Malaria", (weights.get("Malaria") || 1) * 2.5);
+        weights.set("Malnutrition/Starvation", (weights.get("Malnutrition/Starvation") || 1) * 2);
+        weights.set("Lack of Medical Care", (weights.get("Lack of Medical Care") || 1) * 2);
+        // Suppress chronic diseases (less common due to early mortality)
+        weights.set("Heart Disease", (weights.get("Heart Disease") || 1) * 0.5);
+        weights.set("Cancer", (weights.get("Cancer") || 1) * 0.4);
+        weights.delete("Violence (Armed Conflict)"); // Remove unless war zone
+      }
+      
+      // FRAGILE/CONFLICT STATES: Override with conflict patterns
+      if (region.includes('war zone')) {
+        // War zones: 30-50% of deaths from armed conflict
+        weights.set("Violence (Armed Conflict)", (weights.get("Violence (Armed Conflict)") || 1) * 8);
+        weights.set("Lack of Medical Care", (weights.get("Lack of Medical Care") || 1) * 3);
+        // Everything else suppressed
+        weights.forEach((val, key) => {
+          if (key !== "Violence (Armed Conflict)" && key !== "Lack of Medical Care") {
+            weights.set(key, val * 0.3);
+          }
+        });
+      } else if (region.includes('fragile') || region.includes('post-conflict')) {
+        // Fragile states: 5-10% armed conflict, otherwise disease-heavy
+        weights.set("Violence (Armed Conflict)", (weights.get("Violence (Armed Conflict)") || 1) * 1.5);
+        weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 1.5);
+        weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 1.5);
+      }
     }
 
     // Age-dependent causes
