@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mortality Lottery - Debug</title>
+    <style>
+        body { background: #1a1a1a; color: #f5f5f5; font-family: monospace; padding: 20px; }
+        h1 { color: #4ecdc4; }
+        .check { margin: 10px 0; padding: 10px; border-left: 3px solid #444; }
+        .ok { border-left-color: #4caf50; color: #4caf50; }
+        .error { border-left-color: #f44336; color: #f44336; }
+        pre { background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 MORTALITY LOTTERY - DEBUG INFO</h1>
+    
+    <div id="status"></div>
+
+    <script>
+        async function runDiagnostics() {
+            const status = document.getElementById('status');
+            let html = '';
+
+            // Check 1: Page loaded
+            html += '<div class="check ok">✓ Page loaded successfully</div>';
+
+            // Check 2: Test JSON loading
+            html += '<div class="check">Testing JSON file access...</div>';
+            
+            try {
+                const response = await fetch('birth_cards_json.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    html += `<div class="check ok">✓ birth_cards_json.json loaded (${Array.isArray(data) ? data.length + ' cards' : 'object'})</div>`;
+                } else {
+                    html += `<div class="check error">✗ birth_cards_json.json returned ${response.status}</div>`;
+                }
+            } catch (e) {
+                html += `<div class="check error">✗ Failed to load birth_cards_json.json: ${e.message}</div>`;
+            }
+
+            try {
+                const response = await fetch('family_cards_json.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    html += `<div class="check ok">✓ family_cards_json.json loaded (${Array.isArray(data) ? data.length + ' cards' : 'object'})</div>`;
+                } else {
+                    html += `<div class="check error">✗ family_cards_json.json returned ${response.status}</div>`;
+                }
+            } catch (e) {
+                html += `<div class="check error">✗ Failed to load family_cards_json.json: ${e.message}</div>`;
+            }
+
+            try {
+                const response = await fetch('event_cards_childhood_v2.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    html += `<div class="check ok">✓ event_cards_childhood_v2.json loaded (${Array.isArray(data) ? data.length + ' events' : 'object'})</div>`;
+                } else {
+                    html += `<div class="check error">✗ event_cards_childhood_v2.json returned ${response.status}</div>`;
+                }
+            } catch (e) {
+                html += `<div class="check error">✗ Failed to load event_cards_childhood_v2.json: ${e.message}</div>`;
+            }
+
+            // Check 3: Game engines available
+            html += `<div class="check">Checking game engine availability...</div>`;
+            
+            // Load scripts
+            const script1 = document.createElement('script');
+            script1.src = 'game_engine_v2_homeostatic.js';
+            document.head.appendChild(script1);
+
+            const script2 = document.createElement('script');
+            script2.src = 'game_engine_integrated.js';
+            document.head.appendChild(script2);
+
+            // Wait for scripts to load
+            await new Promise(resolve => {
+                script1.onload = () => {
+                    if (typeof MortalityGameV2 !== 'undefined') {
+                        html += '<div class="check ok">✓ MortalityGameV2 loaded</div>';
+                    } else {
+                        html += '<div class="check error">✗ MortalityGameV2 not defined</div>';
+                    }
+                    resolve();
+                };
+                script1.onerror = () => {
+                    html += '<div class="check error">✗ Failed to load game_engine_v2_homeostatic.js</div>';
+                    resolve();
+                };
+            });
+
+            await new Promise(resolve => {
+                script2.onload = () => {
+                    if (typeof MortalityGameIntegrated !== 'undefined') {
+                        html += '<div class="check ok">✓ MortalityGameIntegrated loaded</div>';
+                    } else {
+                        html += '<div class="check error">✗ MortalityGameIntegrated not defined</div>';
+                    }
+                    resolve();
+                };
+                script2.onerror = () => {
+                    html += '<div class="check error">✗ Failed to load game_engine_integrated.js</div>';
+                    resolve();
+                };
+            });
+
+            html += `<div class="check ok">✓ All diagnostics complete</div>`;
+            html += `<p style="margin-top: 20px;"><a href="standalone_html_game.html" style="color: #4ecdc4; text-decoration: none; font-size: 1.2em;">→ Open Game</a></p>`;
+
+            status.innerHTML = html;
+        }
+
+        runDiagnostics();
+    </script>
+</body>
+</html>
