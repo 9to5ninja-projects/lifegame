@@ -557,5 +557,48 @@
         "value": -8
       }
     ]
+  },
+  {
+    "id": "event_get_adopted",
+    "name": "Get Adopted",
+    "ageRange": [
+      5,
+      16
+    ],
+    "description": "A new family takes you in. A fresh start.",
+    "weight": 15,
+    "requires": {
+      "any": [
+        { "circumstances.vulnerability.orphan": true },
+        { "circumstances.vulnerability.halfOrphan": true }
+      ]
+    },
+    "effects": [
+      {
+        "path": "circumstances.vulnerability.orphan",
+        "type": "set",
+        "value": false
+      },
+      {
+        "path": "circumstances.vulnerability.halfOrphan",
+        "type": "set",
+        "value": false
+      },
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 10
+      },
+      {
+        "path": "health.mental.current",
+        "type": "modify",
+        "value": 15
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 5
+      }
+    ]
   }
 ]

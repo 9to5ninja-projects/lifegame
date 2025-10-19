@@ -187,7 +187,9 @@ class MortalityGameV2 {
           disabled: false,
           elderly: false,
           dependent: true, // Age-based, initially true for children
-          caregiver: false
+          caregiver: false,
+          orphan: false, // Both parents dead
+          halfOrphan: false // One parent dead
         }
       },
 
@@ -315,6 +317,21 @@ class MortalityGameV2 {
       0,
       this.player.economics.resources.current
     );
+
+    // Update orphan status based on parent state
+    const motherAlive = this.player.relationships.parents.mother.alive;
+    const fatherAlive = this.player.relationships.parents.father.alive;
+    
+    if (!motherAlive && !fatherAlive) {
+      this.player.circumstances.vulnerability.orphan = true;
+      this.player.circumstances.vulnerability.halfOrphan = false;
+    } else if (!motherAlive || !fatherAlive) {
+      this.player.circumstances.vulnerability.halfOrphan = true;
+      this.player.circumstances.vulnerability.orphan = false;
+    } else {
+      this.player.circumstances.vulnerability.orphan = false;
+      this.player.circumstances.vulnerability.halfOrphan = false;
+    }
   }
 
   // ============================================================================
