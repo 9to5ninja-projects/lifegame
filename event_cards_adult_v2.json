@@ -96,11 +96,22 @@
     ],
     "description": "Your parent passes away. The last safety net is gone.",
     "weight": 30,
+    "requires": {
+      "any": [
+        { "relationships.parents.mother.alive": true },
+        { "relationships.parents.father.alive": true }
+      ]
+    },
     "effects": [
       {
         "path": "health.physical.current",
         "type": "modify",
         "value": -3
+      },
+      {
+        "path": "relationships.parents.mother.alive",
+        "type": "set",
+        "value": false
       }
     ]
   },

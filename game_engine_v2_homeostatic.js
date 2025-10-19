@@ -657,35 +657,54 @@ class MortalityGameV2 {
   applyEventEffects(event, player = this.player) {
     if (!event.effects) return;
 
-    for (const [path, value] of Object.entries(event.effects)) {
-      this.applyEffect(player, path, value);
+    // Effects are an array of {path, type, value} objects
+    if (!Array.isArray(event.effects)) {
+      console.warn('Event effects must be an array:', event);
+      return;
+    }
+
+    for (const effect of event.effects) {
+      if (!effect || !effect.path) continue;
+      this.applyEffect(player, effect.path, effect.value, effect.type);
     }
 
     this.clampPlayerStats();
   }
 
-  applyEffect(player, path, value) {
-    // Handle array operations: "add" or "remove"
-    if (typeof value === "object" && value.operation) {
-      const currentValue = this.getNestedValue(player, path);
-      if (Array.isArray(currentValue)) {
-        if (value.operation === "add") {
-          currentValue.push(value.item);
-        } else if (value.operation === "remove") {
-          const idx = currentValue.indexOf(value.item);
-          if (idx > -1) currentValue.splice(idx, 1);
-        }
+  applyEffect(player, path, value, type = 'modify') {
+    if (!path) return;
+
+    const current = this.getNestedValue(player, path);
+
+    // Handle direct assignment (type: 'set')
+    if (type === 'set') {
+      this.setNestedValue(player, path, value);
+      return;
+    }
+
+    // Handle numeric modifications (type: 'modify')
+    if (type === 'modify' && typeof value === 'number' && typeof current === 'number') {
+      this.setNestedValue(player, path, current + value);
+      return;
+    }
+
+    // Handle boolean assignments
+    if (typeof value === 'boolean') {
+      this.setNestedValue(player, path, value);
+      return;
+    }
+
+    // Handle array operations (type: 'add' or 'remove')
+    if (type === 'add' && Array.isArray(current)) {
+      if (!current.includes(value)) {
+        current.push(value);
       }
       return;
     }
 
-    // Handle numeric modifiers: "+10", "-5"
-    if (typeof value === "string" && value.match(/^[+-]/)) {
-      const mod = Number(value);
-      const current = this.getNestedValue(player, path);
-      if (typeof current === "number") {
-        this.setNestedValue(player, path, current + mod);
-      }
+    if (type === 'remove' && Array.isArray(current)) {
+      const idx = current.indexOf(value);
+      if (idx > -1) current.splice(idx, 1);
       return;
     }
 

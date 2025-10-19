@@ -67,6 +67,12 @@
     ],
     "description": "One of your parents dies. Everything changes.",
     "weight": 8,
+    "requires": {
+      "any": [
+        { "relationships.parents.mother.alive": true },
+        { "relationships.parents.father.alive": true }
+      ]
+    },
     "effects": [
       {
         "path": "health.physical.current",
@@ -77,31 +83,13 @@
         "path": "economics.resources.current",
         "type": "modify",
         "value": -15
+      },
+      {
+        "path": "relationships.parents.mother.alive",
+        "type": "set",
+        "value": false
       }
-    ],
-    "ageModifiers": {
-      "0-2": [
-        {
-          "path": "health.physical.current",
-          "type": "modify",
-          "value": -30
-        }
-      ],
-      "3-12": [
-        {
-          "path": "health.physical.current",
-          "type": "modify",
-          "value": -15
-        }
-      ],
-      "13-18": [
-        {
-          "path": "health.physical.current",
-          "type": "modify",
-          "value": -8
-        }
-      ]
-    }
+    ]
   },
   {
     "id": "event_learn_to_read",
