@@ -12,6 +12,45 @@ class MortalityGameV2 {
   }
 
   // ============================================================================
+  // REALISTIC DEMOGRAPHICS DATA
+  // ============================================================================
+
+  // Regional marriage age statistics (UN/World Bank data)
+  getMarriageAgeStats(birthCardName) {
+    const stats = {
+      "Nordic Country": { median: 31, min: 22, max: 45 },
+      "Western Europe": { median: 30, min: 22, max: 45 },
+      "Japan/South Korea": { median: 31, min: 25, max: 45 },
+      "North America - Middle Class": { median: 28, min: 20, max: 45 },
+      "Eastern Europe": { median: 26, min: 20, max: 40 },
+      "Urban China": { median: 27, min: 23, max: 42 },
+      "Urban Latin America": { median: 25, min: 18, max: 38 },
+      "Southeast Asia": { median: 23, min: 15, max: 35 },
+      "Rural India": { median: 21, min: 14, max: 32 },
+      "Sub-Saharan Africa": { median: 19, min: 12, max: 30 },
+      "Middle East / North Africa": { median: 22, min: 15, max: 35 },
+      "Rural Southeast Asia": { median: 21, min: 12, max: 32 }
+    };
+    return stats[birthCardName] || { median: 24, min: 18, max: 40 }; // Default fallback
+  }
+
+  // Calculate marriage probability for given age and region
+  getMarriageProbabilityAtAge(birthCardName, age) {
+    const stats = this.getMarriageAgeStats(birthCardName);
+    const { median, min, max } = stats;
+    
+    // Outside realistic range = 0% probability
+    if (age < min || age > max) return 0;
+    
+    // Gaussian-ish curve centered on median
+    const distanceFromMedian = Math.abs(age - median);
+    const maxDistance = Math.max(median - min, max - median);
+    const probability = Math.pow(1 - (distanceFromMedian / maxDistance), 2);
+    
+    return Math.max(0, probability);
+  }
+
+  // ============================================================================
   // PHASE 1: PLAYER STATE INITIALIZATION
   // ============================================================================
 
@@ -380,6 +419,32 @@ class MortalityGameV2 {
         } else if (value === false) {
           // Divorce cannot happen if not married OR if we fail the divorce check
           if (isMarried && Math.random() <= divorceOdds) return false;
+        }
+        continue;
+      }
+
+      // Handle marriage eligibility: "relationships.partner.canMarry": true
+      // Can only marry at realistic age for region, AND not already married
+      if (key === "relationships.partner.canMarry") {
+        const partner = player.relationships.partner;
+        const isAlreadyMarried = partner.exists && partner.married;
+        
+        if (isAlreadyMarried) return false; // Can't marry twice
+        
+        // Get marriage probability for this age and region
+        const marriageProbability = this.getMarriageProbabilityAtAge(
+          player.demographics.birthRegion,
+          player.demographics.age
+        );
+        
+        // If value is true, can marry only if:
+        // - Not already married, AND
+        // - Age is within realistic range for region AND probabilistically
+        if (value === true) {
+          if (marriageProbability === 0 || Math.random() > marriageProbability) return false;
+        } else if (value === false) {
+          // Cannot marry if already married OR if in an age where marriage is realistic
+          if (!isAlreadyMarried && Math.random() <= marriageProbability) return false;
         }
         continue;
       }

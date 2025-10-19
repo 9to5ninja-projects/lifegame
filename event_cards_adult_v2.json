@@ -25,13 +25,14 @@
     "id": "event_marriage",
     "name": "Marriage/Partnership",
     "ageRange": [
-      20,
+      18,
       50
     ],
     "description": "You commit to another person. For better or worse.",
     "weight": 30,
     "requires": {
-      "relationships.partner.exists": false
+      "relationships.partner.exists": false,
+      "relationships.partner.canMarry": true
     },
     "effects": [
       {
@@ -150,7 +151,8 @@
     "description": "You commit to love again. A second chance.",
     "weight": 15,
     "requires": {
-      "relationships.partner.exists": false
+      "relationships.partner.exists": false,
+      "relationships.partner.canMarry": true
     },
     "effects": [
       {
