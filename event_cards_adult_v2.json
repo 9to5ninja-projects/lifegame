@@ -1,0 +1,481 @@
+[
+  {
+    "id": "event_career_success",
+    "name": "Career Success",
+    "ageRange": [
+      25,
+      60
+    ],
+    "description": "Your work pays off. Promotion, recognition, stability.",
+    "weight": 20,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 5
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 30
+      }
+    ]
+  },
+  {
+    "id": "event_marriage",
+    "name": "Marriage/Partnership",
+    "ageRange": [
+      20,
+      50
+    ],
+    "description": "You commit to another person. For better or worse.",
+    "weight": 30,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 5
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_have_children",
+    "name": "Have Children",
+    "ageRange": [
+      18,
+      45
+    ],
+    "description": "You become a parent. Everything shifts.",
+    "weight": 35,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 3
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -15
+      }
+    ]
+  },
+  {
+    "id": "event_chronic_illness",
+    "name": "Chronic Illness Diagnosis",
+    "ageRange": [
+      30,
+      80
+    ],
+    "description": "Diabetes, hypertension, arthritis. A lifelong condition emerges.",
+    "weight": 25,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -10
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -20
+      }
+    ]
+  },
+  {
+    "id": "event_parent_dies_adult",
+    "name": "Parent Dies (Elder)",
+    "ageRange": [
+      25,
+      70
+    ],
+    "description": "Your parent passes away. The last safety net is gone.",
+    "weight": 30,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -3
+      }
+    ]
+  },
+  {
+    "id": "event_lose_job",
+    "name": "Job Loss/Economic Crisis",
+    "ageRange": [
+      25,
+      65
+    ],
+    "description": "You lose your job. Bills pile up, stress mounts.",
+    "weight": 20,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -8
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -25
+      }
+    ]
+  },
+  {
+    "id": "event_divorce",
+    "name": "Divorce/Separation",
+    "ageRange": [
+      25,
+      70
+    ],
+    "description": "The relationship ends. Assets split, hearts break.",
+    "weight": 15,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -5
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -20
+      }
+    ]
+  },
+  {
+    "id": "event_achieve_dream",
+    "name": "Achieve Lifelong Dream",
+    "ageRange": [
+      25,
+      80
+    ],
+    "description": "That thing you always wanted? You finally do it.",
+    "weight": 10,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 8
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_serious_accident",
+    "name": "Serious Accident/Injury",
+    "ageRange": [
+      25,
+      70
+    ],
+    "description": "A major accident leaves lasting damage.",
+    "weight": 12,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -15
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -15
+      }
+    ]
+  },
+  {
+    "id": "event_windfall",
+    "name": "Windfall (Inheritance/Lottery)",
+    "ageRange": [
+      25,
+      80
+    ],
+    "description": "Unexpected money arrives. Your circumstances improve dramatically.",
+    "weight": 5,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 10
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 50
+      }
+    ]
+  },
+  {
+    "id": "event_cancer_diagnosis",
+    "name": "Cancer Diagnosis",
+    "ageRange": [
+      35,
+      100
+    ],
+    "description": "Cancer is found. Treatment begins, if you can access it.",
+    "weight": 15,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -25
+      }
+    ],
+    "choices": [
+      {
+        "text": "Aggressive treatment",
+        "requires": {
+          "resourceMin": 20
+        },
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": 15
+          },
+          {
+            "path": "economics.resources.current",
+            "type": "modify",
+            "value": -30
+          }
+        ]
+      },
+      {
+        "text": "Palliative care only",
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": -15
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "event_addiction",
+    "name": "Develop Addiction",
+    "ageRange": [
+      20,
+      60
+    ],
+    "description": "Alcohol, drugs, gambling. It has you now.",
+    "weight": 10,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -18
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -20
+      }
+    ]
+  },
+  {
+    "id": "event_reconcile",
+    "name": "Reconcile with Estranged Person",
+    "ageRange": [
+      25,
+      80
+    ],
+    "description": "After years of silence, you reconnect. Healing begins.",
+    "weight": 8,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "event_business_success",
+    "name": "Start Successful Business",
+    "ageRange": [
+      25,
+      60
+    ],
+    "description": "Your entrepreneurial risk pays off.",
+    "weight": 8,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 8
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 40
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_business_failure",
+    "name": "Business Failure/Bankruptcy",
+    "ageRange": [
+      25,
+      70
+    ],
+    "description": "Your business collapses. Debt crushes you.",
+    "weight": 8,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -10
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -40
+      }
+    ]
+  },
+  {
+    "id": "event_child_dies",
+    "name": "Child Dies",
+    "ageRange": [
+      25,
+      80
+    ],
+    "description": "Your child dies before you. No parent should bury their child.",
+    "weight": 5,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -20
+      }
+    ]
+  },
+  {
+    "id": "event_community_leader",
+    "name": "Become Community Leader",
+    "ageRange": [
+      30,
+      70
+    ],
+    "description": "Your community trusts and respects you. You have influence.",
+    "weight": 10,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 5
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_home_ownership",
+    "name": "Buy a Home",
+    "ageRange": [
+      25,
+      50
+    ],
+    "description": "You own property. Stability and debt, intertwined.",
+    "weight": 15,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 5
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_climate_disaster",
+    "name": "Climate Disaster Strikes",
+    "ageRange": [
+      0,
+      100
+    ],
+    "description": "Hurricane, wildfire, flood. Your home and livelihood are destroyed.",
+    "weight": 8,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.location": "rural"
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -12
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -30
+      }
+    ]
+  },
+  {
+    "id": "event_pension_secure",
+    "name": "Secure Retirement/Pension",
+    "ageRange": [
+      45,
+      65
+    ],
+    "description": "Your old age will be financially stable. A rare gift.",
+    "weight": 10,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 8
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 25
+      }
+    ]
+  }
+]

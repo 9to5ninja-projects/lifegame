@@ -1,0 +1,610 @@
+[
+  {
+    "id": "event_first_love",
+    "name": "First Love",
+    "ageRange": [
+      13,
+      18
+    ],
+    "description": "You fall in love for the first time. Everything feels new and terrifying.",
+    "weight": 30,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 3
+      }
+    ]
+  },
+  {
+    "id": "event_identity_crisis",
+    "name": "Identity Crisis",
+    "ageRange": [
+      13,
+      25
+    ],
+    "description": "You question everything about who you are and who you're supposed to be.",
+    "weight": 25,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -2
+      }
+    ]
+  },
+  {
+    "id": "event_scholarship",
+    "name": "Scholarship Opportunity",
+    "ageRange": [
+      14,
+      18
+    ],
+    "description": "Someone notices your potential and offers educational support.",
+    "weight": 8,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        }
+      ]
+    },
+    "choices": [
+      {
+        "text": "Accept: Pursue education",
+        "requires": {
+          "tags": [
+            "literate"
+          ]
+        },
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": 8
+          },
+          {
+            "path": "relationships.social.community",
+            "type": "modify",
+            "value": 10
+          },
+          {
+            "path": "development.educationLevel",
+            "type": "set",
+            "value": "primary"
+          }
+        ]
+      },
+      {
+        "text": "Decline: Family needs you to work",
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": -3
+          },
+          {
+            "path": "economics.resources.current",
+            "type": "modify",
+            "value": 15
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "event_forced_work",
+    "name": "Leave School to Work",
+    "ageRange": [
+      12,
+      16
+    ],
+    "description": "Economic necessity forces you to leave school and find work.",
+    "weight": 10,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -5
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_gang_recruitment",
+    "name": "Gang/Militia Recruitment Attempt",
+    "ageRange": [
+      13,
+      20
+    ],
+    "description": "Armed groups try to recruit you. The pressure is immense.",
+    "weight": 5,
+    "requires": {
+      "any": [
+        {
+          "circumstances.conflict": true
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "choices": [
+      {
+        "text": "Join: You need protection/income",
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": -20
+          },
+          {
+            "path": "economics.resources.current",
+            "type": "modify",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "text": "Refuse: Resist the pressure",
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": -10
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "event_early_pregnancy",
+    "name": "Pregnancy (Teen)",
+    "ageRange": [
+      14,
+      19
+    ],
+    "description": "You become pregnant. Your life trajectory shifts dramatically.",
+    "weight": 8,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -12
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -15
+      }
+    ]
+  },
+  {
+    "id": "event_assault",
+    "name": "Physical Assault",
+    "ageRange": [
+      13,
+      25
+    ],
+    "description": "You are violently attacked. The physical and psychological scars remain.",
+    "weight": 10,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -12
+      }
+    ]
+  },
+  {
+    "id": "event_save_someone",
+    "name": "You Save Someone's Life",
+    "ageRange": [
+      13,
+      100
+    ],
+    "description": "You are in the right place at the right time. Your actions save a life.",
+    "weight": 5,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 5
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_rebellion",
+    "name": "Rebellion Against Authority",
+    "ageRange": [
+      14,
+      20
+    ],
+    "description": "You push back against the structures controlling your life.",
+    "weight": 20,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -3
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_mental_health_crisis",
+    "name": "Mental Health Crisis",
+    "ageRange": [
+      14,
+      25
+    ],
+    "description": "Depression, anxiety, or other mental illness overwhelms you.",
+    "weight": 18,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -10
+      }
+    ],
+    "choices": [
+      {
+        "text": "Seek help (if available)",
+        "requires": {
+          "resourceMin": 5
+        },
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": 8
+          },
+          {
+            "path": "economics.resources.current",
+            "type": "modify",
+            "value": -5
+          }
+        ]
+      },
+      {
+        "text": "Suffer in silence",
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": -8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "event_traffic_accident_teen",
+    "name": "Traffic Accident (Survivor)",
+    "ageRange": [
+      15,
+      25
+    ],
+    "description": "You're in a serious accident. You survive, but it changes you.",
+    "weight": 12,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -8
+      }
+    ]
+  },
+  {
+    "id": "event_drug_exposure",
+    "name": "First Exposure to Drugs/Alcohol",
+    "ageRange": [
+      13,
+      20
+    ],
+    "description": "You're introduced to substances. What happens next is up to you.",
+    "weight": 25,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -5
+      }
+    ]
+  },
+  {
+    "id": "event_forced_marriage",
+    "name": "Forced/Early Marriage",
+    "ageRange": [
+      12,
+      17
+    ],
+    "description": "You are married off young, against your will or without real choice.",
+    "weight": 5,
+    "requires": {
+      "any": [
+        {
+          "circumstances.location": "rural"
+        },
+        {
+          "circumstances.conflict": true
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.location": "rural"
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -15
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": -10
+      }
+    ]
+  },
+  {
+    "id": "event_political_awakening",
+    "name": "Political Awakening",
+    "ageRange": [
+      15,
+      25
+    ],
+    "description": "You become aware of the systems that shape your world. You want to change them.",
+    "weight": 15,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 2
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_exile_displacement",
+    "name": "Forced Displacement",
+    "ageRange": [
+      0,
+      100
+    ],
+    "description": "War, climate, or persecution forces your family to flee.",
+    "weight": 8,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -15
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -20
+      }
+    ]
+  },
+  {
+    "id": "event_internet_access",
+    "name": "First Internet Access",
+    "ageRange": [
+      10,
+      20
+    ],
+    "description": "The world opens up through a screen. Everything changes.",
+    "weight": 20,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 3
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_witness_violence",
+    "name": "Witness Extreme Violence",
+    "ageRange": [
+      10,
+      25
+    ],
+    "description": "You see something you can never unsee. Trauma takes root.",
+    "weight": 10,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -8
+      }
+    ]
+  },
+  {
+    "id": "event_sports_talent",
+    "name": "Discover Athletic Talent",
+    "ageRange": [
+      12,
+      18
+    ],
+    "description": "You excel at a sport. It could be a way out.",
+    "weight": 10,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 5
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_mentor_appears",
+    "name": "Find a Mentor",
+    "ageRange": [
+      13,
+      25
+    ],
+    "description": "Someone believes in you and guides your path.",
+    "weight": 12,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 8
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_lose_best_friend",
+    "name": "Best Friend Dies",
+    "ageRange": [
+      13,
+      25
+    ],
+    "description": "Your closest friend is gone. The grief is devastating.",
+    "weight": 8,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -10
+      }
+    ]
+  }
+]

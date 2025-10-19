@@ -1,0 +1,559 @@
+[
+  {
+    "id": "event_sibling_born",
+    "name": "Sibling is Born",
+    "ageRange": [
+      1,
+      12
+    ],
+    "description": "A new baby arrives in the family.",
+    "weight": 30,
+    "effects": [
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -3
+      }
+    ]
+  },
+  {
+    "id": "event_sibling_dies",
+    "name": "Sibling Dies",
+    "ageRange": [
+      0,
+      12
+    ],
+    "description": "Your younger sibling dies from preventable disease. The grief is heavy.",
+    "weight": 5,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 2
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "id": "event_parent_dies",
+    "name": "Parent Dies",
+    "ageRange": [
+      0,
+      18
+    ],
+    "description": "One of your parents dies. Everything changes.",
+    "weight": 8,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -15
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -15
+      }
+    ],
+    "ageModifiers": {
+      "0-2": [
+        {
+          "path": "health.physical.current",
+          "type": "modify",
+          "value": -30
+        }
+      ],
+      "3-12": [
+        {
+          "path": "health.physical.current",
+          "type": "modify",
+          "value": -15
+        }
+      ],
+      "13-18": [
+        {
+          "path": "health.physical.current",
+          "type": "modify",
+          "value": -8
+        }
+      ]
+    }
+  },
+  {
+    "id": "event_learn_to_read",
+    "name": "You Learn to Read",
+    "ageRange": [
+      5,
+      10
+    ],
+    "description": "The world opens up to you through words.",
+    "weight": 40,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 3
+      },
+      {
+        "path": "development.literacy",
+        "type": "set",
+        "value": true
+      }
+    ]
+  },
+  {
+    "id": "event_start_school",
+    "name": "Start School",
+    "ageRange": [
+      5,
+      8
+    ],
+    "description": "You begin formal education.",
+    "weight": 50,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 4
+      },
+      {
+        "path": "development.educationLevel",
+        "type": "set",
+        "value": "primary"
+      }
+    ]
+  },
+  {
+    "id": "event_malaria",
+    "name": "Contract Malaria",
+    "ageRange": [
+      0,
+      12
+    ],
+    "description": "You become very sick with malaria. Your survival depends on quick treatment.",
+    "weight": 5,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.location": "rural"
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.location": "rural"
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -12
+      }
+    ],
+    "choices": [
+      {
+        "text": "Seek medical treatment",
+        "requires": {
+          "resourceMin": 5
+        },
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": 8
+          },
+          {
+            "path": "economics.resources.current",
+            "type": "modify",
+            "value": -5
+          }
+        ]
+      },
+      {
+        "text": "Traditional remedies only",
+        "effects": [
+          {
+            "path": "health.physical.current",
+            "type": "modify",
+            "value": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "event_diarrheal_disease",
+    "name": "Severe Diarrheal Illness",
+    "ageRange": [
+      0,
+      5
+    ],
+    "description": "You contract severe diarrhea. Dehydration is the real danger.",
+    "weight": 8,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.location": "rural"
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -15
+      }
+    ]
+  },
+  {
+    "id": "event_vaccination",
+    "name": "Vaccination Campaign",
+    "ageRange": [
+      0,
+      5
+    ],
+    "description": "A vaccination team reaches your area. You receive life-saving vaccines.",
+    "weight": 15,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 8
+      }
+    ]
+  },
+  {
+    "id": "event_family_migrates",
+    "name": "Family Migrates for Work",
+    "ageRange": [
+      3,
+      12
+    ],
+    "description": "Your family moves seeking better opportunities. You leave everything familiar behind.",
+    "weight": 12,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -3
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "event_natural_disaster",
+    "name": "Natural Disaster (Flood/Drought)",
+    "ageRange": [
+      0,
+      12
+    ],
+    "description": "A natural disaster strikes your region. Food and shelter become scarce.",
+    "weight": 10,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.location": "rural"
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -10
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -10
+      }
+    ]
+  },
+  {
+    "id": "event_parent_loses_job",
+    "name": "Parent Loses Job",
+    "ageRange": [
+      3,
+      18
+    ],
+    "description": "Economic crisis hits your family. Meals become smaller.",
+    "weight": 15,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -5
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -10
+      }
+    ]
+  },
+  {
+    "id": "event_pet_chooses_you",
+    "name": "A Pet Chooses You",
+    "ageRange": [
+      3,
+      12
+    ],
+    "description": "An animal bonds with you and refuses to leave your side.",
+    "weight": 8,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "id": "event_meteor_shower",
+    "name": "Witness Meteor Shower",
+    "ageRange": [
+      5,
+      100
+    ],
+    "description": "On a sleepless night, you witness a spectacular meteor shower. It stays with you.",
+    "weight": 3,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "id": "event_minor_accident",
+    "name": "Minor Accident (Injury)",
+    "ageRange": [
+      3,
+      12
+    ],
+    "description": "You have an accident and get hurt. Could be worse, could be better.",
+    "weight": 20,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -3
+      }
+    ]
+  },
+  {
+    "id": "event_domestic_violence",
+    "name": "Violence in the Home",
+    "ageRange": [
+      0,
+      18
+    ],
+    "description": "There is violence in your household. You are afraid.",
+    "weight": 8,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -8
+      }
+    ]
+  },
+  {
+    "id": "event_befriend_elder",
+    "name": "Befriend a Wise Elder",
+    "ageRange": [
+      6,
+      12
+    ],
+    "description": "An older person in your community takes interest in you and shares their wisdom.",
+    "weight": 10,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 3
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_witness_death",
+    "name": "Witness a Death",
+    "ageRange": [
+      5,
+      12
+    ],
+    "description": "You see someone die for the first time. Death becomes real to you.",
+    "weight": 12,
+    "requires": {
+      "any": [
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.economic": {
+            "<": 40
+          }
+        },
+        {
+          "circumstances.conflict": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "event_make_best_friend",
+    "name": "Make a Best Friend",
+    "ageRange": [
+      5,
+      12
+    ],
+    "description": "You meet someone who becomes your person. They see you.",
+    "weight": 25,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "event_discover_talent",
+    "name": "Discover a Talent",
+    "ageRange": [
+      6,
+      12
+    ],
+    "description": "You discover you're good at something. Really good.",
+    "weight": 15,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 3
+      },
+      {
+        "path": "relationships.social.community",
+        "type": "modify",
+        "value": 10
+      }
+    ]
+  },
+  {
+    "id": "event_serious_illness",
+    "name": "Serious Illness (Non-Fatal)",
+    "ageRange": [
+      0,
+      12
+    ],
+    "description": "You become very sick but survive. It changes you.",
+    "weight": 12,
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -8
+      }
+    ]
+  }
+]
