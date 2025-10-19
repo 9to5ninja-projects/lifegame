@@ -357,6 +357,33 @@ class MortalityGameV2 {
         continue;
       }
 
+      // Handle divorce eligibility: "relationships.partner.canDivorce": true
+      // Marriage can only end if married AND probabilistically (based on duration)
+      if (key === "relationships.partner.canDivorce") {
+        const partner = player.relationships.partner;
+        const isMarried = partner.exists && partner.married;
+        
+        if (!isMarried) return false; // Can't divorce if not married
+        
+        // Calculate marriage duration
+        const marriageDuration = player.demographics.age - (partner.since || player.demographics.age);
+        
+        // Get survival odds for marriage (complement = divorce odds)
+        const survivalOdds = this.getMarriageSurvivalOdds(marriageDuration);
+        const divorceOdds = 1 - survivalOdds; // Probability divorce happens this year
+        
+        // If value is true, divorce can happen only if:
+        // - Marriage exists AND
+        // - We pass the divorce probability check (probabilistic)
+        if (value === true) {
+          if (!isMarried || Math.random() > divorceOdds) return false;
+        } else if (value === false) {
+          // Divorce cannot happen if not married OR if we fail the divorce check
+          if (isMarried && Math.random() <= divorceOdds) return false;
+        }
+        continue;
+      }
+
       // Direct equality
       if (playerValue !== value) return false;
     }
@@ -716,6 +743,17 @@ class MortalityGameV2 {
     return 0.60; // 40% annual mortality at 90+
   }
 
+  // Calculate divorce/separation probability based on marriage duration
+  // Returns true if couple should divorce this year (probabilistic)
+  // Global average divorce rate ~50%, but varies by region
+  getMarriageSurvivalOdds(marriageDuration) {
+    if (!marriageDuration || marriageDuration < 1) return 0.98;  // 2% divorce rate year 1
+    if (marriageDuration < 3) return 0.96;  // 4% divorce rate years 1-3 (peak)
+    if (marriageDuration < 5) return 0.95;  // 5% divorce rate years 3-5
+    if (marriageDuration < 10) return 0.97; // 3% divorce rate years 5-10
+    return 0.98; // 2% divorce rate after 10 years (more stable)
+  }
+
   applyEventEffects(event, player = this.player) {
     if (!event.effects) return;
 
@@ -737,6 +775,11 @@ class MortalityGameV2 {
     if (!path) return;
 
     const current = this.getNestedValue(player, path);
+
+    // Handle special placeholder values
+    if (value === 'current_age') {
+      value = player.demographics.age;
+    }
 
     // Handle direct assignment (type: 'set')
     if (type === 'set') {

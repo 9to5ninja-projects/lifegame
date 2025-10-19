@@ -30,16 +30,44 @@
     ],
     "description": "You commit to another person. For better or worse.",
     "weight": 30,
+    "requires": {
+      "relationships.partner.exists": false
+    },
     "effects": [
+      {
+        "path": "relationships.partner.exists",
+        "type": "set",
+        "value": true
+      },
+      {
+        "path": "relationships.partner.married",
+        "type": "set",
+        "value": true
+      },
+      {
+        "path": "relationships.partner.since",
+        "type": "set",
+        "value": "current_age"
+      },
+      {
+        "path": "relationships.social.married",
+        "type": "set",
+        "value": true
+      },
       {
         "path": "health.physical.current",
         "type": "modify",
         "value": 5
       },
       {
+        "path": "health.mental.current",
+        "type": "modify",
+        "value": 8
+      },
+      {
         "path": "economics.resources.current",
         "type": "modify",
-        "value": 10
+        "value": 15
       }
     ]
   },
@@ -62,6 +90,103 @@
         "path": "economics.resources.current",
         "type": "modify",
         "value": -15
+      }
+    ]
+  },
+  {
+    "id": "event_divorce",
+    "name": "Divorce/Separation",
+    "ageRange": [
+      25,
+      70
+    ],
+    "description": "The relationship ends. Life takes a turn.",
+    "weight": 20,
+    "requires": {
+      "relationships.partner.exists": true,
+      "relationships.partner.married": true,
+      "relationships.partner.canDivorce": true
+    },
+    "effects": [
+      {
+        "path": "relationships.partner.exists",
+        "type": "set",
+        "value": false
+      },
+      {
+        "path": "relationships.partner.married",
+        "type": "set",
+        "value": false
+      },
+      {
+        "path": "relationships.partner.since",
+        "type": "set",
+        "value": null
+      },
+      {
+        "path": "relationships.social.married",
+        "type": "set",
+        "value": false
+      },
+      {
+        "path": "health.mental.current",
+        "type": "modify",
+        "value": -20
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -25
+      }
+    ]
+  },
+  {
+    "id": "event_remarriage",
+    "name": "Remarriage/Second Partnership",
+    "ageRange": [
+      25,
+      65
+    ],
+    "description": "You commit to love again. A second chance.",
+    "weight": 15,
+    "requires": {
+      "relationships.partner.exists": false
+    },
+    "effects": [
+      {
+        "path": "relationships.partner.exists",
+        "type": "set",
+        "value": true
+      },
+      {
+        "path": "relationships.partner.married",
+        "type": "set",
+        "value": true
+      },
+      {
+        "path": "relationships.partner.since",
+        "type": "set",
+        "value": "current_age"
+      },
+      {
+        "path": "relationships.social.married",
+        "type": "set",
+        "value": true
+      },
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": 3
+      },
+      {
+        "path": "health.mental.current",
+        "type": "modify",
+        "value": 5
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": 10
       }
     ]
   },
