@@ -69,8 +69,14 @@
     "weight": 8,
     "requires": {
       "any": [
-        { "relationships.parents.mother.alive": true },
-        { "relationships.parents.father.alive": true }
+        {
+          "relationships.parents.mother.alive": true,
+          "relationships.parents.mother.canDie": true
+        },
+        {
+          "relationships.parents.father.alive": true,
+          "relationships.parents.father.canDie": true
+        }
       ]
     },
     "effects": [

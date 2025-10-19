@@ -59,11 +59,15 @@ class MortalityGameV2 {
           mother: {
             alive: true,
             present: Math.random() > 0.1, // 90% have mother present
+            ageAtBirth: 15 + Math.floor(Math.random() * 35), // 15-50 years old at player birth
+            currentAge: null, // Set after birth age is known
             relationship: 70 + Math.random() * 20
           },
           father: {
             alive: true,
             present: Math.random() > 0.25, // 75% have father present
+            ageAtBirth: 18 + Math.floor(Math.random() * 40), // 18-58 years old at player birth
+            currentAge: null, // Set after birth age is known
             relationship: 60 + Math.random() * 20
           }
         },
@@ -169,6 +173,10 @@ class MortalityGameV2 {
 
     // Apply birth card base effects
     this.applyBirthCardEffects(birthCard);
+
+    // Initialize parent current ages (same as age at birth initially since player is age 0)
+    this.player.relationships.parents.mother.currentAge = this.player.relationships.parents.mother.ageAtBirth;
+    this.player.relationships.parents.father.currentAge = this.player.relationships.parents.father.ageAtBirth;
 
     return this.player;
   }
@@ -327,6 +335,28 @@ class MortalityGameV2 {
         continue;
       }
 
+      // Handle parent death eligibility: "relationships.parents.mother.canDie": true
+      // A parent can only die if they're alive AND statistically plausible for their age
+      if (key === "relationships.parents.mother.canDie" || key === "relationships.parents.father.canDie") {
+        const parent = key.includes("mother") ? player.relationships.parents.mother : player.relationships.parents.father;
+        const parentDead = !parent.alive;
+        
+        // Get survival odds for parent's current age
+        const survivalOdds = this.getParentSurvivalOdds(parent.currentAge);
+        const mortalityOdds = 1 - survivalOdds; // Probability parent dies this year
+        
+        // If value is true, parent can die only if:
+        // - Parent is alive, AND
+        // - We pass the mortality probability check (probabilistic)
+        if (value === true) {
+          if (parentDead || Math.random() > mortalityOdds) return false;
+        } else if (value === false) {
+          // Parent cannot die if already dead OR if we fail the mortality check
+          if (!parentDead && Math.random() <= mortalityOdds) return false;
+        }
+        continue;
+      }
+
       // Direct equality
       if (playerValue !== value) return false;
     }
@@ -389,6 +419,17 @@ class MortalityGameV2 {
 
     // 1. Age up
     player.demographics.age++;
+    player.age = player.demographics.age; // Keep in sync
+
+    // 1b. Age parents
+    if (player.relationships.parents.mother.ageAtBirth !== null) {
+      player.relationships.parents.mother.currentAge = 
+        player.relationships.parents.mother.ageAtBirth + player.demographics.age;
+    }
+    if (player.relationships.parents.father.ageAtBirth !== null) {
+      player.relationships.parents.father.currentAge = 
+        player.relationships.parents.father.ageAtBirth + player.demographics.age;
+    }
 
     // 2. Drift all homeostatic systems
     this.driftHealth(player);
@@ -661,6 +702,19 @@ class MortalityGameV2 {
   // ============================================================================
   // PHASE 4: EVENT EFFECT APPLICATION
   // ============================================================================
+
+  // Calculate parent survival probability based on age
+  // Returns true if parent should survive this year
+  // Used in event prerequisites to make parent death age-appropriate
+  getParentSurvivalOdds(parentAge) {
+    if (!parentAge || parentAge < 35) return 0.99; // Too young to die of age
+    if (parentAge < 50) return 0.98;  // 2% annual mortality
+    if (parentAge < 60) return 0.97;  // 3% annual mortality
+    if (parentAge < 70) return 0.95;  // 5% annual mortality
+    if (parentAge < 80) return 0.90;  // 10% annual mortality
+    if (parentAge < 90) return 0.80;  // 20% annual mortality
+    return 0.60; // 40% annual mortality at 90+
+  }
 
   applyEventEffects(event, player = this.player) {
     if (!event.effects) return;
