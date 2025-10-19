@@ -6,6 +6,7 @@ const { getGlobalBaseline, getAdjustedProbability, getSuicideMethodsForRegion } 
 const { shouldBeEmployed, getUnemploymentPenalty } = require('./employment_by_region.js');
 const { calculateHouseholdCost, calculateHouseholdIncome, calculateHouseholdCashFlow, getPovertyStatus } = require('./cost_of_living.js');
 const { getEducationStage, shouldAttendEducation, getEducationCost, getStressFromIncome } = require('./education_system.js');
+const { getCancerIncidence, getStageProgression, getCancerPenalties, shouldDieFromCancer, checkRemission } = require('./cancer_system.js');
 
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards) {
@@ -143,6 +144,21 @@ class MortalityGameV2 {
           childrenBorn: 0,
           menarche: sex === "female" ? false : null,
           menopause: false
+        },
+
+        // ========== CANCER SYSTEM ==========
+        cancer: {
+          active: false, // Currently diagnosed with cancer
+          type: null, // "breast", "lung", "colon", "prostate", "cervical", "liver", "pancreas", "ovarian"
+          stage: 0, // 1-4, or 0 if no active cancer
+          yearsSinceDiagnosis: 0, // Years since diagnosis
+          inRemission: false, // In remission but not cured
+          remissionYears: 0, // Years in remission (resets to 0 if recurrence)
+          treatmentAccess: false, // Can access treatment
+          hasRecurred: false, // Has cancer recurred before
+          complications: [], // ["metastasis", "treatmentToxicity", "recurrence"]
+          lastStageProgression: 0, // Last year stage progressed
+          history: [] // [{type, stage, yearsSinceDiagnosis, outcome}]
         }
       },
 
@@ -693,6 +709,7 @@ class MortalityGameV2 {
 
     // 2. Drift all homeostatic systems
     this.driftHealth(player);
+    this.driftCancer(player);
     this.driftEconomics(player);
     this.driftMentalHealthCrisis(player);
     this.driftAddiction(player);
@@ -796,6 +813,202 @@ class MortalityGameV2 {
     }
 
     this.clampPlayerStats(player);
+  }
+
+  // ============================================================================
+  // CANCER DRIFT - Annual cancer progression and diagnosis
+  // ============================================================================
+  
+  driftCancer(player) {
+    const p = player;
+    const cancer = p.health.cancer;
+
+    // Determine if player has treatment access
+    const hasAccess = this.getRegionalModifiers()[p.demographics.birthRegion]?.treatmentAccess > 0.5 || false;
+    cancer.treatmentAccess = hasAccess;
+
+    // ===== CANCER DIAGNOSIS =====
+    // Check for new cancer diagnosis (only if not already diagnosed)
+    if (!cancer.active && !cancer.inRemission) {
+      // Age 15+: cancer can develop
+      if (p.demographics.age >= 15) {
+        const additionalFactors = {
+          smoking: p.addiction.substance === "tobacco" || p.addiction.history.some(h => h.substance === "tobacco"),
+          alcohol: p.addiction.substance === "alcohol" || p.addiction.history.some(h => h.substance === "alcohol"),
+          chronic: p.health.physical.chronic
+        };
+
+        const diagnosis = getCancerIncidence(
+          p.demographics.age,
+          p.demographics.sex,
+          p.demographics.birthRegion,
+          additionalFactors
+        );
+
+        if (diagnosis.hasCancer) {
+          // NEW CANCER DIAGNOSED
+          cancer.active = true;
+          cancer.type = diagnosis.type;
+          cancer.stage = diagnosis.initialStage;
+          cancer.yearsSinceDiagnosis = 0;
+          cancer.inRemission = false;
+          cancer.treatmentAccess = hasAccess;
+
+          // Track in history
+          cancer.history.push({
+            type: diagnosis.type,
+            stage: diagnosis.initialStage,
+            yearDiagnosed: p.demographics.age,
+            outcome: "active"
+          });
+
+          // Initial mental health hit from diagnosis
+          p.health.mental.current = Math.max(10, p.health.mental.current - 10);
+        }
+      }
+    }
+
+    // ===== CANCER PROGRESSION =====
+    if (cancer.active) {
+      cancer.yearsSinceDiagnosis += 1;
+
+      // Check for stage progression
+      const progression = getStageProgression(
+        cancer.stage,
+        cancer.yearsSinceDiagnosis,
+        this.getRegionCode(p.demographics.birthRegion),
+        false
+      );
+
+      if (progression.progressive && progression.nextStage > cancer.stage) {
+        // STAGE ADVANCEMENT
+        cancer.stage = progression.nextStage;
+        cancer.lastStageProgression = p.demographics.age;
+
+        // Mental health impact from progression
+        const mentalImpact = {
+          1: -2,
+          2: -5,
+          3: -8,
+          4: -15 // Devastating news
+        };
+        p.health.mental.current = Math.max(5, p.health.mental.current + (mentalImpact[cancer.stage] || -5));
+      }
+
+      // Apply penalties from cancer this year
+      const penalties = getCancerPenalties(
+        cancer.stage,
+        this.getRegionCode(p.demographics.birthRegion),
+        hasAccess
+      );
+
+      // Physical health decline
+      p.health.physical.current = Math.max(5, p.health.physical.current + penalties.physical);
+      p.health.physical.baseline = Math.max(10, p.health.physical.baseline + penalties.physical * 0.3);
+
+      // Mental health decline (but not below existential crisis level)
+      p.health.mental.current = Math.max(10, p.health.mental.current + penalties.mental);
+
+      // Employment impact (reduces income for advanced stages)
+      if (cancer.stage >= 2) {
+        const employmentPenalty = penalties.employment * -1; // Convert to income reduction
+        p.economics.income.current = Math.max(0, p.economics.income.current + employmentPenalty);
+      }
+
+      // Fertility impact (reduced but not eliminated)
+      if (cancer.stage >= 2 && p.health.reproductive.fertile) {
+        p.health.reproductive.fertile = Math.random() > Math.abs(penalties.fertility);
+      }
+
+      // Check for remission (stage 1-2 only)
+      if (cancer.stage <= 2 && hasAccess) {
+        if (checkRemission(cancer.stage, this.getRegionCode(p.demographics.birthRegion), true)) {
+          cancer.active = false;
+          cancer.inRemission = true;
+          cancer.remissionYears = 0;
+
+          // Mental health boost from remission
+          p.health.mental.current = Math.min(100, p.health.mental.current + 15);
+
+          // Update history
+          if (cancer.history.length > 0) {
+            cancer.history[cancer.history.length - 1].outcome = "remission";
+          }
+        }
+      }
+
+      // Stage 4: Check for cancer-related death this year
+      if (cancer.stage === 4) {
+        if (shouldDieFromCancer(4, this.getRegionCode(p.demographics.birthRegion), p.demographics.age, hasAccess)) {
+          p.alive = false;
+          p.causeOfDeath = `Cancer (${cancer.type})`;
+          cancer.history[cancer.history.length - 1].outcome = "death";
+          return;
+        }
+      }
+    }
+
+    // ===== REMISSION & RECURRENCE =====
+    if (cancer.inRemission) {
+      cancer.remissionYears += 1;
+
+      // Risk of recurrence increases over time (but rare in first 5 years)
+      if (cancer.remissionYears > 5) {
+        // Small chance of recurrence per year after 5 years
+        if (Math.random() < 0.03) {
+          // CANCER RECURS
+          cancer.inRemission = false;
+          cancer.active = true;
+          cancer.hasRecurred = true;
+          cancer.stage = Math.min(4, cancer.stage + 1); // Usually returns at higher stage
+          cancer.yearsSinceDiagnosis = 0;
+
+          // Mental health crisis
+          p.health.mental.current = Math.max(10, p.health.mental.current - 20);
+
+          // Track recurrence
+          cancer.history.push({
+            type: cancer.type,
+            stage: cancer.stage,
+            yearDiagnosed: p.demographics.age,
+            outcome: "recurrence"
+          });
+        }
+      }
+    }
+  }
+
+  // Helper: Get region code from birth region name
+  getRegionCode(birthRegion) {
+    const mapping = {
+      "Nordic Country": "nordic",
+      "Western Europe": "developed",
+      "Japan/South Korea": "developed",
+      "North America - Middle Class": "developed",
+      "Eastern Europe": "emerging",
+      "Urban China": "emerging",
+      "Urban Latin America": "developing",
+      "Southeast Asia": "developing",
+      "Rural India": "developing",
+      "Sub-Saharan Africa": "fragile"
+    };
+    return mapping[birthRegion] || "developing";
+  }
+
+  // Helper: Get regional modifiers
+  getRegionalModifiers() {
+    return {
+      "Nordic Country": { treatmentAccess: 0.95 },
+      "Western Europe": { treatmentAccess: 0.95 },
+      "Japan/South Korea": { treatmentAccess: 0.98 },
+      "North America - Middle Class": { treatmentAccess: 0.90 },
+      "Eastern Europe": { treatmentAccess: 0.70 },
+      "Urban China": { treatmentAccess: 0.80 },
+      "Urban Latin America": { treatmentAccess: 0.50 },
+      "Southeast Asia": { treatmentAccess: 0.35 },
+      "Rural India": { treatmentAccess: 0.15 },
+      "Sub-Saharan Africa": { treatmentAccess: 0.10 }
+    };
   }
 
   driftEconomics(player) {
@@ -2324,6 +2537,14 @@ class MortalityGameV2 {
     } else if (player.addiction.stage === "regular") {
       weights.set("Overdose", (weights.get("Overdose") || 1) * 3);
       weights.set("Accident", (weights.get("Accident") || 1) * 1.5);
+    }
+
+    // Cancer chain: active cancer dramatically increases cancer-related death risk
+    if (player.health.cancer.active) {
+      weights.set("Cancer", (weights.get("Cancer") || 1) * 15); // Massive amplification
+      // Remove unlikely causes when cancer is active
+      weights.delete("Accident");
+      weights.delete("Overdose");
     }
 
     // Incarceration chain: violence, disease in prisons
