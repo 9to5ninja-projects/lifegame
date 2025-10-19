@@ -1,6 +1,91 @@
 # CHANGELOG
 
-## v2.0 - Homeostatic State System (IN DEVELOPMENT)
+## v2.3 - Contextual Death System & Causal Chains (Phase 2C - IN PROGRESS)
+
+### Death Causes as Consequences
+- **Poverty Chain**: Low resources (< 0) → 3x malnutrition/starvation, 2.5x disease risk
+- **Chronic Disease Chain**: Diabetes → 3x heart disease/kidney failure, stroke risk
+- **Mental Health Chain**: Depression (< 20) → 5x suicide risk, 2x accident/overdose
+- **Addiction Chain**: Dependent → 10x overdose, 5x liver cirrhosis, 3x accident
+- **Incarceration Chain**: Prison → 3x violence, 2x TB/suicide risk
+- **Regional Context**: War zones → 5x conflict death, endemic disease regions → 2x disease
+- **Age Stratification**: Infants → 3x birth defects, elderly (70+) → 4x heart disease
+- **Isolation Effect**: No friends + low social connection → 2x suicide/accident/overdose
+
+### System Philosophy
+Deaths are now CONSEQUENCES not RANDOM EVENTS. A diabetic person doesn't randomly die from heart disease—their diabetes increases heart disease risk. A poor person doesn't randomly starve—they lack access to food. This creates realistic causal chains without explicit event systems.
+
+### Integration
+- No new events needed—system uses existing player state
+- Weights update dynamically each year based on circumstances
+- Multiple risk factors stack (poverty + depression + addiction = very high-risk death profile)
+- Remains probabilistic but causally grounded
+
+---
+
+## v2.2 - Crime System Demographic Realism & Regional Justice (Phase 2B - COMPLETED)
+
+### Crime System Refactoring
+- **Separated Crime Pathways**:
+  - Street crime (poverty-driven): theft, burglary, assault (ages 15-35 peak)
+  - White-collar crime (education-enabled): embezzlement, fraud (ages 35-55 peak)
+- **Age-Stratified Crime Risk**:
+  - Peak ages 18-35: ~250/100K (street crime)
+  - Ages 35-55: ~150/100K (white-collar + street)
+  - Ages 65+: ~50/100K (reduced opportunity)
+  - Youth <18: Very low (legal accountability differs)
+- **Education/Wealth Paradox**:
+  - Education reduces street crime 70-90% (opportunity cost, access to jobs)
+  - Education enables white-collar crime (access to systems, planning ability)
+  - Wealth both prevents poverty crime AND enables fraud/embezzlement
+- **Protective Factors Applied**:
+  - Stable employment: -50% street crime risk
+  - Marriage/family: -30% overall crime risk
+  - Mental health treatment: -20% crime risk
+  - Poverty + unemployment + isolation: +300% street crime risk
+
+### Regional Justice System Framework
+- **Nordic Model** (Nordic Country): 0.5x severity, rehabilitation focus, 1-5 year sentences
+- **Moderate Systems** (North America, UK, Eastern Europe, Latin America): 0.8-1.2x, 3-12 years
+- **Harsh Systems** (Middle East, Sub-Saharan Africa, Southeast Asia, War Zones): 1.3-2.0x, 5-25 years
+- **White-Collar Differential**: Generally 40-50% lighter sentences than street crime across all systems
+- **Prior Convictions**: Escalate sentences +2 years per conviction
+
+### Sentencing Data Basis
+- UN World Prison Brief data
+- Sentencing Project statistics
+- Regional criminal code documentation
+- Death penalty status by region (incorporated for context)
+
+### Suicide Age Constraint
+- **Minimum age 15** for suicide attempts (psychological development)
+- Age-stratified risk: Peak 15-24 (20-25 per 100K), secondary peak 65+ (15-18 per 100K)
+- Childhood trauma recorded but suicide risk only activates post-puberty
+
+---
+
+## v2.1 - Statistical System Calibration (Phase 2A - COMPLETED)
+
+### Probability Tuning
+- **Addiction**: Base onset multiplied 4x (0.1% → 0.4%) to reach 4% prevalence target ✓
+- **Mental Health Crisis**: Threshold lowered from 12m<30 to 6m<35 for earlier detection ✓
+- **Suicide Base Risk**: Increased (0.01% → 0.15%) with unit fix for proper scaling ✓
+- **Crime Base Risk**: Increased for economic desperation ages 15-35 ✓
+- **Regional Starting Resources**: Added wealth variation (poorest: 2-5, wealthy: 25-40) ✓
+
+### Critical Bug Fixes
+- **Suicide Risk Unit Mismatch**: Fixed comparison of 0.01-3.0% risk vs 0-100 scale roll
+- **Death Cause Override**: Suicide/overdose deaths now properly recorded (not overwritten by random death)
+- **Infant Suicide**: Prevented by adding age >= 15 minimum
+
+### System Improvements
+- Regional multipliers framework implemented
+- Test suite updated to track against real-world statistics
+- Calibration validation completed
+
+---
+
+## v2.0 - Homeostatic State System
 
 ### Major Changes
 - **Expanded Player State**: Replaced simple tag system with structured homeostatic model

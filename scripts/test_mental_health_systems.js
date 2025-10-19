@@ -2,17 +2,21 @@
 // Validates statistical accuracy against real-world data
 
 const fs = require("fs");
-const MortalityGameV2 = require("./game_engine_v2_homeostatic");
+const path = require("path");
 
-// Load card data
-const birthCards = JSON.parse(fs.readFileSync("birth_cards_json.json", "utf8"));
-const familyCards = JSON.parse(fs.readFileSync("family_cards_json.json", "utf8"));
+// Adjust paths for scripts/ folder
+const rootDir = path.join(__dirname, "..");
+const MortalityGameV2 = require(path.join(rootDir, "game_engine_v2_homeostatic"));
+
+// Load card data from root
+const birthCards = JSON.parse(fs.readFileSync(path.join(rootDir, "birth_cards_json.json"), "utf8"));
+const familyCards = JSON.parse(fs.readFileSync(path.join(rootDir, "family_cards_json.json"), "utf8"));
 const eventCards = {
-  childhood: JSON.parse(fs.readFileSync("event_cards_childhood_v2.json", "utf8")),
-  teen: JSON.parse(fs.readFileSync("event_cards_teen_v2.json", "utf8")),
-  adult: JSON.parse(fs.readFileSync("event_cards_adult_v2.json", "utf8"))
+  childhood: JSON.parse(fs.readFileSync(path.join(rootDir, "event_cards_childhood_v2.json"), "utf8")),
+  teen: JSON.parse(fs.readFileSync(path.join(rootDir, "event_cards_teen_v2.json"), "utf8")),
+  adult: JSON.parse(fs.readFileSync(path.join(rootDir, "event_cards_adult_v2.json"), "utf8"))
 };
-const deathCards = JSON.parse(fs.readFileSync("death_cards_json.json", "utf8"));
+const deathCards = JSON.parse(fs.readFileSync(path.join(rootDir, "death_cards_json.json"), "utf8"));
 
 const game = new MortalityGameV2(birthCards, familyCards, eventCards, deathCards);
 

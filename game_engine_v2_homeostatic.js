@@ -50,6 +50,45 @@ class MortalityGameV2 {
     return Math.max(0, probability);
   }
 
+  // Get regional starting wealth variation (Phase 2A calibration)
+  // Poorest regions: 2-5 resources, middle: 10-15, wealthy: 20-30
+  getRegionalWealthRange(birthCardName) {
+    const wealthMap = {
+      // Poorest (subsistence)
+      "Sub-Saharan Africa": { min: 2, max: 8 },
+      "Rural South Asia": { min: 3, max: 10 },
+      "Active War Zone": { min: 1, max: 5 },
+      "Fragile/Post-Conflict State": { min: 2, max: 8 },
+      
+      // Middle income (developing)
+      "Urban South Asia": { min: 8, max: 15 },
+      "Urban Latin America": { min: 10, max: 18 },
+      "Southeast Asia": { min: 8, max: 15 },
+      "Urban Sub-Saharan Africa": { min: 8, max: 12 },
+      "Rural Latin America": { min: 5, max: 12 },
+      "Middle East - Stable": { min: 10, max: 18 },
+      
+      // Upper middle (developed)
+      "Eastern Europe": { min: 12, max: 22 },
+      "Urban China": { min: 15, max: 25 },
+      "Rural Southeast Asia": { min: 8, max: 15 },
+      "Japan/South Korea": { min: 20, max: 30 },
+      
+      // Wealthy (high development)
+      "North America - Middle Class": { min: 20, max: 35 },
+      "Western Europe": { min: 22, max: 35 },
+      "Nordic Country": { min: 25, max: 40 }
+    };
+    
+    return wealthMap[birthCardName] || { min: 12, max: 20 }; // Default middle
+  }
+
+  // Get random wealth value in regional range
+  getRegionalWealth(birthCardName) {
+    const range = this.getRegionalWealthRange(birthCardName);
+    return Math.max(0, range.min + Math.floor(Math.random() * (range.max - range.min + 1)));
+  }
+
   // ============================================================================
   // PHASE 1: PLAYER STATE INITIALIZATION
   // ============================================================================
@@ -165,8 +204,9 @@ class MortalityGameV2 {
           occupation: null
         },
         resources: {
-          current: Math.max(0, birthCard.effects?.resourceMod || 20),
-          baseline: Math.max(0, birthCard.effects?.resourceMod || 20),
+          // Regional wealth variation for Phase 2A calibration
+          current: this.getRegionalWealth(birthCard.name),
+          baseline: this.getRegionalWealth(birthCard.name),
           drift: -5 // Negative = expenses exceed income (modifies yearly)
         },
         debt: 0,
@@ -807,6 +847,33 @@ class MortalityGameV2 {
   driftMentalHealthCrisis(player) {
     const p = player;
     
+    // ===== SIMULATE LIFE STRESS without explicit events =====
+    // Real life includes hardship, setbacks, bad luck that we can't model with events
+    // Add annual random stress based on circumstances
+    const stressFactors = [];
+    
+    // Poverty is stressful
+    if (p.economics.resources.current < 5) stressFactors.push(2);
+    if (p.economics.resources.current < 0) stressFactors.push(3);
+    
+    // Unemployment is highly stressful
+    if (!p.economics.income.employed && p.demographics.age >= 18) stressFactors.push(1);
+    
+    // Social isolation is stressful
+    if (p.relationships.social.isolation) stressFactors.push(1);
+    
+    // Health problems are stressful
+    if (p.health.physical.current < 40) stressFactors.push(1);
+    if (p.health.physical.chronic.length > 0) stressFactors.push(1);
+    
+    // Apply accumulated stress
+    if (stressFactors.length > 0) {
+      const totalStress = stressFactors.reduce((a, b) => a + b, 0);
+      // Random stress between 0 and totalStress (simulates variability)
+      const stress = Math.random() * Math.min(totalStress, 10);
+      p.health.mental.current = Math.max(5, p.health.mental.current - stress);
+    }
+    
     // Track episode duration
     if (p.health.mental.current < p.health.mental.baseline - 10) {
       p.health.mental.episodeDuration += 1;
@@ -815,15 +882,15 @@ class MortalityGameV2 {
     }
 
     // Formation of chronic conditions based on duration and severity
-    // Depression: 12+ months at < 30
-    if (p.health.mental.current < 30 && p.health.mental.episodeDuration >= 12) {
+    // Depression: 6+ months at < 35 (lowered from 12m<30 for earlier detection)
+    if (p.health.mental.current < 35 && p.health.mental.episodeDuration >= 6) {
       if (!p.health.mental.chronic.includes("depression")) {
         p.health.mental.chronic.push("depression");
       }
     }
 
-    // Anxiety: Two crises within 12 months
-    if (p.health.mental.episodeDuration >= 6 && p.health.mental.current < 25) {
+    // Anxiety: 4+ months of low mental health (lowered from 6m<25)
+    if (p.health.mental.episodeDuration >= 4 && p.health.mental.current < 35) {
       if (!p.health.mental.chronic.includes("anxiety")) {
         p.health.mental.chronic.push("anxiety");
       }
@@ -845,73 +912,80 @@ class MortalityGameV2 {
 
   calculateSuicideRisk(player) {
     const p = player;
-    let suicideRisk = 0.01; // Base 0.01% risk
+    // WHO reports 10-15 per 100,000 population
+    // Age stratification: 15-24 peak ~20-30 per 100K, 65+ peak ~15-20 per 100K, middle ages ~5-10 per 100K
+    let suicideRisk = 0.08; // 0.08% base for average adult
 
-    // Mental health factors (primary risk)
-    if (p.health.mental.current < 10) suicideRisk += 2.0;
-    else if (p.health.mental.current < 20) suicideRisk += 1.0;
-    else if (p.health.mental.current < 30) suicideRisk += 0.3;
-    else if (p.health.mental.current < 40) suicideRisk += 0.1;
+    // Mental health factors - STRATIFIED BY AGE (major determinant of suicide risk)
+    if (p.demographics.age >= 15 && p.demographics.age <= 24) {
+      // Peak youth suicide age group
+      if (p.health.mental.current < 10) suicideRisk += 0.8;
+      else if (p.health.mental.current < 20) suicideRisk += 0.4;
+      else if (p.health.mental.current < 30) suicideRisk += 0.15;
+      else if (p.health.mental.current < 40) suicideRisk += 0.05;
+    } else if (p.demographics.age >= 65) {
+      // Elderly peak (different drivers: isolation, health decline)
+      if (p.health.mental.current < 10) suicideRisk += 0.5;
+      else if (p.health.mental.current < 20) suicideRisk += 0.3;
+      else if (p.health.mental.current < 30) suicideRisk += 0.12;
+    } else {
+      // Middle-aged adults 25-64 (lower baseline)
+      if (p.health.mental.current < 10) suicideRisk += 0.3;
+      else if (p.health.mental.current < 20) suicideRisk += 0.15;
+      else if (p.health.mental.current < 30) suicideRisk += 0.08;
+      else if (p.health.mental.current < 40) suicideRisk += 0.02;
+    }
 
     // Duration of low mental health (vulnerability accumulation)
     if (p.health.mental.episodeDuration >= 12 && p.health.mental.current < 30) {
-      suicideRisk += 0.5;
+      suicideRisk += 0.2;
     } else if (p.health.mental.episodeDuration >= 6 && p.health.mental.current < 30) {
-      suicideRisk += 0.3;
+      suicideRisk += 0.12;
     }
 
-    // Social isolation
+    // Social isolation (especially powerful in elderly)
     if (p.relationships.social.isolation && p.relationships.social.friends === 0) {
-      suicideRisk += 0.3;
+      suicideRisk += (p.demographics.age >= 65 ? 0.15 : 0.08);
     }
     // Protective factor: marriage/partnership
     if (p.relationships.social.married) {
-      suicideRisk = Math.max(0, suicideRisk - 0.2);
+      suicideRisk = Math.max(0, suicideRisk - 0.08);
     }
 
-    // Prior suicide attempts (sensitization)
-    suicideRisk += p.health.mental.suicideHistory.length * 0.5;
+    // Prior suicide attempts (sensitization - previous attempt is strongest predictor)
+    suicideRisk += p.health.mental.suicideHistory.length * 0.3;
 
     // Substance abuse co-occurrence (powerful risk multiplier)
     if (p.addiction.stage === "dependent") {
-      suicideRisk += 0.8;
+      suicideRisk += 0.25;
     } else if (p.addiction.stage === "regular") {
-      suicideRisk += 0.3;
+      suicideRisk += 0.08;
     }
 
     // Chronic mental illness (untreated)
     if (p.health.mental.chronic.includes("depression") && p.health.mental.treatmentStatus === "none") {
-      suicideRisk += 0.6;
+      suicideRisk += 0.15;
     }
     if (p.health.mental.chronic.includes("anxiety") && p.health.mental.treatmentStatus === "none") {
-      suicideRisk += 0.3;
+      suicideRisk += 0.06;
     }
     if (p.health.mental.chronic.includes("ptsd") && p.health.mental.treatmentStatus === "none") {
-      suicideRisk += 0.5;
+      suicideRisk += 0.12;
     }
 
-    // Age factors (peak teen/young adult risk)
-    if (p.demographics.age >= 15 && p.demographics.age <= 24) {
-      suicideRisk += 0.2;
-    } else if (p.demographics.age >= 65) {
-      suicideRisk += 0.1;
-    } else if (p.demographics.age >= 80) {
-      suicideRisk += 0.3;
-    }
-
-    // Treatment protective factors
+    // Treatment protective factors (evidence-based)
     if (p.health.mental.treatmentStatus === "medicated") {
-      suicideRisk -= 0.4;
+      suicideRisk -= 0.15;
     }
     if (p.health.mental.treatmentStatus === "therapy") {
-      suicideRisk -= 0.5;
+      suicideRisk -= 0.2;
     }
     if (p.health.mental.treatmentStatus === "hospitalized") {
-      suicideRisk -= 0.7;
+      suicideRisk -= 0.3;
     }
 
-    // Cap at realistic range (0.01% to 3% annually)
-    p.health.mental.suicideRisk = Math.max(0.01, Math.min(3.0, suicideRisk));
+    // Cap at realistic range (0.05% to 1.2% annually for age-stratified populations)
+    p.health.mental.suicideRisk = Math.max(0.05, Math.min(1.2, suicideRisk));
   }
 
   attemptSuicide(player) {
@@ -1040,22 +1114,22 @@ class MortalityGameV2 {
 
   checkSubstanceUseTriggers(player) {
     const p = player;
-    let useChance = 0.001; // 0.1% base
+    let useChance = 0.008; // 0.8% base (8x increase from 0.1% for ~4% prevalence target)
 
     // Mental health self-medication risk
-    if (p.health.mental.current < 30) useChance += 0.003;
+    if (p.health.mental.current < 30) useChance += 0.015; // Increased from 0.003
 
     // Isolation
-    if (p.relationships.social.isolation) useChance += 0.002;
+    if (p.relationships.social.isolation) useChance += 0.01; // Increased from 0.002
 
     // Trauma history
-    if (p.health.mental.chronic.includes("ptsd")) useChance += 0.002;
+    if (p.health.mental.chronic.includes("ptsd")) useChance += 0.01; // Increased from 0.002
 
     // Age factor (peak risk 15-30)
-    if (p.demographics.age >= 15 && p.demographics.age <= 30) useChance += 0.002;
+    if (p.demographics.age >= 15 && p.demographics.age <= 30) useChance += 0.008; // Increased from 0.002
 
     // Unemployment/economic desperation
-    if (!p.economics.income.employed && p.economics.resources.current < 5) useChance += 0.002;
+    if (!p.economics.income.employed && p.economics.resources.current < 5) useChance += 0.01; // Increased from 0.002
 
     // Determine substance if use is initiated
     if (Math.random() < useChance) {
@@ -1129,34 +1203,91 @@ class MortalityGameV2 {
       return;
     }
 
-    let crimeRisk = 0.001; // 0.1% base
+    // Crime rates vary DRAMATICALLY by age and pathway
+    // Street crime (poverty): Peak 18-35
+    // White-collar crime (fraud/embezzlement): Peak 35-55
+    // Overall WHO estimate: ~140 per 100,000 (varies by country 20-300)
 
-    // Economic desperation (ages 15-35)
-    if (p.demographics.age >= 15 && p.demographics.age <= 35) {
-      if (p.economics.resources.current < 0) crimeRisk += 0.012;
-      else if (p.economics.resources.current < 5) crimeRisk += 0.005;
+    let crimeRisk = 0; // Will be calculated by pathway
+    let crimePath = "none"; // Track which pathway person follows
+
+    // PATHWAY 1: STREET CRIME (theft, burglary, assault) - driven by poverty + age
+    if (p.demographics.age >= 15 && p.demographics.age <= 40) {
+      // Peak crime age: 18-35
+      let streetCrimeRisk = 0.004; // 0.4% base (increased from 0.15% to reach 140/100K target)
+      
+      // Economic desperation is primary driver
+      if (p.economics.resources.current < 0) {
+        streetCrimeRisk += 0.06; // Severe desperation (multiplied 7.5x)
+      } else if (p.economics.resources.current < 5) {
+        streetCrimeRisk += 0.03; // Moderate desperation (multiplied 7.5x)
+      }
+
+      // Mental health and substance abuse strongly correlate
+      if (p.health.mental.current < 25) streetCrimeRisk += 0.02; // Multiplied 3.3x
+      if (p.addiction.stage === "dependent") streetCrimeRisk += 0.025; // Multiplied 3.1x
+
+      // PROTECTIVE FACTORS reduce street crime risk significantly
+      // Education is powerful protective: university-educated rarely commit street crime
+      if (p.development.education.level === "university") {
+        streetCrimeRisk *= 0.1; // 90% reduction
+      } else if (p.development.education.level === "secondary") {
+        streetCrimeRisk *= 0.5; // 50% reduction
+      }
+
+      // Employment and stable relationships protect
+      if (p.economics.income.current > 10) {
+        streetCrimeRisk *= 0.7; // Employed people less likely
+      }
+      if (p.relationships.social.married) {
+        streetCrimeRisk *= 0.6; // Married people less likely
+      }
+
+      crimeRisk = streetCrimeRisk;
+      crimePath = "street_crime";
+    }
+    
+    // PATHWAY 2: WHITE-COLLAR CRIME (fraud, embezzlement, tax evasion) - driven by opportunity
+    // Requires education + access to systems of value
+    else if (p.demographics.age >= 30 && p.demographics.age <= 60) {
+      let whiteCollarRisk = 0;
+
+      // White-collar opportunity requires education and employment
+      if (p.development.education.level === "university" && p.economics.income.current > 15) {
+        whiteCollarRisk = 0.002; // 0.2% base for educated employed (multiplied 2.5x)
+        
+        // Access to larger sums increases temptation
+        if (p.economics.income.current > 30) {
+          whiteCollarRisk += 0.001; // Multiplied 2.5x
+        }
+
+        // Financial stress even among wealthy can trigger fraud
+        if (p.economics.debt > 50) {
+          whiteCollarRisk += 0.0015; // Multiplied 3x
+        }
+
+        // Mental health crisis affects judgment
+        if (p.health.mental.current < 30) {
+          whiteCollarRisk += 0.001; // Multiplied 3.3x
+        }
+
+        crimePath = "white_collar_crime";
+      }
+
+      crimeRisk = whiteCollarRisk;
     }
 
-    // Mental health/substance abuse
-    if (p.health.mental.current < 25) crimeRisk += 0.003;
-    if (p.addiction.stage === "dependent") crimeRisk += 0.010;
+    // Prior convictions DRAMATICALLY increase reoffense risk (stronger effect)
+    crimeRisk += p.legal.convictionCount * 0.006;
 
-    // Prior convictions (criminal justice involvement)
-    crimeRisk += p.legal.convictionCount * 0.003;
-
-    // Education (protective factor)
-    if (p.development.education.level === "university") {
-      crimeRisk -= 0.001;
-    }
-
-    // Incarceration history increases reoffense risk
+    // Incarceration history - once convicted, much higher recidivism
     if (p.legal.imprisonmentHistory.length > 0) {
       crimeRisk += 0.003;
     }
 
-    // Crime check
-    if (Math.random() * 100 < crimeRisk * 100) {
-      return this.commitCrime(player);
+    // Crime check - only commit if risk calculation is non-zero
+    if (crimeRisk > 0 && Math.random() * 100 < crimeRisk * 100) {
+      return this.commitCrime(player, crimePath);
     }
 
     // Post-incarceration reoffense risk decay
@@ -1165,22 +1296,42 @@ class MortalityGameV2 {
     }
   }
 
-  commitCrime(player) {
+  commitCrime(player, crimePath = "street_crime") {
     const p = player;
 
-    // Determine if crime is detected
-    const detectionChance = 0.4 + (p.demographics.age < 18 ? 0.2 : 0); // Younger = more likely caught
+    // Different detection rates by crime type
+    let detectionChance = 0.4; // Base: 40% for street crime
+    let crimeType = "felony";
+
+    if (crimePath === "white_collar_crime") {
+      // White-collar: harder to detect initially but more severe when caught
+      detectionChance = 0.25; // 25% chance of detection (audits, investigations)
+      crimeType = "fraud";
+    } else if (p.demographics.age < 18) {
+      // Juveniles more likely caught
+      detectionChance += 0.2;
+    }
+
     const isDetected = Math.random() < detectionChance;
 
     if (!isDetected) {
-      // Undetected crime: small resource gain, increased paranoia/mental stress
-      p.economics.resources.current += 5;
+      // Undetected crime: gain resources/money, guilt stress
+      if (crimePath === "white_collar_crime") {
+        p.economics.resources.current += 20; // Larger fraud gains
+        p.economics.debt -= 10; // Reduces debt through fraud
+      } else {
+        p.economics.resources.current += 5; // Smaller street crime gains
+      }
       p.health.mental.current = Math.max(10, p.health.mental.current - 3);
       return null;
     }
 
     // Detected: arrest and conviction probability
-    const convictionChance = 0.65; // 65% detection → conviction rate
+    let convictionChance = 0.65; // Standard 65% detection → conviction rate
+    if (crimePath === "white_collar_crime") {
+      convictionChance = 0.45; // White-collar crimes harder to convict (better lawyers)
+    }
+    
     const isConvicted = Math.random() < convictionChance;
 
     if (!isConvicted) {
@@ -1190,8 +1341,8 @@ class MortalityGameV2 {
       return null;
     }
 
-    // CONVICTED: Incarceration
-    const sentence = this.calculateSentence(player); // 1-10 years
+    // CONVICTED: Incarceration (length varies by type)
+    let sentence = this.calculateSentence(player, crimePath); // 1-10 years for street, 2-8 for white-collar
     
     p.legal.convictionCount += 1;
     p.legal.criminalRecord = true;
@@ -1201,10 +1352,10 @@ class MortalityGameV2 {
     p.legal.imprisonmentHistory.push({
       age: p.demographics.age,
       duration: sentence,
-      crime: "felony"
+      crime: crimeType
     });
 
-    // Immediate effects
+    // Immediate effects of conviction and imprisonment
     p.economics.income.current = 0; // No income while imprisoned
     p.economics.debt += 15; // Legal fees
     p.health.mental.current = Math.max(10, p.health.mental.current - 30); // Trauma
@@ -1216,13 +1367,90 @@ class MortalityGameV2 {
     return { message: "Convicted and imprisoned", sentence, cause: "incarceration" };
   }
 
-  calculateSentence(player) {
-    // 1-10 year sentences, varies by prior record
-    const baseMax = 10;
-    const priorConvictions = player.legal.convictionCount;
+  getRegionalJusticeFramework(birthRegion) {
+    // Regional sentencing severity varies widely by justice system
+    // Data from UN, World Prison Brief, Sentencing Project
     
-    const maxSentence = Math.min(baseMax, 5 + priorConvictions);
-    return 1 + Math.floor(Math.random() * maxSentence);
+    const frameworks = {
+      // Nordic/Northern Europe: Rehabilitation-focused, shorter sentences
+      "Nordic Country": { severity: 0.5, typeNames: ["theft", "burglary", "assault"] },
+      
+      // North America: Moderate-to-high, some very harsh sentencing
+      "North America - Middle Class": { severity: 1.0, typeNames: ["theft", "burglary", "assault", "drug possession"] },
+      "North America - Poor": { severity: 1.1, typeNames: ["theft", "burglary", "assault", "drug possession"] },
+      
+      // UK/Ireland: Moderate
+      "UK - Middle Class": { severity: 0.8, typeNames: ["theft", "burglary", "assault"] },
+      
+      // Eastern Europe: Higher severity
+      "Eastern Europe": { severity: 1.2, typeNames: ["theft", "burglary", "assault", "drug dealing"] },
+      
+      // Middle East: Variable, some very harsh (corporal punishment, amputation)
+      "Middle East - Stable": { severity: 1.5, typeNames: ["theft", "burglary", "assault", "drug dealing"] },
+      
+      // Sub-Saharan Africa: Mixed, often harsh
+      "Sub-Saharan Africa": { severity: 1.3, typeNames: ["theft", "burglary", "assault", "armed robbery"] },
+      "Rural Sub-Saharan Africa": { severity: 1.4, typeNames: ["theft", "burglary", "assault", "armed robbery"] },
+      
+      // South Asia: Moderate-to-high
+      "Rural South Asia": { severity: 1.2, typeNames: ["theft", "burglary", "assault"] },
+      "Urban South Asia": { severity: 1.1, typeNames: ["theft", "burglary", "assault", "drug dealing"] },
+      
+      // Southeast Asia: Moderate-to-high, some very harsh (drugs especially)
+      "Southeast Asia": { severity: 1.3, typeNames: ["theft", "burglary", "assault", "drug dealing"] },
+      
+      // Latin America: Variable, often moderate-to-high
+      "Urban Latin America": { severity: 1.2, typeNames: ["theft", "burglary", "assault", "armed robbery"] },
+      "Rural Latin America": { severity: 1.1, typeNames: ["theft", "burglary", "assault"] },
+      
+      // China: Moderate, but very harsh for serious crimes
+      "Urban China": { severity: 1.3, typeNames: ["theft", "burglary", "assault", "drug dealing"] },
+      
+      // War zones: Often minimal justice system or very harsh
+      "Active War Zone": { severity: 2.0, typeNames: ["theft", "burglary", "assault", "armed robbery", "conflict-related"] }
+    };
+    
+    return frameworks[birthRegion] || frameworks["North America - Middle Class"];
+  }
+
+  calculateSentence(player, crimePath = "street_crime") {
+    const priorConvictions = player.legal.convictionCount;
+    const region = player.demographics.birthRegion;
+    const framework = this.getRegionalJusticeFramework(region);
+    const severity = framework.severity;
+    
+    if (crimePath === "white_collar_crime") {
+      // White-collar: typically shorter sentences, less affected by regional severity
+      // Wealthy individuals often get lighter sentences across systems
+      const baseSentence = 2 + Math.floor(Math.random() * 6); // 2-8 years base
+      const adjustedSentence = Math.max(1, Math.floor(baseSentence / severity)); // Divide by severity (lighter in strict systems)
+      const escalatedSentence = Math.min(15, adjustedSentence + priorConvictions);
+      return escalatedSentence;
+    } else {
+      // Street crime: varies significantly by region and severity
+      let baseSentence;
+      
+      if (severity <= 0.5) {
+        // Nordic: 1-5 years base (rehabilitation model)
+        baseSentence = 1 + Math.floor(Math.random() * 4);
+      } else if (severity <= 0.8) {
+        // Moderate: 2-8 years base
+        baseSentence = 2 + Math.floor(Math.random() * 6);
+      } else if (severity <= 1.2) {
+        // High: 3-12 years base
+        baseSentence = 3 + Math.floor(Math.random() * 9);
+      } else if (severity <= 1.5) {
+        // Very high: 5-20 years (can include corporal punishment)
+        baseSentence = 5 + Math.floor(Math.random() * 15);
+      } else {
+        // Extreme (war zones): 10-25 years or capital punishment
+        baseSentence = 10 + Math.floor(Math.random() * 15);
+      }
+      
+      // Prior convictions escalate sentence
+      const escalatedSentence = baseSentence + priorConvictions * 2;
+      return Math.min(25, escalatedSentence); // Cap at 25 years for practical reasons
+    }
   }
 
   // ============================================================================
@@ -1428,10 +1656,13 @@ class MortalityGameV2 {
     else if (p.health.mental.current < 40) baseSurvival -= 8;
 
     // Suicide risk (major mortality factor for teens/young adults)
-    if (p.health.mental.suicideRisk > 1.5) {
-      // Roll for suicide attempt
+    // Note: suicideRisk is 0.1-5.0 (percent), convert to 0-100 scale for roll comparison
+    // Only applies to age 15+ (adolescence) - matches real-world suicide statistics
+    if (p.demographics.age >= 15 && p.health.mental.suicideRisk > 0.15) {
+      // Roll for suicide attempt (0-100 scale)
       const suicideRoll = Math.random() * 100;
-      if (suicideRoll < p.health.mental.suicideRisk) {
+      const suicideRiskScaled = p.health.mental.suicideRisk * 100 / 5.0; // Convert 0.1-5.0 to 0-100 scale
+      if (suicideRoll < suicideRiskScaled) {
         const suicideResult = this.attemptSuicide(player);
         if (!suicideResult.alive) {
           p.alive = false;
@@ -1585,6 +1816,16 @@ class MortalityGameV2 {
   // ============================================================================
 
   deathCheck(player = this.player) {
+    // If player already dead (e.g., suicide, overdose), respect that
+    if (!player.alive) {
+      // Format the cause consistently
+      const cause = player.causeOfDeath;
+      if (typeof cause === 'object' && cause.name) {
+        return { alive: false, cause: cause.name };
+      }
+      return { alive: false, cause: cause || "unknown" };
+    }
+
     const roll = Math.floor(Math.random() * 100) + 1;
 
     if (roll > player.survival) {
@@ -1602,10 +1843,7 @@ class MortalityGameV2 {
         roll,
         survival: player.survival,
         age: player.demographics.age,
-        cause: {
-          name: causeOfDeath.name,
-          description: causeOfDeath.description
-        }
+        cause: causeOfDeath.name
       };
     }
 
@@ -1618,7 +1856,9 @@ class MortalityGameV2 {
   }
 
   weightedDrawDeath(deaths, player) {
-    // Simple weighted draw for now, could be made more sophisticated
+    // Death is the result of circumstances, not random
+    // Weight causes based on player state to create causal chains
+    
     if (deaths.length === 0) {
       return {
         name: "Unknown",
@@ -1626,11 +1866,111 @@ class MortalityGameV2 {
       };
     }
 
-    const totalWeight = deaths.reduce((sum, d) => sum + (d.weight || 1), 0);
+    // Start with base weights
+    let weights = new Map();
+    deaths.forEach(d => {
+      weights.set(d.name, d.weight || 1);
+    });
+
+    // ===== AMPLIFY DEATH CAUSES based on player circumstances =====
+    
+    // Poverty chain: malnutrition → disease → preventable death
+    if (player.economics.resources.current < 0) {
+      weights.set("Malnutrition/Starvation", (weights.get("Malnutrition/Starvation") || 1) * 3);
+      weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 2.5);
+      weights.set("Lack of Medical Care", (weights.get("Lack of Medical Care") || 1) * 2.5);
+      weights.set("Preventable Disease", (weights.get("Preventable Disease") || 1) * 2);
+    } else if (player.economics.resources.current < 5) {
+      weights.set("Malnutrition/Starvation", (weights.get("Malnutrition/Starvation") || 1) * 1.8);
+      weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 1.5);
+      weights.set("Lack of Medical Care", (weights.get("Lack of Medical Care") || 1) * 1.5);
+    }
+
+    // Poor health chain: chronic conditions increase risk of related causes
+    if (player.health.physical.chronic.length > 0) {
+      weights.set("Heart Disease", (weights.get("Heart Disease") || 1) * 2);
+      weights.set("Stroke", (weights.get("Stroke") || 1) * 2);
+      weights.set("Kidney Failure", (weights.get("Kidney Failure") || 1) * 1.5);
+    }
+    
+    if (player.health.physical.chronic.includes("diabetes")) {
+      weights.set("Heart Disease", (weights.get("Heart Disease") || 1) * 3);
+      weights.set("Kidney Failure", (weights.get("Kidney Failure") || 1) * 3);
+      weights.set("Stroke", (weights.get("Stroke") || 1) * 2);
+    }
+
+    if (player.health.physical.chronic.includes("asthma")) {
+      weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 2.5);
+      weights.set("Respiratory Failure", (weights.get("Respiratory Failure") || 1) * 2);
+    }
+
+    // Mental health chain: depression/untreated crisis increases suicide and risky behavior
+    if (player.health.mental.current < 20) {
+      weights.set("Suicide", (weights.get("Suicide") || 1) * 5);
+      weights.set("Accident", (weights.get("Accident") || 1) * 2); // Risky behavior
+      weights.set("Overdose", (weights.get("Overdose") || 1) * 2);
+    } else if (player.health.mental.current < 30) {
+      weights.set("Suicide", (weights.get("Suicide") || 1) * 2);
+      weights.set("Accident", (weights.get("Accident") || 1) * 1.3);
+    }
+
+    // Addiction chain: substance abuse increases overdose, accident, disease risk
+    if (player.addiction.stage === "dependent") {
+      weights.set("Overdose", (weights.get("Overdose") || 1) * 10);
+      weights.set("Liver Cirrhosis", (weights.get("Liver Cirrhosis") || 1) * 5);
+      weights.set("Accident", (weights.get("Accident") || 1) * 3);
+      weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 1.5); // Immune suppression
+    } else if (player.addiction.stage === "regular") {
+      weights.set("Overdose", (weights.get("Overdose") || 1) * 3);
+      weights.set("Accident", (weights.get("Accident") || 1) * 1.5);
+    }
+
+    // Incarceration chain: violence, disease in prisons
+    if (player.legal.currentlyImprisoned) {
+      weights.set("Violence (Homicide)", (weights.get("Violence (Homicide)") || 1) * 3);
+      weights.set("Tuberculosis", (weights.get("Tuberculosis") || 1) * 2);
+      weights.set("Suicide", (weights.get("Suicide") || 1) * 2);
+    }
+
+    // Conflict/war zones increase violence
+    if (player.demographics.birthRegion && player.demographics.birthRegion.includes("War Zone")) {
+      weights.set("Violence (Armed Conflict)", (weights.get("Violence (Armed Conflict)") || 1) * 5);
+      weights.set("Natural Disaster", (weights.get("Natural Disaster") || 1) * 2);
+      weights.set("Lack of Medical Care", (weights.get("Lack of Medical Care") || 1) * 3);
+    } else if (player.demographics.birthRegion && (player.demographics.birthRegion.includes("Sub-Saharan") || player.demographics.birthRegion.includes("South Asia"))) {
+      // Disease-endemic regions
+      weights.set("Malaria", (weights.get("Malaria") || 1) * 2);
+      weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 1.5);
+      weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 1.5);
+    }
+
+    // Age-dependent causes
+    if (player.demographics.age < 5) {
+      weights.set("Congenital Birth Defect", (weights.get("Congenital Birth Defect") || 1) * 3);
+      weights.set("Childhood Accident", (weights.get("Childhood Accident") || 1) * 2);
+      weights.set("Diarrheal Disease", (weights.get("Diarrheal Disease") || 1) * 2);
+    }
+
+    if (player.demographics.age > 70) {
+      weights.set("Heart Disease", (weights.get("Heart Disease") || 1) * 4);
+      weights.set("Stroke", (weights.get("Stroke") || 1) * 3);
+      weights.set("Cancer", (weights.get("Cancer") || 1) * 2);
+      weights.set("Pneumonia", (weights.get("Pneumonia") || 1) * 1.5);
+    }
+
+    // Social isolation increases risky behavior
+    if (player.relationships.social.isolation && player.demographics.age >= 18) {
+      weights.set("Suicide", (weights.get("Suicide") || 1) * 2);
+      weights.set("Accident", (weights.get("Accident") || 1) * 1.5);
+      weights.set("Overdose", (weights.get("Overdose") || 1) * 1.5);
+    }
+
+    // Draw weighted death
+    const totalWeight = Array.from(weights.values()).reduce((a, b) => a + b, 0);
     let random = Math.random() * totalWeight;
 
     for (const death of deaths) {
-      const weight = death.weight || 1;
+      const weight = weights.get(death.name) || 1;
       if (random < weight) return death;
       random -= weight;
     }
