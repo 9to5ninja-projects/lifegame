@@ -27,7 +27,7 @@ for (let i = 0; i < 1000000; i++) {
   engine.createPlayer(birthCards[0], familyCards[0], { sex: Math.random() > 0.5 ? 'male' : 'female' });
   const player = engine.player;
   
-  const region = player.demographics.region;
+  const region = player.demographics.birthRegion || 'Unknown';
   if (!suicidesByRegion[region]) suicidesByRegion[region] = 0;
 
   // Simulate entire life
@@ -66,7 +66,8 @@ console.log('\n=== SUICIDES BY AGE GROUP ===');
 Object.keys(suicidesByAge).sort((a, b) => a - b).forEach(age => {
   const count = suicidesByAge[age];
   const pct = ((count / suicideDeaths) * 100).toFixed(1);
-  console.log(`  Ages ${age}-${age+9}: ${count} suicides (${pct}%)`);
+  const ageEnd = parseInt(age) + 9;
+  console.log(`  Ages ${age}-${ageEnd}: ${count} suicides (${pct}%)`);
 });
 
 console.log('\n=== SUICIDES BY REGION ===');

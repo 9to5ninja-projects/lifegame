@@ -2,7 +2,7 @@
 // Replaces simple tag-based model with rich, interconnected state
 // Enables complex event chains, realistic progression, and emergent gameplay
 
-const { getGlobalBaseline, getAdjustedProbability, getSuicideMethodsForRegion } = require('./global_statistics.js');
+const { getGlobalBaseline, getAdjustedProbability, getSuicideMethodsForRegion } = require('./global_statistics_v2.js');
 
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards) {
