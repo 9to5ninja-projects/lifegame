@@ -117,8 +117,13 @@ class MortalityGameV2 {
           chronic: [] // ["diabetes", "asthma"]
         },
         mental: {
-          current: 65,
-          baseline: 65,
+          // Mental health baseline varies by age - children born with clean slate
+          // Ages 0-5: 88 (healthy childhood baseline)
+          // Ages 6-11: 82 (pre-adolescence, still resilient)
+          // Ages 12-17: 75 (adolescence, mental health onset period)
+          // Ages 18+: 65 (adult baseline with more vulnerability)
+          current: this.getMentalHealthBaseline(0), // Age 0 at birth
+          baseline: this.getMentalHealthBaseline(0),
           drift: 2,
           chronic: [], // ["depression", "ptsd", "anxiety", "bipolar"]
           episodeDuration: 0, // Months in current episode
@@ -642,6 +647,17 @@ class MortalityGameV2 {
     player.demographics.age++;
     player.age = player.demographics.age; // Keep in sync
 
+    // 1a. Update mental health baseline as they age (childhood resilience → adolescent vulnerability → adult baseline)
+    const newBaseline = this.getMentalHealthBaseline(player.demographics.age);
+    if (newBaseline !== player.health.mental.baseline) {
+      player.health.mental.baseline = newBaseline;
+      // Gradually move toward new baseline (don't shock them with huge changes)
+      player.health.mental.current = Math.max(
+        newBaseline - 20, // Allow some variance from baseline
+        Math.min(100, player.health.mental.current + (newBaseline - player.health.mental.baseline) * 0.5)
+      );
+    }
+
     // 1b. Age parents
     if (player.relationships.parents.mother.ageAtBirth !== null) {
       player.relationships.parents.mother.currentAge = 
@@ -770,9 +786,10 @@ class MortalityGameV2 {
     // Older siblings can contribute to household
     let siblingCost = 0;
     let vulnerabilityFromBirthOrder = 0;
+    let aliveSliblings = 0; // Define at function level, not just in if block
     
     if (p.demographics.age < 18 && p.relationships.siblings && p.relationships.siblings.length > 0) {
-      const aliveSliblings = p.relationships.siblings.filter(s => s.alive).length;
+      aliveSliblings = p.relationships.siblings.filter(s => s.alive).length;
       const totalSiblings = p.relationships.siblings.length;
       
       // Determine player's birth order relative to alive siblings
@@ -800,18 +817,38 @@ class MortalityGameV2 {
           siblingCost = Math.max(0, siblingCost - 1); // Oldest siblings help
         }
       }
-    }
-    
-    let childrenCost = p.relationships.children.length * 5;
+    }    let childrenCost = p.relationships.children.length * 5;
     let medicalCost = p.health.physical.chronic.length * 3;
     let houseCost = p.circumstances.housing.quality / 10;
 
-    let drift = p.economics.income.current - (baseLiving + siblingCost + childrenCost + medicalCost + houseCost);
+    // ===== RESOURCE DRIFT BY LIFE STAGE =====
+    let drift = 0;
+
+    if (p.demographics.age < 18) {
+      // CHILDHOOD (0-17): Resources are family-provided, don't degrade much
+      // Baseline is set at birth based on region + family structure
+      // Only loses resources if siblings die (fewer people sharing) or parent dies (income drop)
+      // Otherwise maintains family baseline
+      
+      // Small drift only from sibling costs - they share family pool
+      // This accounts for larger families having slightly tighter budgets
+      if (aliveSliblings > 3) {
+        drift = -1; // Large families have very slight resource drain
+      } else if (aliveSliblings === 0) {
+        drift = 1; // Only child gets slight advantage (more per capita)
+      }
+      // Otherwise: drift = 0, maintains baseline
+      
+    } else {
+      // ADULTHOOD (18+): Resources depend on personal income vs expenses
+      drift = p.economics.income.current - (baseLiving + childrenCost + medicalCost + houseCost);
+    }
 
     p.economics.resources.current += drift;
 
     // STARVATION RISK: If resources critically low, immediate health impact
     // This models malnutrition/starvation deaths (71/sec globally)
+    // For children, this should only happen if family is in extreme poverty (baseline < 5)
     if (p.economics.resources.current < 0 && p.demographics.age < 18) {
       const starvationIntensity = Math.abs(p.economics.resources.current);
       
@@ -827,14 +864,22 @@ class MortalityGameV2 {
       }
     }
 
-    // Accumulate debt if resources go negative
+    // Accumulate debt if resources go negative (mainly adults)
     if (p.economics.resources.current < 0) {
       p.economics.debt += Math.abs(p.economics.resources.current);
       p.economics.resources.current = 0;
     }
 
-    // Resources slowly recover if you have surplus
-    if (p.economics.resources.current > p.economics.resources.baseline) {
+    // For children: maintain baseline (family-provided)
+    // For adults: resources slowly recover if surplus
+    if (p.demographics.age < 18) {
+      // Children stay at baseline (family provides)
+      p.economics.resources.current = Math.max(
+        Math.max(1, p.economics.resources.baseline - 2), // Slightly below baseline is OK
+        Math.min(p.economics.resources.baseline + 2, p.economics.resources.current)
+      );
+    } else if (p.economics.resources.current > p.economics.resources.baseline) {
+      // Adults: recover slowly if surplus
       p.economics.resources.current = Math.max(
         p.economics.resources.baseline,
         p.economics.resources.current - 2
@@ -1024,7 +1069,7 @@ class MortalityGameV2 {
     });
 
     if (isFatal) {
-      return { alive: false, cause: "suicide", method: method.name };
+      return { alive: false, cause: "Suicide", method: method.name };
     } else {
       // Survivor: psychological trauma, physical injury, hospitalization
       p.health.mental.current = Math.max(10, p.health.mental.current - 20);
@@ -1574,6 +1619,15 @@ class MortalityGameV2 {
     }
   }
 
+  // Get mental health baseline for a given age
+  // Returns the optimal mental health for someone at this age (clean slate for children, declining through adulthood)
+  getMentalHealthBaseline(age) {
+    if (age < 6) return 88;    // Ages 0-5: Children born with clean slate, very resilient
+    if (age < 12) return 82;   // Ages 6-11: Pre-adolescence, still resilient
+    if (age < 18) return 75;   // Ages 12-17: Adolescence, mental health onset period, higher risk
+    return 65;                  // Ages 18+: Adult baseline
+  }
+
   processCognitiveDevelopment(player) {
     const p = player;
     const age = p.demographics.age;
@@ -1658,15 +1712,19 @@ class MortalityGameV2 {
 
     if (p.health.mental.current < 20) baseSurvival -= 15; // Severe depression/despair
     else if (p.health.mental.current < 40) baseSurvival -= 8;
+    
+    // IMPORTANT: Update player.survival for death check to use
+    // This ensures death rolls use current state, not just initial birth card
+    p.survival = Math.max(0, Math.min(100, baseSurvival));
 
     // Suicide risk (major mortality factor for teens/young adults)
-    // Note: suicideRisk is 0.1-5.0 (percent), convert to 0-100 scale for roll comparison
+    // Note: suicideRisk is stored as 0.08 (meaning 0.08%), capped at 1.2%
     // Only applies to age 15+ (adolescence) - matches real-world suicide statistics
-    if (p.demographics.age >= 15 && p.health.mental.suicideRisk > 0.15) {
+    if (p.demographics.age >= 15 && p.health.mental.suicideRisk > 0.05) {
       // Roll for suicide attempt (0-100 scale)
       const suicideRoll = Math.random() * 100;
-      const suicideRiskScaled = p.health.mental.suicideRisk * 100 / 5.0; // Convert 0.1-5.0 to 0-100 scale
-      if (suicideRoll < suicideRiskScaled) {
+      // suicideRisk is already a percentage, just use directly (0.08 = 0.08% chance)
+      if (suicideRoll < p.health.mental.suicideRisk) {
         const suicideResult = this.attemptSuicide(player);
         if (!suicideResult.alive) {
           p.alive = false;
@@ -1705,10 +1763,72 @@ class MortalityGameV2 {
     if (p.demographics.age >= 80) baseSurvival -= 5; // Elderly decline
     if (p.demographics.age >= 90) baseSurvival -= 10; // Very elderly
 
+    // ========================================================================
+    // REGIONAL SURVIVAL MULTIPLIERS (LIFELONG - region is constant factor)
+    // ========================================================================
+    // Region affects infrastructure, healthcare, conflict, disease burden
+    // This is a PERSISTENT multiplier that applies throughout entire life
+    let regionMultiplier = 1.0; // Default baseline
+    if (p.demographics.birthRegion) {
+      const region = p.demographics.birthRegion.toLowerCase();
+      
+      // Nordic countries: best healthcare, lowest conflict, excellent infrastructure
+      if (region.includes('nordic')) {
+        regionMultiplier = 1.35; // +35% survival boost throughout life
+      }
+      // Developed Asia: excellent healthcare, low disease burden, very safe
+      else if (region.includes('japan') || region.includes('korea')) {
+        regionMultiplier = 1.32; // +32% survival boost
+      }
+      // Western Europe: excellent healthcare, stable, low conflict
+      else if (region.includes('europe') && !region.includes('eastern')) {
+        regionMultiplier = 1.28; // +28% survival boost
+      }
+      // North America: good healthcare, stable, low disease burden
+      else if (region.includes('north america') || region.includes('america - middle')) {
+        regionMultiplier = 1.20; // +20% survival boost
+      }
+      // Eastern Europe: decent healthcare, some instability
+      else if (region.includes('eastern')) {
+        regionMultiplier = 1.12; // +12% survival boost
+      }
+      // Urban China/Latin America: moderate healthcare, industrializing
+      else if ((region.includes('china') || region.includes('latin')) && region.includes('urban')) {
+        regionMultiplier = 1.08; // +8% survival boost (urban areas better)
+      }
+      // Southeast Asia: basic healthcare, disease-endemic
+      else if (region.includes('southeast')) {
+        regionMultiplier = 0.95; // -5% survival penalty (endemic diseases)
+      }
+      // South Asia: poor healthcare, high disease burden, poverty
+      else if (region.includes('south asia')) {
+        regionMultiplier = 0.85; // -15% survival penalty
+      }
+      // Sub-Saharan Africa: poorest healthcare, high disease, malaria/HIV endemic
+      else if (region.includes('sub-saharan') || region.includes('saharan')) {
+        regionMultiplier = 0.75; // -25% survival penalty (disease-endemic, poor care)
+      }
+      // Middle East stable: basic healthcare, some stability
+      else if (region.includes('middle east - stable')) {
+        regionMultiplier = 1.05; // +5% survival boost
+      }
+      // War zones: active conflict, disrupted healthcare, violence
+      else if (region.includes('war') || region.includes('conflict')) {
+        regionMultiplier = 0.60; // -40% survival penalty (active combat)
+      }
+      // Fragile/post-conflict: unstable, rebuilding healthcare
+      else if (region.includes('fragile') || region.includes('post-conflict')) {
+        regionMultiplier = 0.80; // -20% survival penalty
+      }
+    }
+
+    // Apply region multiplier to baseSurvival
+    baseSurvival *= regionMultiplier;
+
     // Minimum survival: guarantee reasonable odds at every age
-    // Very young/very old get higher floor to avoid instant deaths
+    // Very young/very old get baseline floor, region boost applied above
     let minSurvival = 20; // Default minimum
-    if (p.demographics.age <= 5) minSurvival = 40; // Infants need higher odds
+    if (p.demographics.age <= 5) minSurvival = 30; // Infants: higher baseline (now with region boost)
     if (p.demographics.age >= 100) minSurvival = 10; // Extreme age
 
     p.survival = Math.max(minSurvival, Math.min(99, baseSurvival));
@@ -1932,9 +2052,12 @@ class MortalityGameV2 {
 
     if (roll > player.survival) {
       // DEATH
+      // Filter deaths by age range AND exclude "Suicide" (only happens via suicide attempt mechanism)
       const validDeaths = this.deathCards.filter((card) => {
         const [minAge, maxAge] = card.ageRange;
-        return player.demographics.age >= minAge && player.demographics.age <= maxAge;
+        return player.demographics.age >= minAge && 
+               player.demographics.age <= maxAge && 
+               card.name !== "Suicide"; // Suicide handled separately via calculateSuicideRisk
       });
 
       // Weight by player state (if diabetic, more likely diabetes death, etc.)
@@ -2006,14 +2129,21 @@ class MortalityGameV2 {
       weights.set("Respiratory Failure", (weights.get("Respiratory Failure") || 1) * 2);
     }
 
-    // Mental health chain: depression/untreated crisis increases suicide and risky behavior
-    if (player.health.mental.current < 20) {
-      weights.set("Suicide", (weights.get("Suicide") || 1) * 5);
-      weights.set("Accident", (weights.get("Accident") || 1) * 2); // Risky behavior
-      weights.set("Overdose", (weights.get("Overdose") || 1) * 2);
-    } else if (player.health.mental.current < 30) {
-      weights.set("Suicide", (weights.get("Suicide") || 1) * 2);
-      weights.set("Accident", (weights.get("Accident") || 1) * 1.3);
+    // Mental health chain: depression/untreated crisis increases risky behavior deaths (accidents, overdose)
+    // NOTE: Suicide is NOT selected here - it only happens via calculateSuicideRisk/attemptSuicide mechanism
+    // This prevents random selection of suicide as a death cause
+    if (player.demographics.age >= 12) {
+      if (player.health.mental.current < 20) {
+        weights.set("Accident", (weights.get("Accident") || 1) * 2); // Risky behavior
+        weights.set("Overdose", (weights.get("Overdose") || 1) * 2);
+      } else if (player.health.mental.current < 30) {
+        weights.set("Accident", (weights.get("Accident") || 1) * 1.3);
+      }
+    } else {
+      // For young children (age < 12): accidents might increase with poor mental state
+      if (player.health.mental.current < 30) {
+        weights.set("Accident", (weights.get("Accident") || 1) * 1.5); // Neglect/poor attention
+      }
     }
 
     // Addiction chain: substance abuse increases overdose, accident, disease risk
