@@ -3,6 +3,8 @@
 // Enables complex event chains, realistic progression, and emergent gameplay
 
 const { getGlobalBaseline, getAdjustedProbability, getSuicideMethodsForRegion } = require('./global_statistics_v2.js');
+const { shouldBeEmployed, getUnemploymentPenalty } = require('./employment_by_region.js');
+const { calculateHouseholdCost, calculateHouseholdIncome, calculateHouseholdCashFlow, getPovertyStatus } = require('./cost_of_living.js');
 
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards) {
@@ -208,7 +210,9 @@ class MortalityGameV2 {
           current: 0, // Per-year income
           baseline: birthCard.effects?.resourceMod || 10,
           employed: false,
-          occupation: null
+          occupation: null,
+          unemploymentMonths: 0, // Months spent unemployed
+          lastEmploymentChange: 0 // Age when employment status last changed
         },
         resources: {
           // Regional wealth variation for Phase 2A calibration
@@ -400,6 +404,13 @@ class MortalityGameV2 {
       this.player.relationships.parents.father.relationship = Math.random() * 30;
       this.player.health.mental.chronic.push("trauma");
     }
+
+    // Set initial employment status based on age/gender/region
+    this.player.economics.income.employed = shouldBeEmployed(
+      this.player.demographics.age,
+      this.player.demographics.sex,
+      this.mapRegionForStatistics(this.player.demographics.birthRegion)
+    );
 
     // Clamp values
     this.clampPlayerStats();
@@ -669,6 +680,9 @@ class MortalityGameV2 {
       player.relationships.parents.father.currentAge = 
         player.relationships.parents.father.ageAtBirth + player.demographics.age;
     }
+
+    // 1c. Update employment status based on age/gender/region and random turnover
+    this.updateEmploymentStatus(player);
 
     // 2. Drift all homeostatic systems
     this.driftHealth(player);
@@ -1622,6 +1636,43 @@ class MortalityGameV2 {
       p.relationships.social.isolation = true;
     } else {
       p.relationships.social.isolation = false;
+    }
+  }
+
+  // Update employment status based on age, gender, region, and random job turnover
+  updateEmploymentStatus(player) {
+    const p = player;
+    const age = p.demographics.age;
+    const gender = p.demographics.sex;
+    const region = this.mapRegionForStatistics(p.demographics.birthRegion);
+
+    // Get expected employment probability for this age/gender/region
+    const shouldBeEmployed = shouldBeEmployed(age, gender, region);
+
+    // 85% of people stay in their current employment status
+    // 15% have turnover (employed→unemployed or unemployed→employed)
+    const turnoverRate = 0.15;
+    const hasTurnover = Math.random() < turnoverRate;
+
+    if (hasTurnover) {
+      // Job transition: flip status with probability
+      p.economics.income.employed = shouldBeEmployed;
+      if (shouldBeEmployed) {
+        p.economics.income.lastEmploymentChange = age;
+        p.economics.income.unemploymentMonths = 0;
+      } else {
+        p.economics.income.unemploymentMonths = 0; // Just became unemployed
+      }
+    } else {
+      // No turnover: stick with structural employment rate
+      p.economics.income.employed = shouldBeEmployed;
+    }
+
+    // Track unemployment duration
+    if (!p.economics.income.employed) {
+      p.economics.income.unemploymentMonths = (p.economics.income.unemploymentMonths || 0) + 12;
+    } else {
+      p.economics.income.unemploymentMonths = 0;
     }
   }
 
