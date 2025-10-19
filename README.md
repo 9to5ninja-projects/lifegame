@@ -40,6 +40,11 @@ npm install && npm run dev
 - **Complex prerequisites**: Events gated by sex, age, education, relationships, health
 - **Life stages**: Childhood → adolescent → adult → elderly with phase-specific events
 - **100+ new events**: Pregnancy, childbirth, prostate cancer, mental health, career progression, etc.
+- **Mental Health Crisis System**: Episode tracking, chronic conditions (depression, anxiety, PTSD), treatment pathways
+- **Suicide & Self-Harm**: Non-linear risk calculation with 15+ multipliers, attempt mechanics, survivor trauma
+- **Substance Abuse**: Addiction onset → progression → overdose, substance-specific health impacts, treatment recovery
+- **Crime & Incarceration**: Detection probability, conviction, sentencing (1-10 years), post-release recidivism
+- **Social Isolation Cascade**: Unemployment/disability/crisis trigger isolation → mental degradation → addiction/crime pathway
 
 ---
 
@@ -63,10 +68,15 @@ Examples:
 
 ## 📖 DOCUMENTATION
 
-- **`CHANGELOG.md`** - Version history
 - **`ARCHITECTURE.md`** - Technical reference (state structure, event format)
+- **`CHANGELOG.md`** - Version history  
 - **`ROADMAP.md`** - Future features
-- `card_templates.md` - How to create cards
+- **`docs/`** - Detailed design docs:
+  - `MENTAL_HEALTH_CRIME_SYSTEMS.md` - Statistical system specifications
+  - `SYSTEMS_IMPLEMENTATION_STATUS.md` - Implementation details & Phase 2 roadmap
+  - `IMPLEMENTATION_COMPLETE.md` - Architecture summary
+  - `QUICK_REFERENCE.md` - Systems quick lookup
+  - `card_templates.md` - How to create cards
 
 ---
 
@@ -93,9 +103,19 @@ Use the templates in `card_templates.md`:
 
 Add to the appropriate age file (`event_cards_childhood.json`, etc.)
 
-### Running Simulations
+## 🧪 TESTING
 
-Validate your changes with the simulation script:
+Run validation suites from `scripts/`:
+
+```bash
+# Test mental health, suicide, crime, and addiction systems
+node scripts/test_mental_health_systems.js
+
+# Test realistic family sizes and birth order
+node scripts/test_realistic_families.js
+
+# Other available tests (see scripts/ folder)
+```
 
 ---
 
