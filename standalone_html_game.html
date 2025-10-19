@@ -244,189 +244,195 @@
     </div>
   </div>
 
+  <!-- Include game engines -->
+  <script src="game_engine_v2_homeostatic.js"></script>
+  <script src="game_engine_integrated.js"></script>
   <script>
+    // ============================================================================
     // GAME DATA (embedded for standalone version)
-    const BIRTH_CARDS = [
-      { name: "Nordic Country", weight: 1, survival: 98, resources: 30, lifeExpectancy: 83, tags: ["high-resource", "stable"] },
-      { name: "Western Europe", weight: 2, survival: 97, resources: 25, lifeExpectancy: 82, tags: ["high-resource", "stable"] },
-      { name: "North America - Middle Class", weight: 3, survival: 95, resources: 15, lifeExpectancy: 78, tags: ["moderate-resource"] },
-      { name: "Eastern Europe", weight: 4, survival: 93, resources: 10, lifeExpectancy: 75, tags: ["moderate-resource"] },
-      { name: "Urban China", weight: 8, survival: 94, resources: 12, lifeExpectancy: 77, tags: ["emerging"] },
-      { name: "Urban Latin America", weight: 6, survival: 89, resources: 8, lifeExpectancy: 74, tags: ["emerging"] },
-      { name: "Southeast Asia", weight: 9, survival: 87, resources: 5, lifeExpectancy: 72, tags: ["emerging"] },
-      { name: "Urban South Asia", weight: 10, survival: 82, resources: 3, lifeExpectancy: 69, tags: ["emerging", "low-resource"] },
-      { name: "Rural South Asia", weight: 12, survival: 65, resources: -5, lifeExpectancy: 64, tags: ["rural", "low-resource"] },
-      { name: "Rural Sub-Saharan Africa", weight: 23, survival: 50, resources: -10, lifeExpectancy: 58, tags: ["rural", "low-resource"] },
-      { name: "Urban Sub-Saharan Africa", weight: 9, survival: 72, resources: 0, lifeExpectancy: 65, tags: ["urban", "emerging"] },
-      { name: "Active War Zone", weight: 5, survival: 35, resources: -20, lifeExpectancy: 52, tags: ["conflict", "extreme-risk"] },
-      { name: "Fragile State", weight: 6, survival: 55, resources: -8, lifeExpectancy: 60, tags: ["unstable", "low-resource"] }
-    ];
+    // ============================================================================
+    let BIRTH_CARDS = [];
+    let FAMILY_CARDS = [];
+    let EVENT_CARDS = [];
+    let DEATH_CARDS = [];
 
-    const FAMILY_CARDS = [
-      { name: "Two Parents - Stable", survivalMod: 10, resourceMod: 20 },
-      { name: "Two Parents - Working Class", survivalMod: 5, resourceMod: 5 },
-      { name: "Extended Family Support", survivalMod: 8, resourceMod: 0 },
-      { name: "Single Mother - Supported", survivalMod: 0, resourceMod: -5 },
-      { name: "Single Teen Mother", survivalMod: -15, resourceMod: -15 },
-      { name: "Two Parents - Extreme Poverty", survivalMod: -8, resourceMod: -12 },
-      { name: "Parent Chronically Ill", survivalMod: -10, resourceMod: -20 },
-      { name: "Orphaned at Birth", survivalMod: -18, resourceMod: -15 },
-      { name: "Violent Household", survivalMod: -20, resourceMod: -8 },
-      { name: "Refugee Family", survivalMod: -25, resourceMod: -25 }
-    ];
+    // Async load game data from JSON files
+    async function loadGameData() {
+      try {
+        const [births, families, events, deaths] = await Promise.all([
+          fetch('birth_cards_json.json').then(r => r.json()),
+          fetch('family_cards_json.json').then(r => r.json()),
+          fetch('event_cards_childhood_v2.json').then(r => r.json())
+            .then(childhood => 
+              Promise.all([
+                fetch('event_cards_teen_v2.json').then(r => r.json()),
+                fetch('event_cards_adult_v2.json').then(r => r.json())
+              ]).then(([teen, adult]) => [...childhood, ...teen, ...adult])
+            ),
+          fetch('death_cards_json.json').then(r => r.json())
+        ]);
 
-    const SIMPLE_EVENTS = [
-      { name: "Sibling is Born", ageMin: 1, ageMax: 12, survivalMod: 0, resourceMod: -3 },
-      { name: "You Learn to Read", ageMin: 5, ageMax: 10, survivalMod: 3 },
-      { name: "Parent Dies", ageMin: 0, ageMax: 80, survivalMod: -15, resourceMod: -15 },
-      { name: "Serious Illness", ageMin: 0, ageMax: 100, survivalMod: -12 },
-      { name: "Accident/Injury", ageMin: 3, ageMax: 100, survivalMod: -8 },
-      { name: "Make a Best Friend", ageMin: 5, ageMax: 18, survivalMod: 5 },
-      { name: "First Love", ageMin: 13, ageMax: 25, survivalMod: 3 },
-      { name: "Career Success", ageMin: 25, ageMax: 60, survivalMod: 5, resourceMod: 30 },
-      { name: "Get Married", ageMin: 18, ageMax: 50, survivalMod: 5, resourceMod: 10 },
-      { name: "Have a Child", ageMin: 18, ageMax: 45, survivalMod: 3, resourceMod: -15 },
-      { name: "Lose Your Job", ageMin: 25, ageMax: 65, survivalMod: -8, resourceMod: -25 },
-      { name: "Chronic Illness Develops", ageMin: 30, ageMax: 80, survivalMod: -10, resourceMod: -20 },
-      { name: "Achieve a Dream", ageMin: 25, ageMax: 80, survivalMod: 8 },
-      { name: "Natural Disaster", ageMin: 0, ageMax: 100, survivalMod: -12, resourceMod: -30 },
-      { name: "Mental Health Crisis", ageMin: 14, ageMax: 60, survivalMod: -10 }
-    ];
+        BIRTH_CARDS = births;
+        FAMILY_CARDS = families;
+        EVENT_CARDS = events;
+        DEATH_CARDS = deaths;
 
+        console.log(`✓ Loaded: ${BIRTH_CARDS.length} births, ${FAMILY_CARDS.length} families, ${EVENT_CARDS.length} events, ${DEATH_CARDS.length} death causes`);
+      } catch (error) {
+        console.error('Error loading game data:', error);
+        // Fallback to minimal data if files not found
+        useFallbackData();
+      }
+    }
+
+    // Fallback data (v1.0 simple format for testing)
+    function useFallbackData() {
+      BIRTH_CARDS = [
+        { name: "Nordic Country", weight: 1, effects: { statSet: { survival: 98 }, resourceMod: 30 }, lifeExpectancy: 83, profileTags: ["high-resource", "stable"] },
+        { name: "Western Europe", weight: 2, effects: { statSet: { survival: 97 }, resourceMod: 25 }, lifeExpectancy: 82, profileTags: ["high-resource", "stable"] },
+        { name: "North America - Middle Class", weight: 3, effects: { statSet: { survival: 95 }, resourceMod: 15 }, lifeExpectancy: 78, profileTags: ["moderate-resource"] },
+        { name: "Urban Sub-Saharan Africa", weight: 9, effects: { statSet: { survival: 72 }, resourceMod: 0 }, lifeExpectancy: 65, profileTags: ["urban", "emerging"] },
+        { name: "Rural Sub-Saharan Africa", weight: 23, effects: { statSet: { survival: 50 }, resourceMod: -10 }, lifeExpectancy: 58, profileTags: ["rural", "low-resource"] },
+        { name: "Active War Zone", weight: 5, effects: { statSet: { survival: 35 }, resourceMod: -20 }, lifeExpectancy: 52, profileTags: ["conflict", "extreme-risk"] }
+      ];
+
+      FAMILY_CARDS = [
+        { name: "Two Parents - Stable", effects: { survivalMod: 10, resourceMod: 20 } },
+        { name: "Single Mother - Supported", effects: { survivalMod: 0, resourceMod: -5 } },
+        { name: "Orphaned at Birth", effects: { survivalMod: -18, resourceMod: -15 } }
+      ];
+
+      EVENT_CARDS = [
+        { id: "e1", name: "Sibling is Born", ageRange: [1, 12], weight: 30, effects: [{ path: "economics.resources.current", type: "modify", value: -3 }] },
+        { id: "e2", name: "Parent Dies", ageRange: [0, 80], weight: 8, effects: [{ path: "health.physical.current", type: "modify", value: -15 }, { path: "economics.resources.current", type: "modify", value: -15 }] },
+        { id: "e3", name: "You Learn to Read", ageRange: [5, 10], weight: 40, effects: [{ path: "development.literacy", type: "set", value: true }] },
+        { id: "e4", name: "Make a Best Friend", ageRange: [5, 18], weight: 25, effects: [{ path: "health.physical.current", type: "modify", value: 5 }] },
+        { id: "e5", name: "Serious Illness", ageRange: [0, 100], weight: 12, effects: [{ path: "health.physical.current", type: "modify", value: -12 }] },
+        { id: "e6", name: "Career Success", ageRange: [25, 60], weight: 10, effects: [{ path: "health.physical.current", type: "modify", value: 5 }, { path: "economics.resources.current", type: "modify", value: 30 }] },
+        { id: "e7", name: "Lose Your Job", ageRange: [25, 65], weight: 15, effects: [{ path: "economics.resources.current", type: "modify", value: -25 }] }
+      ];
+
+      DEATH_CARDS = [
+        { cause: "Old Age", ageMin: 70, ageMax: 130, probability: 40 },
+        { cause: "Infectious Disease", ageMin: 0, ageMax: 5, probability: 50 },
+        { cause: "Accident", ageMin: 5, ageMax: 50, probability: 20 },
+        { cause: "Chronic Disease", ageMin: 40, ageMax: 100, probability: 60 }
+      ];
+
+      console.log('⚠ Using fallback data (JSON files not found)');
+    }
+
+    // ============================================================================
     // GAME STATE
+    // ============================================================================
+    let game = null;
     let player = null;
     let eventLog = [];
     let autoPlayInterval = null;
     let folded = false;
 
-    // WEIGHTED RANDOM DRAW
-    function weightedDraw(items) {
-      const total = items.reduce((sum, item) => sum + (item.weight || 1), 0);
-      let random = Math.random() * total;
-      for (let item of items) {
-        const weight = item.weight || 1;
-        if (random < weight) return item;
-        random -= weight;
-      }
-      return items[items.length - 1];
-    }
+    // ============================================================================
+    // INITIALIZE GAME (Load data and set up)
+    // ============================================================================
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadGameData();
+      console.log('Game ready!');
+    });
 
+    // ============================================================================
     // START GAME
+    // ============================================================================
     function startGame() {
-      const birthCard = weightedDraw(BIRTH_CARDS);
-      const familyCard = weightedDraw(FAMILY_CARDS);
+      // Initialize game engine with loaded data
+      game = new MortalityGameIntegrated(BIRTH_CARDS, FAMILY_CARDS, EVENT_CARDS, DEATH_CARDS);
 
-      player = {
-        age: 0,
-        alive: true,
-        survival: birthCard.survival,
-        resources: Math.max(0, birthCard.resources),
-        agency: 0,
-        birthCard,
-        familyCard,
-        lifeExpectancy: birthCard.lifeExpectancy || 73
-      };
+      // Create player with v2.0 full state
+      player = game.createPlayer();
       folded = false;
-
-      // Apply family modifiers
-      player.survival += familyCard.survivalMod;
-      player.resources += familyCard.resourceMod;
-      player.resources = Math.max(0, player.resources);
-      player.survival = Math.max(1, Math.min(99, player.survival));
-
       eventLog = [];
 
+      // Show game screen
       document.getElementById('start-screen').classList.add('hidden');
       document.getElementById('game-screen').classList.remove('hidden');
 
       updateUI();
     }
 
-    // UPDATE UI
+    // ============================================================================
+    // UPDATE UI (Display current game state)
+    // ============================================================================
     function updateUI() {
+      if (!player) return;
+
+      // Calculate survival % (1-99 range for display)
+      const survivalPercent = Math.floor(game.player.health.physical.current);
+
+      // Display stats
       document.getElementById('stats').innerHTML = `
         <div class="stat">
           <div class="stat-label">Age</div>
           <div class="stat-value">${player.age}</div>
         </div>
         <div class="stat">
-          <div class="stat-label">Survival</div>
-          <div class="stat-value">${player.survival}%</div>
+          <div class="stat-label">Health</div>
+          <div class="stat-value">${survivalPercent}%</div>
         </div>
         <div class="stat">
           <div class="stat-label">Resources</div>
-          <div class="stat-value">${player.resources}</div>
+          <div class="stat-value">$${Math.floor(player.economics.resources.current)}</div>
         </div>
         <div class="stat">
-          <div class="stat-label">Agency</div>
-          <div class="stat-value">${player.agency}</div>
+          <div class="stat-label">Community</div>
+          <div class="stat-value">${Math.floor(player.relationships.social.community)}%</div>
         </div>
       `;
 
+      // Display birth and family cards
+      const birthCard = player.birthCards[0];
+      const familyCard = player.birthCards[1];
       document.getElementById('birth-cards').innerHTML = `
         <h2 style="color: #ff6b6b; margin: 30px 0 15px 0;">Your Birth Conditions</h2>
         <div class="card">
-          <h3>${player.birthCard.name}</h3>
-          <p>Starting Survival: ${player.birthCard.survival}% | Resources: ${player.birthCard.resources}</p>
+          <h3>${birthCard.name}</h3>
+          <p>Life Expectancy: ${player.lifeExpectancy} years</p>
         </div>
         <div class="card">
-          <h3>${player.familyCard.name}</h3>
-          <p>Family Modifier: Survival ${player.familyCard.survivalMod >= 0 ? '+' : ''}${player.familyCard.survivalMod}% | Resources ${player.familyCard.resourceMod >= 0 ? '+' : ''}${player.familyCard.resourceMod}</p>
+          <h3>${familyCard.name}</h3>
+          <p>Family Structure</p>
         </div>
       `;
 
-      document.getElementById('event-log').innerHTML = eventLog.slice().reverse().map(entry => 
-        `<div class="log-entry"><strong>Age ${entry.age}:</strong> ${entry.text} <span style="color: #999; font-size: 0.9rem;">(Survival: ${entry.survival}%)</span></div>`
+      // Display event log
+      document.getElementById('event-log').innerHTML = player.eventHistory.slice().reverse().map(entry => 
+        `<div class="log-entry"><strong>Age ${entry.age}:</strong> ${entry.event}</div>`
       ).join('');
     }
 
-    // PLAY ONE YEAR
+    // ============================================================================
+    // PLAY ONE YEAR (Main gameplay loop)
+    // ============================================================================
     function playYear() {
-      if (!player.alive) return;
+      if (!player || !player.alive) return;
 
-      player.age++;
+      // Advance one year in game engine
+      const yearResult = game.nextYear();
 
-      // Age modifiers
-      if (player.age === 2) player.survival += 5; // Survived infancy
-      if (player.age === 18) {
-        player.survival += 3;
-        player.agency += 1;
-      }
-      if (player.age >= 60) player.survival -= 1;
+      // Update player reference (engine may modify it)
+      player = game.player;
 
-      // Random events
-      const validEvents = SIMPLE_EVENTS.filter(e => player.age >= e.ageMin && player.age <= e.ageMax);
-      if (Math.random() < 0.6 && validEvents.length > 0) { // 60% chance of event
-        const event = validEvents[Math.floor(Math.random() * validEvents.length)];
-        player.survival += (event.survivalMod || 0);
-        player.resources += (event.resourceMod || 0);
-        player.survival = Math.max(1, Math.min(99, player.survival));
-        player.resources = Math.max(0, player.resources);
-        
-        eventLog.push({
-          age: player.age,
-          text: event.name,
-          survival: player.survival
-        });
-      }
-
-      // Death check
-      const roll = Math.floor(Math.random() * 100) + 1;
-      if (roll > player.survival) {
-        player.alive = false;
+      // Check if dead
+      if (!yearResult.alive) {
         showDeathScreen();
         return;
       }
 
+      // Update UI with new state
       updateUI();
-
-      if (player.age >= 100) {
-        player.alive = false;
-        showDeathScreen();
-      }
     }
 
-    // AUTO PLAY
+    // ============================================================================
+    // AUTO PLAY (Automatically advance years)
+    // ============================================================================
     function autoPlay() {
       if (autoPlayInterval) {
         clearInterval(autoPlayInterval);
@@ -435,7 +441,7 @@
       }
 
       autoPlayInterval = setInterval(() => {
-        if (!player.alive) {
+        if (!player || !player.alive) {
           clearInterval(autoPlayInterval);
           autoPlayInterval = null;
           return;
@@ -444,29 +450,34 @@
       }, 300);
     }
 
-    // FOLD LIFE
+    // ============================================================================
+    // FOLD LIFE (Quit voluntarily with score penalty)
+    // ============================================================================
     function foldLife() {
       if (!player || !player.alive) return;
-      
+
       if (!confirm(`Are you sure you want to fold at age ${player.age}? You'll take a 30% score penalty.`)) {
         return;
       }
 
-      player.alive = false;
-      folded = true;
+      // Use game engine's fold method
+      game.foldLife();
+      player = game.player;
       showDeathScreen();
     }
 
-    // SHOW DEATH SCREEN
+    // ============================================================================
+    // SHOW DEATH SCREEN (Display end-of-life summary)
+    // ============================================================================
     function showDeathScreen() {
-      const score = calculateScore();
+      const score = game.calculateScore();
       const yearsOverUnder = player.age - player.lifeExpectancy;
       const percentOfExpectancy = Math.floor((player.age / player.lifeExpectancy) * 100);
-      
+
       document.getElementById('game-screen').classList.add('hidden');
       document.getElementById('death-screen').classList.remove('hidden');
 
-      const causeText = folded 
+      const causeText = player.folded
         ? `<div class="cause" style="background: rgba(230, 126, 34, 0.3); border-color: #e67e22;">You folded at age ${player.age}</div>`
         : `<div class="cause">You died at age ${player.age}</div>`;
 
@@ -474,50 +485,24 @@
         ? `<p style="color: #4ecdc4;"><strong>🎯 Beat life expectancy by ${yearsOverUnder} years!</strong></p>`
         : `<p style="color: #ff6b6b;"><strong>Died ${Math.abs(yearsOverUnder)} years below expectancy</strong></p>`;
 
+      const birthRegion = player.demographics.birthRegion;
+      const sex = player.demographics.sex === 'male' ? '♂' : '♀';
+      const childrenCount = player.relationships.children.length;
+
       document.getElementById('death-summary').innerHTML = `
         ${causeText}
         <div class="summary">
           <h3>Life Summary</h3>
-          <p><strong>Born:</strong> ${player.birthCard.name}</p>
-          <p><strong>Family:</strong> ${player.familyCard.name}</p>
-          <p><strong>Major Events:</strong> ${eventLog.length}</p>
+          <p><strong>Region:</strong> ${birthRegion} ${sex}</p>
           <p><strong>Regional Life Expectancy:</strong> ${player.lifeExpectancy} years</p>
           ${expectancyText}
           <p><strong>Lived:</strong> ${percentOfExpectancy}% of expected lifespan</p>
-          ${folded ? '<p style="color: #e67e22;"><strong>Folded:</strong> -30% score penalty</p>' : ''}
-          <p><strong>Final Score:</strong> ${score} points</p>
+          <p><strong>Children:</strong> ${childrenCount}</p>
+          <p><strong>Major Events:</strong> ${player.eventHistory.length}</p>
+          ${player.folded ? '<p style="color: #e67e22;"><strong>⚠ Folded:</strong> -30% score penalty</p>' : ''}
+          <p style="margin-top: 15px; border-top: 1px solid #444; padding-top: 15px;"><strong style="color: #4ecdc4; font-size: 1.3rem;">Final Score: ${score} points</strong></p>
         </div>
       `;
-    }
-
-    // CALCULATE SCORE
-    function calculateScore() {
-      const tags = player.birthCard.tags;
-      let multiplier = 1;
-      if (tags.includes('conflict') || tags.includes('extreme-risk')) multiplier = 5;
-      else if (tags.includes('low-resource')) multiplier = 3;
-      else if (tags.includes('emerging')) multiplier = 2;
-
-      let score = player.age * multiplier;
-      
-      // Milestone bonuses
-      if (player.age >= 18) score += 10;
-      if (player.age >= 60) score += 20;
-      if (player.age >= 80) score += 50;
-      score += player.agency * 5;
-
-      // Life expectancy bonus
-      const yearsOverExpectancy = player.age - player.lifeExpectancy;
-      if (yearsOverExpectancy > 0) {
-        score += yearsOverExpectancy * 10; // Big bonus for beating the odds!
-      }
-
-      // Fold penalty
-      if (folded) {
-        score = Math.floor(score * 0.7);
-      }
-
-      return Math.floor(score);
     }
   </script>
 </body>
