@@ -4,18 +4,21 @@
 // Compatibility: v1.0 API for existing UI/tests
 
 // Load v2 engine if in Node environment
-let MortalityGameV2;
-if (typeof require !== 'undefined' && typeof module !== 'undefined') {
+if (typeof require !== 'undefined' && typeof module !== 'undefined' && typeof MortalityGameV2 === 'undefined') {
   try {
-    MortalityGameV2 = require('./game_engine_v2_homeostatic.js');
+    global.MortalityGameV2 = require('./game_engine_v2_homeostatic.js');
   } catch (e) {
-    // Browser environment - assume MortalityGameV2 is already loaded
+    // Browser environment - assume MortalityGameV2 is already loaded from <script> tag
   }
 }
 
 class MortalityGameIntegrated {
   constructor(birthCards, familyCards, eventCards, deathCards) {
     // Initialize v2.0 engine
+    // MortalityGameV2 should be defined globally from the <script src> tag
+    if (typeof MortalityGameV2 === 'undefined') {
+      throw new Error('MortalityGameV2 not loaded. Please ensure game_engine_v2_homeostatic.js is loaded first.');
+    }
     this.v2Engine = new MortalityGameV2(birthCards, familyCards, eventCards, deathCards);
     this.birthCards = birthCards;
     this.familyCards = familyCards;

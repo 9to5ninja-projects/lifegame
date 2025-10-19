@@ -247,59 +247,86 @@
   <!-- Include game engines -->
   <script src="game_engine_v2_homeostatic.js"></script>
   <script src="game_engine_integrated.js"></script>
+  
   <script>
     // ============================================================================
-    // GAME DATA (embedded for standalone version)
+    // GAME DATA (with embedded fallback)
     // ============================================================================
     let BIRTH_CARDS = [];
     let FAMILY_CARDS = [];
     let EVENT_CARDS = [];
     let DEATH_CARDS = [];
 
-    // Async load game data from JSON files
+    // Load game data from JSON files (with detailed fallback)
     async function loadGameData() {
+      console.log('Attempting to load JSON files...');
+      
       try {
+        // Try loading from JSON files
         const [births, families, events, deaths] = await Promise.all([
-          fetch('birth_cards_json.json').then(r => r.json()),
-          fetch('family_cards_json.json').then(r => r.json()),
-          fetch('event_cards_childhood_v2.json').then(r => r.json())
-            .then(childhood => 
-              Promise.all([
-                fetch('event_cards_teen_v2.json').then(r => r.json()),
-                fetch('event_cards_adult_v2.json').then(r => r.json())
-              ]).then(([teen, adult]) => [...childhood, ...teen, ...adult])
-            ),
-          fetch('death_cards_json.json').then(r => r.json())
+          fetch('birth_cards_json.json').then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+          }),
+          fetch('family_cards_json.json').then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+          }),
+          // Load v2.0 event cards
+          Promise.all([
+            fetch('event_cards_childhood_v2.json').then(r => r.ok ? r.json() : []),
+            fetch('event_cards_teen_v2.json').then(r => r.ok ? r.json() : []),
+            fetch('event_cards_adult_v2.json').then(r => r.ok ? r.json() : [])
+          ]).then(([childhood, teen, adult]) => [...childhood, ...teen, ...adult]),
+          fetch('death_cards_json.json').then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+          })
         ]);
 
-        BIRTH_CARDS = births;
-        FAMILY_CARDS = families;
-        EVENT_CARDS = events;
-        DEATH_CARDS = deaths;
+        BIRTH_CARDS = births || [];
+        FAMILY_CARDS = families || [];
+        EVENT_CARDS = events || [];
+        DEATH_CARDS = deaths || [];
 
-        console.log(`✓ Loaded: ${BIRTH_CARDS.length} births, ${FAMILY_CARDS.length} families, ${EVENT_CARDS.length} events, ${DEATH_CARDS.length} death causes`);
+        console.log(`✓ JSON files loaded: ${BIRTH_CARDS.length} births, ${FAMILY_CARDS.length} families, ${EVENT_CARDS.length} events, ${DEATH_CARDS.length} death causes`);
+        return true;
       } catch (error) {
-        console.error('Error loading game data:', error);
-        // Fallback to minimal data if files not found
+        console.warn(`⚠ Could not load JSON files (${error.message}). Using embedded fallback data.`);
         useFallbackData();
+        return false;
       }
     }
 
-    // Fallback data (v1.0 simple format for testing)
+    // Fallback data (v2.0 format)
     function useFallbackData() {
+      console.log('Loading embedded fallback data...');
+      
       BIRTH_CARDS = [
         { name: "Nordic Country", weight: 1, effects: { statSet: { survival: 98 }, resourceMod: 30 }, lifeExpectancy: 83, profileTags: ["high-resource", "stable"] },
         { name: "Western Europe", weight: 2, effects: { statSet: { survival: 97 }, resourceMod: 25 }, lifeExpectancy: 82, profileTags: ["high-resource", "stable"] },
         { name: "North America - Middle Class", weight: 3, effects: { statSet: { survival: 95 }, resourceMod: 15 }, lifeExpectancy: 78, profileTags: ["moderate-resource"] },
-        { name: "Urban Sub-Saharan Africa", weight: 9, effects: { statSet: { survival: 72 }, resourceMod: 0 }, lifeExpectancy: 65, profileTags: ["urban", "emerging"] },
+        { name: "Urban China", weight: 8, effects: { statSet: { survival: 94 }, resourceMod: 12 }, lifeExpectancy: 77, profileTags: ["emerging"] },
+        { name: "Urban Latin America", weight: 6, effects: { statSet: { survival: 89 }, resourceMod: 8 }, lifeExpectancy: 74, profileTags: ["emerging"] },
+        { name: "Southeast Asia", weight: 9, effects: { statSet: { survival: 87 }, resourceMod: 5 }, lifeExpectancy: 72, profileTags: ["emerging"] },
+        { name: "Urban South Asia", weight: 10, effects: { statSet: { survival: 82 }, resourceMod: 3 }, lifeExpectancy: 69, profileTags: ["emerging", "low-resource"] },
+        { name: "Rural South Asia", weight: 12, effects: { statSet: { survival: 65 }, resourceMod: -5 }, lifeExpectancy: 64, profileTags: ["rural", "low-resource"] },
         { name: "Rural Sub-Saharan Africa", weight: 23, effects: { statSet: { survival: 50 }, resourceMod: -10 }, lifeExpectancy: 58, profileTags: ["rural", "low-resource"] },
+        { name: "Urban Sub-Saharan Africa", weight: 9, effects: { statSet: { survival: 72 }, resourceMod: 0 }, lifeExpectancy: 65, profileTags: ["urban", "emerging"] },
         { name: "Active War Zone", weight: 5, effects: { statSet: { survival: 35 }, resourceMod: -20 }, lifeExpectancy: 52, profileTags: ["conflict", "extreme-risk"] }
       ];
 
       FAMILY_CARDS = [
         { name: "Two Parents - Stable", effects: { survivalMod: 10, resourceMod: 20 } },
+        { name: "Two Parents - Working Class", effects: { survivalMod: 5, resourceMod: 5 } },
+        { name: "Extended Family Support", effects: { survivalMod: 8, resourceMod: 0 } },
         { name: "Single Mother - Supported", effects: { survivalMod: 0, resourceMod: -5 } },
-        { name: "Orphaned at Birth", effects: { survivalMod: -18, resourceMod: -15 } }
+        { name: "Single Teen Mother", effects: { survivalMod: -15, resourceMod: -15 } },
+        { name: "Two Parents - Extreme Poverty", effects: { survivalMod: -8, resourceMod: -12 } },
+        { name: "Parent Chronically Ill", effects: { survivalMod: -10, resourceMod: -20 } },
+        { name: "Orphaned at Birth", effects: { survivalMod: -18, resourceMod: -15 } },
+        { name: "Violent Household", effects: { survivalMod: -20, resourceMod: -8 } },
+        { name: "Refugee Family", effects: { survivalMod: -25, resourceMod: -25 } }
       ];
 
       EVENT_CARDS = [
@@ -309,27 +336,23 @@
         { id: "e4", name: "Make a Best Friend", ageRange: [5, 18], weight: 25, effects: [{ path: "health.physical.current", type: "modify", value: 5 }] },
         { id: "e5", name: "Serious Illness", ageRange: [0, 100], weight: 12, effects: [{ path: "health.physical.current", type: "modify", value: -12 }] },
         { id: "e6", name: "Career Success", ageRange: [25, 60], weight: 10, effects: [{ path: "health.physical.current", type: "modify", value: 5 }, { path: "economics.resources.current", type: "modify", value: 30 }] },
-        { id: "e7", name: "Lose Your Job", ageRange: [25, 65], weight: 15, effects: [{ path: "economics.resources.current", type: "modify", value: -25 }] }
+        { id: "e7", name: "Lose Your Job", ageRange: [25, 65], weight: 15, effects: [{ path: "economics.resources.current", type: "modify", value: -25 }] },
+        { id: "e8", name: "Vaccination", ageRange: [0, 5], weight: 15, effects: [{ path: "health.physical.current", type: "modify", value: 8 }] },
+        { id: "e9", name: "Natural Disaster", ageRange: [0, 100], weight: 10, effects: [{ path: "health.physical.current", type: "modify", value: -10 }, { path: "economics.resources.current", type: "modify", value: -10 }] },
+        { id: "e10", name: "Get Married", ageRange: [18, 50], weight: 12, effects: [{ path: "health.physical.current", type: "modify", value: 5 }, { path: "relationships.social.community", type: "modify", value: 20 }] }
       ];
 
       DEATH_CARDS = [
         { cause: "Old Age", ageMin: 70, ageMax: 130, probability: 40 },
         { cause: "Infectious Disease", ageMin: 0, ageMax: 5, probability: 50 },
         { cause: "Accident", ageMin: 5, ageMax: 50, probability: 20 },
-        { cause: "Chronic Disease", ageMin: 40, ageMax: 100, probability: 60 }
+        { cause: "Chronic Disease", ageMin: 40, ageMax: 100, probability: 60 },
+        { cause: "Malnutrition", ageMin: 0, ageMax: 15, probability: 30 },
+        { cause: "Violence", ageMin: 10, ageMax: 40, probability: 15 }
       ];
 
-      console.log('⚠ Using fallback data (JSON files not found)');
+      console.log(`✓ Fallback data loaded: ${BIRTH_CARDS.length} births, ${FAMILY_CARDS.length} families, ${EVENT_CARDS.length} events`);
     }
-
-    // ============================================================================
-    // GAME STATE
-    // ============================================================================
-    let game = null;
-    let player = null;
-    let eventLog = [];
-    let autoPlayInterval = null;
-    let folded = false;
 
     // ============================================================================
     // INITIALIZE GAME (Load data and set up)
@@ -343,6 +366,13 @@
     // START GAME
     // ============================================================================
     function startGame() {
+      // Verify game engine is loaded
+      if (typeof MortalityGameIntegrated === 'undefined') {
+        alert('ERROR: Game engine not loaded. Please refresh the page and try again.');
+        console.error('MortalityGameIntegrated not defined');
+        return;
+      }
+
       // Initialize game engine with loaded data
       game = new MortalityGameIntegrated(BIRTH_CARDS, FAMILY_CARDS, EVENT_CARDS, DEATH_CARDS);
 
