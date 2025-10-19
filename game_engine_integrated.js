@@ -42,6 +42,9 @@ class MortalityGameIntegrated {
     // Use v2.0 engine to create player with full state
     this.player = this.v2Engine.createPlayer(birthCard, familyCard, demographics);
 
+    // Initialize v1.0 compat field: age (synced from demographics)
+    this.player.age = this.player.demographics.age;
+
     // Store reference in this for compatibility
     this.v2Engine.player = this.player;
 
@@ -187,8 +190,11 @@ class MortalityGameIntegrated {
   calculateScore() {
     if (!this.player) return 0;
 
-    const birthCard = this.player.birthCards[0];
-    const multiplier = birthCard.difficultyMultiplier || 1;
+    // Difficulty multiplier: inverse of life expectancy
+    // Nordic (83 years) = 0.6x multiplier = easier
+    // Sub-Saharan (55 years) = 1.8x multiplier = harder
+    const avgLifeExpectancy = 72; // Global average
+    const multiplier = Math.max(0.5, avgLifeExpectancy / (this.player.lifeExpectancy || 72));
 
     // Base score: age × difficulty
     let score = this.player.age * multiplier;
@@ -199,11 +205,11 @@ class MortalityGameIntegrated {
     if (this.player.age >= 80) score += 30;
 
     // Life expectancy bonus: +10 per year over expectancy
-    const yearsOver = Math.max(0, this.player.age - this.player.lifeExpectancy);
+    const yearsOver = Math.max(0, this.player.age - (this.player.lifeExpectancy || 72));
     score += yearsOver * 10;
 
     // Event bonuses (optional: per event)
-    score += Math.floor(this.player.eventHistory.length / 5);
+    score += Math.floor((this.player.eventHistory || []).length / 5);
 
     // Fold penalty: -30%
     if (this.player.folded) {

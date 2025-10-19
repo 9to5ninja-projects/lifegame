@@ -644,11 +644,18 @@ class MortalityGameV2 {
     if (p.circumstances.vulnerability.disabled) baseSurvival -= 10;
 
     // Age-based survival curves
-    if (p.demographics.age < 1) baseSurvival -= 20; // Infancy is dangerous
+    // NOTE: First few years are dangerous but not instant death
+    if (p.demographics.age >= 0 && p.demographics.age <= 2) baseSurvival -= 5; // Early infancy
     if (p.demographics.age >= 80) baseSurvival -= 5; // Elderly decline
     if (p.demographics.age >= 90) baseSurvival -= 10; // Very elderly
 
-    p.survival = Math.max(1, Math.min(99, baseSurvival));
+    // Minimum survival: guarantee reasonable odds at every age
+    // Very young/very old get higher floor to avoid instant deaths
+    let minSurvival = 20; // Default minimum
+    if (p.demographics.age <= 5) minSurvival = 40; // Infants need higher odds
+    if (p.demographics.age >= 100) minSurvival = 10; // Extreme age
+
+    p.survival = Math.max(minSurvival, Math.min(99, baseSurvival));
   }
 
   // ============================================================================
