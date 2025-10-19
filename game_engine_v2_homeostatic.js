@@ -81,7 +81,12 @@ class MortalityGameV2 {
           current: 65,
           baseline: 65,
           drift: 2,
-          chronic: [] // ["depression", "ptsd", "anxiety"]
+          chronic: [], // ["depression", "ptsd", "anxiety", "bipolar"]
+          episodeDuration: 0, // Months in current episode
+          treatmentStatus: "none", // "none" | "medicated" | "therapy" | "hospitalized"
+          suicideRisk: 0, // 0-100, separate tracking
+          lastCrisisAge: null, // When last acute crisis occurred
+          suicideHistory: [] // [{age, method, survived}]
         },
         reproductive: {
           fertile: sex === "female" ? true : false,
@@ -90,6 +95,29 @@ class MortalityGameV2 {
           menarche: sex === "female" ? false : null,
           menopause: false
         }
+      },
+
+      // ========== ADDICTION SYSTEM ==========
+      addiction: {
+        substance: null, // "alcohol", "opioids", "cannabis", "stimulants", null
+        stage: "none", // "none" | "casual" | "regular" | "dependent"
+        monthsDuration: 0,
+        frequencyPerMonth: 0,
+        treatmentStatus: "none", // "none" | "inpatient" | "outpatient" | "recovered"
+        craving: 0, // 0-100
+        history: [] // [{substance, stagedSince, yearsActive}]
+      },
+
+      // ========== CRIME/LEGAL SYSTEM ==========
+      legal: {
+        citizenship: true,
+        documented: true,
+        criminalRecord: false,
+        convictionCount: 0,
+        imprisonmentHistory: [], // [{age, duration, crime}]
+        currentlyImprisoned: false,
+        imprisonmentEndAge: null,
+        reoffenseRisk: 0 // 0-100, reset after time out of prison
       },
 
       // ========== RELATIONSHIPS (State machine) ==========
@@ -171,12 +199,6 @@ class MortalityGameV2 {
           refugee: false,
           migrant: false,
           climate: "temperate" // Affects disease/survival
-        },
-        legal: {
-          citizenship: true,
-          documented: true,
-          criminalRecord: false,
-          imprisoned: false
         },
         housing: {
           status: "stable", // stable, unstable, homeless
@@ -593,6 +615,13 @@ class MortalityGameV2 {
     // 2. Drift all homeostatic systems
     this.driftHealth(player);
     this.driftEconomics(player);
+    this.driftMentalHealthCrisis(player);
+    this.driftAddiction(player);
+    const crimeResult = this.driftCrimeRisk(player);
+    if (crimeResult && crimeResult.cause === "incarceration") {
+      // Crime result will be processed in death check if needed
+    }
+    this.driftIsolation(player);
     this.driftRelationships(player);
     this.processCognitiveDevelopment(player);
 
@@ -771,7 +800,503 @@ class MortalityGameV2 {
     this.clampPlayerStats(player);
   }
 
+  // ============================================================================
+  // MENTAL HEALTH CRISIS & SUICIDE MECHANICS
+  // ============================================================================
+
+  driftMentalHealthCrisis(player) {
+    const p = player;
+    
+    // Track episode duration
+    if (p.health.mental.current < p.health.mental.baseline - 10) {
+      p.health.mental.episodeDuration += 1;
+    } else {
+      p.health.mental.episodeDuration = 0;
+    }
+
+    // Formation of chronic conditions based on duration and severity
+    // Depression: 12+ months at < 30
+    if (p.health.mental.current < 30 && p.health.mental.episodeDuration >= 12) {
+      if (!p.health.mental.chronic.includes("depression")) {
+        p.health.mental.chronic.push("depression");
+      }
+    }
+
+    // Anxiety: Two crises within 12 months
+    if (p.health.mental.episodeDuration >= 6 && p.health.mental.current < 25) {
+      if (!p.health.mental.chronic.includes("anxiety")) {
+        p.health.mental.chronic.push("anxiety");
+      }
+    }
+
+    // Permanent baseline reduction from chronic untreated illness
+    if (p.health.mental.current < 30 && p.health.mental.treatmentStatus === "none" && p.health.mental.episodeDuration >= 24) {
+      p.health.mental.baseline = Math.max(40, p.health.mental.baseline - 1);
+    }
+
+    // Baseline reduction for those with chronic depression
+    if (p.health.mental.chronic.includes("depression") && p.health.mental.treatmentStatus === "none") {
+      p.health.mental.baseline = Math.max(35, p.health.mental.baseline - 0.5);
+    }
+
+    // Calculate suicide risk annually
+    this.calculateSuicideRisk(player);
+  }
+
+  calculateSuicideRisk(player) {
+    const p = player;
+    let suicideRisk = 0.01; // Base 0.01% risk
+
+    // Mental health factors (primary risk)
+    if (p.health.mental.current < 10) suicideRisk += 2.0;
+    else if (p.health.mental.current < 20) suicideRisk += 1.0;
+    else if (p.health.mental.current < 30) suicideRisk += 0.3;
+    else if (p.health.mental.current < 40) suicideRisk += 0.1;
+
+    // Duration of low mental health (vulnerability accumulation)
+    if (p.health.mental.episodeDuration >= 12 && p.health.mental.current < 30) {
+      suicideRisk += 0.5;
+    } else if (p.health.mental.episodeDuration >= 6 && p.health.mental.current < 30) {
+      suicideRisk += 0.3;
+    }
+
+    // Social isolation
+    if (p.relationships.social.isolation && p.relationships.social.friends === 0) {
+      suicideRisk += 0.3;
+    }
+    // Protective factor: marriage/partnership
+    if (p.relationships.social.married) {
+      suicideRisk = Math.max(0, suicideRisk - 0.2);
+    }
+
+    // Prior suicide attempts (sensitization)
+    suicideRisk += p.health.mental.suicideHistory.length * 0.5;
+
+    // Substance abuse co-occurrence (powerful risk multiplier)
+    if (p.addiction.stage === "dependent") {
+      suicideRisk += 0.8;
+    } else if (p.addiction.stage === "regular") {
+      suicideRisk += 0.3;
+    }
+
+    // Chronic mental illness (untreated)
+    if (p.health.mental.chronic.includes("depression") && p.health.mental.treatmentStatus === "none") {
+      suicideRisk += 0.6;
+    }
+    if (p.health.mental.chronic.includes("anxiety") && p.health.mental.treatmentStatus === "none") {
+      suicideRisk += 0.3;
+    }
+    if (p.health.mental.chronic.includes("ptsd") && p.health.mental.treatmentStatus === "none") {
+      suicideRisk += 0.5;
+    }
+
+    // Age factors (peak teen/young adult risk)
+    if (p.demographics.age >= 15 && p.demographics.age <= 24) {
+      suicideRisk += 0.2;
+    } else if (p.demographics.age >= 65) {
+      suicideRisk += 0.1;
+    } else if (p.demographics.age >= 80) {
+      suicideRisk += 0.3;
+    }
+
+    // Treatment protective factors
+    if (p.health.mental.treatmentStatus === "medicated") {
+      suicideRisk -= 0.4;
+    }
+    if (p.health.mental.treatmentStatus === "therapy") {
+      suicideRisk -= 0.5;
+    }
+    if (p.health.mental.treatmentStatus === "hospitalized") {
+      suicideRisk -= 0.7;
+    }
+
+    // Cap at realistic range (0.01% to 3% annually)
+    p.health.mental.suicideRisk = Math.max(0.01, Math.min(3.0, suicideRisk));
+  }
+
+  attemptSuicide(player) {
+    const p = player;
+
+    // Determine method (affects lethality)
+    const methods = [
+      { name: "firearm", lethality: 0.85 },
+      { name: "poisoning", lethality: 0.35 },
+      { name: "hanging", lethality: 0.70 },
+      { name: "jumping", lethality: 0.80 },
+      { name: "overdose", lethality: 0.50 }
+    ];
+
+    // Method access varies by region (simplified: everyone has some access)
+    const method = methods[Math.floor(Math.random() * methods.length)];
+
+    // Emergency access/intervention probability (varies by region/development)
+    // Higher in developed nations, lower in low-resource settings
+    const interventionChance = 0.3; // 30% chance of intervention/survival
+    const actualLethality = method.lethality * (1 - interventionChance);
+
+    // Determine if attempt is fatal
+    const roll = Math.random();
+    const isFatal = roll < actualLethality;
+
+    // Record attempt
+    p.health.mental.suicideHistory.push({
+      age: p.demographics.age,
+      method: method.name,
+      survived: !isFatal
+    });
+
+    if (isFatal) {
+      return { alive: false, cause: "suicide", method: method.name };
+    } else {
+      // Survivor: psychological trauma, physical injury, hospitalization
+      p.health.mental.current = Math.max(10, p.health.mental.current - 20);
+      p.health.physical.current = Math.max(10, p.health.physical.current - 15);
+      p.health.mental.chronic.push("ptsd");
+      p.health.mental.treatmentStatus = "hospitalized"; // Automatic hospitalization
+      p.economics.debt += 20; // Medical costs
+      
+      return { alive: true, cause: "suicide_attempt_survived", method: method.name };
+    }
+  }
+
+  // ============================================================================
+  // ADDICTION SYSTEM
+  // ============================================================================
+
+  driftAddiction(player) {
+    const p = player;
+
+    if (p.addiction.stage === "none") {
+      // Check for initial substance use triggers
+      this.checkSubstanceUseTriggers(player);
+      return;
+    }
+
+    // Track months in addiction
+    p.addiction.monthsDuration += 1;
+
+    // Progression to next stage
+    if (p.addiction.stage === "casual") {
+      // Casual use: 20% chance to escalate after 12 months
+      if (p.addiction.monthsDuration >= 12 && Math.random() < 0.20) {
+        p.addiction.stage = "regular";
+        p.addiction.monthsDuration = 0;
+        p.addiction.frequencyPerMonth = 4; // Weekly use
+      }
+    } else if (p.addiction.stage === "regular") {
+      // Regular use: 40% chance to escalate after 6 months, 60% if stress spike
+      const escalateChance = p.health.mental.current < 40 ? 0.60 : 0.40;
+      if (p.addiction.monthsDuration >= 6 && Math.random() < escalateChance) {
+        p.addiction.stage = "dependent";
+        p.addiction.monthsDuration = 0;
+        p.addiction.frequencyPerMonth = 20; // Near daily use
+      }
+    } else if (p.addiction.stage === "dependent") {
+      // Health degradation from addiction
+      const healthCost = this.getAddictionHealthCost(p.addiction.substance);
+      p.health.physical.baseline = Math.max(20, p.health.physical.baseline - healthCost.physical);
+      p.health.mental.baseline = Math.max(25, p.health.mental.baseline - healthCost.mental);
+
+      // Overdose risk (varies by substance and treatment status)
+      if (p.addiction.treatmentStatus === "none") {
+        const overdoseRisk = this.getOverdoseRisk(p.addiction.substance);
+        if (Math.random() * 100 < overdoseRisk) {
+          return { alive: false, cause: "overdose", substance: p.addiction.substance };
+        }
+      }
+
+      // Economic impact: funding addiction
+      if (p.economics.resources.current > 0) {
+        const addictionCost = this.getAddictionEconomicCost(p.addiction.substance);
+        p.economics.resources.current -= addictionCost;
+        p.addiction.craving = Math.max(0, p.addiction.craving - 5); // Using reduces craving
+      } else {
+        p.addiction.craving = Math.min(100, p.addiction.craving + 10); // No use increases craving
+      }
+
+      // Crime risk increases when can't afford addiction
+      if (p.economics.resources.current < 0) {
+        p.legal.reoffenseRisk += 1;
+      }
+    }
+
+    // Recovery attempts
+    if (p.addiction.treatmentStatus === "inpatient") {
+      if (Math.random() < 0.30) { // 30% recovery chance/year
+        p.addiction.stage = "none";
+        p.addiction.substance = null;
+        p.addiction.monthsDuration = 0;
+        p.addiction.treatmentStatus = "recovered";
+      }
+    } else if (p.addiction.treatmentStatus === "outpatient") {
+      if (Math.random() < 0.15) { // 15% recovery chance/year
+        p.addiction.stage = "none";
+        p.addiction.substance = null;
+        p.addiction.monthsDuration = 0;
+        p.addiction.treatmentStatus = "recovered";
+      }
+    }
+  }
+
+  checkSubstanceUseTriggers(player) {
+    const p = player;
+    let useChance = 0.001; // 0.1% base
+
+    // Mental health self-medication risk
+    if (p.health.mental.current < 30) useChance += 0.003;
+
+    // Isolation
+    if (p.relationships.social.isolation) useChance += 0.002;
+
+    // Trauma history
+    if (p.health.mental.chronic.includes("ptsd")) useChance += 0.002;
+
+    // Age factor (peak risk 15-30)
+    if (p.demographics.age >= 15 && p.demographics.age <= 30) useChance += 0.002;
+
+    // Unemployment/economic desperation
+    if (!p.economics.income.employed && p.economics.resources.current < 5) useChance += 0.002;
+
+    // Determine substance if use is initiated
+    if (Math.random() < useChance) {
+      const substances = ["alcohol", "cannabis", "opioids", "stimulants"];
+      const substance = substances[Math.floor(Math.random() * substances.length)];
+      
+      p.addiction.substance = substance;
+      p.addiction.stage = "casual";
+      p.addiction.monthsDuration = 0;
+      p.addiction.frequencyPerMonth = 1;
+      
+      // Record in history
+      p.addiction.history.push({
+        substance,
+        stagedSince: p.demographics.age,
+        yearsActive: 0
+      });
+    }
+  }
+
+  getAddictionHealthCost(substance) {
+    const costs = {
+      alcohol: { physical: 1.5, mental: 0.8 },
+      opioids: { physical: 1.2, mental: 1.0 },
+      cannabis: { physical: 0.3, mental: 0.5 },
+      stimulants: { physical: 2.0, mental: 1.5 }
+    };
+    return costs[substance] || { physical: 0.5, mental: 0.5 };
+  }
+
+  getOverdoseRisk(substance) {
+    const risks = {
+      alcohol: 0.5, // 0.5% annual risk
+      opioids: 1.5, // 1.5% annual risk (highest)
+      cannabis: 0.0, // ~0% lethal overdose
+      stimulants: 1.0 // 1% annual risk
+    };
+    return risks[substance] || 0.3;
+  }
+
+  getAddictionEconomicCost(substance) {
+    const costs = {
+      alcohol: 2,
+      opioids: 3,
+      cannabis: 1,
+      stimulants: 2.5
+    };
+    return costs[substance] || 2;
+  }
+
+  // ============================================================================
+  // CRIME & INCARCERATION SYSTEM
+  // ============================================================================
+
+  driftCrimeRisk(player) {
+    const p = player;
+
+    // Skip if already imprisoned
+    if (p.legal.currentlyImprisoned) {
+      // Imprisoned person eventually released
+      if (p.demographics.age >= p.legal.imprisonmentEndAge) {
+        p.legal.currentlyImprisoned = false;
+        // Post-release: high reoffense risk initially
+        p.legal.reoffenseRisk = 70;
+        // Isolation increases post-release
+        p.relationships.social.isolation = true;
+        p.relationships.social.friends = Math.max(0, p.relationships.social.friends - 2);
+        // Income penalty
+        p.economics.income.current = Math.max(0, p.economics.income.current * 0.5);
+      }
+      return;
+    }
+
+    let crimeRisk = 0.001; // 0.1% base
+
+    // Economic desperation (ages 15-35)
+    if (p.demographics.age >= 15 && p.demographics.age <= 35) {
+      if (p.economics.resources.current < 0) crimeRisk += 0.012;
+      else if (p.economics.resources.current < 5) crimeRisk += 0.005;
+    }
+
+    // Mental health/substance abuse
+    if (p.health.mental.current < 25) crimeRisk += 0.003;
+    if (p.addiction.stage === "dependent") crimeRisk += 0.010;
+
+    // Prior convictions (criminal justice involvement)
+    crimeRisk += p.legal.convictionCount * 0.003;
+
+    // Education (protective factor)
+    if (p.development.education.level === "university") {
+      crimeRisk -= 0.001;
+    }
+
+    // Incarceration history increases reoffense risk
+    if (p.legal.imprisonmentHistory.length > 0) {
+      crimeRisk += 0.003;
+    }
+
+    // Crime check
+    if (Math.random() * 100 < crimeRisk * 100) {
+      return this.commitCrime(player);
+    }
+
+    // Post-incarceration reoffense risk decay
+    if (p.legal.reoffenseRisk > 0) {
+      p.legal.reoffenseRisk = Math.max(0, p.legal.reoffenseRisk - 5); // Decays ~5%/year
+    }
+  }
+
+  commitCrime(player) {
+    const p = player;
+
+    // Determine if crime is detected
+    const detectionChance = 0.4 + (p.demographics.age < 18 ? 0.2 : 0); // Younger = more likely caught
+    const isDetected = Math.random() < detectionChance;
+
+    if (!isDetected) {
+      // Undetected crime: small resource gain, increased paranoia/mental stress
+      p.economics.resources.current += 5;
+      p.health.mental.current = Math.max(10, p.health.mental.current - 3);
+      return null;
+    }
+
+    // Detected: arrest and conviction probability
+    const convictionChance = 0.65; // 65% detection → conviction rate
+    const isConvicted = Math.random() < convictionChance;
+
+    if (!isConvicted) {
+      // Arrested but not convicted: legal fees, stress
+      p.economics.debt += 10;
+      p.health.mental.current = Math.max(10, p.health.mental.current - 5);
+      return null;
+    }
+
+    // CONVICTED: Incarceration
+    const sentence = this.calculateSentence(player); // 1-10 years
+    
+    p.legal.convictionCount += 1;
+    p.legal.criminalRecord = true;
+    p.legal.currentlyImprisoned = true;
+    p.legal.imprisonmentEndAge = p.demographics.age + sentence;
+    
+    p.legal.imprisonmentHistory.push({
+      age: p.demographics.age,
+      duration: sentence,
+      crime: "felony"
+    });
+
+    // Immediate effects
+    p.economics.income.current = 0; // No income while imprisoned
+    p.economics.debt += 15; // Legal fees
+    p.health.mental.current = Math.max(10, p.health.mental.current - 30); // Trauma
+    p.health.mental.chronic.push("ptsd");
+    
+    // Isolation locked in
+    p.relationships.social.isolation = true;
+
+    return { message: "Convicted and imprisoned", sentence, cause: "incarceration" };
+  }
+
+  calculateSentence(player) {
+    // 1-10 year sentences, varies by prior record
+    const baseMax = 10;
+    const priorConvictions = player.legal.convictionCount;
+    
+    const maxSentence = Math.min(baseMax, 5 + priorConvictions);
+    return 1 + Math.floor(Math.random() * maxSentence);
+  }
+
+  // ============================================================================
+  // SOCIAL ISOLATION CASCADE
+  // ============================================================================
+
+  driftIsolation(player) {
+    const p = player;
+
+    let isolationFactors = 0;
+
+    // Unemployment > 12 months
+    if (!p.economics.income.employed) {
+      isolationFactors += 1;
+    }
+
+    // Disability/illness limiting mobility
+    if (p.circumstances.vulnerability.disabled) {
+      isolationFactors += 1;
+    }
+
+    // Mental health crisis
+    if (p.health.mental.current < 30) {
+      isolationFactors += 0.5;
+    }
+
+    // Incarceration
+    if (p.legal.currentlyImprisoned) {
+      p.relationships.social.isolation = true;
+      return;
+    }
+
+    // Substance abuse active
+    if (p.addiction.stage === "dependent") {
+      isolationFactors += 0.5;
+    }
+
+    // Friend loss (death, moving, breakup)
+    if (p.relationships.social.friends > 0 && Math.random() < 0.05) {
+      p.relationships.social.friends = Math.max(0, p.relationships.social.friends - 1);
+    }
+
+    // Check if isolation threshold is crossed
+    if (isolationFactors >= 1.5) {
+      p.relationships.social.isolation = true;
+    }
+
+    // Isolation consequences
+    if (p.relationships.social.isolation) {
+      // Mental health degradation
+      p.health.mental.baseline = Math.max(30, p.health.mental.baseline - 1);
+      // Physical health degradation
+      p.health.physical.baseline = Math.max(35, p.health.physical.baseline - 0.5);
+      // Suicide risk increase
+      p.health.mental.suicideRisk += 0.3;
+      // Economic impact (lost job networking)
+      p.economics.income.current = Math.max(0, p.economics.income.current - 1);
+    }
+
+    // Recovery from isolation
+    if (p.relationships.social.married) {
+      p.relationships.social.isolation = false;
+      isolationFactors -= 1;
+    }
+    if (p.economics.income.employed) {
+      isolationFactors -= 0.5;
+    }
+    if (p.relationships.social.friends >= 3) {
+      isolationFactors -= 0.5;
+    }
+  }
+
   driftRelationships(player) {
+
     const p = player;
 
     // Parent relationships slowly deteriorate if they die
@@ -901,6 +1426,20 @@ class MortalityGameV2 {
 
     if (p.health.mental.current < 20) baseSurvival -= 15; // Severe depression/despair
     else if (p.health.mental.current < 40) baseSurvival -= 8;
+
+    // Suicide risk (major mortality factor for teens/young adults)
+    if (p.health.mental.suicideRisk > 1.5) {
+      // Roll for suicide attempt
+      const suicideRoll = Math.random() * 100;
+      if (suicideRoll < p.health.mental.suicideRisk) {
+        const suicideResult = this.attemptSuicide(player);
+        if (!suicideResult.alive) {
+          p.alive = false;
+          p.causeOfDeath = suicideResult.cause;
+          return; // Early return after suicide
+        }
+      }
+    }
 
     // Chronic conditions reduce survival
     if (p.health.physical.chronic.includes("diabetes")) baseSurvival -= 8;
