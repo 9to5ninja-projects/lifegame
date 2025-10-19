@@ -1,0 +1,580 @@
+[
+  {
+    "id": "event_menarche",
+    "type": "event",
+    "name": "First Menstruation",
+    "ageRange": [10, 16],
+    "weight": 15,
+    "description": "Your body is developing. This is a natural milestone, though access to education and resources varies greatly.",
+    "requires": {
+      "all": [
+        { "demographics.sex": "female" },
+        { "health.reproductive.menarche": false },
+        { "demographics.age": ">=10" },
+        { "demographics.age": "<=16" }
+      ]
+    },
+    "effects": {
+      "health.reproductive.menarche": true,
+      "health.reproductive.fertile": true,
+      "health.mental.current": "-5"
+    }
+  },
+  {
+    "id": "event_prostate_cancer",
+    "type": "event",
+    "name": "Prostate Cancer Diagnosis",
+    "ageRange": [50, 85],
+    "weight": 8,
+    "description": "Screening reveals prostate cancer. Treatment options depend on resources and healthcare access.",
+    "requires": {
+      "all": [
+        { "demographics.sex": "male" },
+        { "demographics.age": ">=50" }
+      ]
+    },
+    "effects": {
+      "health.physical.chronic": { "operation": "add", "item": "prostate_cancer" },
+      "health.physical.baseline": "-20",
+      "survival": "-25",
+      "health.mental.current": "-10"
+    }
+  },
+  {
+    "id": "event_first_period_education",
+    "type": "event",
+    "name": "Period Poverty",
+    "ageRange": [12, 18],
+    "weight": 6,
+    "description": "Many girls lack access to menstrual products and education, leading to shame and school absence.",
+    "requires": {
+      "all": [
+        { "demographics.sex": "female" },
+        { "health.reproductive.menarche": true },
+        { "economics.resources.current": "<15" }
+      ]
+    },
+    "effects": {
+      "development.education.inSchool": false,
+      "health.mental.current": "-8",
+      "economics.resources.current": "-5"
+    }
+  },
+  {
+    "id": "event_puberty_growth",
+    "type": "event",
+    "name": "Growth Spurt",
+    "ageRange": [11, 16],
+    "weight": 12,
+    "description": "Your body grows rapidly. Nutrition and rest are critical, but not always available.",
+    "requires": {
+      "all": [
+        { "demographics.age": ">=11" },
+        { "demographics.age": "<=16" }
+      ]
+    },
+    "effects": {
+      "health.physical.current": "+5",
+      "health.physical.baseline": "+3"
+    }
+  },
+  {
+    "id": "event_mother_dies",
+    "type": "event",
+    "name": "Mother Dies",
+    "ageRange": [0, 80],
+    "weight": 4,
+    "description": "Your mother passes away. The impact varies greatly by your age.",
+    "requires": {
+      "all": [
+        { "relationships.parents.mother.alive": true }
+      ]
+    },
+    "effects": {
+      "relationships.parents.mother.alive": false,
+      "health.mental.current": "-20",
+      "relationships.social.isolation": true
+    }
+  },
+  {
+    "id": "event_father_dies",
+    "type": "event",
+    "name": "Father Dies",
+    "ageRange": [0, 80],
+    "weight": 4,
+    "description": "Your father passes away. Economic and emotional impacts depend on family structure.",
+    "requires": {
+      "all": [
+        { "relationships.parents.father.alive": true }
+      ]
+    },
+    "effects": {
+      "relationships.parents.father.alive": false,
+      "health.mental.current": "-15",
+      "economics.income.current": "-5"
+    }
+  },
+  {
+    "id": "event_child_labor",
+    "type": "event",
+    "name": "Forced into Child Labor",
+    "ageRange": [8, 16],
+    "weight": 10,
+    "description": "Economic pressure forces you to work instead of going to school. Dangerous and exploitative.",
+    "requires": {
+      "all": [
+        { "demographics.age": ">=8" },
+        { "demographics.age": "<=16" },
+        { "development.education.inSchool": true },
+        { "economics.resources.current": "<10" }
+      ]
+    },
+    "effects": {
+      "development.education.inSchool": false,
+      "economics.income.current": "+8",
+      "health.physical.current": "-10",
+      "survival": "-8"
+    }
+  },
+  {
+    "id": "event_scholarship",
+    "type": "event",
+    "name": "Scholarship Opportunity",
+    "ageRange": [13, 18],
+    "weight": 6,
+    "description": "Against the odds, you're offered an education. It changes everything.",
+    "requires": {
+      "all": [
+        { "demographics.age": ">=13" },
+        { "demographics.age": "<=18" },
+        { "development.education.literate": true },
+        { "development.education.inSchool": true },
+        { "economics.resources.current": "<20" }
+      ]
+    },
+    "effects": {
+      "resources": "+30",
+      "development.education.level": "secondary",
+      "survival": "+8"
+    }
+  },
+  {
+    "id": "event_first_love",
+    "type": "event",
+    "name": "First Love",
+    "ageRange": [13, 25],
+    "weight": 10,
+    "description": "You meet someone special. Your world changes.",
+    "requires": {
+      "all": [
+        { "demographics.age": ">=13" },
+        { "demographics.age": "<=25" },
+        { "relationships.partner.exists": false }
+      ]
+    },
+    "effects": {
+      "relationships.partner.exists": true,
+      "relationships.partner.relationship": "80",
+      "relationships.partner.since": "now",
+      "health.mental.current": "+10"
+    }
+  },
+  {
+    "id": "event_marriage",
+    "type": "event",
+    "name": "Marriage",
+    "ageRange": [18, 50],
+    "weight": 7,
+    "description": "You get married. In many regions, this is a major life milestone with significant economic and social implications.",
+    "requires": {
+      "all": [
+        { "demographics.age": ">=18" },
+        { "demographics.age": "<=50" },
+        { "relationships.partner.exists": true },
+        { "relationships.social.married": false }
+      ]
+    },
+    "effects": {
+      "relationships.social.married": true,
+      "relationships.partner.married": true,
+      "survival": "+5",
+      "resources": "+10"
+    }
+  },
+  {
+    "id": "event_pregnancy",
+    "type": "event",
+    "name": "Pregnancy",
+    "ageRange": [15, 45],
+    "weight": 8,
+    "description": "You become pregnant. Maternal health risks vary dramatically by location and healthcare access.",
+    "requires": {
+      "all": [
+        { "demographics.sex": "female" },
+        { "demographics.age": ">=15" },
+        { "demographics.age": "<=45" },
+        { "health.reproductive.fertile": true }
+      ]
+    },
+    "effects": {
+      "health.reproductive.pregnant": true,
+      "survival": "-8",
+      "resources": "-10",
+      "health.mental.current": "-5"
+    }
+  },
+  {
+    "id": "event_childbirth",
+    "type": "event",
+    "name": "Childbirth",
+    "ageRange": [15, 45],
+    "weight": 8,
+    "description": "Your baby is born. But childbirth carries serious risks, especially in low-resource settings.",
+    "requires": {
+      "all": [
+        { "demographics.sex": "female" },
+        { "health.reproductive.pregnant": true }
+      ]
+    },
+    "effects": {
+      "health.reproductive.pregnant": false,
+      "health.reproductive.childrenBorn": "+1",
+      "relationships.children": { "operation": "add", "item": "newborn" },
+      "health.physical.current": "-15"
+    },
+    "outcomes": [
+      {
+        "probability": 0.001,
+        "effect": "death",
+        "cause": "Maternal Mortality"
+      },
+      {
+        "probability": 0.999,
+        "effect": "survive"
+      }
+    ]
+  },
+  {
+    "id": "event_miscarriage",
+    "type": "event",
+    "name": "Miscarriage",
+    "ageRange": [15, 45],
+    "weight": 5,
+    "description": "You lose your pregnancy. The trauma and grief are significant.",
+    "requires": {
+      "all": [
+        { "demographics.sex": "female" },
+        { "health.reproductive.pregnant": true }
+      ]
+    },
+    "effects": {
+      "health.reproductive.pregnant": false,
+      "health.mental.current": "-20",
+      "health.physical.current": "-10",
+      "survival": "-8"
+    }
+  },
+  {
+    "id": "event_mental_crisis",
+    "type": "event",
+    "name": "Mental Health Crisis",
+    "ageRange": [14, 80],
+    "weight": 8,
+    "description": "Depression, anxiety, or trauma overwhelms you. Without treatment, the consequences are severe.",
+    "requires": {
+      "all": [
+        { "demographics.age": ">=14" }
+      ]
+    },
+    "effects": {
+      "health.mental.current": "-30",
+      "survival": "-10",
+      "resources": "-5"
+    }
+  },
+  {
+    "id": "event_therapy_access",
+    "type": "event",
+    "name": "Access to Mental Health Support",
+    "ageRange": [14, 80],
+    "weight": 4,
+    "description": "You find therapy or counseling. It helps you process trauma and build resilience.",
+    "requires": {
+      "all": [
+        { "demographics.age": ">=14" },
+        { "health.mental.current": "<50" },
+        { "economics.resources.current": ">20" }
+      ]
+    },
+    "effects": {
+      "health.mental.baseline": "+5",
+      "health.mental.drift": "+1",
+      "health.mental.current": "+15",
+      "resources": "-15"
+    }
+  },
+  {
+    "id": "event_diabetes_diagnosis",
+    "type": "event",
+    "name": "Diabetes Diagnosis",
+    "ageRange": [10, 80],
+    "weight": 5,
+    "description": "You're diagnosed with diabetes. Management requires resources and discipline.",
+    "requires": {
+      "all": [
+        { "health.physical.chronic": "not has diabetes" }
+      ]
+    },
+    "effects": {
+      "health.physical.chronic": { "operation": "add", "item": "diabetes" },
+      "health.physical.baseline": "-15",
+      "survival": "-10",
+      "resources": "-8"
+    }
+  },
+  {
+    "id": "event_serious_illness",
+    "type": "event",
+    "name": "Serious Illness",
+    "ageRange": [0, 100],
+    "weight": 10,
+    "description": "Pneumonia, malaria, or another serious infection strikes. Your survival depends on treatment access.",
+    "requires": {
+      "all": [
+        { "health.physical.current": ">30" }
+      ]
+    },
+    "effects": {
+      "health.physical.current": "-40",
+      "survival": "-12",
+      "resources": "-10"
+    }
+  },
+  {
+    "id": "event_childhood_caregiver",
+    "type": "event",
+    "name": "Become Caregiver for Siblings",
+    "ageRange": [8, 17],
+    "weight": 6,
+    "description": "A parent dies or abandons the family. You become the adult, raising your siblings.",
+    "requires": {
+      "all": [
+        { "demographics.age": ">=8" },
+        { "demographics.age": "<=17" }
+      ]
+    },
+    "effects": {
+      "circumstances.vulnerability.caregiver": true,
+      "development.education.inSchool": false,
+      "health.mental.current": "-10",
+      "survival": "-8"
+    }
+  },
+  {
+    "id": "event_forced_marriage",
+    "type": "event",
+    "name": "Forced Marriage",
+    "ageRange": [13, 20],
+    "weight": 5,
+    "description": "Your family arranges your marriage without your consent. Your autonomy is stripped.",
+    "requires": {
+      "all": [
+        { "demographics.sex": "female" },
+        { "demographics.age": ">=13" },
+        { "demographics.age": "<=20" },
+        { "relationships.social.married": false },
+        { "economics.resources.current": "<15" }
+      ]
+    },
+    "effects": {
+      "relationships.social.married": true,
+      "relationships.partner.exists": true,
+      "relationships.partner.married": true,
+      "health.mental.current": "-15",
+      "circumstances.vulnerability.dependent": true
+    }
+  },
+  {
+    "id": "event_accident_injury",
+    "type": "event",
+    "name": "Accident / Serious Injury",
+    "ageRange": [3, 100],
+    "weight": 8,
+    "description": "A fall, machinery accident, or traffic collision leaves you injured. Recovery is uncertain.",
+    "requires": {
+      "all": [
+        { "health.physical.current": ">20" }
+      ]
+    },
+    "effects": {
+      "health.physical.current": "-25",
+      "survival": "-8",
+      "resources": "-15"
+    }
+  },
+  {
+    "id": "event_disability_acquired",
+    "type": "event",
+    "name": "Permanent Disability",
+    "ageRange": [5, 80],
+    "weight": 3,
+    "description": "An accident, illness, or injury leaves you permanently disabled. Your options narrow.",
+    "requires": {
+      "all": [
+        { "circumstances.vulnerability.disabled": false }
+      ]
+    },
+    "effects": {
+      "circumstances.vulnerability.disabled": true,
+      "survival": "-10",
+      "economics.income.current": "-8"
+    }
+  },
+  {
+    "id": "event_job_loss",
+    "type": "event",
+    "name": "Job Loss",
+    "ageRange": [18, 65],
+    "weight": 8,
+    "description": "You're fired or laid off. Financial stress cascades through your life.",
+    "requires": {
+      "all": [
+        { "economics.income.current": ">5" }
+      ]
+    },
+    "effects": {
+      "economics.income.current": "-10",
+      "health.mental.current": "-12",
+      "survival": "-8"
+    }
+  },
+  {
+    "id": "event_homelessness",
+    "type": "event",
+    "name": "Homelessness",
+    "ageRange": [18, 100],
+    "weight": 5,
+    "description": "You lose your home. Survival on the streets is brutal and demoralizing.",
+    "requires": {
+      "all": [
+        { "economics.resources.current": "<5" }
+      ]
+    },
+    "effects": {
+      "circumstances.housing.status": "homeless",
+      "survival": "-25",
+      "health.physical.current": "-20",
+      "health.mental.current": "-20"
+    }
+  },
+  {
+    "id": "event_education_success",
+    "type": "event",
+    "name": "Educational Achievement",
+    "ageRange": [18, 30],
+    "weight": 5,
+    "description": "You complete your education. Doors open that were previously closed.",
+    "requires": {
+      "all": [
+        { "development.education.level": "secondary" }
+      ]
+    },
+    "effects": {
+      "development.education.level": "tertiary",
+      "economics.income.current": "+15",
+      "survival": "+8"
+    }
+  },
+  {
+    "id": "event_career_success",
+    "type": "event",
+    "name": "Career Success",
+    "ageRange": [25, 60],
+    "weight": 6,
+    "description": "Your work pays off. Promotion, recognition, or business success improves your life.",
+    "requires": {
+      "all": [
+        { "economics.income.current": ">5" }
+      ]
+    },
+    "effects": {
+      "economics.income.current": "+20",
+      "resources": "+30",
+      "survival": "+5",
+      "health.mental.current": "+8"
+    }
+  },
+  {
+    "id": "event_climate_disaster",
+    "type": "event",
+    "name": "Natural Disaster",
+    "ageRange": [0, 100],
+    "weight": 4,
+    "description": "Flood, drought, hurricane, or earthquake destroys your home and livelihood.",
+    "requires": {
+      "all": [
+        { "circumstances.location.urban": true }
+      ]
+    },
+    "effects": {
+      "circumstances.housing.status": "unstable",
+      "resources": "-30",
+      "survival": "-15",
+      "health.mental.current": "-10"
+    }
+  },
+  {
+    "id": "event_war_displacement",
+    "type": "event",
+    "name": "War / Forced Displacement",
+    "ageRange": [0, 100],
+    "weight": 3,
+    "description": "Conflict forces you to flee your home. Everything you knew is lost.",
+    "requires": {
+      "all": []
+    },
+    "effects": {
+      "circumstances.location.displaced": true,
+      "circumstances.location.refugee": true,
+      "circumstances.housing.status": "homeless",
+      "survival": "-20",
+      "health.mental.current": "-25"
+    }
+  },
+  {
+    "id": "event_community_support",
+    "type": "event",
+    "name": "Community Helps You",
+    "ageRange": [0, 100],
+    "weight": 5,
+    "description": "Your community comes together to support you in crisis. Their help is invaluable.",
+    "requires": {
+      "all": [
+        { "relationships.social.isolation": false }
+      ]
+    },
+    "effects": {
+      "resources": "+15",
+      "health.mental.current": "+10",
+      "survival": "+5"
+    }
+  },
+  {
+    "id": "event_friendship",
+    "type": "event",
+    "name": "Close Friendship",
+    "ageRange": [5, 100],
+    "weight": 8,
+    "description": "You develop a deep, supportive friendship. This buffers against life's hardships.",
+    "requires": {
+      "all": [
+        { "relationships.social.friends": "<5" }
+      ]
+    },
+    "effects": {
+      "relationships.social.friends": "+1",
+      "health.mental.current": "+8",
+      "survival": "+3"
+    }
+  }
+]
