@@ -67,6 +67,7 @@ class MortalityGameV2 {
             relationship: 60 + Math.random() * 20
           }
         },
+        bestFriend: null, // Single best friend (can die)
         siblings: this.generateSiblings(),
         partner: {
           exists: false,
