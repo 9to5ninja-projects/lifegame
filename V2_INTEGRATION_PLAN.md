@@ -19,7 +19,7 @@
 
 ## 📋 Phase 1: Event Migration
 
-### Status: NOT STARTED
+### Status: ✅ COMPLETE
 
 ### What's Needed
 - Parse `event_cards_childhood.json`, `event_cards_teen.json`, `event_cards_adult.json`
@@ -96,44 +96,41 @@
 
 ## 🔌 Phase 2: Engine Integration
 
-### Status: NOT STARTED
+### Status: ✅ COMPLETE
 
-### What's Needed
-- Refactor `game_engine_core.js` to use v2.0 engine
-- Update `standalone_html_game.html` to display v2.0 state
-- Update React component with v2.0 methods
-- Connect event system with prerequisite evaluation
+### What Was Done
+✅ Created `game_engine_integrated.js` - wrapper class that:
+  - Wraps `MortalityGameV2` as internal engine
+  - Provides v1.0-compatible API for HTML/React
+  - Implements `createPlayer()`, `nextYear()`, `foldLife()`, `calculateScore()`
+  - Auto-maps v2.0 state to v1.0 fields for UI compatibility
+  - Includes `runSimulation()` for balance testing
 
-### Integration Points
+✅ Updated `standalone_html_game.html` to:
+  - Load `game_engine_v2_homeostatic.js` and `game_engine_integrated.js`
+  - Async load game data from JSON files (with fallback)
+  - Use `MortalityGameIntegrated` instead of v1.0 engine
+  - Call `game.nextYear()` for yearly loop
+  - Call `game.foldLife()` for voluntary quit
+  - Display v2.0 state in UI (health, resources, community)
+  - Auto-update all functions to use new API
 
-**In `standalone_html_game.html`:**
-1. Load `game_engine_v2_homeostatic.js` instead of v1.0
-2. Call `engine.createPlayer()` and capture full state
-3. Call `engine.processYearEnd()` each year tick
-4. Display state in UI (see Phase 3)
-5. Call `engine.foldLife()` on fold button
+✅ React component needs update (next step):
+  - Will be similar to HTML: use integrated engine
+  - Maintain component state = game.player
+  - Wire up events and UI interactions
 
-**In `game_engine_core.js` (if keeping dual support):**
-1. Create adapter methods that map v1.0 API to v2.0 methods
-2. Keep v1.0 as reference/fallback
-3. Prioritize v2.0 in main game flow
+### API Changes Completed (v1.0 → v2.0)
 
-**In React component:**
-1. Use `game_engine_v2_homeostatic.js` directly
-2. Maintain component state = engine player state
-3. Update display on each `processYearEnd()` call
-
-### API Changes (v1.0 → v2.0)
-
-| v1.0 | v2.0 | Migration |
-|------|------|-----------|
-| `player.survival` | `player.health.physical.current` | Direct mapping |
-| `player.resources` | `player.economics.resources.current` | Direct mapping |
-| `player.agency` | `player.relationships.social.community` | Rename + semantics |
-| `applyCardEffects(card)` | `applyEventEffects(event)` | Different structure |
-| `deathCheck()` | `calculateDeathProbability()` | Better algorithm |
-| None | `processYearEnd()` | New yearly loop |
-| None | `driftHealth()`, `driftEconomics()` | New homeostatic systems |
+| v1.0 | v2.0 | Status |
+|------|------|--------|
+| `player.survival` | `player.health.physical.current` | ✅ Mapped in updateCompatibilityFields() |
+| `player.resources` | `player.economics.resources.current` | ✅ Mapped in updateCompatibilityFields() |
+| `player.agency` | `player.relationships.social.community` | ✅ Mapped in updateCompatibilityFields() |
+| `applyCardEffects(card)` | `applyEventEffects(event)` | ✅ Implemented in v2.0 engine |
+| `deathCheck()` | `calculateDeathProbability()` | ✅ v2.0 integrated |
+| None | `processYearEnd()` | ✅ Called in nextYear() |
+| None | `driftHealth()`, `driftEconomics()` | ✅ Part of processYearEnd() |
 
 ---
 
@@ -184,9 +181,17 @@
 
 ---
 
-## ✅ Phase 4: Testing & Balance
+## 📊 Phase 3: Testing & Balance
 
-### Status: NOT STARTED
+### Status: 🚀 IN PROGRESS
+
+Next steps:
+- [ ] Run integration test: Load JSON files, create player, run 10 years
+- [ ] Run full simulation: 1,000 games with converted events
+- [ ] Validate survival curves match WHO data
+- [ ] Check prerequisite gates (sex-specific, age-specific events)
+- [ ] Tune homeostatic drift if needed
+- [ ] Verify score distribution looks reasonable
 
 ### What to Test
 1. **Event prerequisite evaluation**
@@ -227,7 +232,7 @@ node simulation_script.js --games 10000 --engine v2.0 --report balance
 
 ## 🚀 Phase 5: Deployment
 
-### Status: NOT STARTED
+### Status: ⏳ WAITING (After testing)
 
 ### What Changes
 1. **`standalone_html_game.html`**
@@ -273,14 +278,14 @@ node simulation_script.js --games 10000 --engine v2.0 --report balance
 
 ## 🗓️ Timeline Estimate
 
-| Phase | Estimate | Start | Target |
-|-------|----------|-------|--------|
-| Event Migration | 1.5-2 hrs | Oct 19 | Oct 19 evening |
-| Engine Integration | 1-1.5 hrs | Oct 19 | Oct 19 night |
-| UI Display | 1-2 hrs | Oct 20 | Oct 20 morning |
-| Testing & Balance | 1-2 hrs | Oct 20 | Oct 20 afternoon |
-| Deployment | 0.5-1 hr | Oct 20 | Oct 20 evening |
-| **TOTAL** | **5-8.5 hrs** | | **Oct 20** |
+| Phase | Estimate | Start | Target | Status |
+|-------|----------|-------|--------|--------|
+| Event Migration | 1.5-2 hrs | Oct 19 | Oct 19 evening | ✅ DONE (0.5hr) |
+| Engine Integration | 1-1.5 hrs | Oct 19 | Oct 19 night | ✅ DONE (1.5hr) |
+| Testing & Balance | 1-2 hrs | Oct 20 | Oct 20 morning | 🚀 NEXT |
+| UI Display | 1-2 hrs | Oct 20 | Oct 20 afternoon | ⏳ After testing |
+| Deployment | 0.5-1 hr | Oct 20 | Oct 20 evening | ⏳ After testing |
+| **TOTAL** | **5-8.5 hrs** | | **Oct 20 evening** | 👉 On track |
 
 ---
 

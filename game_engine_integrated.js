@@ -3,6 +3,16 @@
 // Primary: game_engine_v2_homeostatic.js (state + logic)
 // Compatibility: v1.0 API for existing UI/tests
 
+// Load v2 engine if in Node environment
+let MortalityGameV2;
+if (typeof require !== 'undefined' && typeof module !== 'undefined') {
+  try {
+    MortalityGameV2 = require('./game_engine_v2_homeostatic.js');
+  } catch (e) {
+    // Browser environment - assume MortalityGameV2 is already loaded
+  }
+}
+
 class MortalityGameIntegrated {
   constructor(birthCards, familyCards, eventCards, deathCards) {
     // Initialize v2.0 engine
@@ -82,11 +92,15 @@ class MortalityGameIntegrated {
       return { alive: false, event: null, death: null };
     }
 
-    // Age player
-    this.player.age += 1;
+    // NOTE: Do NOT age here - processYearEnd handles aging for v2 state
+    // But we do need to sync the two age fields
+    // this.player.age is v1.0 compat field, player.demographics.age is v2.0 source of truth
 
-    // Process yearly systems (drift, development, etc.)
+    // Process yearly systems (drift, development, aging, etc.)
     this.v2Engine.processYearEnd(this.player);
+
+    // Sync age from v2.0 source
+    this.player.age = this.player.demographics.age;
 
     // Check for death
     if (!this.player.alive) {
@@ -295,15 +309,24 @@ class MortalityGameIntegrated {
 
       // Record results
       const score = this.calculateScore();
-      results.totalYears += this.player.age;
-      results.maxAge = Math.max(results.maxAge, this.player.age);
-      results.minAge = Math.min(results.minAge, this.player.age);
-      scores.push(score);
+      if (typeof this.player.age === 'number') {
+        results.totalYears += this.player.age;
+        results.maxAge = Math.max(results.maxAge, this.player.age);
+        results.minAge = Math.min(results.minAge, this.player.age);
+      }
+      scores.push(score || 0);
 
       if (this.player.folded) folds++;
+      
+      // Extract cause of death as string
+      let causeName = 'Unknown';
       if (this.player.causeOfDeath) {
-        results.deathCauses[this.player.causeOfDeath] = 
-          (results.deathCauses[this.player.causeOfDeath] || 0) + 1;
+        if (typeof this.player.causeOfDeath === 'string') {
+          causeName = this.player.causeOfDeath;
+        } else if (typeof this.player.causeOfDeath === 'object' && this.player.causeOfDeath.cause) {
+          causeName = this.player.causeOfDeath.cause;
+        }
+        results.deathCauses[causeName] = (results.deathCauses[causeName] || 0) + 1;
       }
 
       // Progress callback
@@ -312,12 +335,12 @@ class MortalityGameIntegrated {
       }
     }
 
-    results.averageAge = Math.floor(results.totalYears / games);
-    results.foldRate = (folds / games * 100).toFixed(2);
+    results.averageAge = games > 0 ? Math.floor(results.totalYears / games) : 0;
+    results.foldRate = games > 0 ? (folds / games * 100).toFixed(2) : 0;
     results.scoreDistribution = {
-      min: Math.min(...scores),
-      max: Math.max(...scores),
-      avg: Math.floor(scores.reduce((a, b) => a + b) / scores.length)
+      min: scores.length > 0 ? Math.min(...scores.filter(s => typeof s === 'number')) : 0,
+      max: scores.length > 0 ? Math.max(...scores.filter(s => typeof s === 'number')) : 0,
+      avg: scores.length > 0 ? Math.floor(scores.filter(s => typeof s === 'number').reduce((a, b) => a + b, 0) / scores.length) : 0
     };
 
     return results;
