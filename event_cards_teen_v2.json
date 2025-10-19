@@ -1,5 +1,49 @@
 [
   {
+    "id": "event_parent_dies_teen",
+    "name": "Parent Dies",
+    "ageRange": [
+      13,
+      18
+    ],
+    "description": "One of your parents passes away. Your world shifts.",
+    "weight": 10,
+    "requires": {
+      "any": [
+        {
+          "relationships.parents.mother.alive": true,
+          "relationships.parents.mother.canDie": true
+        },
+        {
+          "relationships.parents.father.alive": true,
+          "relationships.parents.father.canDie": true
+        }
+      ]
+    },
+    "effects": [
+      {
+        "path": "health.physical.current",
+        "type": "modify",
+        "value": -12
+      },
+      {
+        "path": "health.mental.current",
+        "type": "modify",
+        "value": -15
+      },
+      {
+        "path": "economics.resources.current",
+        "type": "modify",
+        "value": -10
+      },
+      {
+        "path": "relationships.parents.mother.alive",
+        "type": "set",
+        "value": false
+      }
+    ]
+  },
+  {
     "id": "event_first_love",
     "name": "First Love",
     "ageRange": [

@@ -523,6 +523,20 @@
       </div>
 
       <!-- ===================================================================
+           LIFE EVENTS (Expandable event history)
+           =================================================================== -->
+      <div class="state-section" id="events-section" onclick="toggleSection(event, 'events-section')">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="section-toggle">▼</span>
+            <span>📖 LIFE EVENTS</span>
+          </div>
+          <span id="events-brief">Latest Event</span>
+        </div>
+        <div class="section-content" id="events-content" style="max-height: 300px; overflow-y: auto;"></div>
+      </div>
+
+      <!-- ===================================================================
            STATE SECTIONS (Collapsible subsystems showing full v2.0 state)
            =================================================================== -->
       <div class="state-sections">
@@ -1176,12 +1190,18 @@
       // Update birth and family cards
       const birthCard = player.birthCards[0];
       const familyCard = player.birthCards[1];
+      const genderIcon = player.demographics.sex === 'male' ? '👨' : '👩';
       document.getElementById('birth-cards').innerHTML = `
         <h2 style="color: #ff6b6b; margin: 30px 0 15px 0;">Your Birth Conditions</h2>
         <div class="card">
-          <h3>${birthCard.name}</h3>
+          <h3>${genderIcon} ${player.demographics.sex.toUpperCase()}</h3>
           <p>Life Expectancy: ${player.lifeExpectancy} years</p>
           <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">Region: ${player.demographics.birthRegion || 'Unknown'}</p>
+        </div>
+        <div class="card">
+          <h3>${birthCard.name}</h3>
+          <p>Birth Conditions</p>
+          <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">${birthCard.description || 'Your birth circumstances'}</p>
         </div>
         <div class="card">
           <h3>${familyCard.name}</h3>
@@ -1207,6 +1227,18 @@
     function updateEventLog() {
       if (!player) return;
 
+      // Get the latest event for the brief
+      const latestEntry = player.eventHistory.length > 0 ? player.eventHistory[player.eventHistory.length - 1] : null;
+      const latestEvent = latestEntry ? EVENT_CARDS.find(e => e.id === latestEntry.id) : null;
+      
+      // Update the brief
+      if (latestEvent) {
+        document.getElementById('events-brief').innerHTML = `Age ${latestEntry.age}: ${latestEntry.event}`;
+      } else {
+        document.getElementById('events-brief').innerHTML = 'Latest Event';
+      }
+
+      // Build full event history
       const logHtml = player.eventHistory.slice().reverse().map(entry => {
         const event = EVENT_CARDS.find(e => e.id === entry.id);
         if (!event) {
@@ -1239,7 +1271,14 @@
         </div>`;
       }).join('');
 
-      document.getElementById('event-log').innerHTML = logHtml || '<div style="color: #999; padding: 20px; text-align: center;">No events yet. Live your life!</div>';
+      // Update both event displays
+      document.getElementById('events-content').innerHTML = logHtml || '<div style="color: #999; padding: 20px; text-align: center;">No events yet. Live your life!</div>';
+      
+      // Keep old display for backwards compatibility (if it still exists)
+      const oldLog = document.getElementById('event-log');
+      if (oldLog) {
+        oldLog.innerHTML = logHtml || '<div style="color: #999; padding: 20px; text-align: center;">No events yet. Live your life!</div>';
+      }
     }
 
 
