@@ -1,0 +1,259 @@
+[
+  {
+    "id": "death_diarrheal",
+    "name": "Diarrheal Disease",
+    "ageRange": [0, 5],
+    "description": "You die from severe dehydration caused by contaminated water.",
+    "profileTags": ["low-resource", "rural"],
+    "weight": 30
+  },
+  {
+    "id": "death_pneumonia",
+    "name": "Pneumonia",
+    "ageRange": [0, 5],
+    "description": "A respiratory infection overwhelms your small body.",
+    "profileTags": ["low-resource", "moderate-resource"],
+    "weight": 25
+  },
+  {
+    "id": "death_malaria",
+    "name": "Malaria",
+    "ageRange": [0, 12],
+    "description": "Despite fighting hard, the malaria was too severe.",
+    "profileTags": ["low-resource", "rural"],
+    "weight": 20
+  },
+  {
+    "id": "death_malnutrition",
+    "name": "Malnutrition/Starvation",
+    "ageRange": [0, 10],
+    "description": "There simply wasn't enough food. Your body gave out.",
+    "profileTags": ["low-resource", "conflict", "extreme-risk"],
+    "weight": 25
+  },
+  {
+    "id": "death_congenital",
+    "name": "Congenital Birth Defect",
+    "ageRange": [0, 1],
+    "description": "You were born with a condition that couldn't be treated here.",
+    "profileTags": ["all"],
+    "weight": 15
+  },
+  {
+    "id": "death_accident_child",
+    "name": "Childhood Accident",
+    "ageRange": [1, 12],
+    "description": "A tragic accident. Drowning, fire, or fall. It happened so fast.",
+    "profileTags": ["all"],
+    "weight": 20
+  },
+  {
+    "id": "death_preventable_disease",
+    "name": "Preventable Disease",
+    "ageRange": [0, 12],
+    "description": "You died from something a vaccine could have prevented.",
+    "profileTags": ["low-resource", "moderate-resource"],
+    "weight": 18
+  },
+  {
+    "id": "death_maternal_complications",
+    "name": "Maternal Death (Childbirth)",
+    "ageRange": [15, 45],
+    "description": "You died giving birth. Your child may or may not survive.",
+    "profileTags": ["low-resource", "rural", "conflict"],
+    "weight": 20,
+    "genderSpecific": "female"
+  },
+  {
+    "id": "death_violence_conflict",
+    "name": "Violence (Armed Conflict)",
+    "ageRange": [0, 60],
+    "description": "You died in crossfire, shelling, or a raid. Wrong place, wrong time.",
+    "profileTags": ["conflict", "unstable", "extreme-risk"],
+    "weight": 50
+  },
+  {
+    "id": "death_violence_homicide",
+    "name": "Homicide",
+    "ageRange": [12, 60],
+    "description": "You were killed by another person. Violence ended your life.",
+    "profileTags": ["moderate-resource", "low-resource", "urban"],
+    "weight": 15
+  },
+  {
+    "id": "death_traffic_accident",
+    "name": "Traffic Accident",
+    "ageRange": [5, 70],
+    "description": "A vehicular accident took your life.",
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 10,
+      "moderate-resource": 20,
+      "emerging": 30,
+      "low-resource": 25
+    },
+    "weight": 20
+  },
+  {
+    "id": "death_suicide",
+    "name": "Suicide",
+    "ageRange": [12, 75],
+    "description": "The weight became too much. You took your own life.",
+    "profileTags": ["all"],
+    "weight": 12
+  },
+  {
+    "id": "death_infectious_disease",
+    "name": "Infectious Disease (HIV/TB)",
+    "ageRange": [15, 60],
+    "description": "A chronic infectious disease claimed you.",
+    "profileTags": ["low-resource", "moderate-resource"],
+    "weight": 18
+  },
+  {
+    "id": "death_heart_disease",
+    "name": "Heart Disease",
+    "ageRange": [40, 100],
+    "description": "Your heart gave out. A leading killer worldwide.",
+    "profileTags": ["all"],
+    "weight": 35
+  },
+  {
+    "id": "death_cancer",
+    "name": "Cancer",
+    "ageRange": [30, 100],
+    "description": "Cancer spread through your body. Treatment wasn't enough, or wasn't available.",
+    "profileTags": ["all"],
+    "weight": 30
+  },
+  {
+    "id": "death_stroke",
+    "name": "Stroke",
+    "ageRange": [45, 100],
+    "description": "A stroke took you suddenly.",
+    "profileTags": ["all"],
+    "weight": 20
+  },
+  {
+    "id": "death_diabetes",
+    "name": "Diabetes Complications",
+    "ageRange": [30, 80],
+    "description": "Diabetes-related complications ended your life.",
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 15,
+      "moderate-resource": 20,
+      "emerging": 18
+    },
+    "weight": 15
+  },
+  {
+    "id": "death_liver_disease",
+    "name": "Liver Disease (Alcohol)",
+    "ageRange": [35, 75],
+    "description": "Years of drinking destroyed your liver.",
+    "profileTags": ["all"],
+    "weight": 10
+  },
+  {
+    "id": "death_drug_overdose",
+    "name": "Drug Overdose",
+    "ageRange": [15, 60],
+    "description": "An overdose, accidental or intentional, ended your life.",
+    "profileTags": ["high-resource", "moderate-resource"],
+    "weight": 8
+  },
+  {
+    "id": "death_workplace_accident",
+    "name": "Workplace Accident",
+    "ageRange": [15, 65],
+    "description": "A fatal accident at work. Safety regulations couldn't save you.",
+    "profileTags": ["low-resource", "emerging"],
+    "weight": 12
+  },
+  {
+    "id": "death_dementia",
+    "name": "Dementia/Alzheimer's",
+    "ageRange": [65, 100],
+    "description": "Your mind faded first, then your body followed.",
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 30,
+      "moderate-resource": 20,
+      "low-resource": 5
+    },
+    "weight": 25
+  },
+  {
+    "id": "death_pneumonia_elder",
+    "name": "Pneumonia (Elderly)",
+    "ageRange": [70, 100],
+    "description": "Pneumonia, the old person's friend. You slipped away quietly.",
+    "profileTags": ["all"],
+    "weight": 20
+  },
+  {
+    "id": "death_falls",
+    "name": "Fall/Injury (Elderly)",
+    "ageRange": [65, 100],
+    "description": "A fall led to complications you couldn't recover from.",
+    "profileTags": ["all"],
+    "weight": 15
+  },
+  {
+    "id": "death_old_age",
+    "name": "Old Age (Natural Causes)",
+    "ageRange": [75, 100],
+    "description": "Your body simply wore out. You lived a long life.",
+    "profileTags": ["all"],
+    "weight": 30
+  },
+  {
+    "id": "death_natural_disaster",
+    "name": "Natural Disaster",
+    "ageRange": [0, 100],
+    "description": "An earthquake, flood, hurricane, or other disaster claimed you.",
+    "profileTags": ["low-resource", "emerging"],
+    "weight": 8
+  },
+  {
+    "id": "death_lack_medical_care",
+    "name": "Lack of Medical Care",
+    "ageRange": [0, 100],
+    "description": "You died from something treatable, but treatment was unavailable or unaffordable.",
+    "profileTags": ["low-resource", "conflict"],
+    "weight": 20
+  },
+  {
+    "id": "death_childbirth_complications",
+    "name": "Childbirth Complications (Infant)",
+    "ageRange": [0, 0],
+    "description": "You died during or shortly after birth. Your mother may have died too.",
+    "profileTags": ["low-resource", "rural"],
+    "weight": 25
+  },
+  {
+    "id": "death_hiv_aids",
+    "name": "HIV/AIDS",
+    "ageRange": [20, 60],
+    "description": "AIDS-related illness took you. Treatment was out of reach.",
+    "profileTags": ["low-resource", "moderate-resource"],
+    "weight": 15
+  },
+  {
+    "id": "death_tuberculosis",
+    "name": "Tuberculosis",
+    "ageRange": [15, 70],
+    "description": "TB consumed your lungs over time.",
+    "profileTags": ["low-resource", "moderate-resource"],
+    "weight": 12
+  },
+  {
+    "id": "death_police_violence",
+    "name": "Police/State Violence",
+    "ageRange": [13, 50],
+    "description": "You were killed by police or state security forces.",
+    "profileTags": ["moderate-resource", "unstable", "conflict"],
+    "weight": 8
+  }
+]

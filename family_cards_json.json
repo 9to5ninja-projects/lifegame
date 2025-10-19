@@ -1,0 +1,201 @@
+[
+  {
+    "id": "family_two_parent_stable",
+    "type": "family",
+    "name": "Two Parents - Stable & Resourced",
+    "weight": 30,
+    "description": "Both parents present, employed, healthy. Extended family nearby. You have a safety net.",
+    "profileCompatibility": {
+      "high-resource": 60,
+      "moderate-resource": 30,
+      "low-resource": 10
+    },
+    "effects": {
+      "survivalMod": 10,
+      "resourceMod": 20
+    }
+  },
+  {
+    "id": "family_two_parent_working",
+    "type": "family",
+    "name": "Two Parents - Working Class",
+    "weight": 25,
+    "description": "Both parents work hard to make ends meet. Resources are tight but love is present.",
+    "profileCompatibility": {
+      "high-resource": 20,
+      "moderate-resource": 50,
+      "low-resource": 30
+    },
+    "effects": {
+      "survivalMod": 5,
+      "resourceMod": 5
+    }
+  },
+  {
+    "id": "family_extended_multigenerational",
+    "type": "family",
+    "name": "Extended Family - Multigenerational",
+    "weight": 20,
+    "description": "Grandparents, aunts, uncles all live nearby or together. Many hands to help raise you.",
+    "profileCompatibility": {
+      "high-resource": 10,
+      "moderate-resource": 25,
+      "low-resource": 65,
+      "agrarian": 80
+    },
+    "effects": {
+      "survivalMod": 8,
+      "resourceMod": 0
+    }
+  },
+  {
+    "id": "family_single_mother_support",
+    "type": "family",
+    "name": "Single Mother - With Support",
+    "weight": 15,
+    "description": "Your mother raises you alone, but her family and community help.",
+    "profileCompatibility": {
+      "high-resource": 30,
+      "moderate-resource": 40,
+      "low-resource": 30
+    },
+    "effects": {
+      "survivalMod": 0,
+      "resourceMod": -5
+    }
+  },
+  {
+    "id": "family_single_teen_mother",
+    "type": "family",
+    "name": "Single Teen Mother - Limited Support",
+    "weight": 12,
+    "description": "Your mother is young and struggling. She's doing her best.",
+    "profileCompatibility": {
+      "high-resource": 5,
+      "moderate-resource": 20,
+      "low-resource": 50,
+      "conflict": 60
+    },
+    "effects": {
+      "survivalMod": -15,
+      "resourceMod": -15
+    }
+  },
+  {
+    "id": "family_single_father",
+    "type": "family",
+    "name": "Single Father (Widowed)",
+    "weight": 8,
+    "description": "Your father raises you after your mother died. It's not easy for either of you.",
+    "profileCompatibility": {
+      "high-resource": 20,
+      "moderate-resource": 30,
+      "low-resource": 50
+    },
+    "effects": {
+      "survivalMod": -5,
+      "resourceMod": -5
+    }
+  },
+  {
+    "id": "family_two_parent_poor",
+    "type": "family",
+    "name": "Two Parents - Extreme Poverty",
+    "weight": 18,
+    "description": "Both parents present but barely surviving themselves. Every day is a struggle.",
+    "profileCompatibility": {
+      "high-resource": 2,
+      "moderate-resource": 10,
+      "low-resource": 70,
+      "agrarian": 60
+    },
+    "effects": {
+      "survivalMod": -8,
+      "resourceMod": -12
+    }
+  },
+  {
+    "id": "family_parent_chronically_ill",
+    "type": "family",
+    "name": "Parent Chronically Ill",
+    "weight": 10,
+    "description": "One parent is sick and cannot work. Medical bills drain everything.",
+    "profileCompatibility": {
+      "high-resource": 15,
+      "moderate-resource": 30,
+      "low-resource": 55
+    },
+    "effects": {
+      "survivalMod": -10,
+      "resourceMod": -20
+    }
+  },
+  {
+    "id": "family_orphaned_extended",
+    "type": "family",
+    "name": "Orphaned - Raised by Extended Family",
+    "weight": 8,
+    "description": "Your mother died in childbirth. Relatives have taken you in.",
+    "profileCompatibility": {
+      "high-resource": 10,
+      "moderate-resource": 20,
+      "low-resource": 50,
+      "agrarian": 70
+    },
+    "effects": {
+      "survivalMod": -12,
+      "resourceMod": -10
+    }
+  },
+  {
+    "id": "family_orphaned_institution",
+    "type": "family",
+    "name": "Orphaned - Institutional Care",
+    "weight": 4,
+    "description": "Your mother died and you have no family. You're in an orphanage or foster system.",
+    "profileCompatibility": {
+      "high-resource": 30,
+      "moderate-resource": 40,
+      "low-resource": 20,
+      "conflict": 10
+    },
+    "effects": {
+      "survivalMod": -18,
+      "resourceMod": -15
+    }
+  },
+  {
+    "id": "family_violent_household",
+    "type": "family",
+    "name": "Unstable/Violent Household",
+    "weight": 10,
+    "description": "There is violence in your home. You are not safe here.",
+    "profileCompatibility": {
+      "high-resource": 10,
+      "moderate-resource": 30,
+      "low-resource": 40,
+      "conflict": 60
+    },
+    "effects": {
+      "survivalMod": -20,
+      "resourceMod": -8
+    }
+  },
+  {
+    "id": "family_displaced_refugee",
+    "type": "family",
+    "name": "Displaced/Refugee Family",
+    "weight": 6,
+    "description": "Your family has fled conflict or disaster. Everything was left behind.",
+    "profileCompatibility": {
+      "high-resource": 5,
+      "moderate-resource": 15,
+      "conflict": 80,
+      "unstable": 70
+    },
+    "effects": {
+      "survivalMod": -25,
+      "resourceMod": -25
+    }
+  }
+]

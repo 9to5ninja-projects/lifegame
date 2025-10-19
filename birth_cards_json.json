@@ -1,0 +1,197 @@
+[
+  {
+    "id": "birth_nordic",
+    "type": "birth",
+    "name": "Nordic Country",
+    "weight": 1,
+    "description": "Born in a Nordic welfare state. Universal healthcare, excellent education, social safety nets. Congratulations, you won the lottery.",
+    "lifeExpectancy": 83,
+    "profileTags": ["high-resource", "stable", "urban"],
+    "effects": {
+      "statSet": { "survival": 98 },
+      "resourceMod": 30
+    }
+  },
+  {
+    "id": "birth_western_europe",
+    "type": "birth",
+    "name": "Western Europe",
+    "weight": 2,
+    "description": "Born in Western Europe. Strong healthcare, education systems. Life is generally stable.",
+    "lifeExpectancy": 82,
+    "profileTags": ["high-resource", "stable", "urban"],
+    "effects": {
+      "statSet": { "survival": 97 },
+      "resourceMod": 25
+    }
+  },
+  {
+    "id": "birth_japan_korea",
+    "type": "birth",
+    "name": "Japan/South Korea",
+    "weight": 2,
+    "description": "Born in East Asian developed nation. High life expectancy, intense education culture.",
+    "lifeExpectancy": 84,
+    "profileTags": ["high-resource", "stable", "urban"],
+    "effects": {
+      "statSet": { "survival": 98 },
+      "resourceMod": 20
+    }
+  },
+  {
+    "id": "birth_north_america_middle",
+    "type": "birth",
+    "name": "North America - Middle Class",
+    "weight": 3,
+    "description": "Born in urban/suburban North America to middle-class family. Access to healthcare varies.",
+    "lifeExpectancy": 78,
+    "profileTags": ["stable", "urban", "moderate-resource"],
+    "effects": {
+      "statSet": { "survival": 95 },
+      "resourceMod": 15
+    }
+  },
+  {
+    "id": "birth_eastern_europe",
+    "type": "birth",
+    "name": "Eastern Europe",
+    "weight": 4,
+    "description": "Born in Eastern Europe. Post-Soviet transition, mixed economy, decent healthcare.",
+    "lifeExpectancy": 75,
+    "profileTags": ["moderate-resource", "urban", "stable"],
+    "effects": {
+      "statSet": { "survival": 93 },
+      "resourceMod": 10
+    }
+  },
+  {
+    "id": "birth_urban_china",
+    "type": "birth",
+    "name": "Urban China",
+    "weight": 8,
+    "description": "Born in a Chinese city. Rapid development, good infrastructure, intense competition.",
+    "lifeExpectancy": 77,
+    "profileTags": ["emerging", "urban", "moderate-resource"],
+    "effects": {
+      "statSet": { "survival": 94 },
+      "resourceMod": 12
+    }
+  },
+  {
+    "id": "birth_urban_latin_america",
+    "type": "birth",
+    "name": "Urban Latin America",
+    "weight": 6,
+    "description": "Born in a Latin American city. Stark inequality, decent urban services, violence varies.",
+    "lifeExpectancy": 74,
+    "profileTags": ["emerging", "urban", "moderate-resource"],
+    "effects": {
+      "statSet": { "survival": 89 },
+      "resourceMod": 8
+    }
+  },
+  {
+    "id": "birth_southeast_asia",
+    "type": "birth",
+    "name": "Southeast Asia",
+    "weight": 9,
+    "description": "Born in Southeast Asia. Rapid growth, improving healthcare, vulnerability to climate.",
+    "lifeExpectancy": 72,
+    "profileTags": ["emerging", "mixed", "moderate-resource"],
+    "effects": {
+      "statSet": { "survival": 87 },
+      "resourceMod": 5
+    }
+  },
+  {
+    "id": "birth_urban_south_asia",
+    "type": "birth",
+    "name": "Urban South Asia",
+    "weight": 10,
+    "description": "Born in a South Asian city. Dense population, pollution, healthcare access varies wildly.",
+    "lifeExpectancy": 69,
+    "profileTags": ["emerging", "urban", "low-resource"],
+    "effects": {
+      "statSet": { "survival": 82 },
+      "resourceMod": 3
+    }
+  },
+  {
+    "id": "birth_rural_south_asia",
+    "type": "birth",
+    "name": "Rural South Asia",
+    "weight": 12,
+    "description": "Born in a rural South Asian village. Agriculture-based, limited healthcare, strong community bonds.",
+    "lifeExpectancy": 64,
+    "profileTags": ["rural", "low-resource", "agrarian"],
+    "effects": {
+      "statSet": { "survival": 65 },
+      "resourceMod": -5
+    }
+  },
+  {
+    "id": "birth_rural_africa",
+    "type": "birth",
+    "name": "Rural Sub-Saharan Africa",
+    "weight": 23,
+    "description": "Born in a rural African village. Subsistence farming, limited healthcare, but community is everything.",
+    "lifeExpectancy": 58,
+    "profileTags": ["rural", "low-resource", "agrarian"],
+    "effects": {
+      "statSet": { "survival": 50 },
+      "resourceMod": -10
+    }
+  },
+  {
+    "id": "birth_urban_africa",
+    "type": "birth",
+    "name": "Urban Sub-Saharan Africa",
+    "weight": 9,
+    "description": "Born in an African city. Rapid urbanization, slums alongside development, hustle culture.",
+    "lifeExpectancy": 65,
+    "profileTags": ["urban", "emerging", "low-resource"],
+    "effects": {
+      "statSet": { "survival": 72 },
+      "resourceMod": 0
+    }
+  },
+  {
+    "id": "birth_mena",
+    "type": "birth",
+    "name": "Middle East - Stable",
+    "weight": 6,
+    "description": "Born in a stable Middle Eastern country. Variable by oil wealth and governance.",
+    "lifeExpectancy": 76,
+    "profileTags": ["moderate-resource", "urban", "stable"],
+    "effects": {
+      "statSet": { "survival": 88 },
+      "resourceMod": 10
+    }
+  },
+  {
+    "id": "birth_conflict_zone",
+    "type": "birth",
+    "name": "Active War Zone",
+    "weight": 5,
+    "description": "Born during active armed conflict. Survival is uncertain, infrastructure collapsed.",
+    "lifeExpectancy": 52,
+    "profileTags": ["conflict", "unstable", "extreme-risk"],
+    "effects": {
+      "statSet": { "survival": 35 },
+      "resourceMod": -20
+    }
+  },
+  {
+    "id": "birth_fragile_state",
+    "type": "birth",
+    "name": "Fragile/Post-Conflict State",
+    "weight": 6,
+    "description": "Born in a fragile state recovering from conflict. Violence lingers, rebuilding slowly.",
+    "lifeExpectancy": 60,
+    "profileTags": ["unstable", "low-resource", "recovering"],
+    "effects": {
+      "statSet": { "survival": 55 },
+      "resourceMod": -8
+    }
+  }
+]

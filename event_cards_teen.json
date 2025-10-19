@@ -1,0 +1,355 @@
+[
+  {
+    "id": "event_first_love",
+    "type": "event",
+    "name": "First Love",
+    "ageRange": [13, 18],
+    "description": "You fall in love for the first time. Everything feels new and terrifying.",
+    "weight": 30,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 3
+    }
+  },
+  {
+    "id": "event_identity_crisis",
+    "type": "event",
+    "name": "Identity Crisis",
+    "ageRange": [13, 25],
+    "description": "You question everything about who you are and who you're supposed to be.",
+    "weight": 25,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -2
+    }
+  },
+  {
+    "id": "event_scholarship",
+    "type": "event",
+    "name": "Scholarship Opportunity",
+    "ageRange": [14, 18],
+    "description": "Someone notices your potential and offers educational support.",
+    "weight": 8,
+    "profileTags": ["emerging", "low-resource"],
+    "choices": [
+      {
+        "text": "Accept: Pursue education",
+        "requires": { "tags": ["literate"] },
+        "effects": {
+          "survivalMod": 8,
+          "agencyMod": 1,
+          "tags": ["educated"]
+        }
+      },
+      {
+        "text": "Decline: Family needs you to work",
+        "effects": {
+          "resourceMod": 15,
+          "survivalMod": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_forced_work",
+    "type": "event",
+    "name": "Leave School to Work",
+    "ageRange": [12, 16],
+    "description": "Economic necessity forces you to leave school and find work.",
+    "weight": 10,
+    "profileTags": ["low-resource", "conflict"],
+    "profileWeights": {
+      "high-resource": 1,
+      "moderate-resource": 5,
+      "low-resource": 25,
+      "conflict": 35
+    },
+    "effects": {
+      "survivalMod": -5,
+      "resourceMod": 10,
+      "tags": ["working"]
+    }
+  },
+  {
+    "id": "event_gang_recruitment",
+    "type": "event",
+    "name": "Gang/Militia Recruitment Attempt",
+    "ageRange": [13, 20],
+    "description": "Armed groups try to recruit you. The pressure is immense.",
+    "weight": 5,
+    "profileTags": ["conflict", "unstable"],
+    "profileWeights": {
+      "high-resource": 0,
+      "moderate-resource": 2,
+      "low-resource": 10,
+      "conflict": 50,
+      "unstable": 30
+    },
+    "choices": [
+      {
+        "text": "Join: You need protection/income",
+        "effects": {
+          "survivalMod": -20,
+          "resourceMod": 15,
+          "tags": ["armed-group"]
+        }
+      },
+      {
+        "text": "Refuse: Resist the pressure",
+        "effects": {
+          "survivalMod": -10
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_early_pregnancy",
+    "type": "event",
+    "name": "Pregnancy (Teen)",
+    "ageRange": [14, 19],
+    "description": "You become pregnant. Your life trajectory shifts dramatically.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 3,
+      "moderate-resource": 10,
+      "low-resource": 25,
+      "conflict": 30
+    },
+    "genderSpecific": "female",
+    "effects": {
+      "survivalMod": -12,
+      "resourceMod": -15,
+      "tags": ["parent"]
+    }
+  },
+  {
+    "id": "event_assault",
+    "type": "event",
+    "name": "Physical Assault",
+    "ageRange": [13, 25],
+    "description": "You are violently attacked. The physical and psychological scars remain.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 5,
+      "moderate-resource": 12,
+      "low-resource": 20,
+      "conflict": 40,
+      "unstable": 35
+    },
+    "effects": {
+      "survivalMod": -12
+    }
+  },
+  {
+    "id": "event_save_someone",
+    "type": "event",
+    "name": "You Save Someone's Life",
+    "ageRange": [13, 100],
+    "description": "You are in the right place at the right time. Your actions save a life.",
+    "weight": 5,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 5,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_rebellion",
+    "type": "event",
+    "name": "Rebellion Against Authority",
+    "ageRange": [14, 20],
+    "description": "You push back against the structures controlling your life.",
+    "weight": 20,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -3,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_mental_health_crisis",
+    "type": "event",
+    "name": "Mental Health Crisis",
+    "ageRange": [14, 25],
+    "description": "Depression, anxiety, or other mental illness overwhelms you.",
+    "weight": 18,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -10
+    },
+    "choices": [
+      {
+        "text": "Seek help (if available)",
+        "requires": { "resourceMin": 5 },
+        "effects": {
+          "survivalMod": 8,
+          "resourceMod": -5
+        }
+      },
+      {
+        "text": "Suffer in silence",
+        "effects": {
+          "survivalMod": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_traffic_accident_teen",
+    "type": "event",
+    "name": "Traffic Accident (Survivor)",
+    "ageRange": [15, 25],
+    "description": "You're in a serious accident. You survive, but it changes you.",
+    "weight": 12,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -8
+    }
+  },
+  {
+    "id": "event_drug_exposure",
+    "type": "event",
+    "name": "First Exposure to Drugs/Alcohol",
+    "ageRange": [13, 20],
+    "description": "You're introduced to substances. What happens next is up to you.",
+    "weight": 25,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -5
+    }
+  },
+  {
+    "id": "event_forced_marriage",
+    "type": "event",
+    "name": "Forced/Early Marriage",
+    "ageRange": [12, 17],
+    "description": "You are married off young, against your will or without real choice.",
+    "weight": 5,
+    "profileTags": ["low-resource", "rural", "conflict"],
+    "profileWeights": {
+      "high-resource": 0,
+      "moderate-resource": 1,
+      "low-resource": 20,
+      "rural": 25,
+      "conflict": 30
+    },
+    "genderSpecific": "female",
+    "effects": {
+      "survivalMod": -15,
+      "agencyMod": -1,
+      "tags": ["married"]
+    }
+  },
+  {
+    "id": "event_political_awakening",
+    "type": "event",
+    "name": "Political Awakening",
+    "ageRange": [15, 25],
+    "description": "You become aware of the systems that shape your world. You want to change them.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 2,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_exile_displacement",
+    "type": "event",
+    "name": "Forced Displacement",
+    "ageRange": [0, 100],
+    "description": "War, climate, or persecution forces your family to flee.",
+    "weight": 8,
+    "profileTags": ["conflict", "unstable", "low-resource"],
+    "effects": {
+      "survivalMod": -15,
+      "resourceMod": -20
+    }
+  },
+  {
+    "id": "event_internet_access",
+    "type": "event",
+    "name": "First Internet Access",
+    "ageRange": [10, 20],
+    "description": "The world opens up through a screen. Everything changes.",
+    "weight": 20,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 40,
+      "moderate-resource": 30,
+      "emerging": 25,
+      "low-resource": 10,
+      "conflict": 5
+    },
+    "effects": {
+      "survivalMod": 3,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_witness_violence",
+    "type": "event",
+    "name": "Witness Extreme Violence",
+    "ageRange": [10, 25],
+    "description": "You see something you can never unsee. Trauma takes root.",
+    "weight": 10,
+    "profileTags": ["conflict", "unstable"],
+    "profileWeights": {
+      "high-resource": 2,
+      "moderate-resource": 8,
+      "low-resource": 20,
+      "conflict": 60,
+      "unstable": 40
+    },
+    "effects": {
+      "survivalMod": -8
+    }
+  },
+  {
+    "id": "event_sports_talent",
+    "type": "event",
+    "name": "Discover Athletic Talent",
+    "ageRange": [12, 18],
+    "description": "You excel at a sport. It could be a way out.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 5,
+      "agencyMod": 1,
+      "tags": ["athlete"]
+    }
+  },
+  {
+    "id": "event_mentor_appears",
+    "type": "event",
+    "name": "Find a Mentor",
+    "ageRange": [13, 25],
+    "description": "Someone believes in you and guides your path.",
+    "weight": 12,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 8,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_lose_best_friend",
+    "type": "event",
+    "name": "Best Friend Dies",
+    "ageRange": [13, 25],
+    "description": "Your closest friend is gone. The grief is devastating.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 3,
+      "moderate-resource": 8,
+      "low-resource": 15,
+      "conflict": 30
+    },
+    "effects": {
+      "survivalMod": -10
+    }
+  }
+]
