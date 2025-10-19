@@ -2,6 +2,8 @@
 // Replaces simple tag-based model with rich, interconnected state
 // Enables complex event chains, realistic progression, and emergent gameplay
 
+const { getGlobalBaseline, getAdjustedProbability, getSuicideMethodsForRegion } = require('./global_statistics.js');
+
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards) {
     this.birthCards = birthCards;
@@ -961,101 +963,105 @@ class MortalityGameV2 {
 
   calculateSuicideRisk(player) {
     const p = player;
-    // WHO reports 10-15 per 100,000 population
-    // Age stratification: 15-24 peak ~20-30 per 100K, 65+ peak ~15-20 per 100K, middle ages ~5-10 per 100K
-    let suicideRisk = 0.08; // 0.08% base for average adult
+    
+    // Get global baseline suicide risk for this age/gender (WHO data)
+    // Then apply regional multiplier
+    // This is "double-fold probability": global baseline * regional factor
+    
+    const region = this.mapRegionForStatistics(p.demographics.birthRegion);
+    const baseline = getAdjustedProbability("suicide", p.demographics.age, p.demographics.sex, region);
+    
+    let suicideRisk = baseline; // Start with global baseline * regional multiplier
 
-    // Mental health factors - STRATIFIED BY AGE (major determinant of suicide risk)
-    if (p.demographics.age >= 15 && p.demographics.age <= 24) {
-      // Peak youth suicide age group
-      if (p.health.mental.current < 10) suicideRisk += 0.8;
-      else if (p.health.mental.current < 20) suicideRisk += 0.4;
-      else if (p.health.mental.current < 30) suicideRisk += 0.15;
-      else if (p.health.mental.current < 40) suicideRisk += 0.05;
-    } else if (p.demographics.age >= 65) {
-      // Elderly peak (different drivers: isolation, health decline)
-      if (p.health.mental.current < 10) suicideRisk += 0.5;
-      else if (p.health.mental.current < 20) suicideRisk += 0.3;
-      else if (p.health.mental.current < 30) suicideRisk += 0.12;
-    } else {
-      // Middle-aged adults 25-64 (lower baseline)
-      if (p.health.mental.current < 10) suicideRisk += 0.3;
-      else if (p.health.mental.current < 20) suicideRisk += 0.15;
-      else if (p.health.mental.current < 30) suicideRisk += 0.08;
-      else if (p.health.mental.current < 40) suicideRisk += 0.02;
+    // Individual mental health crisis factors (modifiers on top of baseline)
+    // These represent acute mental health episodes, not chronic conditions
+    
+    // ACUTE CRISIS: Low mental health indicates current episode
+    if (p.health.mental.current < 20) {
+      suicideRisk *= 4.0;  // Severe crisis, 4x multiplier
+    } else if (p.health.mental.current < 35) {
+      suicideRisk *= 2.0;  // Moderate crisis, 2x multiplier
+    } else if (p.health.mental.current < 50) {
+      suicideRisk *= 1.3;  // Mild crisis, 1.3x multiplier
     }
 
     // Duration of low mental health (vulnerability accumulation)
-    if (p.health.mental.episodeDuration >= 12 && p.health.mental.current < 30) {
-      suicideRisk += 0.2;
-    } else if (p.health.mental.episodeDuration >= 6 && p.health.mental.current < 30) {
-      suicideRisk += 0.12;
+    if (p.health.mental.episodeDuration >= 12 && p.health.mental.current < 40) {
+      suicideRisk *= 1.5;  // Chronic low mood increases risk
+    } else if (p.health.mental.episodeDuration >= 6 && p.health.mental.current < 40) {
+      suicideRisk *= 1.2;
     }
 
     // Social isolation (especially powerful in elderly)
     if (p.relationships.social.isolation && p.relationships.social.friends === 0) {
-      suicideRisk += (p.demographics.age >= 65 ? 0.15 : 0.08);
+      suicideRisk *= 1.8;
     }
+    
     // Protective factor: marriage/partnership
     if (p.relationships.social.married) {
-      suicideRisk = Math.max(0, suicideRisk - 0.08);
+      suicideRisk *= 0.6;  // Marriage provides 40% protection
     }
 
     // Prior suicide attempts (sensitization - previous attempt is strongest predictor)
-    suicideRisk += p.health.mental.suicideHistory.length * 0.3;
+    // Each prior attempt increases risk
+    if (p.health.mental.suicideHistory.length > 0) {
+      suicideRisk *= (1.0 + (p.health.mental.suicideHistory.length * 0.8));
+    }
 
     // Substance abuse co-occurrence (powerful risk multiplier)
     if (p.addiction.stage === "dependent") {
-      suicideRisk += 0.25;
+      suicideRisk *= 2.5;  // Severe multiplier for addiction
     } else if (p.addiction.stage === "regular") {
-      suicideRisk += 0.08;
+      suicideRisk *= 1.5;
     }
 
     // Chronic mental illness (untreated)
     if (p.health.mental.chronic.includes("depression") && p.health.mental.treatmentStatus === "none") {
-      suicideRisk += 0.15;
+      suicideRisk *= 1.6;  // 60% increased risk
     }
     if (p.health.mental.chronic.includes("anxiety") && p.health.mental.treatmentStatus === "none") {
-      suicideRisk += 0.06;
+      suicideRisk *= 1.3;
     }
     if (p.health.mental.chronic.includes("ptsd") && p.health.mental.treatmentStatus === "none") {
-      suicideRisk += 0.12;
+      suicideRisk *= 2.0;  // PTSD strong risk factor
     }
 
     // Treatment protective factors (evidence-based)
     if (p.health.mental.treatmentStatus === "medicated") {
-      suicideRisk -= 0.15;
+      suicideRisk *= 0.6;  // 40% risk reduction
     }
     if (p.health.mental.treatmentStatus === "therapy") {
-      suicideRisk -= 0.2;
+      suicideRisk *= 0.5;  // 50% risk reduction
     }
     if (p.health.mental.treatmentStatus === "hospitalized") {
-      suicideRisk -= 0.3;
+      suicideRisk *= 0.3;  // 70% risk reduction (emergency care)
     }
 
-    // Cap at realistic range (0.05% to 1.2% annually for age-stratified populations)
-    p.health.mental.suicideRisk = Math.max(0.05, Math.min(1.2, suicideRisk));
+    // Cap at realistic range (suicides never exceed certain bounds)
+    // Max would be extreme case: severe crisis + addiction + isolation + no treatment
+    p.health.mental.suicideRisk = Math.max(0.001, Math.min(2.0, suicideRisk));
   }
 
   attemptSuicide(player) {
     const p = player;
 
-    // Determine method (affects lethality)
-    const methods = [
-      { name: "firearm", lethality: 0.85 },
-      { name: "poisoning", lethality: 0.35 },
-      { name: "hanging", lethality: 0.70 },
-      { name: "jumping", lethality: 0.80 },
-      { name: "overdose", lethality: 0.50 }
-    ];
+    // Get region-specific method availability and lethality
+    const region = this.mapRegionForStatistics(p.demographics.birthRegion);
+    const methodData = getSuicideMethodsForRegion(region);
+    
+    // Select method based on regional availability
+    // Available methods weighted by their availability
+    const availableMethods = methodData.methods.filter(m => Math.random() < m.availability);
+    if (availableMethods.length === 0) {
+      // Fallback to most available method
+      availableMethods.push(methodData.methods[0]);
+    }
+    
+    const method = availableMethods[Math.floor(Math.random() * availableMethods.length)];
 
-    // Method access varies by region (simplified: everyone has some access)
-    const method = methods[Math.floor(Math.random() * methods.length)];
-
-    // Emergency access/intervention probability (varies by region/development)
-    // Higher in developed nations, lower in low-resource settings
-    const interventionChance = 0.3; // 30% chance of intervention/survival
-    const actualLethality = method.lethality * (1 - interventionChance);
+    // Calculate actual lethality with intervention chance factored in
+    // Lethality is the base success rate, intervention reduces it
+    const actualLethality = method.lethality * (1 - method.intervention);
 
     // Determine if attempt is fatal
     const roll = Math.random();
@@ -1628,6 +1634,38 @@ class MortalityGameV2 {
     return 65;                  // Ages 18+: Adult baseline
   }
 
+  mapRegionForStatistics(birthRegion) {
+    // Map birth card region to global statistics category
+    // Returns one of: "Nordic", "Developed", "Emerging", "Developing", "Fragile"
+    
+    if (!birthRegion) return "Developing"; // Default fallback
+    
+    const region = birthRegion.toLowerCase();
+    
+    if (region.includes('nordic') || region.includes('denmark') || region.includes('norway') || region.includes('sweden') || region.includes('finland')) {
+      return "Nordic";
+    }
+    
+    if (region.includes('western europe') || region.includes('japan') || region.includes('korea') || region.includes('australia') || region.includes('canada') || region.includes('usa') || region.includes('north america') || region.includes('new zealand')) {
+      return "Developed";
+    }
+    
+    if (region.includes('eastern europe') || region.includes('urban china') || region.includes('urban latin america') || region.includes('southeast asia') || region.includes('middle east')) {
+      return "Emerging";
+    }
+    
+    if (region.includes('rural') || region.includes('south asia') || region.includes('sub-saharan')) {
+      return "Developing";
+    }
+    
+    // Default to Fragile for unrecognized regions or explicitly marked
+    if (region.includes('fragile') || region.includes('war') || region.includes('refugee')) {
+      return "Fragile";
+    }
+    
+    return "Developing"; // Default fallback
+  }
+
   processCognitiveDevelopment(player) {
     const p = player;
     const age = p.demographics.age;
@@ -1721,10 +1759,11 @@ class MortalityGameV2 {
     // Note: suicideRisk is stored as 0.08 (meaning 0.08%), capped at 1.2%
     // Only applies to age 15+ (adolescence) - matches real-world suicide statistics
     if (p.demographics.age >= 15 && p.health.mental.suicideRisk > 0.05) {
-      // Roll for suicide attempt (0-100 scale)
-      const suicideRoll = Math.random() * 100;
-      // suicideRisk is already a percentage, just use directly (0.08 = 0.08% chance)
-      if (suicideRoll < p.health.mental.suicideRisk) {
+      // Roll for suicide attempt (0-1 scale, comparing against decimal probability)
+      const suicideRoll = Math.random();
+      // Convert suicideRisk from percentage (0.08) to decimal (0.0008) for comparison
+      const suicideThreshold = p.health.mental.suicideRisk / 100;
+      if (suicideRoll < suicideThreshold) {
         const suicideResult = this.attemptSuicide(player);
         if (!suicideResult.alive) {
           p.alive = false;
