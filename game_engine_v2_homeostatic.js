@@ -1234,11 +1234,11 @@ class MortalityGameV2 {
     
     // ACUTE CRISIS: Low mental health indicates current episode
     if (p.health.mental.current < 20) {
-      suicideRisk *= 4.0;  // Severe crisis, 4x multiplier
+      suicideRisk *= 2.5;  // Severe crisis, reduced from 4.0
     } else if (p.health.mental.current < 35) {
-      suicideRisk *= 2.0;  // Moderate crisis, 2x multiplier
+      suicideRisk *= 1.5;  // Moderate crisis, reduced from 2.0
     } else if (p.health.mental.current < 50) {
-      suicideRisk *= 1.3;  // Mild crisis, 1.3x multiplier
+      suicideRisk *= 1.1;  // Mild crisis, reduced from 1.3
     }
 
     // Duration of low mental health (vulnerability accumulation)

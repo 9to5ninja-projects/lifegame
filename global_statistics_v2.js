@@ -351,8 +351,8 @@ function getGlobalBaseline(cause, age, gender) {
   const bracketKey = bracket.name.split(" ")[0].toLowerCase(); // "Childhood" -> "childhood"
   
   const ratePerHundredK = genderStats[bracketKey] || 0;
-  // Convert per 100K to percentage: 20 per 100K = 0.020%
-  return (ratePerHundredK / 100000) * 100;
+  // Convert per 100K to probability: 20 per 100K = 20/100000 = 0.0002
+  return ratePerHundredK / 100000;
 }
 
 /**
