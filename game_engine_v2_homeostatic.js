@@ -130,7 +130,7 @@ class MortalityGameV2 {
           // Ages 18+: 65 (adult baseline with more vulnerability)
           current: this.getMentalHealthBaseline(0), // Age 0 at birth
           baseline: this.getMentalHealthBaseline(0),
-          drift: 2,
+          drift: 4, // Recover 4 points per year toward baseline (faster recovery)
           chronic: [], // ["depression", "ptsd", "anxiety", "bipolar"]
           episodeDuration: 0, // Months in current episode
           treatmentStatus: "none", // "none" | "medicated" | "therapy" | "hospitalized"
@@ -1138,46 +1138,53 @@ class MortalityGameV2 {
     const stressFactors = [];
     
     // Employment stress: Unemployment is highly stressful (especially adults)
-    if (!p.economics.income.employed && p.demographics.age >= 18) {
-      stressFactors.push(2);  // Increased from 1 - unemployment is major stressor
+    // But only applies occasionally - most months are not crisis months
+    if (!p.economics.income.employed && p.demographics.age >= 18 && Math.random() < 0.3) {
+      stressFactors.push(1.5);  // 30% chance of unemployment stress
       
-      // Long-term unemployment even worse
-      if (p.economics.income.unemploymentMonths >= 12) {
-        stressFactors.push(2);  // Double stress after 1 year
-      } else if (p.economics.income.unemploymentMonths >= 6) {
-        stressFactors.push(1);  // Extra stress after 6 months
+      // Long-term unemployment adds more stress
+      if (p.economics.income.unemploymentMonths >= 12 && Math.random() < 0.4) {
+        stressFactors.push(1.5);  // Extra stress after 1 year (40% chance)
+      } else if (p.economics.income.unemploymentMonths >= 6 && Math.random() < 0.2) {
+        stressFactors.push(0.5);  // Extra stress after 6 months (20% chance)
       }
     }
     
     // Poverty is stressful - based on actual resources vs baseline
-    // If resources < 50% of baseline, significant stress
-    if (p.economics.resources.current < p.economics.resources.baseline * 0.5) {
-      stressFactors.push(2);  // Moderate poverty stress
+    // If resources < 50% of baseline, occasional stress
+    if (p.economics.resources.current < p.economics.resources.baseline * 0.5 && Math.random() < 0.4) {
+      stressFactors.push(1);  // Moderate poverty stress (40% chance)
     }
     
     // Destitution (resources < 10% of baseline)
-    if (p.economics.resources.current < p.economics.resources.baseline * 0.1) {
-      stressFactors.push(3);  // Severe stress
+    if (p.economics.resources.current < p.economics.resources.baseline * 0.1 && Math.random() < 0.6) {
+      stressFactors.push(2);  // Severe stress (60% chance)
     }
     
-    // Social isolation is stressful
-    if (p.relationships.social.isolation) stressFactors.push(1);
+    // Social isolation is stressful - but only if not married
+    if (p.relationships.social.isolation && !p.relationships.social.married && Math.random() < 0.3) {
+      stressFactors.push(0.8);  // Isolation stress (30% chance)
+    }
     
-    // Health problems are stressful
-    if (p.health.physical.current < 40) stressFactors.push(1);
-    if (p.health.physical.chronic.length > 0) stressFactors.push(1);
+    // Health problems are stressful - but chronic conditions are manageable
+    if (p.health.physical.current < 40 && Math.random() < 0.3) {
+      stressFactors.push(0.5);  // Acute health stress (30% chance)
+    }
+    if (p.health.physical.chronic.length > 0 && Math.random() < 0.1) {
+      stressFactors.push(0.3);  // Chronic illness stress (10% chance - ongoing but managed)
+    }
     
-    // Debt is stressful (for adults)
-    if (p.demographics.age >= 18 && p.economics.debt > 0) {
-      const debtStress = Math.min(3, Math.floor(p.economics.debt / 10));
+    // Debt is stressful (for adults) - but only occasionally
+    if (p.demographics.age >= 18 && p.economics.debt > 0 && Math.random() < 0.2) {
+      const debtStress = Math.min(1.5, p.economics.debt / 100);  // Smaller stress values
       stressFactors.push(debtStress);
     }
     
     // Apply accumulated stress
     if (stressFactors.length > 0) {
       const totalStress = stressFactors.reduce((a, b) => a + b, 0);
-      // Random stress between 0 and totalStress (simulates variability)
-      const stress = Math.random() * Math.min(totalStress, 10);
+      // Random stress - usually small amounts (mental health is resilient)
+      const stress = Math.random() * Math.min(totalStress, 1.5);  // Much smaller max impact
       p.health.mental.current = Math.max(5, p.health.mental.current - stress);
     }
     
@@ -1234,11 +1241,11 @@ class MortalityGameV2 {
     
     // ACUTE CRISIS: Low mental health indicates current episode
     if (p.health.mental.current < 20) {
-      suicideRisk *= 2.5;  // Severe crisis, reduced from 4.0
+      suicideRisk *= 1.8;  // Severe crisis, very moderate multiplier
     } else if (p.health.mental.current < 35) {
-      suicideRisk *= 1.5;  // Moderate crisis, reduced from 2.0
+      suicideRisk *= 1.2;  // Moderate crisis, slight multiplier
     } else if (p.health.mental.current < 50) {
-      suicideRisk *= 1.1;  // Mild crisis, reduced from 1.3
+      suicideRisk *= 1.05; // Mild crisis, very slight
     }
 
     // Duration of low mental health (vulnerability accumulation)
@@ -1248,20 +1255,33 @@ class MortalityGameV2 {
       suicideRisk *= 1.2;
     }
 
-    // Social isolation (especially powerful in elderly)
-    if (p.relationships.social.isolation && p.relationships.social.friends === 0) {
-      suicideRisk *= 1.8;
+    // Social isolation (powerful psychological risk factor - loneliness kills)
+    if (p.relationships.social.isolation) {
+      suicideRisk *= 2.2;  // Isolation significantly increases risk
+    }
+    
+    // Loneliness without partner (distinct from formal "isolation" state)
+    if (!p.relationships.partner.exists && p.demographics.age >= 18) {
+      suicideRisk *= 1.3;  // Being unpartnered increases risk
+    }
+    
+    // Few or no friends (weak social support network)
+    if (p.relationships.social.friends === 0) {
+      suicideRisk *= 1.8;  // No social support is strong risk
+    } else if (p.relationships.social.friends === 1) {
+      suicideRisk *= 1.3;  // Minimal support
     }
     
     // Protective factor: marriage/partnership
     if (p.relationships.social.married) {
-      suicideRisk *= 0.6;  // Marriage provides 40% protection
+      suicideRisk *= 0.5;  // Marriage provides 50% protection
     }
 
     // Prior suicide attempts (sensitization - previous attempt is strongest predictor)
     // Each prior attempt increases risk
     if (p.health.mental.suicideHistory.length > 0) {
-      suicideRisk *= (1.0 + (p.health.mental.suicideHistory.length * 0.8));
+      const multiplier = 1.0 + (p.health.mental.suicideHistory.length * 0.8);
+      suicideRisk *= multiplier;
     }
 
     // Substance abuse co-occurrence (powerful risk multiplier)
@@ -1295,7 +1315,9 @@ class MortalityGameV2 {
 
     // Cap at realistic range (suicides never exceed certain bounds)
     // Max would be extreme case: severe crisis + addiction + isolation + no treatment
-    p.health.mental.suicideRisk = Math.max(0.001, Math.min(2.0, suicideRisk));
+    // suicideRisk is stored as a PERCENTAGE (0-100 scale)
+    // Convert from decimal probability to percentage: 0.0002268 → 0.02268%
+    p.health.mental.suicideRisk = Math.max(0.0001, Math.min(2.0, suicideRisk * 100));
   }
 
   attemptSuicide(player) {
@@ -1773,30 +1795,60 @@ class MortalityGameV2 {
 
     let isolationFactors = 0;
 
-    // Unemployment > 12 months
-    if (!p.economics.income.employed) {
-      isolationFactors += 1;
+    // ===== RELATIONSHIP STATUS - Psychological isolation basis =====
+    // Loneliness isn't just about missing people, it's psychological state
+    // Can be lonely in a crowd, or connected despite poor health
+    
+    // No romantic partner (psychological loneliness core factor)
+    if (!p.relationships.partner.exists && p.demographics.age >= 18) {
+      isolationFactors += 0.8;  // Significant factor - not paired
+    }
+    
+    // Partner exists but relationship is poor (emotional disconnect)
+    if (p.relationships.partner.exists && p.relationships.partner.relationship < 30) {
+      isolationFactors += 0.6;  // Poor connection to primary relationship
+    }
+    
+    // Very few friends (social network collapse)
+    if (p.relationships.social.friends === 0) {
+      isolationFactors += 1.0;  // Complete social network absence
+    } else if (p.relationships.social.friends === 1) {
+      isolationFactors += 0.5;  // Minimal social support
+    }
+    
+    // Parent loss (especially significant for young people)
+    if (p.demographics.age < 25 && !p.relationships.parents.mother.alive && !p.relationships.parents.father.alive) {
+      isolationFactors += 0.7;  // Both parents lost = psychological isolation
+    }
+
+    // ===== CIRCUMSTANTIAL ISOLATION FACTORS =====
+    
+    // Unemployment > 12 months (loss of social structure)
+    if (!p.economics.income.employed && p.demographics.age >= 18) {
+      isolationFactors += 0.7;
     }
 
     // Disability/illness limiting mobility
     if (p.circumstances.vulnerability.disabled) {
-      isolationFactors += 1;
+      isolationFactors += 0.6;
     }
 
-    // Mental health crisis
+    // Mental health crisis amplifies isolation (feedback loop)
     if (p.health.mental.current < 30) {
-      isolationFactors += 0.5;
+      isolationFactors += 0.5;  // Crisis makes you withdraw
+    } else if (p.health.mental.current < 40) {
+      isolationFactors += 0.3;  // Mild crisis
     }
 
-    // Incarceration
+    // Incarceration (forced isolation)
     if (p.legal.currentlyImprisoned) {
       p.relationships.social.isolation = true;
       return;
     }
 
-    // Substance abuse active
+    // Substance abuse active (social withdrawal)
     if (p.addiction.stage === "dependent") {
-      isolationFactors += 0.5;
+      isolationFactors += 0.6;
     }
 
     // Friend loss (death, moving, breakup)
@@ -1811,26 +1863,40 @@ class MortalityGameV2 {
 
     // Isolation consequences
     if (p.relationships.social.isolation) {
-      // Mental health degradation
+      // Mental health degradation from isolation
       p.health.mental.baseline = Math.max(30, p.health.mental.baseline - 1);
-      // Physical health degradation
+      // Physical health degradation (loneliness has physiological effects)
       p.health.physical.baseline = Math.max(35, p.health.physical.baseline - 0.5);
-      // Suicide risk increase
-      p.health.mental.suicideRisk += 0.3;
+      // Suicide risk increase (isolation is strong risk factor)
+      p.health.mental.suicideRisk += 0.4;  // Increased from 0.3
       // Economic impact (lost job networking)
       p.economics.income.current = Math.max(0, p.economics.income.current - 1);
     }
 
-    // Recovery from isolation
-    if (p.relationships.social.married) {
+    // ===== RECOVERY FROM ISOLATION =====
+    
+    // Marriage/partnership provides strong protection
+    if (p.relationships.social.married && p.relationships.partner.relationship >= 60) {
       p.relationships.social.isolation = false;
       isolationFactors -= 1;
     }
-    if (p.economics.income.employed) {
+    
+    // Good friend network recovery
+    if (p.relationships.social.friends >= 4) {
+      isolationFactors -= 0.8;
+      if (isolationFactors < 1.5) {
+        p.relationships.social.isolation = false;
+      }
+    }
+    
+    // Employment provides social structure
+    if (p.economics.income.employed && p.demographics.age >= 18) {
       isolationFactors -= 0.5;
     }
-    if (p.relationships.social.friends >= 3) {
-      isolationFactors -= 0.5;
+    
+    // Improvement in mental health helps
+    if (p.health.mental.current > 60) {
+      isolationFactors -= 0.3;
     }
   }
 
@@ -2099,12 +2165,12 @@ class MortalityGameV2 {
     p.survival = Math.max(0, Math.min(100, baseSurvival));
 
     // Suicide risk (major mortality factor for teens/young adults)
-    // Note: suicideRisk is stored as 0.08 (meaning 0.08%), capped at 1.2%
-    // Only applies to age 15+ (adolescence) - matches real-world suicide statistics
-    if (p.demographics.age >= 15 && p.health.mental.suicideRisk > 0.05) {
-      // Roll for suicide attempt (0-1 scale, comparing against decimal probability)
-      const suicideRoll = Math.random();
-      // Convert suicideRisk from percentage (0.08) to decimal (0.0008) for comparison
+    // Note: suicideRisk is stored as a PERCENTAGE (0.01% to 2%)
+    // Only applies to age 10+ (early adolescence) - matches real-world suicide statistics
+    if (p.demographics.age >= 10 && p.health.mental.suicideRisk > 0.001) {
+      // Roll for suicide attempt (0-1 scale probability, comparing against percentage converted to probability)
+      const suicideRoll = Math.random();  // 0-1
+      // suicideRisk is in percentage (e.g., 0.0126), convert to probability: 0.0126 / 100 = 0.000126
       const suicideThreshold = p.health.mental.suicideRisk / 100;
       if (suicideRoll < suicideThreshold) {
         const suicideResult = this.attemptSuicide(player);
