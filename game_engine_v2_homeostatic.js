@@ -665,13 +665,17 @@ class MortalityGameV2 {
     this.driftRelationships(player);
     this.processCognitiveDevelopment(player);
 
-    // 3. Process life stage transitions
+    // 3. Apply events (15% chance per year)
+    const appliedEvent = this.processPossibleEvent(player);
+    player.lastEvent = appliedEvent; // Track for testing/debugging
+
+    // 4. Process life stage transitions
     this.processLifeStageTransitions(player);
 
-    // 4. Recalculate survival from all states
+    // 5. Recalculate survival from all states
     this.calculateSurvivalFromState(player);
 
-    // 5. Death check
+    // 6. Death check
     const deathResult = this.deathCheck(player);
     if (!deathResult.alive) {
       player.alive = false;
@@ -1736,6 +1740,104 @@ class MortalityGameV2 {
     if (marriageDuration < 5) return 0.95;  // 5% divorce rate years 3-5
     if (marriageDuration < 10) return 0.97; // 3% divorce rate years 5-10
     return 0.98; // 2% divorce rate after 10 years (more stable)
+  }
+
+  // ============================================================================
+  // EVENT SYSTEM INTEGRATION
+  // ============================================================================
+
+  evaluatePrerequisite(prereq, player = this.player) {
+    // Check if a prerequisite condition is met
+    // prereq is like: "relationships.partner.exists": true or { operator: "<=", value: 50 }
+    
+    if (!prereq) return true;
+    
+    for (const [path, condition] of Object.entries(prereq)) {
+      const value = this.getNestedValue(player, path);
+      
+      // Simple boolean/value match
+      if (typeof condition === 'boolean' || typeof condition === 'string' || typeof condition === 'number') {
+        if (value !== condition) return false;
+      }
+      // Operator-based conditions (for numeric comparisons)
+      else if (typeof condition === 'object' && condition !== null && condition.operator) {
+        const { operator, value: compareValue } = condition;
+        switch(operator) {
+          case '<': if (!(value < compareValue)) return false; break;
+          case '<=': if (!(value <= compareValue)) return false; break;
+          case '>': if (!(value > compareValue)) return false; break;
+          case '>=': if (!(value >= compareValue)) return false; break;
+          case '==': if (!(value === compareValue)) return false; break;
+          case '!=': if (!(value !== compareValue)) return false; break;
+          default: return false;
+        }
+      }
+    }
+    
+    return true;
+  }
+
+  getAvailableEvents(player = this.player) {
+    // Get all events that are available for this player this year
+    if (!this.eventCards || !Array.isArray(this.eventCards)) return [];
+    
+    const available = [];
+    
+    for (const event of this.eventCards) {
+      // Check age range
+      if (event.ageRange) {
+        const [minAge, maxAge] = event.ageRange;
+        if (player.demographics.age < minAge || player.demographics.age > maxAge) {
+          continue;
+        }
+      }
+      
+      // Check prerequisites
+      if (event.requires) {
+        if (!this.evaluatePrerequisite(event.requires, player)) {
+          continue;
+        }
+      }
+      
+      // This event is available
+      available.push(event);
+    }
+    
+    return available;
+  }
+
+  selectRandomEvent(player = this.player) {
+    // Select a random event weighted by event weight (or return null if none available)
+    const available = this.getAvailableEvents(player);
+    
+    if (available.length === 0) return null;
+    
+    // Weighted random selection
+    const totalWeight = available.reduce((sum, e) => sum + (e.weight || 1), 0);
+    let roll = Math.random() * totalWeight;
+    
+    for (const event of available) {
+      const weight = event.weight || 1;
+      if (roll < weight) return event;
+      roll -= weight;
+    }
+    
+    return available[available.length - 1]; // Fallback
+  }
+
+  processPossibleEvent(player = this.player) {
+    // Each year, 15% chance an event occurs (can be tuned)
+    const EVENT_CHANCE = 0.15;
+    
+    if (Math.random() > EVENT_CHANCE) return null;
+    
+    const event = this.selectRandomEvent(player);
+    if (!event) return null;
+    
+    // Apply the event
+    this.applyEventEffects(event, player);
+    
+    return event;
   }
 
   applyEventEffects(event, player = this.player) {
