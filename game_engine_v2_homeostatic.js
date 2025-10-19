@@ -917,12 +917,28 @@ class MortalityGameV2 {
     // Add annual random stress based on circumstances
     const stressFactors = [];
     
-    // Poverty is stressful
-    if (p.economics.resources.current < 5) stressFactors.push(2);
-    if (p.economics.resources.current < 0) stressFactors.push(3);
+    // Employment stress: Unemployment is highly stressful (especially adults)
+    if (!p.economics.income.employed && p.demographics.age >= 18) {
+      stressFactors.push(2);  // Increased from 1 - unemployment is major stressor
+      
+      // Long-term unemployment even worse
+      if (p.economics.income.unemploymentMonths >= 12) {
+        stressFactors.push(2);  // Double stress after 1 year
+      } else if (p.economics.income.unemploymentMonths >= 6) {
+        stressFactors.push(1);  // Extra stress after 6 months
+      }
+    }
     
-    // Unemployment is highly stressful
-    if (!p.economics.income.employed && p.demographics.age >= 18) stressFactors.push(1);
+    // Poverty is stressful - based on actual resources vs baseline
+    // If resources < 50% of baseline, significant stress
+    if (p.economics.resources.current < p.economics.resources.baseline * 0.5) {
+      stressFactors.push(2);  // Moderate poverty stress
+    }
+    
+    // Destitution (resources < 10% of baseline)
+    if (p.economics.resources.current < p.economics.resources.baseline * 0.1) {
+      stressFactors.push(3);  // Severe stress
+    }
     
     // Social isolation is stressful
     if (p.relationships.social.isolation) stressFactors.push(1);
@@ -930,6 +946,12 @@ class MortalityGameV2 {
     // Health problems are stressful
     if (p.health.physical.current < 40) stressFactors.push(1);
     if (p.health.physical.chronic.length > 0) stressFactors.push(1);
+    
+    // Debt is stressful (for adults)
+    if (p.demographics.age >= 18 && p.economics.debt > 0) {
+      const debtStress = Math.min(3, Math.floor(p.economics.debt / 10));
+      stressFactors.push(debtStress);
+    }
     
     // Apply accumulated stress
     if (stressFactors.length > 0) {
@@ -1647,7 +1669,7 @@ class MortalityGameV2 {
     const region = this.mapRegionForStatistics(p.demographics.birthRegion);
 
     // Get expected employment probability for this age/gender/region
-    const shouldBeEmployed = shouldBeEmployed(age, gender, region);
+    const employmentProbability = shouldBeEmployed(age, gender, region);
 
     // 85% of people stay in their current employment status
     // 15% have turnover (employed→unemployed or unemployed→employed)
@@ -1656,8 +1678,8 @@ class MortalityGameV2 {
 
     if (hasTurnover) {
       // Job transition: flip status with probability
-      p.economics.income.employed = shouldBeEmployed;
-      if (shouldBeEmployed) {
+      p.economics.income.employed = employmentProbability;
+      if (employmentProbability) {
         p.economics.income.lastEmploymentChange = age;
         p.economics.income.unemploymentMonths = 0;
       } else {
@@ -1665,7 +1687,7 @@ class MortalityGameV2 {
       }
     } else {
       // No turnover: stick with structural employment rate
-      p.economics.income.employed = shouldBeEmployed;
+      p.economics.income.employed = employmentProbability;
     }
 
     // Track unemployment duration
