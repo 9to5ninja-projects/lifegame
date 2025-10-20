@@ -1,0 +1,288 @@
+[
+  {
+    "_comment": "TEMPORAL EVENT EXAMPLES - New format with duration/decay",
+    "_note": "These show how to convert old events to temporal effects system"
+  },
+  {
+    "id": "event_sibling_dies_temporal",
+    "type": "event",
+    "name": "Sibling Dies",
+    "ageRange": [0, 12],
+    "description": "Your younger sibling dies from preventable disease. The grief is heavy.",
+    "weight": 5,
+    "profileTags": ["low-resource", "conflict", "unstable"],
+    "profileWeights": {
+      "high-resource": 1,
+      "moderate-resource": 3,
+      "low-resource": 20,
+      "conflict": 30
+    },
+    "effects": [],
+    "temporalEffect": {
+      "name": "Sibling Death Grief",
+      "category": "trauma",
+      "immediate": {
+        "mentalHealthMod": -30,
+        "resourceMod": 1
+      },
+      "duration": 24,
+      "decayType": "exponential",
+      "residual": {
+        "mentalHealthBaseline": -3
+      }
+    }
+  },
+  {
+    "id": "event_parent_dies_temporal",
+    "type": "event",
+    "name": "Parent Dies",
+    "ageRange": [0, 18],
+    "description": "Your parent has died. You may have to work to support your family.",
+    "weight": 8,
+    "profileTags": ["low-resource", "moderate-resource"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Parent Death Trauma",
+      "category": "trauma",
+      "immediate": {
+        "mentalHealthMod": -40,
+        "resourceMod": -10
+      },
+      "duration": 36,
+      "decayType": "exponential",
+      "residual": {
+        "mentalHealthBaseline": -5
+      }
+    }
+  },
+  {
+    "id": "event_scholarship_temporal",
+    "type": "event",
+    "name": "Wins Scholarship",
+    "ageRange": [14, 18],
+    "description": "You won an academic scholarship! Your future looks brighter.",
+    "weight": 5,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Scholarship Achievement",
+      "category": "education",
+      "immediate": {
+        "mentalHealthMod": 15,
+        "resourceMod": 20
+      },
+      "duration": 48,
+      "decayType": "step",
+      "residual": {
+        "mentalHealthBaseline": 2
+      }
+    }
+  },
+  {
+    "id": "event_job_loss_temporal",
+    "type": "event",
+    "name": "Loses Job",
+    "ageRange": [18, 65],
+    "description": "You were laid off. Financial stress and uncertainty loom.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Job Loss",
+      "category": "economic",
+      "immediate": {
+        "mentalHealthMod": -20,
+        "incomeMod": -15
+      },
+      "duration": 6,
+      "decayType": "linear",
+      "residual": {
+        "mentalHealthBaseline": -2
+      },
+      "condition": "!player.economics.income.employed"
+    }
+  },
+  {
+    "id": "event_marriage_temporal",
+    "type": "event",
+    "name": "Gets Married",
+    "ageRange": [18, 50],
+    "description": "You found your life partner and got married!",
+    "weight": 20,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Marriage",
+      "category": "social",
+      "immediate": {
+        "mentalHealthMod": 20,
+        "resourceMod": 10
+      },
+      "duration": 0,
+      "decayType": "none",
+      "condition": "player.relationships.married"
+    }
+  },
+  {
+    "id": "event_divorce_temporal",
+    "type": "event",
+    "name": "Gets Divorced",
+    "ageRange": [20, 70],
+    "description": "Your marriage ended in divorce. The emotional and financial toll is heavy.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Divorce Trauma",
+      "category": "social",
+      "immediate": {
+        "mentalHealthMod": -35,
+        "resourceMod": -25
+      },
+      "duration": 18,
+      "decayType": "exponential",
+      "residual": {
+        "mentalHealthBaseline": -4
+      }
+    }
+  },
+  {
+    "id": "event_chronic_illness_temporal",
+    "type": "event",
+    "name": "Develops Chronic Illness",
+    "ageRange": [30, 80],
+    "description": "You've been diagnosed with a chronic condition that will require ongoing management.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Chronic Illness",
+      "category": "physical",
+      "immediate": {
+        "physicalHealthMod": -15,
+        "mentalHealthMod": -10,
+        "resourceMod": -5
+      },
+      "duration": 0,
+      "decayType": "inverse",
+      "residual": {
+        "physicalHealthBaseline": -5
+      }
+    }
+  },
+  {
+    "id": "event_promotion_temporal",
+    "type": "event",
+    "name": "Gets Promoted",
+    "ageRange": [22, 65],
+    "description": "Your hard work paid off! You received a promotion and raise.",
+    "weight": 12,
+    "profileTags": ["high-resource", "moderate-resource"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Job Promotion",
+      "category": "economic",
+      "immediate": {
+        "mentalHealthMod": 15,
+        "incomeMod": 10
+      },
+      "duration": 6,
+      "decayType": "step",
+      "residual": {
+        "incomeMod": 5
+      }
+    }
+  },
+  {
+    "id": "event_child_born_temporal",
+    "type": "event",
+    "name": "Child is Born",
+    "ageRange": [18, 45],
+    "description": "You welcomed a new child into your family. Joy mixed with new responsibilities.",
+    "weight": 25,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "New Parent",
+      "category": "social",
+      "immediate": {
+        "mentalHealthMod": 10,
+        "resourceMod": -15
+      },
+      "duration": 24,
+      "decayType": "linear",
+      "residual": {
+        "resourceMod": -5
+      }
+    }
+  },
+  {
+    "id": "event_friend_dies_temporal",
+    "type": "event",
+    "name": "Close Friend Dies",
+    "ageRange": [12, 100],
+    "description": "A close friend has passed away. You feel the loss deeply.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Friend Death Grief",
+      "category": "social",
+      "immediate": {
+        "mentalHealthMod": -25
+      },
+      "duration": 18,
+      "decayType": "exponential",
+      "residual": {
+        "mentalHealthBaseline": -2
+      }
+    }
+  },
+  {
+    "id": "event_accident_injury_temporal",
+    "type": "event",
+    "name": "Serious Accident/Injury",
+    "ageRange": [5, 100],
+    "description": "You were injured in an accident. Recovery will take time.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Accident Recovery",
+      "category": "physical",
+      "immediate": {
+        "physicalHealthMod": -30,
+        "mentalHealthMod": -15,
+        "resourceMod": -10
+      },
+      "duration": 12,
+      "decayType": "exponential",
+      "residual": {
+        "physicalHealthBaseline": -3
+      }
+    }
+  },
+  {
+    "id": "event_wins_lottery_temporal",
+    "type": "event",
+    "name": "Wins Small Lottery",
+    "ageRange": [18, 100],
+    "description": "You won a small lottery prize! Financial breathing room at last.",
+    "weight": 2,
+    "profileTags": ["all"],
+    "effects": [],
+    "temporalEffect": {
+      "name": "Lottery Win",
+      "category": "economic",
+      "immediate": {
+        "mentalHealthMod": 20,
+        "resourceMod": 50
+      },
+      "duration": 12,
+      "decayType": "linear",
+      "residual": {
+        "mentalHealthBaseline": 3
+      }
+    }
+  }
+]

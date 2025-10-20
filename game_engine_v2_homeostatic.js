@@ -2924,7 +2924,47 @@ class MortalityGameV2 {
     // Apply the event
     this.applyEventEffects(event, player);
     
+    // NEW: Apply temporal effects if defined
+    if (event.temporalEffect) {
+      this.applyTemporalEffect(event, player);
+    }
+    
     return event;
+  }
+
+  /**
+   * Apply temporal effect from event card
+   * @param {Object} event - Event card with temporalEffect property
+   * @param {Object} player - Player object
+   */
+  applyTemporalEffect(event, player) {
+    const temporal = event.temporalEffect;
+    
+    // Handle conditional effects (e.g., "while married")
+    let condition = null;
+    if (temporal.condition) {
+      // Parse condition string into function
+      try {
+        condition = new Function('player', `return ${temporal.condition}`);
+      } catch (e) {
+        console.warn(`Invalid condition in ${event.name}:`, temporal.condition);
+      }
+    }
+    
+    // Build effect configuration for TemporalEffectsSystem
+    const effectConfig = {
+      name: temporal.name || event.name,
+      category: temporal.category || 'general',
+      source: `event:${event.id}`,
+      immediate: temporal.immediate || {},
+      duration: temporal.duration || 0,
+      decayType: temporal.decayType || 'none',
+      residual: temporal.residual || {},
+      condition: condition
+    };
+    
+    // Apply through temporal effects system
+    this.temporalEffects.applyEffect(player, effectConfig);
   }
 
   applyEventEffects(event, player = this.player) {
