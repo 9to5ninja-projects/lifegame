@@ -11,6 +11,7 @@ const { getAccidentIncidence, getAccidentDisability, shouldDieFromAccident } = r
 const { getSubstanceInitiation, getStageProgression: getSubstanceStageProgression, getSubstancePenalties, checkOverdose, checkTreatmentSuccess } = require('./substance_abuse_system.js');
 const DeathTracer = require('./death_trace_system.js');
 const { TemporalEffectsSystem } = require('./temporal_effects_system.js');
+const RelationshipsSystem = require('./relationships_system.js');
 
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards, tracer = null) {
@@ -20,7 +21,8 @@ class MortalityGameV2 {
     this.deathCards = deathCards;
     this.player = null;
     this.deathTracer = tracer || new DeathTracer(); // Enable death tracing by default
-    this.temporalEffects = new TemporalEffectsSystem(); // NEW: Temporal effects system
+    this.temporalEffects = new TemporalEffectsSystem(); // Temporal effects system
+    this.relationshipsSystem = new RelationshipsSystem(); // NEW: Relationships system
   }
 
   /**
@@ -754,6 +756,9 @@ class MortalityGameV2 {
         player.economics.income.current + temporalMods.income
       );
     }
+
+    // 1f. Process relationships system (NEW: friend/family dynamics)
+    this.relationshipsSystem.processYearlyRelationships(player);
 
     // 2. Drift all homeostatic systems
     this.driftHealth(player);
