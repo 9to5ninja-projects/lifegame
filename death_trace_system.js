@@ -470,7 +470,7 @@ class DeathTracer {
     }
 
     // Turning points
-    if (chain.turningPoints.length > 0) {
+    if (chain && chain.turningPoints && chain.turningPoints.length > 0) {
       console.log(`\n${'-'.repeat(80)}`);
       console.log('CRITICAL TURNING POINTS');
       console.log(`${'-'.repeat(80)}`);
@@ -482,7 +482,7 @@ class DeathTracer {
     }
 
     // Lifetime challenges
-    if (chain.lifetimeChallenges) {
+    if (chain && chain.lifetimeChallenges) {
       console.log(`\n${'-'.repeat(80)}`);
       console.log('LIFETIME CHALLENGES');
       console.log(`${'-'.repeat(80)}`);

@@ -1,0 +1,48 @@
+{
+  "player": {
+    "age": 94,
+    "sex": "male",
+    "birthRegion": "Nordic Country",
+    "lifeExpectancy": 83
+  },
+  "causalChain": null,
+  "fullLog": [
+    {
+      "age": 0,
+      "year": 2025,
+      "eventType": "BIRTH",
+      "context": {
+        "birthRegion": "Nordic Country",
+        "lifeExpectancy": 83,
+        "sex": "male"
+      },
+      "health": {
+        "physical": {
+          "current": 100,
+          "baseline": 100
+        },
+        "mental": {
+          "current": 88,
+          "baseline": 88,
+          "suicideRisk": 0,
+          "chronic": []
+        },
+        "physical_chronic": []
+      },
+      "economics": {
+        "resources": 58,
+        "debt": 0,
+        "employed": false
+      },
+      "relationships": {
+        "married": false,
+        "friends": 1,
+        "children": 0,
+        "isolated": false
+      },
+      "housing": {
+        "status": "stable"
+      }
+    }
+  ]
+}
