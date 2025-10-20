@@ -2,65 +2,1293 @@
   "simulationMetadata": {
     "numLives": 10,
     "region": "Nordic Country",
-    "timestamp": "2025-10-20T04:30:21.582Z"
+    "timestamp": "2025-10-20T04:45:43.739Z"
   },
   "mortalityPatterns": {
     "primaryCauses": {
+      "Natural Disaster": 1,
+      "Stroke": 2,
+      "Infectious Disease (HIV/TB)": 1,
+      "Heart Disease": 2,
+      "Liver Disease (Alcohol)": 1,
       "Diabetes Complications": 1,
-      "Workplace Accident": 1,
-      "Cancer (breast)": 1,
-      "Old Age (Natural Causes)": 1,
-      "Lack of Medical Care": 1,
-      "Heart Disease": 3,
-      "Drug Overdose": 1,
-      "Dementia/Alzheimer's": 1
+      "Cancer": 2
     },
     "ageAtDeath": [
-      65,
-      15,
-      40,
-      83,
-      11,
-      59,
-      51,
+      78,
+      75,
+      41,
       44,
-      71,
-      75
+      69,
+      63,
+      69,
+      44,
+      55,
+      57
     ]
   },
   "traces": [
     {
       "player": {
-        "age": 65,
+        "age": 78,
         "sex": "female",
         "birthRegion": "Nordic Country",
         "lifeExpectancy": 83
       },
       "death": {
-        "age": 65,
-        "year": 65,
-        "eventType": "DEATH_DIABETES_COMPLICATIONS",
+        "age": 78,
+        "year": 78,
+        "eventType": "DEATH_NATURAL_DISASTER",
         "context": {
-          "cause": "Diabetes Complications",
-          "age": 65,
-          "roll": 0.0014712129139218266
+          "cause": "Natural Disaster",
+          "age": 78,
+          "roll": 0.0008876039456326978
         },
         "health": {
           "physical": {
             "current": 100,
-            "baseline": 20
+            "baseline": 44.5
+          },
+          "mental": {
+            "current": 64.22923242813026,
+            "baseline": 62.5,
+            "suicideRisk": 0.4182,
+            "chronic": []
+          },
+          "physical_chronic": []
+        },
+        "economics": {
+          "resources": 2,
+          "debt": 0,
+          "employed": false
+        },
+        "relationships": {
+          "married": false,
+          "friends": 0,
+          "children": 0,
+          "isolated": true
+        },
+        "housing": {
+          "status": "stable"
+        }
+      },
+      "causalChain": {
+        "death": {
+          "age": 78,
+          "year": 78,
+          "eventType": "DEATH_NATURAL_DISASTER",
+          "context": {
+            "cause": "Natural Disaster",
+            "age": 78,
+            "roll": 0.0008876039456326978
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 44.5
+            },
+            "mental": {
+              "current": 64.22923242813026,
+              "baseline": 62.5,
+              "suicideRisk": 0.4182,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 2,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 0,
+            "children": 0,
+            "isolated": true
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        "immediateFactors": {
+          "primaryCause": "Natural Disaster",
+          "healthFactors": [],
+          "economicFactors": [
+            "Severe resource poverty",
+            "Unemployed for extended period"
+          ],
+          "socialFactors": [
+            "Social isolation",
+            "No social connections"
+          ],
+          "contextualFactors": []
+        },
+        "turningPoints": [
+          {
+            "age": 78,
+            "type": "MENTAL_HEALTH_DROP",
+            "magnitude": 23.77076757186974,
+            "event": {
+              "age": 78,
+              "year": 78,
+              "eventType": "DEATH_NATURAL_DISASTER",
+              "context": {
+                "cause": "Natural Disaster",
+                "age": 78,
+                "roll": 0.0008876039456326978
+              },
+              "health": {
+                "physical": {
+                  "current": 100,
+                  "baseline": 44.5
+                },
+                "mental": {
+                  "current": 64.22923242813026,
+                  "baseline": 62.5,
+                  "suicideRisk": 0.4182,
+                  "chronic": []
+                },
+                "physical_chronic": []
+              },
+              "economics": {
+                "resources": 2,
+                "debt": 0,
+                "employed": false
+              },
+              "relationships": {
+                "married": false,
+                "friends": 0,
+                "children": 0,
+                "isolated": true
+              },
+              "housing": {
+                "status": "stable"
+              }
+            }
+          },
+          {
+            "age": 78,
+            "type": "ECONOMIC_CRISIS",
+            "magnitude": 54,
+            "event": {
+              "age": 78,
+              "year": 78,
+              "eventType": "DEATH_NATURAL_DISASTER",
+              "context": {
+                "cause": "Natural Disaster",
+                "age": 78,
+                "roll": 0.0008876039456326978
+              },
+              "health": {
+                "physical": {
+                  "current": 100,
+                  "baseline": 44.5
+                },
+                "mental": {
+                  "current": 64.22923242813026,
+                  "baseline": 62.5,
+                  "suicideRisk": 0.4182,
+                  "chronic": []
+                },
+                "physical_chronic": []
+              },
+              "economics": {
+                "resources": 2,
+                "debt": 0,
+                "employed": false
+              },
+              "relationships": {
+                "married": false,
+                "friends": 0,
+                "children": 0,
+                "isolated": true
+              },
+              "housing": {
+                "status": "stable"
+              }
+            }
+          }
+        ],
+        "lifetimeChallenges": {
+          "economicStruggle": 1,
+          "mentalHealthStruggle": 0,
+          "socialIsolation": 1,
+          "healthCrisis": 0,
+          "employmentInstability": 1
+        },
+        "lastNEvents": [
+          {
+            "age": 0,
+            "year": 2025,
+            "eventType": "BIRTH",
+            "context": {
+              "birthRegion": "Nordic Country",
+              "lifeExpectancy": 83,
+              "sex": "female"
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 100
+              },
+              "mental": {
+                "current": 88,
+                "baseline": 88,
+                "suicideRisk": 0,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 56,
+              "debt": 0,
+              "employed": false
+            },
+            "relationships": {
+              "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 78,
+            "year": 78,
+            "eventType": "DEATH_NATURAL_DISASTER",
+            "context": {
+              "cause": "Natural Disaster",
+              "age": 78,
+              "roll": 0.0008876039456326978
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 44.5
+              },
+              "mental": {
+                "current": 64.22923242813026,
+                "baseline": 62.5,
+                "suicideRisk": 0.4182,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 2,
+              "debt": 0,
+              "employed": false
+            },
+            "relationships": {
+              "married": false,
+              "friends": 0,
+              "children": 0,
+              "isolated": true
+            },
+            "housing": {
+              "status": "stable"
+            }
+          }
+        ]
+      },
+      "fullLog": [
+        {
+          "age": 0,
+          "year": 2025,
+          "eventType": "BIRTH",
+          "context": {
+            "birthRegion": "Nordic Country",
+            "lifeExpectancy": 83,
+            "sex": "female"
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 100
+            },
+            "mental": {
+              "current": 88,
+              "baseline": 88,
+              "suicideRisk": 0,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 56,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        {
+          "age": 78,
+          "year": 78,
+          "eventType": "DEATH_NATURAL_DISASTER",
+          "context": {
+            "cause": "Natural Disaster",
+            "age": 78,
+            "roll": 0.0008876039456326978
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 44.5
+            },
+            "mental": {
+              "current": 64.22923242813026,
+              "baseline": 62.5,
+              "suicideRisk": 0.4182,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 2,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 0,
+            "children": 0,
+            "isolated": true
+          },
+          "housing": {
+            "status": "stable"
+          }
+        }
+      ]
+    },
+    {
+      "player": {
+        "age": 75,
+        "sex": "male",
+        "birthRegion": "Nordic Country",
+        "lifeExpectancy": 83
+      },
+      "death": {
+        "age": 75,
+        "year": 75,
+        "eventType": "DEATH_STROKE",
+        "context": {
+          "cause": "Stroke",
+          "age": 75,
+          "roll": 0.01509035181157703
+        },
+        "health": {
+          "physical": {
+            "current": 100,
+            "baseline": 48.2
           },
           "mental": {
             "current": 65,
             "baseline": 63.5,
+            "suicideRisk": 0.45687500000000003,
+            "chronic": []
+          },
+          "physical_chronic": []
+        },
+        "economics": {
+          "resources": 616,
+          "debt": 0,
+          "employed": false
+        },
+        "relationships": {
+          "married": false,
+          "friends": 0,
+          "children": 0,
+          "isolated": true
+        },
+        "housing": {
+          "status": "stable"
+        }
+      },
+      "causalChain": {
+        "death": {
+          "age": 75,
+          "year": 75,
+          "eventType": "DEATH_STROKE",
+          "context": {
+            "cause": "Stroke",
+            "age": 75,
+            "roll": 0.01509035181157703
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 48.2
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 63.5,
+              "suicideRisk": 0.45687500000000003,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 616,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 0,
+            "children": 0,
+            "isolated": true
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        "immediateFactors": {
+          "primaryCause": "Stroke",
+          "healthFactors": [],
+          "economicFactors": [
+            "Unemployed for extended period"
+          ],
+          "socialFactors": [
+            "Social isolation",
+            "No social connections"
+          ],
+          "contextualFactors": []
+        },
+        "turningPoints": [
+          {
+            "age": 75,
+            "type": "MENTAL_HEALTH_DROP",
+            "magnitude": 23,
+            "event": {
+              "age": 75,
+              "year": 75,
+              "eventType": "DEATH_STROKE",
+              "context": {
+                "cause": "Stroke",
+                "age": 75,
+                "roll": 0.01509035181157703
+              },
+              "health": {
+                "physical": {
+                  "current": 100,
+                  "baseline": 48.2
+                },
+                "mental": {
+                  "current": 65,
+                  "baseline": 63.5,
+                  "suicideRisk": 0.45687500000000003,
+                  "chronic": []
+                },
+                "physical_chronic": []
+              },
+              "economics": {
+                "resources": 616,
+                "debt": 0,
+                "employed": false
+              },
+              "relationships": {
+                "married": false,
+                "friends": 0,
+                "children": 0,
+                "isolated": true
+              },
+              "housing": {
+                "status": "stable"
+              }
+            }
+          }
+        ],
+        "lifetimeChallenges": {
+          "economicStruggle": 0,
+          "mentalHealthStruggle": 0,
+          "socialIsolation": 1,
+          "healthCrisis": 0,
+          "employmentInstability": 1
+        },
+        "lastNEvents": [
+          {
+            "age": 0,
+            "year": 2025,
+            "eventType": "BIRTH",
+            "context": {
+              "birthRegion": "Nordic Country",
+              "lifeExpectancy": 83,
+              "sex": "male"
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 100
+              },
+              "mental": {
+                "current": 88,
+                "baseline": 88,
+                "suicideRisk": 0,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 49,
+              "debt": 0,
+              "employed": false
+            },
+            "relationships": {
+              "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 75,
+            "year": 75,
+            "eventType": "DEATH_STROKE",
+            "context": {
+              "cause": "Stroke",
+              "age": 75,
+              "roll": 0.01509035181157703
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 48.2
+              },
+              "mental": {
+                "current": 65,
+                "baseline": 63.5,
+                "suicideRisk": 0.45687500000000003,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 616,
+              "debt": 0,
+              "employed": false
+            },
+            "relationships": {
+              "married": false,
+              "friends": 0,
+              "children": 0,
+              "isolated": true
+            },
+            "housing": {
+              "status": "stable"
+            }
+          }
+        ]
+      },
+      "fullLog": [
+        {
+          "age": 0,
+          "year": 2025,
+          "eventType": "BIRTH",
+          "context": {
+            "birthRegion": "Nordic Country",
+            "lifeExpectancy": 83,
+            "sex": "male"
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 100
+            },
+            "mental": {
+              "current": 88,
+              "baseline": 88,
+              "suicideRisk": 0,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 49,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        {
+          "age": 75,
+          "year": 75,
+          "eventType": "DEATH_STROKE",
+          "context": {
+            "cause": "Stroke",
+            "age": 75,
+            "roll": 0.01509035181157703
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 48.2
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 63.5,
+              "suicideRisk": 0.45687500000000003,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 616,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 0,
+            "children": 0,
+            "isolated": true
+          },
+          "housing": {
+            "status": "stable"
+          }
+        }
+      ]
+    },
+    {
+      "player": {
+        "age": 41,
+        "sex": "male",
+        "birthRegion": "Nordic Country",
+        "lifeExpectancy": 83
+      },
+      "death": {
+        "age": 41,
+        "year": 41,
+        "eventType": "DEATH_INFECTIOUS_DISEASE__HIV_TB_",
+        "context": {
+          "cause": "Infectious Disease (HIV/TB)",
+          "age": 41,
+          "roll": 0.0007142454515678409
+        },
+        "health": {
+          "physical": {
+            "current": 100,
+            "baseline": 59.30000000000004
+          },
+          "mental": {
+            "current": 65,
+            "baseline": 63.2,
+            "suicideRisk": 0.44095,
+            "chronic": []
+          },
+          "physical_chronic": []
+        },
+        "economics": {
+          "resources": 69,
+          "debt": 0,
+          "employed": true
+        },
+        "relationships": {
+          "married": false,
+          "friends": 1,
+          "children": 0,
+          "isolated": false
+        },
+        "housing": {
+          "status": "stable"
+        }
+      },
+      "causalChain": {
+        "death": {
+          "age": 41,
+          "year": 41,
+          "eventType": "DEATH_INFECTIOUS_DISEASE__HIV_TB_",
+          "context": {
+            "cause": "Infectious Disease (HIV/TB)",
+            "age": 41,
+            "roll": 0.0007142454515678409
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 59.30000000000004
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 63.2,
+              "suicideRisk": 0.44095,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 69,
+            "debt": 0,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        "immediateFactors": {
+          "primaryCause": "Infectious Disease (HIV/TB)",
+          "healthFactors": [],
+          "economicFactors": [],
+          "socialFactors": [],
+          "contextualFactors": []
+        },
+        "turningPoints": [
+          {
+            "age": 41,
+            "type": "MENTAL_HEALTH_DROP",
+            "magnitude": 23,
+            "event": {
+              "age": 41,
+              "year": 41,
+              "eventType": "DEATH_INFECTIOUS_DISEASE__HIV_TB_",
+              "context": {
+                "cause": "Infectious Disease (HIV/TB)",
+                "age": 41,
+                "roll": 0.0007142454515678409
+              },
+              "health": {
+                "physical": {
+                  "current": 100,
+                  "baseline": 59.30000000000004
+                },
+                "mental": {
+                  "current": 65,
+                  "baseline": 63.2,
+                  "suicideRisk": 0.44095,
+                  "chronic": []
+                },
+                "physical_chronic": []
+              },
+              "economics": {
+                "resources": 69,
+                "debt": 0,
+                "employed": true
+              },
+              "relationships": {
+                "married": false,
+                "friends": 1,
+                "children": 0,
+                "isolated": false
+              },
+              "housing": {
+                "status": "stable"
+              }
+            }
+          }
+        ],
+        "lifetimeChallenges": {
+          "economicStruggle": 0,
+          "mentalHealthStruggle": 0,
+          "socialIsolation": 0,
+          "healthCrisis": 0,
+          "employmentInstability": 0
+        },
+        "lastNEvents": [
+          {
+            "age": 0,
+            "year": 2025,
+            "eventType": "BIRTH",
+            "context": {
+              "birthRegion": "Nordic Country",
+              "lifeExpectancy": 83,
+              "sex": "male"
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 100
+              },
+              "mental": {
+                "current": 88,
+                "baseline": 88,
+                "suicideRisk": 0,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 45,
+              "debt": 0,
+              "employed": false
+            },
+            "relationships": {
+              "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 41,
+            "year": 41,
+            "eventType": "DEATH_INFECTIOUS_DISEASE__HIV_TB_",
+            "context": {
+              "cause": "Infectious Disease (HIV/TB)",
+              "age": 41,
+              "roll": 0.0007142454515678409
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 59.30000000000004
+              },
+              "mental": {
+                "current": 65,
+                "baseline": 63.2,
+                "suicideRisk": 0.44095,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 69,
+              "debt": 0,
+              "employed": true
+            },
+            "relationships": {
+              "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          }
+        ]
+      },
+      "fullLog": [
+        {
+          "age": 0,
+          "year": 2025,
+          "eventType": "BIRTH",
+          "context": {
+            "birthRegion": "Nordic Country",
+            "lifeExpectancy": 83,
+            "sex": "male"
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 100
+            },
+            "mental": {
+              "current": 88,
+              "baseline": 88,
+              "suicideRisk": 0,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 45,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        {
+          "age": 41,
+          "year": 41,
+          "eventType": "DEATH_INFECTIOUS_DISEASE__HIV_TB_",
+          "context": {
+            "cause": "Infectious Disease (HIV/TB)",
+            "age": 41,
+            "roll": 0.0007142454515678409
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 59.30000000000004
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 63.2,
+              "suicideRisk": 0.44095,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 69,
+            "debt": 0,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        }
+      ]
+    },
+    {
+      "player": {
+        "age": 44,
+        "sex": "female",
+        "birthRegion": "Nordic Country",
+        "lifeExpectancy": 83
+      },
+      "death": {
+        "age": 44,
+        "year": 44,
+        "eventType": "DEATH_HEART_DISEASE",
+        "context": {
+          "cause": "Heart Disease",
+          "age": 44,
+          "roll": 0.0005453919022364584
+        },
+        "health": {
+          "physical": {
+            "current": 100,
+            "baseline": 70.20000000000005
+          },
+          "mental": {
+            "current": 65,
+            "baseline": 65,
+            "suicideRisk": 0.0042,
+            "chronic": []
+          },
+          "physical_chronic": []
+        },
+        "economics": {
+          "resources": 129,
+          "debt": 0,
+          "employed": true
+        },
+        "relationships": {
+          "married": false,
+          "friends": 4,
+          "children": 0,
+          "isolated": false
+        },
+        "housing": {
+          "status": "stable"
+        }
+      },
+      "causalChain": {
+        "death": {
+          "age": 44,
+          "year": 44,
+          "eventType": "DEATH_HEART_DISEASE",
+          "context": {
+            "cause": "Heart Disease",
+            "age": 44,
+            "roll": 0.0005453919022364584
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 70.20000000000005
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 65,
+              "suicideRisk": 0.0042,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 129,
+            "debt": 0,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 4,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        "immediateFactors": {
+          "primaryCause": "Heart Disease",
+          "healthFactors": [],
+          "economicFactors": [],
+          "socialFactors": [],
+          "contextualFactors": []
+        },
+        "turningPoints": [
+          {
+            "age": 44,
+            "type": "MENTAL_HEALTH_DROP",
+            "magnitude": 23,
+            "event": {
+              "age": 44,
+              "year": 44,
+              "eventType": "DEATH_HEART_DISEASE",
+              "context": {
+                "cause": "Heart Disease",
+                "age": 44,
+                "roll": 0.0005453919022364584
+              },
+              "health": {
+                "physical": {
+                  "current": 100,
+                  "baseline": 70.20000000000005
+                },
+                "mental": {
+                  "current": 65,
+                  "baseline": 65,
+                  "suicideRisk": 0.0042,
+                  "chronic": []
+                },
+                "physical_chronic": []
+              },
+              "economics": {
+                "resources": 129,
+                "debt": 0,
+                "employed": true
+              },
+              "relationships": {
+                "married": false,
+                "friends": 4,
+                "children": 0,
+                "isolated": false
+              },
+              "housing": {
+                "status": "stable"
+              }
+            }
+          }
+        ],
+        "lifetimeChallenges": {
+          "economicStruggle": 0,
+          "mentalHealthStruggle": 0,
+          "socialIsolation": 0,
+          "healthCrisis": 0,
+          "employmentInstability": 0
+        },
+        "lastNEvents": [
+          {
+            "age": 0,
+            "year": 2025,
+            "eventType": "BIRTH",
+            "context": {
+              "birthRegion": "Nordic Country",
+              "lifeExpectancy": 83,
+              "sex": "female"
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 100
+              },
+              "mental": {
+                "current": 88,
+                "baseline": 88,
+                "suicideRisk": 0,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 56,
+              "debt": 0,
+              "employed": false
+            },
+            "relationships": {
+              "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 44,
+            "year": 44,
+            "eventType": "DEATH_HEART_DISEASE",
+            "context": {
+              "cause": "Heart Disease",
+              "age": 44,
+              "roll": 0.0005453919022364584
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 70.20000000000005
+              },
+              "mental": {
+                "current": 65,
+                "baseline": 65,
+                "suicideRisk": 0.0042,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 129,
+              "debt": 0,
+              "employed": true
+            },
+            "relationships": {
+              "married": false,
+              "friends": 4,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          }
+        ]
+      },
+      "fullLog": [
+        {
+          "age": 0,
+          "year": 2025,
+          "eventType": "BIRTH",
+          "context": {
+            "birthRegion": "Nordic Country",
+            "lifeExpectancy": 83,
+            "sex": "female"
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 100
+            },
+            "mental": {
+              "current": 88,
+              "baseline": 88,
+              "suicideRisk": 0,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 56,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        {
+          "age": 44,
+          "year": 44,
+          "eventType": "DEATH_HEART_DISEASE",
+          "context": {
+            "cause": "Heart Disease",
+            "age": 44,
+            "roll": 0.0005453919022364584
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 70.20000000000005
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 65,
+              "suicideRisk": 0.0042,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 129,
+            "debt": 0,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 4,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        }
+      ]
+    },
+    {
+      "player": {
+        "age": 69,
+        "sex": "female",
+        "birthRegion": "Nordic Country",
+        "lifeExpectancy": 83
+      },
+      "death": {
+        "age": 69,
+        "year": 69,
+        "eventType": "DEATH_LIVER_DISEASE__ALCOHOL_",
+        "context": {
+          "cause": "Liver Disease (Alcohol)",
+          "age": 69,
+          "roll": 0.0032225664597487214
+        },
+        "health": {
+          "physical": {
+            "current": 100,
+            "baseline": 47.5
+          },
+          "mental": {
+            "current": 65,
+            "baseline": 64.2,
             "suicideRisk": 0.013999999999999999,
             "chronic": []
           },
           "physical_chronic": []
         },
         "economics": {
-          "resources": 108,
-          "debt": 0,
+          "resources": 67,
+          "debt": 10,
           "employed": false
         },
         "relationships": {
@@ -75,30 +1303,30 @@
       },
       "causalChain": {
         "death": {
-          "age": 65,
-          "year": 65,
-          "eventType": "DEATH_DIABETES_COMPLICATIONS",
+          "age": 69,
+          "year": 69,
+          "eventType": "DEATH_LIVER_DISEASE__ALCOHOL_",
           "context": {
-            "cause": "Diabetes Complications",
-            "age": 65,
-            "roll": 0.0014712129139218266
+            "cause": "Liver Disease (Alcohol)",
+            "age": 69,
+            "roll": 0.0032225664597487214
           },
           "health": {
             "physical": {
               "current": 100,
-              "baseline": 20
+              "baseline": 47.5
             },
             "mental": {
               "current": 65,
-              "baseline": 63.5,
+              "baseline": 64.2,
               "suicideRisk": 0.013999999999999999,
               "chronic": []
             },
             "physical_chronic": []
           },
           "economics": {
-            "resources": 108,
-            "debt": 0,
+            "resources": 67,
+            "debt": 10,
             "employed": false
           },
           "relationships": {
@@ -112,7 +1340,7 @@
           }
         },
         "immediateFactors": {
-          "primaryCause": "Diabetes Complications",
+          "primaryCause": "Liver Disease (Alcohol)",
           "healthFactors": [],
           "economicFactors": [
             "Unemployed for extended period"
@@ -122,34 +1350,34 @@
         },
         "turningPoints": [
           {
-            "age": 65,
+            "age": 69,
             "type": "MENTAL_HEALTH_DROP",
             "magnitude": 23,
             "event": {
-              "age": 65,
-              "year": 65,
-              "eventType": "DEATH_DIABETES_COMPLICATIONS",
+              "age": 69,
+              "year": 69,
+              "eventType": "DEATH_LIVER_DISEASE__ALCOHOL_",
               "context": {
-                "cause": "Diabetes Complications",
-                "age": 65,
-                "roll": 0.0014712129139218266
+                "cause": "Liver Disease (Alcohol)",
+                "age": 69,
+                "roll": 0.0032225664597487214
               },
               "health": {
                 "physical": {
                   "current": 100,
-                  "baseline": 20
+                  "baseline": 47.5
                 },
                 "mental": {
                   "current": 65,
-                  "baseline": 63.5,
+                  "baseline": 64.2,
                   "suicideRisk": 0.013999999999999999,
                   "chronic": []
                 },
                 "physical_chronic": []
               },
               "economics": {
-                "resources": 108,
-                "debt": 0,
+                "resources": 67,
+                "debt": 10,
                 "employed": false
               },
               "relationships": {
@@ -195,7 +1423,7 @@
               "physical_chronic": []
             },
             "economics": {
-              "resources": 60,
+              "resources": 52,
               "debt": 0,
               "employed": false
             },
@@ -210,30 +1438,30 @@
             }
           },
           {
-            "age": 65,
-            "year": 65,
-            "eventType": "DEATH_DIABETES_COMPLICATIONS",
+            "age": 69,
+            "year": 69,
+            "eventType": "DEATH_LIVER_DISEASE__ALCOHOL_",
             "context": {
-              "cause": "Diabetes Complications",
-              "age": 65,
-              "roll": 0.0014712129139218266
+              "cause": "Liver Disease (Alcohol)",
+              "age": 69,
+              "roll": 0.0032225664597487214
             },
             "health": {
               "physical": {
                 "current": 100,
-                "baseline": 20
+                "baseline": 47.5
               },
               "mental": {
                 "current": 65,
-                "baseline": 63.5,
+                "baseline": 64.2,
                 "suicideRisk": 0.013999999999999999,
                 "chronic": []
               },
               "physical_chronic": []
             },
             "economics": {
-              "resources": 108,
-              "debt": 0,
+              "resources": 67,
+              "debt": 10,
               "employed": false
             },
             "relationships": {
@@ -272,7 +1500,7 @@
             "physical_chronic": []
           },
           "economics": {
-            "resources": 60,
+            "resources": 52,
             "debt": 0,
             "employed": false
           },
@@ -287,30 +1515,30 @@
           }
         },
         {
-          "age": 65,
-          "year": 65,
-          "eventType": "DEATH_DIABETES_COMPLICATIONS",
+          "age": 69,
+          "year": 69,
+          "eventType": "DEATH_LIVER_DISEASE__ALCOHOL_",
           "context": {
-            "cause": "Diabetes Complications",
-            "age": 65,
-            "roll": 0.0014712129139218266
+            "cause": "Liver Disease (Alcohol)",
+            "age": 69,
+            "roll": 0.0032225664597487214
           },
           "health": {
             "physical": {
               "current": 100,
-              "baseline": 20
+              "baseline": 47.5
             },
             "mental": {
               "current": 65,
-              "baseline": 63.5,
+              "baseline": 64.2,
               "suicideRisk": 0.013999999999999999,
               "chronic": []
             },
             "physical_chronic": []
           },
           "economics": {
-            "resources": 108,
-            "debt": 0,
+            "resources": 67,
+            "debt": 10,
             "employed": false
           },
           "relationships": {
@@ -327,572 +1555,29 @@
     },
     {
       "player": {
-        "age": 15,
+        "age": 63,
         "sex": "female",
         "birthRegion": "Nordic Country",
         "lifeExpectancy": 83
       },
       "death": {
-        "age": 15,
-        "year": 15,
-        "eventType": "DEATH_WORKPLACE_ACCIDENT",
+        "age": 63,
+        "year": 63,
+        "eventType": "DEATH_DIABETES_COMPLICATIONS",
         "context": {
-          "cause": "Workplace Accident",
-          "age": 15,
-          "roll": 0.0005745880631287115
-        },
-        "health": {
-          "physical": {
-            "current": 100,
-            "baseline": 93
-          },
-          "mental": {
-            "current": 75,
-            "baseline": 74,
-            "suicideRisk": 0.4035,
-            "chronic": []
-          },
-          "physical_chronic": []
-        },
-        "economics": {
-          "resources": 56,
-          "debt": 0,
-          "employed": true
-        },
-        "relationships": {
-          "married": false,
-          "friends": 0,
-          "children": 0,
-          "isolated": true
-        },
-        "housing": {
-          "status": "stable"
-        }
-      },
-      "causalChain": {
-        "death": {
-          "age": 15,
-          "year": 15,
-          "eventType": "DEATH_WORKPLACE_ACCIDENT",
-          "context": {
-            "cause": "Workplace Accident",
-            "age": 15,
-            "roll": 0.0005745880631287115
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 93
-            },
-            "mental": {
-              "current": 75,
-              "baseline": 74,
-              "suicideRisk": 0.4035,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 56,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        "immediateFactors": {
-          "primaryCause": "Workplace Accident",
-          "healthFactors": [],
-          "economicFactors": [],
-          "socialFactors": [
-            "Social isolation",
-            "No social connections"
-          ],
-          "contextualFactors": []
-        },
-        "turningPoints": [],
-        "lifetimeChallenges": {
-          "economicStruggle": 0,
-          "mentalHealthStruggle": 0,
-          "socialIsolation": 1,
-          "healthCrisis": 0,
-          "employmentInstability": 0
-        },
-        "lastNEvents": [
-          {
-            "age": 0,
-            "year": 2025,
-            "eventType": "BIRTH",
-            "context": {
-              "birthRegion": "Nordic Country",
-              "lifeExpectancy": 83,
-              "sex": "female"
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 100
-              },
-              "mental": {
-                "current": 88,
-                "baseline": 88,
-                "suicideRisk": 0,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 55,
-              "debt": 0,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 15,
-            "year": 15,
-            "eventType": "DEATH_WORKPLACE_ACCIDENT",
-            "context": {
-              "cause": "Workplace Accident",
-              "age": 15,
-              "roll": 0.0005745880631287115
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 93
-              },
-              "mental": {
-                "current": 75,
-                "baseline": 74,
-                "suicideRisk": 0.4035,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 56,
-              "debt": 0,
-              "employed": true
-            },
-            "relationships": {
-              "married": false,
-              "friends": 0,
-              "children": 0,
-              "isolated": true
-            },
-            "housing": {
-              "status": "stable"
-            }
-          }
-        ]
-      },
-      "fullLog": [
-        {
-          "age": 0,
-          "year": 2025,
-          "eventType": "BIRTH",
-          "context": {
-            "birthRegion": "Nordic Country",
-            "lifeExpectancy": 83,
-            "sex": "female"
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 100
-            },
-            "mental": {
-              "current": 88,
-              "baseline": 88,
-              "suicideRisk": 0,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 55,
-            "debt": 0,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        {
-          "age": 15,
-          "year": 15,
-          "eventType": "DEATH_WORKPLACE_ACCIDENT",
-          "context": {
-            "cause": "Workplace Accident",
-            "age": 15,
-            "roll": 0.0005745880631287115
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 93
-            },
-            "mental": {
-              "current": 75,
-              "baseline": 74,
-              "suicideRisk": 0.4035,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 56,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        }
-      ]
-    },
-    {
-      "player": {
-        "age": 40,
-        "sex": "female",
-        "birthRegion": "Nordic Country",
-        "lifeExpectancy": 83
-      },
-      "death": {
-        "age": 40,
-        "year": 40,
-        "eventType": "DEATH_CANCER__BREAST_",
-        "context": {
-          "cause": "Cancer (breast)",
-          "age": 40
-        },
-        "health": {
-          "physical": {
-            "current": 87.2,
-            "baseline": 87.16
-          },
-          "mental": {
-            "current": 50.92360393549495,
-            "baseline": 65,
-            "suicideRisk": 0.0029399999999999995,
-            "chronic": []
-          },
-          "physical_chronic": []
-        },
-        "economics": {
-          "resources": 98.55,
-          "debt": 0,
-          "employed": true
-        },
-        "relationships": {
-          "married": false,
-          "friends": 5,
-          "children": 0,
-          "isolated": false
-        },
-        "housing": {
-          "status": "stable"
-        }
-      },
-      "causalChain": {
-        "death": {
-          "age": 40,
-          "year": 40,
-          "eventType": "DEATH_CANCER__BREAST_",
-          "context": {
-            "cause": "Cancer (breast)",
-            "age": 40
-          },
-          "health": {
-            "physical": {
-              "current": 87.2,
-              "baseline": 87.16
-            },
-            "mental": {
-              "current": 50.92360393549495,
-              "baseline": 65,
-              "suicideRisk": 0.0029399999999999995,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 98.55,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 5,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        "immediateFactors": {
-          "primaryCause": "Cancer (breast)",
-          "healthFactors": [],
-          "economicFactors": [],
-          "socialFactors": [],
-          "contextualFactors": []
-        },
-        "turningPoints": [
-          {
-            "age": 40,
-            "type": "MENTAL_HEALTH_DROP",
-            "magnitude": 37.07639606450505,
-            "event": {
-              "age": 40,
-              "year": 40,
-              "eventType": "DEATH_CANCER__BREAST_",
-              "context": {
-                "cause": "Cancer (breast)",
-                "age": 40
-              },
-              "health": {
-                "physical": {
-                  "current": 87.2,
-                  "baseline": 87.16
-                },
-                "mental": {
-                  "current": 50.92360393549495,
-                  "baseline": 65,
-                  "suicideRisk": 0.0029399999999999995,
-                  "chronic": []
-                },
-                "physical_chronic": []
-              },
-              "economics": {
-                "resources": 98.55,
-                "debt": 0,
-                "employed": true
-              },
-              "relationships": {
-                "married": false,
-                "friends": 5,
-                "children": 0,
-                "isolated": false
-              },
-              "housing": {
-                "status": "stable"
-              }
-            }
-          }
-        ],
-        "lifetimeChallenges": {
-          "economicStruggle": 0,
-          "mentalHealthStruggle": 0,
-          "socialIsolation": 0,
-          "healthCrisis": 0,
-          "employmentInstability": 0
-        },
-        "lastNEvents": [
-          {
-            "age": 0,
-            "year": 2025,
-            "eventType": "BIRTH",
-            "context": {
-              "birthRegion": "Nordic Country",
-              "lifeExpectancy": 83,
-              "sex": "female"
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 100
-              },
-              "mental": {
-                "current": 88,
-                "baseline": 88,
-                "suicideRisk": 0,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 54,
-              "debt": 0,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 40,
-            "year": 40,
-            "eventType": "DEATH_CANCER__BREAST_",
-            "context": {
-              "cause": "Cancer (breast)",
-              "age": 40
-            },
-            "health": {
-              "physical": {
-                "current": 87.2,
-                "baseline": 87.16
-              },
-              "mental": {
-                "current": 50.92360393549495,
-                "baseline": 65,
-                "suicideRisk": 0.0029399999999999995,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 98.55,
-              "debt": 0,
-              "employed": true
-            },
-            "relationships": {
-              "married": false,
-              "friends": 5,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          }
-        ]
-      },
-      "fullLog": [
-        {
-          "age": 0,
-          "year": 2025,
-          "eventType": "BIRTH",
-          "context": {
-            "birthRegion": "Nordic Country",
-            "lifeExpectancy": 83,
-            "sex": "female"
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 100
-            },
-            "mental": {
-              "current": 88,
-              "baseline": 88,
-              "suicideRisk": 0,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 54,
-            "debt": 0,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        {
-          "age": 40,
-          "year": 40,
-          "eventType": "DEATH_CANCER__BREAST_",
-          "context": {
-            "cause": "Cancer (breast)",
-            "age": 40
-          },
-          "health": {
-            "physical": {
-              "current": 87.2,
-              "baseline": 87.16
-            },
-            "mental": {
-              "current": 50.92360393549495,
-              "baseline": 65,
-              "suicideRisk": 0.0029399999999999995,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 98.55,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 5,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        }
-      ]
-    },
-    {
-      "player": {
-        "age": 83,
-        "sex": "male",
-        "birthRegion": "Nordic Country",
-        "lifeExpectancy": 83
-      },
-      "death": {
-        "age": 83,
-        "year": 83,
-        "eventType": "DEATH_OLD_AGE__NATURAL_CAUSES_",
-        "context": {
-          "cause": "Old Age (Natural Causes)",
-          "age": 83,
-          "roll": 0.024720370134154068
+          "cause": "Diabetes Complications",
+          "age": 63,
+          "roll": 0.0002524636815810499
         },
         "health": {
           "physical": {
             "current": 85,
-            "baseline": 35
+            "baseline": 48.2
           },
           "mental": {
-            "current": 64.54480558069699,
-            "baseline": 63.2,
-            "suicideRisk": 0.43071250000000005,
+            "current": 65,
+            "baseline": 63.5,
+            "suicideRisk": 0.40737100000000004,
             "chronic": [
               "ptsd"
             ]
@@ -900,9 +1585,9 @@
           "physical_chronic": []
         },
         "economics": {
-          "resources": 0,
-          "debt": 53,
-          "employed": false
+          "resources": 153,
+          "debt": 30,
+          "employed": true
         },
         "relationships": {
           "married": false,
@@ -916,23 +1601,23 @@
       },
       "causalChain": {
         "death": {
-          "age": 83,
-          "year": 83,
-          "eventType": "DEATH_OLD_AGE__NATURAL_CAUSES_",
+          "age": 63,
+          "year": 63,
+          "eventType": "DEATH_DIABETES_COMPLICATIONS",
           "context": {
-            "cause": "Old Age (Natural Causes)",
-            "age": 83,
-            "roll": 0.024720370134154068
+            "cause": "Diabetes Complications",
+            "age": 63,
+            "roll": 0.0002524636815810499
           },
           "health": {
             "physical": {
               "current": 85,
-              "baseline": 35
+              "baseline": 48.2
             },
             "mental": {
-              "current": 64.54480558069699,
-              "baseline": 63.2,
-              "suicideRisk": 0.43071250000000005,
+              "current": 65,
+              "baseline": 63.5,
+              "suicideRisk": 0.40737100000000004,
               "chronic": [
                 "ptsd"
               ]
@@ -940,360 +1625,8 @@
             "physical_chronic": []
           },
           "economics": {
-            "resources": 0,
-            "debt": 53,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        "immediateFactors": {
-          "primaryCause": "Old Age (Natural Causes)",
-          "healthFactors": [],
-          "economicFactors": [
-            "Severe resource poverty",
-            "Severe debt burden",
-            "Unemployed for extended period"
-          ],
-          "socialFactors": [
-            "Social isolation",
-            "No social connections"
-          ],
-          "contextualFactors": []
-        },
-        "turningPoints": [
-          {
-            "age": 45,
-            "type": "MENTAL_HEALTH_DROP",
-            "magnitude": 43.76660504645315,
-            "event": {
-              "age": 45,
-              "year": 45,
-              "eventType": "SUICIDE_ATTEMPT",
-              "context": {
-                "survived": true,
-                "method": "hanging",
-                "mentalHealth": 44.23339495354685,
-                "ptsaAcquired": true
-              },
-              "health": {
-                "physical": {
-                  "current": 85,
-                  "baseline": 84.5
-                },
-                "mental": {
-                  "current": 44.23339495354685,
-                  "baseline": 64,
-                  "suicideRisk": 0.42457,
-                  "chronic": [
-                    "ptsd"
-                  ]
-                },
-                "physical_chronic": []
-              },
-              "economics": {
-                "resources": 87,
-                "debt": 20,
-                "employed": true
-              },
-              "relationships": {
-                "married": false,
-                "friends": 0,
-                "children": 0,
-                "isolated": true
-              },
-              "housing": {
-                "status": "stable"
-              }
-            }
-          },
-          {
-            "age": 83,
-            "type": "ECONOMIC_CRISIS",
-            "magnitude": 87,
-            "event": {
-              "age": 83,
-              "year": 83,
-              "eventType": "DEATH_OLD_AGE__NATURAL_CAUSES_",
-              "context": {
-                "cause": "Old Age (Natural Causes)",
-                "age": 83,
-                "roll": 0.024720370134154068
-              },
-              "health": {
-                "physical": {
-                  "current": 85,
-                  "baseline": 35
-                },
-                "mental": {
-                  "current": 64.54480558069699,
-                  "baseline": 63.2,
-                  "suicideRisk": 0.43071250000000005,
-                  "chronic": [
-                    "ptsd"
-                  ]
-                },
-                "physical_chronic": []
-              },
-              "economics": {
-                "resources": 0,
-                "debt": 53,
-                "employed": false
-              },
-              "relationships": {
-                "married": false,
-                "friends": 0,
-                "children": 0,
-                "isolated": true
-              },
-              "housing": {
-                "status": "stable"
-              }
-            }
-          },
-          {
-            "age": 83,
-            "type": "EMPLOYMENT_LOSS",
-            "event": {
-              "age": 83,
-              "year": 83,
-              "eventType": "DEATH_OLD_AGE__NATURAL_CAUSES_",
-              "context": {
-                "cause": "Old Age (Natural Causes)",
-                "age": 83,
-                "roll": 0.024720370134154068
-              },
-              "health": {
-                "physical": {
-                  "current": 85,
-                  "baseline": 35
-                },
-                "mental": {
-                  "current": 64.54480558069699,
-                  "baseline": 63.2,
-                  "suicideRisk": 0.43071250000000005,
-                  "chronic": [
-                    "ptsd"
-                  ]
-                },
-                "physical_chronic": []
-              },
-              "economics": {
-                "resources": 0,
-                "debt": 53,
-                "employed": false
-              },
-              "relationships": {
-                "married": false,
-                "friends": 0,
-                "children": 0,
-                "isolated": true
-              },
-              "housing": {
-                "status": "stable"
-              }
-            }
-          }
-        ],
-        "lifetimeChallenges": {
-          "economicStruggle": 1,
-          "mentalHealthStruggle": 0,
-          "socialIsolation": 2,
-          "healthCrisis": 0,
-          "employmentInstability": 1
-        },
-        "lastNEvents": [
-          {
-            "age": 0,
-            "year": 2025,
-            "eventType": "BIRTH",
-            "context": {
-              "birthRegion": "Nordic Country",
-              "lifeExpectancy": 83,
-              "sex": "male"
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 100
-              },
-              "mental": {
-                "current": 88,
-                "baseline": 88,
-                "suicideRisk": 0,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 59,
-              "debt": 0,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 45,
-            "year": 45,
-            "eventType": "SUICIDE_ATTEMPT",
-            "context": {
-              "survived": true,
-              "method": "hanging",
-              "mentalHealth": 44.23339495354685,
-              "ptsaAcquired": true
-            },
-            "health": {
-              "physical": {
-                "current": 85,
-                "baseline": 84.5
-              },
-              "mental": {
-                "current": 44.23339495354685,
-                "baseline": 64,
-                "suicideRisk": 0.42457,
-                "chronic": [
-                  "ptsd"
-                ]
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 87,
-              "debt": 20,
-              "employed": true
-            },
-            "relationships": {
-              "married": false,
-              "friends": 0,
-              "children": 0,
-              "isolated": true
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 83,
-            "year": 83,
-            "eventType": "DEATH_OLD_AGE__NATURAL_CAUSES_",
-            "context": {
-              "cause": "Old Age (Natural Causes)",
-              "age": 83,
-              "roll": 0.024720370134154068
-            },
-            "health": {
-              "physical": {
-                "current": 85,
-                "baseline": 35
-              },
-              "mental": {
-                "current": 64.54480558069699,
-                "baseline": 63.2,
-                "suicideRisk": 0.43071250000000005,
-                "chronic": [
-                  "ptsd"
-                ]
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 0,
-              "debt": 53,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 0,
-              "children": 0,
-              "isolated": true
-            },
-            "housing": {
-              "status": "stable"
-            }
-          }
-        ]
-      },
-      "fullLog": [
-        {
-          "age": 0,
-          "year": 2025,
-          "eventType": "BIRTH",
-          "context": {
-            "birthRegion": "Nordic Country",
-            "lifeExpectancy": 83,
-            "sex": "male"
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 100
-            },
-            "mental": {
-              "current": 88,
-              "baseline": 88,
-              "suicideRisk": 0,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 59,
-            "debt": 0,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        {
-          "age": 45,
-          "year": 45,
-          "eventType": "SUICIDE_ATTEMPT",
-          "context": {
-            "survived": true,
-            "method": "hanging",
-            "mentalHealth": 44.23339495354685,
-            "ptsaAcquired": true
-          },
-          "health": {
-            "physical": {
-              "current": 85,
-              "baseline": 84.5
-            },
-            "mental": {
-              "current": 44.23339495354685,
-              "baseline": 64,
-              "suicideRisk": 0.42457,
-              "chronic": [
-                "ptsd"
-              ]
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 87,
-            "debt": 20,
+            "resources": 153,
+            "debt": 30,
             "employed": true
           },
           "relationships": {
@@ -1306,131 +1639,8 @@
             "status": "stable"
           }
         },
-        {
-          "age": 83,
-          "year": 83,
-          "eventType": "DEATH_OLD_AGE__NATURAL_CAUSES_",
-          "context": {
-            "cause": "Old Age (Natural Causes)",
-            "age": 83,
-            "roll": 0.024720370134154068
-          },
-          "health": {
-            "physical": {
-              "current": 85,
-              "baseline": 35
-            },
-            "mental": {
-              "current": 64.54480558069699,
-              "baseline": 63.2,
-              "suicideRisk": 0.43071250000000005,
-              "chronic": [
-                "ptsd"
-              ]
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 0,
-            "debt": 53,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        }
-      ]
-    },
-    {
-      "player": {
-        "age": 11,
-        "sex": "female",
-        "birthRegion": "Nordic Country",
-        "lifeExpectancy": 83
-      },
-      "death": {
-        "age": 11,
-        "year": 11,
-        "eventType": "DEATH_LACK_OF_MEDICAL_CARE",
-        "context": {
-          "cause": "Lack of Medical Care",
-          "age": 11,
-          "roll": 0.00001867806323874177
-        },
-        "health": {
-          "physical": {
-            "current": 100,
-            "baseline": 95.5
-          },
-          "mental": {
-            "current": 48.98662981172391,
-            "baseline": 81,
-            "suicideRisk": 0.4047775,
-            "chronic": []
-          },
-          "physical_chronic": []
-        },
-        "economics": {
-          "resources": 49,
-          "debt": 0,
-          "employed": false
-        },
-        "relationships": {
-          "married": false,
-          "friends": 0,
-          "children": 0,
-          "isolated": true
-        },
-        "housing": {
-          "status": "stable"
-        }
-      },
-      "causalChain": {
-        "death": {
-          "age": 11,
-          "year": 11,
-          "eventType": "DEATH_LACK_OF_MEDICAL_CARE",
-          "context": {
-            "cause": "Lack of Medical Care",
-            "age": 11,
-            "roll": 0.00001867806323874177
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 95.5
-            },
-            "mental": {
-              "current": 48.98662981172391,
-              "baseline": 81,
-              "suicideRisk": 0.4047775,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 49,
-            "debt": 0,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
         "immediateFactors": {
-          "primaryCause": "Lack of Medical Care",
+          "primaryCause": "Diabetes Complications",
           "healthFactors": [],
           "economicFactors": [],
           "socialFactors": [
@@ -1441,35 +1651,38 @@
         },
         "turningPoints": [
           {
-            "age": 11,
+            "age": 55,
             "type": "MENTAL_HEALTH_DROP",
-            "magnitude": 39.01337018827609,
+            "magnitude": 49.95431783875104,
             "event": {
-              "age": 11,
-              "year": 11,
-              "eventType": "DEATH_LACK_OF_MEDICAL_CARE",
+              "age": 55,
+              "year": 55,
+              "eventType": "SUICIDE_ATTEMPT",
               "context": {
-                "cause": "Lack of Medical Care",
-                "age": 11,
-                "roll": 0.00001867806323874177
+                "survived": true,
+                "method": "overdose",
+                "mentalHealth": 38.04568216124896,
+                "ptsaAcquired": true
               },
               "health": {
                 "physical": {
-                  "current": 100,
-                  "baseline": 95.5
+                  "current": 85,
+                  "baseline": 56.0000000000001
                 },
                 "mental": {
-                  "current": 48.98662981172391,
-                  "baseline": 81,
-                  "suicideRisk": 0.4047775,
-                  "chronic": []
+                  "current": 38.04568216124896,
+                  "baseline": 63.5,
+                  "suicideRisk": 0.41365,
+                  "chronic": [
+                    "ptsd"
+                  ]
                 },
                 "physical_chronic": []
               },
               "economics": {
-                "resources": 49,
-                "debt": 0,
-                "employed": false
+                "resources": 143,
+                "debt": 30,
+                "employed": true
               },
               "relationships": {
                 "married": false,
@@ -1485,8 +1698,8 @@
         ],
         "lifetimeChallenges": {
           "economicStruggle": 0,
-          "mentalHealthStruggle": 0,
-          "socialIsolation": 1,
+          "mentalHealthStruggle": 1,
+          "socialIsolation": 2,
           "healthCrisis": 0,
           "employmentInstability": 0
         },
@@ -1509,43 +1722,6 @@
                 "current": 88,
                 "baseline": 88,
                 "suicideRisk": 0,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 54,
-              "debt": 0,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 11,
-            "year": 11,
-            "eventType": "DEATH_LACK_OF_MEDICAL_CARE",
-            "context": {
-              "cause": "Lack of Medical Care",
-              "age": 11,
-              "roll": 0.00001867806323874177
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 95.5
-              },
-              "mental": {
-                "current": 48.98662981172391,
-                "baseline": 81,
-                "suicideRisk": 0.4047775,
                 "chronic": []
               },
               "physical_chronic": []
@@ -1557,6 +1733,85 @@
             },
             "relationships": {
               "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 55,
+            "year": 55,
+            "eventType": "SUICIDE_ATTEMPT",
+            "context": {
+              "survived": true,
+              "method": "overdose",
+              "mentalHealth": 38.04568216124896,
+              "ptsaAcquired": true
+            },
+            "health": {
+              "physical": {
+                "current": 85,
+                "baseline": 56.0000000000001
+              },
+              "mental": {
+                "current": 38.04568216124896,
+                "baseline": 63.5,
+                "suicideRisk": 0.41365,
+                "chronic": [
+                  "ptsd"
+                ]
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 143,
+              "debt": 30,
+              "employed": true
+            },
+            "relationships": {
+              "married": false,
+              "friends": 0,
+              "children": 0,
+              "isolated": true
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 63,
+            "year": 63,
+            "eventType": "DEATH_DIABETES_COMPLICATIONS",
+            "context": {
+              "cause": "Diabetes Complications",
+              "age": 63,
+              "roll": 0.0002524636815810499
+            },
+            "health": {
+              "physical": {
+                "current": 85,
+                "baseline": 48.2
+              },
+              "mental": {
+                "current": 65,
+                "baseline": 63.5,
+                "suicideRisk": 0.40737100000000004,
+                "chronic": [
+                  "ptsd"
+                ]
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 153,
+              "debt": 30,
+              "employed": true
+            },
+            "relationships": {
+              "married": false,
               "friends": 0,
               "children": 0,
               "isolated": true
@@ -1586,43 +1841,6 @@
               "current": 88,
               "baseline": 88,
               "suicideRisk": 0,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 54,
-            "debt": 0,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        {
-          "age": 11,
-          "year": 11,
-          "eventType": "DEATH_LACK_OF_MEDICAL_CARE",
-          "context": {
-            "cause": "Lack of Medical Care",
-            "age": 11,
-            "roll": 0.00001867806323874177
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 95.5
-            },
-            "mental": {
-              "current": 48.98662981172391,
-              "baseline": 81,
-              "suicideRisk": 0.4047775,
               "chronic": []
             },
             "physical_chronic": []
@@ -1634,6 +1852,85 @@
           },
           "relationships": {
             "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        {
+          "age": 55,
+          "year": 55,
+          "eventType": "SUICIDE_ATTEMPT",
+          "context": {
+            "survived": true,
+            "method": "overdose",
+            "mentalHealth": 38.04568216124896,
+            "ptsaAcquired": true
+          },
+          "health": {
+            "physical": {
+              "current": 85,
+              "baseline": 56.0000000000001
+            },
+            "mental": {
+              "current": 38.04568216124896,
+              "baseline": 63.5,
+              "suicideRisk": 0.41365,
+              "chronic": [
+                "ptsd"
+              ]
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 143,
+            "debt": 30,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 0,
+            "children": 0,
+            "isolated": true
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        {
+          "age": 63,
+          "year": 63,
+          "eventType": "DEATH_DIABETES_COMPLICATIONS",
+          "context": {
+            "cause": "Diabetes Complications",
+            "age": 63,
+            "roll": 0.0002524636815810499
+          },
+          "health": {
+            "physical": {
+              "current": 85,
+              "baseline": 48.2
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 63.5,
+              "suicideRisk": 0.40737100000000004,
+              "chronic": [
+                "ptsd"
+              ]
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 153,
+            "debt": 30,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
             "friends": 0,
             "children": 0,
             "isolated": true
@@ -1646,923 +1943,35 @@
     },
     {
       "player": {
-        "age": 59,
-        "sex": "female",
-        "birthRegion": "Nordic Country",
-        "lifeExpectancy": 83
-      },
-      "death": {
-        "age": 59,
-        "year": 59,
-        "eventType": "DEATH_HEART_DISEASE",
-        "context": {
-          "cause": "Heart Disease",
-          "age": 59,
-          "roll": 0.004988524845210174
-        },
-        "health": {
-          "physical": {
-            "current": 100,
-            "baseline": 72.5
-          },
-          "mental": {
-            "current": 58.34955349388717,
-            "baseline": 64,
-            "suicideRisk": 0.40546000000000004,
-            "chronic": []
-          },
-          "physical_chronic": []
-        },
-        "economics": {
-          "resources": 144,
-          "debt": 0,
-          "employed": true
-        },
-        "relationships": {
-          "married": false,
-          "friends": 1,
-          "children": 0,
-          "isolated": false
-        },
-        "housing": {
-          "status": "stable"
-        }
-      },
-      "causalChain": {
-        "death": {
-          "age": 59,
-          "year": 59,
-          "eventType": "DEATH_HEART_DISEASE",
-          "context": {
-            "cause": "Heart Disease",
-            "age": 59,
-            "roll": 0.004988524845210174
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 72.5
-            },
-            "mental": {
-              "current": 58.34955349388717,
-              "baseline": 64,
-              "suicideRisk": 0.40546000000000004,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 144,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        "immediateFactors": {
-          "primaryCause": "Heart Disease",
-          "healthFactors": [],
-          "economicFactors": [],
-          "socialFactors": [],
-          "contextualFactors": []
-        },
-        "turningPoints": [
-          {
-            "age": 59,
-            "type": "MENTAL_HEALTH_DROP",
-            "magnitude": 29.65044650611283,
-            "event": {
-              "age": 59,
-              "year": 59,
-              "eventType": "DEATH_HEART_DISEASE",
-              "context": {
-                "cause": "Heart Disease",
-                "age": 59,
-                "roll": 0.004988524845210174
-              },
-              "health": {
-                "physical": {
-                  "current": 100,
-                  "baseline": 72.5
-                },
-                "mental": {
-                  "current": 58.34955349388717,
-                  "baseline": 64,
-                  "suicideRisk": 0.40546000000000004,
-                  "chronic": []
-                },
-                "physical_chronic": []
-              },
-              "economics": {
-                "resources": 144,
-                "debt": 0,
-                "employed": true
-              },
-              "relationships": {
-                "married": false,
-                "friends": 1,
-                "children": 0,
-                "isolated": false
-              },
-              "housing": {
-                "status": "stable"
-              }
-            }
-          }
-        ],
-        "lifetimeChallenges": {
-          "economicStruggle": 0,
-          "mentalHealthStruggle": 0,
-          "socialIsolation": 0,
-          "healthCrisis": 0,
-          "employmentInstability": 0
-        },
-        "lastNEvents": [
-          {
-            "age": 0,
-            "year": 2025,
-            "eventType": "BIRTH",
-            "context": {
-              "birthRegion": "Nordic Country",
-              "lifeExpectancy": 83,
-              "sex": "female"
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 100
-              },
-              "mental": {
-                "current": 88,
-                "baseline": 88,
-                "suicideRisk": 0,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 50,
-              "debt": 0,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 59,
-            "year": 59,
-            "eventType": "DEATH_HEART_DISEASE",
-            "context": {
-              "cause": "Heart Disease",
-              "age": 59,
-              "roll": 0.004988524845210174
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 72.5
-              },
-              "mental": {
-                "current": 58.34955349388717,
-                "baseline": 64,
-                "suicideRisk": 0.40546000000000004,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 144,
-              "debt": 0,
-              "employed": true
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          }
-        ]
-      },
-      "fullLog": [
-        {
-          "age": 0,
-          "year": 2025,
-          "eventType": "BIRTH",
-          "context": {
-            "birthRegion": "Nordic Country",
-            "lifeExpectancy": 83,
-            "sex": "female"
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 100
-            },
-            "mental": {
-              "current": 88,
-              "baseline": 88,
-              "suicideRisk": 0,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 50,
-            "debt": 0,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        {
-          "age": 59,
-          "year": 59,
-          "eventType": "DEATH_HEART_DISEASE",
-          "context": {
-            "cause": "Heart Disease",
-            "age": 59,
-            "roll": 0.004988524845210174
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 72.5
-            },
-            "mental": {
-              "current": 58.34955349388717,
-              "baseline": 64,
-              "suicideRisk": 0.40546000000000004,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 144,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        }
-      ]
-    },
-    {
-      "player": {
-        "age": 51,
+        "age": 69,
         "sex": "male",
         "birthRegion": "Nordic Country",
         "lifeExpectancy": 83
       },
       "death": {
-        "age": 51,
-        "year": 51,
-        "eventType": "DEATH_DRUG_OVERDOSE",
+        "age": 69,
+        "year": 69,
+        "eventType": "DEATH_CANCER",
         "context": {
-          "cause": "Drug Overdose",
-          "age": 51,
-          "roll": 0.00004369471742471376
-        },
-        "health": {
-          "physical": {
-            "current": 96.8,
-            "baseline": 71.54
-          },
-          "mental": {
-            "current": 68.08578584900421,
-            "baseline": 63.2,
-            "suicideRisk": 0.44095,
-            "chronic": []
-          },
-          "physical_chronic": []
-        },
-        "economics": {
-          "resources": 110.35,
-          "debt": 0,
-          "employed": true
-        },
-        "relationships": {
-          "married": false,
-          "friends": 0,
-          "children": 0,
-          "isolated": true
-        },
-        "housing": {
-          "status": "stable"
-        }
-      },
-      "causalChain": {
-        "death": {
-          "age": 51,
-          "year": 51,
-          "eventType": "DEATH_DRUG_OVERDOSE",
-          "context": {
-            "cause": "Drug Overdose",
-            "age": 51,
-            "roll": 0.00004369471742471376
-          },
-          "health": {
-            "physical": {
-              "current": 96.8,
-              "baseline": 71.54
-            },
-            "mental": {
-              "current": 68.08578584900421,
-              "baseline": 63.2,
-              "suicideRisk": 0.44095,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 110.35,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        "immediateFactors": {
-          "primaryCause": "Drug Overdose",
-          "healthFactors": [],
-          "economicFactors": [],
-          "socialFactors": [
-            "Social isolation",
-            "No social connections"
-          ],
-          "contextualFactors": []
-        },
-        "turningPoints": [
-          {
-            "age": 51,
-            "type": "MENTAL_HEALTH_DROP",
-            "magnitude": 19.91421415099579,
-            "event": {
-              "age": 51,
-              "year": 51,
-              "eventType": "DEATH_DRUG_OVERDOSE",
-              "context": {
-                "cause": "Drug Overdose",
-                "age": 51,
-                "roll": 0.00004369471742471376
-              },
-              "health": {
-                "physical": {
-                  "current": 96.8,
-                  "baseline": 71.54
-                },
-                "mental": {
-                  "current": 68.08578584900421,
-                  "baseline": 63.2,
-                  "suicideRisk": 0.44095,
-                  "chronic": []
-                },
-                "physical_chronic": []
-              },
-              "economics": {
-                "resources": 110.35,
-                "debt": 0,
-                "employed": true
-              },
-              "relationships": {
-                "married": false,
-                "friends": 0,
-                "children": 0,
-                "isolated": true
-              },
-              "housing": {
-                "status": "stable"
-              }
-            }
-          }
-        ],
-        "lifetimeChallenges": {
-          "economicStruggle": 0,
-          "mentalHealthStruggle": 0,
-          "socialIsolation": 1,
-          "healthCrisis": 0,
-          "employmentInstability": 0
-        },
-        "lastNEvents": [
-          {
-            "age": 0,
-            "year": 2025,
-            "eventType": "BIRTH",
-            "context": {
-              "birthRegion": "Nordic Country",
-              "lifeExpectancy": 83,
-              "sex": "male"
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 100
-              },
-              "mental": {
-                "current": 88,
-                "baseline": 88,
-                "suicideRisk": 0,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 50,
-              "debt": 0,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 51,
-            "year": 51,
-            "eventType": "DEATH_DRUG_OVERDOSE",
-            "context": {
-              "cause": "Drug Overdose",
-              "age": 51,
-              "roll": 0.00004369471742471376
-            },
-            "health": {
-              "physical": {
-                "current": 96.8,
-                "baseline": 71.54
-              },
-              "mental": {
-                "current": 68.08578584900421,
-                "baseline": 63.2,
-                "suicideRisk": 0.44095,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 110.35,
-              "debt": 0,
-              "employed": true
-            },
-            "relationships": {
-              "married": false,
-              "friends": 0,
-              "children": 0,
-              "isolated": true
-            },
-            "housing": {
-              "status": "stable"
-            }
-          }
-        ]
-      },
-      "fullLog": [
-        {
-          "age": 0,
-          "year": 2025,
-          "eventType": "BIRTH",
-          "context": {
-            "birthRegion": "Nordic Country",
-            "lifeExpectancy": 83,
-            "sex": "male"
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 100
-            },
-            "mental": {
-              "current": 88,
-              "baseline": 88,
-              "suicideRisk": 0,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 50,
-            "debt": 0,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        {
-          "age": 51,
-          "year": 51,
-          "eventType": "DEATH_DRUG_OVERDOSE",
-          "context": {
-            "cause": "Drug Overdose",
-            "age": 51,
-            "roll": 0.00004369471742471376
-          },
-          "health": {
-            "physical": {
-              "current": 96.8,
-              "baseline": 71.54
-            },
-            "mental": {
-              "current": 68.08578584900421,
-              "baseline": 63.2,
-              "suicideRisk": 0.44095,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 110.35,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        }
-      ]
-    },
-    {
-      "player": {
-        "age": 44,
-        "sex": "female",
-        "birthRegion": "Nordic Country",
-        "lifeExpectancy": 83
-      },
-      "death": {
-        "age": 44,
-        "year": 44,
-        "eventType": "DEATH_HEART_DISEASE",
-        "context": {
-          "cause": "Heart Disease",
-          "age": 44,
-          "roll": 0.0025954857779448837
+          "cause": "Cancer",
+          "age": 69,
+          "roll": 0.0018142081117913378
         },
         "health": {
           "physical": {
             "current": 100,
-            "baseline": 79
+            "baseline": 47
           },
           "mental": {
-            "current": 48.26085629536533,
-            "baseline": 64,
-            "suicideRisk": 0.4085995,
-            "chronic": []
-          },
-          "physical_chronic": []
-        },
-        "economics": {
-          "resources": 86,
-          "debt": 0,
-          "employed": true
-        },
-        "relationships": {
-          "married": false,
-          "friends": 0,
-          "children": 0,
-          "isolated": true
-        },
-        "housing": {
-          "status": "stable"
-        }
-      },
-      "causalChain": {
-        "death": {
-          "age": 44,
-          "year": 44,
-          "eventType": "DEATH_HEART_DISEASE",
-          "context": {
-            "cause": "Heart Disease",
-            "age": 44,
-            "roll": 0.0025954857779448837
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 79
-            },
-            "mental": {
-              "current": 48.26085629536533,
-              "baseline": 64,
-              "suicideRisk": 0.4085995,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 86,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        "immediateFactors": {
-          "primaryCause": "Heart Disease",
-          "healthFactors": [],
-          "economicFactors": [],
-          "socialFactors": [
-            "Social isolation",
-            "No social connections"
-          ],
-          "contextualFactors": []
-        },
-        "turningPoints": [
-          {
-            "age": 44,
-            "type": "MENTAL_HEALTH_DROP",
-            "magnitude": 39.73914370463467,
-            "event": {
-              "age": 44,
-              "year": 44,
-              "eventType": "DEATH_HEART_DISEASE",
-              "context": {
-                "cause": "Heart Disease",
-                "age": 44,
-                "roll": 0.0025954857779448837
-              },
-              "health": {
-                "physical": {
-                  "current": 100,
-                  "baseline": 79
-                },
-                "mental": {
-                  "current": 48.26085629536533,
-                  "baseline": 64,
-                  "suicideRisk": 0.4085995,
-                  "chronic": []
-                },
-                "physical_chronic": []
-              },
-              "economics": {
-                "resources": 86,
-                "debt": 0,
-                "employed": true
-              },
-              "relationships": {
-                "married": false,
-                "friends": 0,
-                "children": 0,
-                "isolated": true
-              },
-              "housing": {
-                "status": "stable"
-              }
-            }
-          }
-        ],
-        "lifetimeChallenges": {
-          "economicStruggle": 0,
-          "mentalHealthStruggle": 0,
-          "socialIsolation": 1,
-          "healthCrisis": 0,
-          "employmentInstability": 0
-        },
-        "lastNEvents": [
-          {
-            "age": 0,
-            "year": 2025,
-            "eventType": "BIRTH",
-            "context": {
-              "birthRegion": "Nordic Country",
-              "lifeExpectancy": 83,
-              "sex": "female"
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 100
-              },
-              "mental": {
-                "current": 88,
-                "baseline": 88,
-                "suicideRisk": 0,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 51,
-              "debt": 0,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 44,
-            "year": 44,
-            "eventType": "DEATH_HEART_DISEASE",
-            "context": {
-              "cause": "Heart Disease",
-              "age": 44,
-              "roll": 0.0025954857779448837
-            },
-            "health": {
-              "physical": {
-                "current": 100,
-                "baseline": 79
-              },
-              "mental": {
-                "current": 48.26085629536533,
-                "baseline": 64,
-                "suicideRisk": 0.4085995,
-                "chronic": []
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 86,
-              "debt": 0,
-              "employed": true
-            },
-            "relationships": {
-              "married": false,
-              "friends": 0,
-              "children": 0,
-              "isolated": true
-            },
-            "housing": {
-              "status": "stable"
-            }
-          }
-        ]
-      },
-      "fullLog": [
-        {
-          "age": 0,
-          "year": 2025,
-          "eventType": "BIRTH",
-          "context": {
-            "birthRegion": "Nordic Country",
-            "lifeExpectancy": 83,
-            "sex": "female"
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 100
-            },
-            "mental": {
-              "current": 88,
-              "baseline": 88,
-              "suicideRisk": 0,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 51,
-            "debt": 0,
-            "employed": false
-          },
-          "relationships": {
-            "married": false,
-            "friends": 1,
-            "children": 0,
-            "isolated": false
-          },
-          "housing": {
-            "status": "stable"
-          }
-        },
-        {
-          "age": 44,
-          "year": 44,
-          "eventType": "DEATH_HEART_DISEASE",
-          "context": {
-            "cause": "Heart Disease",
-            "age": 44,
-            "roll": 0.0025954857779448837
-          },
-          "health": {
-            "physical": {
-              "current": 100,
-              "baseline": 79
-            },
-            "mental": {
-              "current": 48.26085629536533,
-              "baseline": 64,
-              "suicideRisk": 0.4085995,
-              "chronic": []
-            },
-            "physical_chronic": []
-          },
-          "economics": {
-            "resources": 86,
-            "debt": 0,
-            "employed": true
-          },
-          "relationships": {
-            "married": false,
-            "friends": 0,
-            "children": 0,
-            "isolated": true
-          },
-          "housing": {
-            "status": "stable"
-          }
-        }
-      ]
-    },
-    {
-      "player": {
-        "age": 71,
-        "sex": "male",
-        "birthRegion": "Nordic Country",
-        "lifeExpectancy": 83
-      },
-      "death": {
-        "age": 71,
-        "year": 71,
-        "eventType": "DEATH_DEMENTIA_ALZHEIMER_S",
-        "context": {
-          "cause": "Dementia/Alzheimer's",
-          "age": 71,
-          "roll": 0.0018470752556141168
-        },
-        "health": {
-          "physical": {
-            "current": 100,
-            "baseline": 55.09999999999995
-          },
-          "mental": {
-            "current": 64.28103003634544,
-            "baseline": 64,
+            "current": 64.73708824036622,
+            "baseline": 63.5,
             "suicideRisk": 0.043750000000000004,
             "chronic": []
           },
           "physical_chronic": []
         },
         "economics": {
-          "resources": 47,
+          "resources": 44,
           "debt": 0,
           "employed": false
         },
@@ -2578,29 +1987,29 @@
       },
       "causalChain": {
         "death": {
-          "age": 71,
-          "year": 71,
-          "eventType": "DEATH_DEMENTIA_ALZHEIMER_S",
+          "age": 69,
+          "year": 69,
+          "eventType": "DEATH_CANCER",
           "context": {
-            "cause": "Dementia/Alzheimer's",
-            "age": 71,
-            "roll": 0.0018470752556141168
+            "cause": "Cancer",
+            "age": 69,
+            "roll": 0.0018142081117913378
           },
           "health": {
             "physical": {
               "current": 100,
-              "baseline": 55.09999999999995
+              "baseline": 47
             },
             "mental": {
-              "current": 64.28103003634544,
-              "baseline": 64,
+              "current": 64.73708824036622,
+              "baseline": 63.5,
               "suicideRisk": 0.043750000000000004,
               "chronic": []
             },
             "physical_chronic": []
           },
           "economics": {
-            "resources": 47,
+            "resources": 44,
             "debt": 0,
             "employed": false
           },
@@ -2615,7 +2024,7 @@
           }
         },
         "immediateFactors": {
-          "primaryCause": "Dementia/Alzheimer's",
+          "primaryCause": "Cancer",
           "healthFactors": [],
           "economicFactors": [
             "Unemployed for extended period"
@@ -2625,33 +2034,33 @@
         },
         "turningPoints": [
           {
-            "age": 71,
+            "age": 69,
             "type": "MENTAL_HEALTH_DROP",
-            "magnitude": 23.71896996365456,
+            "magnitude": 23.26291175963378,
             "event": {
-              "age": 71,
-              "year": 71,
-              "eventType": "DEATH_DEMENTIA_ALZHEIMER_S",
+              "age": 69,
+              "year": 69,
+              "eventType": "DEATH_CANCER",
               "context": {
-                "cause": "Dementia/Alzheimer's",
-                "age": 71,
-                "roll": 0.0018470752556141168
+                "cause": "Cancer",
+                "age": 69,
+                "roll": 0.0018142081117913378
               },
               "health": {
                 "physical": {
                   "current": 100,
-                  "baseline": 55.09999999999995
+                  "baseline": 47
                 },
                 "mental": {
-                  "current": 64.28103003634544,
-                  "baseline": 64,
+                  "current": 64.73708824036622,
+                  "baseline": 63.5,
                   "suicideRisk": 0.043750000000000004,
                   "chronic": []
                 },
                 "physical_chronic": []
               },
               "economics": {
-                "resources": 47,
+                "resources": 44,
                 "debt": 0,
                 "employed": false
               },
@@ -2667,33 +2076,33 @@
             }
           },
           {
-            "age": 71,
+            "age": 69,
             "type": "ECONOMIC_CRISIS",
-            "magnitude": 7,
+            "magnitude": 10,
             "event": {
-              "age": 71,
-              "year": 71,
-              "eventType": "DEATH_DEMENTIA_ALZHEIMER_S",
+              "age": 69,
+              "year": 69,
+              "eventType": "DEATH_CANCER",
               "context": {
-                "cause": "Dementia/Alzheimer's",
-                "age": 71,
-                "roll": 0.0018470752556141168
+                "cause": "Cancer",
+                "age": 69,
+                "roll": 0.0018142081117913378
               },
               "health": {
                 "physical": {
                   "current": 100,
-                  "baseline": 55.09999999999995
+                  "baseline": 47
                 },
                 "mental": {
-                  "current": 64.28103003634544,
-                  "baseline": 64,
+                  "current": 64.73708824036622,
+                  "baseline": 63.5,
                   "suicideRisk": 0.043750000000000004,
                   "chronic": []
                 },
                 "physical_chronic": []
               },
               "economics": {
-                "resources": 47,
+                "resources": 44,
                 "debt": 0,
                 "employed": false
               },
@@ -2755,29 +2164,29 @@
             }
           },
           {
-            "age": 71,
-            "year": 71,
-            "eventType": "DEATH_DEMENTIA_ALZHEIMER_S",
+            "age": 69,
+            "year": 69,
+            "eventType": "DEATH_CANCER",
             "context": {
-              "cause": "Dementia/Alzheimer's",
-              "age": 71,
-              "roll": 0.0018470752556141168
+              "cause": "Cancer",
+              "age": 69,
+              "roll": 0.0018142081117913378
             },
             "health": {
               "physical": {
                 "current": 100,
-                "baseline": 55.09999999999995
+                "baseline": 47
               },
               "mental": {
-                "current": 64.28103003634544,
-                "baseline": 64,
+                "current": 64.73708824036622,
+                "baseline": 63.5,
                 "suicideRisk": 0.043750000000000004,
                 "chronic": []
               },
               "physical_chronic": []
             },
             "economics": {
-              "resources": 47,
+              "resources": 44,
               "debt": 0,
               "employed": false
             },
@@ -2832,29 +2241,29 @@
           }
         },
         {
-          "age": 71,
-          "year": 71,
-          "eventType": "DEATH_DEMENTIA_ALZHEIMER_S",
+          "age": 69,
+          "year": 69,
+          "eventType": "DEATH_CANCER",
           "context": {
-            "cause": "Dementia/Alzheimer's",
-            "age": 71,
-            "roll": 0.0018470752556141168
+            "cause": "Cancer",
+            "age": 69,
+            "roll": 0.0018142081117913378
           },
           "health": {
             "physical": {
               "current": 100,
-              "baseline": 55.09999999999995
+              "baseline": 47
             },
             "mental": {
-              "current": 64.28103003634544,
-              "baseline": 64,
+              "current": 64.73708824036622,
+              "baseline": 63.5,
               "suicideRisk": 0.043750000000000004,
               "chronic": []
             },
             "physical_chronic": []
           },
           "economics": {
-            "resources": 47,
+            "resources": 44,
             "debt": 0,
             "employed": false
           },
@@ -2872,39 +2281,37 @@
     },
     {
       "player": {
-        "age": 75,
-        "sex": "female",
+        "age": 44,
+        "sex": "male",
         "birthRegion": "Nordic Country",
         "lifeExpectancy": 83
       },
       "death": {
-        "age": 75,
-        "year": 75,
-        "eventType": "DEATH_HEART_DISEASE",
+        "age": 44,
+        "year": 44,
+        "eventType": "DEATH_CANCER",
         "context": {
-          "cause": "Heart Disease",
-          "age": 75,
-          "roll": 0.0067764938467602676
+          "cause": "Cancer",
+          "age": 44,
+          "roll": 0.0005290097437506969
         },
         "health": {
           "physical": {
-            "current": 94.53999999999999,
-            "baseline": 76.03999999999999
+            "current": 100,
+            "baseline": 74.70000000000005
           },
           "mental": {
-            "current": 64.93221811913351,
+            "current": 65,
             "baseline": 64,
-            "suicideRisk": 0.4058968,
-            "chronic": [
-              "ptsd"
-            ]
+            "suicideRisk": 0.41638000000000003,
+            "chronic": []
           },
           "physical_chronic": []
         },
         "economics": {
-          "resources": 67,
-          "debt": 20,
-          "employed": false
+          "resources": 98,
+          "debt": 0,
+          "employed": true
         },
         "relationships": {
           "married": false,
@@ -2918,33 +2325,31 @@
       },
       "causalChain": {
         "death": {
-          "age": 75,
-          "year": 75,
-          "eventType": "DEATH_HEART_DISEASE",
+          "age": 44,
+          "year": 44,
+          "eventType": "DEATH_CANCER",
           "context": {
-            "cause": "Heart Disease",
-            "age": 75,
-            "roll": 0.0067764938467602676
+            "cause": "Cancer",
+            "age": 44,
+            "roll": 0.0005290097437506969
           },
           "health": {
             "physical": {
-              "current": 94.53999999999999,
-              "baseline": 76.03999999999999
+              "current": 100,
+              "baseline": 74.70000000000005
             },
             "mental": {
-              "current": 64.93221811913351,
+              "current": 65,
               "baseline": 64,
-              "suicideRisk": 0.4058968,
-              "chronic": [
-                "ptsd"
-              ]
+              "suicideRisk": 0.41638000000000003,
+              "chronic": []
             },
             "physical_chronic": []
           },
           "economics": {
-            "resources": 67,
-            "debt": 20,
-            "employed": false
+            "resources": 98,
+            "debt": 0,
+            "employed": true
           },
           "relationships": {
             "married": false,
@@ -2957,11 +2362,9 @@
           }
         },
         "immediateFactors": {
-          "primaryCause": "Heart Disease",
+          "primaryCause": "Cancer",
           "healthFactors": [],
-          "economicFactors": [
-            "Unemployed for extended period"
-          ],
+          "economicFactors": [],
           "socialFactors": [
             "Social isolation",
             "No social connections"
@@ -2970,44 +2373,41 @@
         },
         "turningPoints": [
           {
-            "age": 14,
+            "age": 44,
             "type": "MENTAL_HEALTH_DROP",
-            "magnitude": 34.20798004355591,
+            "magnitude": 23,
             "event": {
-              "age": 14,
-              "year": 14,
-              "eventType": "SUICIDE_ATTEMPT",
+              "age": 44,
+              "year": 44,
+              "eventType": "DEATH_CANCER",
               "context": {
-                "survived": true,
-                "method": "poisoning",
-                "mentalHealth": 53.79201995644409,
-                "ptsaAcquired": true
+                "cause": "Cancer",
+                "age": 44,
+                "roll": 0.0005290097437506969
               },
               "health": {
                 "physical": {
-                  "current": 85,
-                  "baseline": 98.5
+                  "current": 100,
+                  "baseline": 74.70000000000005
                 },
                 "mental": {
-                  "current": 53.79201995644409,
-                  "baseline": 74,
-                  "suicideRisk": 0.4035,
-                  "chronic": [
-                    "ptsd"
-                  ]
+                  "current": 65,
+                  "baseline": 64,
+                  "suicideRisk": 0.41638000000000003,
+                  "chronic": []
                 },
                 "physical_chronic": []
               },
               "economics": {
-                "resources": 52,
-                "debt": 20,
-                "employed": false
+                "resources": 98,
+                "debt": 0,
+                "employed": true
               },
               "relationships": {
                 "married": false,
-                "friends": 1,
+                "friends": 0,
                 "children": 0,
-                "isolated": false
+                "isolated": true
               },
               "housing": {
                 "status": "stable"
@@ -3020,7 +2420,308 @@
           "mentalHealthStruggle": 0,
           "socialIsolation": 1,
           "healthCrisis": 0,
-          "employmentInstability": 1
+          "employmentInstability": 0
+        },
+        "lastNEvents": [
+          {
+            "age": 0,
+            "year": 2025,
+            "eventType": "BIRTH",
+            "context": {
+              "birthRegion": "Nordic Country",
+              "lifeExpectancy": 83,
+              "sex": "male"
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 100
+              },
+              "mental": {
+                "current": 88,
+                "baseline": 88,
+                "suicideRisk": 0,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 54,
+              "debt": 0,
+              "employed": false
+            },
+            "relationships": {
+              "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 44,
+            "year": 44,
+            "eventType": "DEATH_CANCER",
+            "context": {
+              "cause": "Cancer",
+              "age": 44,
+              "roll": 0.0005290097437506969
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 74.70000000000005
+              },
+              "mental": {
+                "current": 65,
+                "baseline": 64,
+                "suicideRisk": 0.41638000000000003,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 98,
+              "debt": 0,
+              "employed": true
+            },
+            "relationships": {
+              "married": false,
+              "friends": 0,
+              "children": 0,
+              "isolated": true
+            },
+            "housing": {
+              "status": "stable"
+            }
+          }
+        ]
+      },
+      "fullLog": [
+        {
+          "age": 0,
+          "year": 2025,
+          "eventType": "BIRTH",
+          "context": {
+            "birthRegion": "Nordic Country",
+            "lifeExpectancy": 83,
+            "sex": "male"
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 100
+            },
+            "mental": {
+              "current": 88,
+              "baseline": 88,
+              "suicideRisk": 0,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 54,
+            "debt": 0,
+            "employed": false
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        {
+          "age": 44,
+          "year": 44,
+          "eventType": "DEATH_CANCER",
+          "context": {
+            "cause": "Cancer",
+            "age": 44,
+            "roll": 0.0005290097437506969
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 74.70000000000005
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 64,
+              "suicideRisk": 0.41638000000000003,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 98,
+            "debt": 0,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 0,
+            "children": 0,
+            "isolated": true
+          },
+          "housing": {
+            "status": "stable"
+          }
+        }
+      ]
+    },
+    {
+      "player": {
+        "age": 55,
+        "sex": "female",
+        "birthRegion": "Nordic Country",
+        "lifeExpectancy": 83
+      },
+      "death": {
+        "age": 55,
+        "year": 55,
+        "eventType": "DEATH_STROKE",
+        "context": {
+          "cause": "Stroke",
+          "age": 55,
+          "roll": 0.0028476666107075665
+        },
+        "health": {
+          "physical": {
+            "current": 85,
+            "baseline": 67.70000000000005
+          },
+          "mental": {
+            "current": 65,
+            "baseline": 65,
+            "suicideRisk": 0.0022679999999999996,
+            "chronic": [
+              "ptsd"
+            ]
+          },
+          "physical_chronic": []
+        },
+        "economics": {
+          "resources": 145,
+          "debt": 20,
+          "employed": true
+        },
+        "relationships": {
+          "married": false,
+          "friends": 1,
+          "children": 0,
+          "isolated": false
+        },
+        "housing": {
+          "status": "stable"
+        }
+      },
+      "causalChain": {
+        "death": {
+          "age": 55,
+          "year": 55,
+          "eventType": "DEATH_STROKE",
+          "context": {
+            "cause": "Stroke",
+            "age": 55,
+            "roll": 0.0028476666107075665
+          },
+          "health": {
+            "physical": {
+              "current": 85,
+              "baseline": 67.70000000000005
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 65,
+              "suicideRisk": 0.0022679999999999996,
+              "chronic": [
+                "ptsd"
+              ]
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 145,
+            "debt": 20,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        "immediateFactors": {
+          "primaryCause": "Stroke",
+          "healthFactors": [],
+          "economicFactors": [],
+          "socialFactors": [],
+          "contextualFactors": []
+        },
+        "turningPoints": [
+          {
+            "age": 37,
+            "type": "MENTAL_HEALTH_DROP",
+            "magnitude": 43,
+            "event": {
+              "age": 37,
+              "year": 37,
+              "eventType": "SUICIDE_ATTEMPT",
+              "context": {
+                "survived": true,
+                "method": "hanging",
+                "mentalHealth": 45,
+                "ptsaAcquired": true
+              },
+              "health": {
+                "physical": {
+                  "current": 85,
+                  "baseline": 77.70000000000005
+                },
+                "mental": {
+                  "current": 45,
+                  "baseline": 64,
+                  "suicideRisk": 0.40546000000000004,
+                  "chronic": [
+                    "ptsd"
+                  ]
+                },
+                "physical_chronic": []
+              },
+              "economics": {
+                "resources": 79,
+                "debt": 20,
+                "employed": true
+              },
+              "relationships": {
+                "married": false,
+                "friends": 0,
+                "children": 0,
+                "isolated": true
+              },
+              "housing": {
+                "status": "stable"
+              }
+            }
+          }
+        ],
+        "lifetimeChallenges": {
+          "economicStruggle": 0,
+          "mentalHealthStruggle": 0,
+          "socialIsolation": 1,
+          "healthCrisis": 0,
+          "employmentInstability": 0
         },
         "lastNEvents": [
           {
@@ -3046,7 +2747,7 @@
               "physical_chronic": []
             },
             "economics": {
-              "resources": 46,
+              "resources": 55,
               "debt": 0,
               "employed": false
             },
@@ -3061,63 +2762,24 @@
             }
           },
           {
-            "age": 14,
-            "year": 14,
+            "age": 37,
+            "year": 37,
             "eventType": "SUICIDE_ATTEMPT",
             "context": {
               "survived": true,
-              "method": "poisoning",
-              "mentalHealth": 53.79201995644409,
+              "method": "hanging",
+              "mentalHealth": 45,
               "ptsaAcquired": true
             },
             "health": {
               "physical": {
                 "current": 85,
-                "baseline": 98.5
+                "baseline": 77.70000000000005
               },
               "mental": {
-                "current": 53.79201995644409,
-                "baseline": 74,
-                "suicideRisk": 0.4035,
-                "chronic": [
-                  "ptsd"
-                ]
-              },
-              "physical_chronic": []
-            },
-            "economics": {
-              "resources": 52,
-              "debt": 20,
-              "employed": false
-            },
-            "relationships": {
-              "married": false,
-              "friends": 1,
-              "children": 0,
-              "isolated": false
-            },
-            "housing": {
-              "status": "stable"
-            }
-          },
-          {
-            "age": 75,
-            "year": 75,
-            "eventType": "DEATH_HEART_DISEASE",
-            "context": {
-              "cause": "Heart Disease",
-              "age": 75,
-              "roll": 0.0067764938467602676
-            },
-            "health": {
-              "physical": {
-                "current": 94.53999999999999,
-                "baseline": 76.03999999999999
-              },
-              "mental": {
-                "current": 64.93221811913351,
+                "current": 45,
                 "baseline": 64,
-                "suicideRisk": 0.4058968,
+                "suicideRisk": 0.40546000000000004,
                 "chronic": [
                   "ptsd"
                 ]
@@ -3125,15 +2787,54 @@
               "physical_chronic": []
             },
             "economics": {
-              "resources": 67,
+              "resources": 79,
               "debt": 20,
-              "employed": false
+              "employed": true
             },
             "relationships": {
               "married": false,
               "friends": 0,
               "children": 0,
               "isolated": true
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 55,
+            "year": 55,
+            "eventType": "DEATH_STROKE",
+            "context": {
+              "cause": "Stroke",
+              "age": 55,
+              "roll": 0.0028476666107075665
+            },
+            "health": {
+              "physical": {
+                "current": 85,
+                "baseline": 67.70000000000005
+              },
+              "mental": {
+                "current": 65,
+                "baseline": 65,
+                "suicideRisk": 0.0022679999999999996,
+                "chronic": [
+                  "ptsd"
+                ]
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 145,
+              "debt": 20,
+              "employed": true
+            },
+            "relationships": {
+              "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
             },
             "housing": {
               "status": "stable"
@@ -3165,7 +2866,7 @@
             "physical_chronic": []
           },
           "economics": {
-            "resources": 46,
+            "resources": 55,
             "debt": 0,
             "employed": false
           },
@@ -3180,24 +2881,24 @@
           }
         },
         {
-          "age": 14,
-          "year": 14,
+          "age": 37,
+          "year": 37,
           "eventType": "SUICIDE_ATTEMPT",
           "context": {
             "survived": true,
-            "method": "poisoning",
-            "mentalHealth": 53.79201995644409,
+            "method": "hanging",
+            "mentalHealth": 45,
             "ptsaAcquired": true
           },
           "health": {
             "physical": {
               "current": 85,
-              "baseline": 98.5
+              "baseline": 77.70000000000005
             },
             "mental": {
-              "current": 53.79201995644409,
-              "baseline": 74,
-              "suicideRisk": 0.4035,
+              "current": 45,
+              "baseline": 64,
+              "suicideRisk": 0.40546000000000004,
               "chronic": [
                 "ptsd"
               ]
@@ -3205,8 +2906,304 @@
             "physical_chronic": []
           },
           "economics": {
-            "resources": 52,
+            "resources": 79,
             "debt": 20,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 0,
+            "children": 0,
+            "isolated": true
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        {
+          "age": 55,
+          "year": 55,
+          "eventType": "DEATH_STROKE",
+          "context": {
+            "cause": "Stroke",
+            "age": 55,
+            "roll": 0.0028476666107075665
+          },
+          "health": {
+            "physical": {
+              "current": 85,
+              "baseline": 67.70000000000005
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 65,
+              "suicideRisk": 0.0022679999999999996,
+              "chronic": [
+                "ptsd"
+              ]
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 145,
+            "debt": 20,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 1,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        }
+      ]
+    },
+    {
+      "player": {
+        "age": 57,
+        "sex": "male",
+        "birthRegion": "Nordic Country",
+        "lifeExpectancy": 83
+      },
+      "death": {
+        "age": 57,
+        "year": 57,
+        "eventType": "DEATH_HEART_DISEASE",
+        "context": {
+          "cause": "Heart Disease",
+          "age": 57,
+          "roll": 0.0018351106243468251
+        },
+        "health": {
+          "physical": {
+            "current": 100,
+            "baseline": 62.70000000000003
+          },
+          "mental": {
+            "current": 65,
+            "baseline": 64,
+            "suicideRisk": 0.0315,
+            "chronic": []
+          },
+          "physical_chronic": []
+        },
+        "economics": {
+          "resources": 117,
+          "debt": 0,
+          "employed": true
+        },
+        "relationships": {
+          "married": false,
+          "friends": 3,
+          "children": 0,
+          "isolated": false
+        },
+        "housing": {
+          "status": "stable"
+        }
+      },
+      "causalChain": {
+        "death": {
+          "age": 57,
+          "year": 57,
+          "eventType": "DEATH_HEART_DISEASE",
+          "context": {
+            "cause": "Heart Disease",
+            "age": 57,
+            "roll": 0.0018351106243468251
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 62.70000000000003
+            },
+            "mental": {
+              "current": 65,
+              "baseline": 64,
+              "suicideRisk": 0.0315,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 117,
+            "debt": 0,
+            "employed": true
+          },
+          "relationships": {
+            "married": false,
+            "friends": 3,
+            "children": 0,
+            "isolated": false
+          },
+          "housing": {
+            "status": "stable"
+          }
+        },
+        "immediateFactors": {
+          "primaryCause": "Heart Disease",
+          "healthFactors": [],
+          "economicFactors": [],
+          "socialFactors": [],
+          "contextualFactors": []
+        },
+        "turningPoints": [
+          {
+            "age": 57,
+            "type": "MENTAL_HEALTH_DROP",
+            "magnitude": 23,
+            "event": {
+              "age": 57,
+              "year": 57,
+              "eventType": "DEATH_HEART_DISEASE",
+              "context": {
+                "cause": "Heart Disease",
+                "age": 57,
+                "roll": 0.0018351106243468251
+              },
+              "health": {
+                "physical": {
+                  "current": 100,
+                  "baseline": 62.70000000000003
+                },
+                "mental": {
+                  "current": 65,
+                  "baseline": 64,
+                  "suicideRisk": 0.0315,
+                  "chronic": []
+                },
+                "physical_chronic": []
+              },
+              "economics": {
+                "resources": 117,
+                "debt": 0,
+                "employed": true
+              },
+              "relationships": {
+                "married": false,
+                "friends": 3,
+                "children": 0,
+                "isolated": false
+              },
+              "housing": {
+                "status": "stable"
+              }
+            }
+          }
+        ],
+        "lifetimeChallenges": {
+          "economicStruggle": 0,
+          "mentalHealthStruggle": 0,
+          "socialIsolation": 0,
+          "healthCrisis": 0,
+          "employmentInstability": 0
+        },
+        "lastNEvents": [
+          {
+            "age": 0,
+            "year": 2025,
+            "eventType": "BIRTH",
+            "context": {
+              "birthRegion": "Nordic Country",
+              "lifeExpectancy": 83,
+              "sex": "male"
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 100
+              },
+              "mental": {
+                "current": 88,
+                "baseline": 88,
+                "suicideRisk": 0,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 49,
+              "debt": 0,
+              "employed": false
+            },
+            "relationships": {
+              "married": false,
+              "friends": 1,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          },
+          {
+            "age": 57,
+            "year": 57,
+            "eventType": "DEATH_HEART_DISEASE",
+            "context": {
+              "cause": "Heart Disease",
+              "age": 57,
+              "roll": 0.0018351106243468251
+            },
+            "health": {
+              "physical": {
+                "current": 100,
+                "baseline": 62.70000000000003
+              },
+              "mental": {
+                "current": 65,
+                "baseline": 64,
+                "suicideRisk": 0.0315,
+                "chronic": []
+              },
+              "physical_chronic": []
+            },
+            "economics": {
+              "resources": 117,
+              "debt": 0,
+              "employed": true
+            },
+            "relationships": {
+              "married": false,
+              "friends": 3,
+              "children": 0,
+              "isolated": false
+            },
+            "housing": {
+              "status": "stable"
+            }
+          }
+        ]
+      },
+      "fullLog": [
+        {
+          "age": 0,
+          "year": 2025,
+          "eventType": "BIRTH",
+          "context": {
+            "birthRegion": "Nordic Country",
+            "lifeExpectancy": 83,
+            "sex": "male"
+          },
+          "health": {
+            "physical": {
+              "current": 100,
+              "baseline": 100
+            },
+            "mental": {
+              "current": 88,
+              "baseline": 88,
+              "suicideRisk": 0,
+              "chronic": []
+            },
+            "physical_chronic": []
+          },
+          "economics": {
+            "resources": 49,
+            "debt": 0,
             "employed": false
           },
           "relationships": {
@@ -3220,39 +3217,37 @@
           }
         },
         {
-          "age": 75,
-          "year": 75,
+          "age": 57,
+          "year": 57,
           "eventType": "DEATH_HEART_DISEASE",
           "context": {
             "cause": "Heart Disease",
-            "age": 75,
-            "roll": 0.0067764938467602676
+            "age": 57,
+            "roll": 0.0018351106243468251
           },
           "health": {
             "physical": {
-              "current": 94.53999999999999,
-              "baseline": 76.03999999999999
+              "current": 100,
+              "baseline": 62.70000000000003
             },
             "mental": {
-              "current": 64.93221811913351,
+              "current": 65,
               "baseline": 64,
-              "suicideRisk": 0.4058968,
-              "chronic": [
-                "ptsd"
-              ]
+              "suicideRisk": 0.0315,
+              "chronic": []
             },
             "physical_chronic": []
           },
           "economics": {
-            "resources": 67,
-            "debt": 20,
-            "employed": false
+            "resources": 117,
+            "debt": 0,
+            "employed": true
           },
           "relationships": {
             "married": false,
-            "friends": 0,
+            "friends": 3,
             "children": 0,
-            "isolated": true
+            "isolated": false
           },
           "housing": {
             "status": "stable"

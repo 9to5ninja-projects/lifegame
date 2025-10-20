@@ -211,6 +211,13 @@ class MortalityGameV2 {
 
       // ========== RELATIONSHIPS (State machine) ==========
       relationships: {
+        birthFamily: {
+          // Track birth family conditions for cascade analysis
+          income: null, // Will be set based on regional wealth
+          education: null, // Will be estimated from birth card
+          stability: familyCard.name.includes("Stable") ? "stable" : familyCard.name.includes("Conflict") ? "conflict" : "moderate",
+          resources: this.getRegionalWealth(birthCard.name) // Birth family starting resources
+        },
         parents: {
           mother: {
             alive: true,
@@ -431,6 +438,37 @@ class MortalityGameV2 {
       this.player.economics.resources.current += familyCard.effects.resourceMod;
       this.player.economics.resources.baseline += familyCard.effects.resourceMod;
     }
+    
+    // Set birth family income (estimate based on region + resource modifier)
+    const birthRegion = this.player.demographics.birthRegion;
+    const resourceMod = familyCard.effects?.resourceMod || 0;
+    
+    // Base income by region
+    let birthFamilyIncome = 30; // Default middle-income
+    if (birthRegion.includes('Nordic')) {
+      birthFamilyIncome = 50 + (resourceMod * 2); // Higher baseline for Nordic
+    } else if (birthRegion.includes('Western Europe') || birthRegion.includes('North America')) {
+      birthFamilyIncome = 45 + (resourceMod * 2);
+    } else if (birthRegion.includes('Sub-Saharan') || birthRegion.includes('Fragile')) {
+      birthFamilyIncome = 10 + resourceMod;
+    } else {
+      birthFamilyIncome = 30 + (resourceMod * 1.5);
+    }
+    
+    // Add variance
+    birthFamilyIncome *= (0.7 + Math.random() * 0.6); // 70%-130% variation
+    this.player.relationships.birthFamily.income = Math.round(Math.max(5, birthFamilyIncome));
+    
+    // Estimate parent education (correlated with income)
+    if (birthFamilyIncome > 60) {
+      this.player.relationships.birthFamily.education = "tertiary";
+    } else if (birthFamilyIncome > 30) {
+      this.player.relationships.birthFamily.education = "secondary";
+    } else if (birthFamilyIncome > 15) {
+      this.player.relationships.birthFamily.education = "primary";
+    } else {
+      this.player.relationships.birthFamily.education = "none";
+    }
 
     // Adjust relationships based on family structure
     if (familyCard.name.includes("Single")) {
@@ -438,6 +476,8 @@ class MortalityGameV2 {
       const otherParent = parent === "mother" ? "father" : "mother";
       this.player.relationships.parents[otherParent].present = false;
       this.player.relationships.parents[otherParent].alive = Math.random() > 0.3;
+      // Single parent families typically have lower income
+      this.player.relationships.birthFamily.income *= 0.6;
     }
 
     if (familyCard.name.includes("Orphan")) {
@@ -445,6 +485,8 @@ class MortalityGameV2 {
       this.player.relationships.parents.father.alive = false;
       this.player.health.mental.current -= 20;
       this.player.health.mental.baseline -= 10;
+      // Orphans have very low family support
+      this.player.relationships.birthFamily.income = Math.min(10, this.player.relationships.birthFamily.income);
     }
 
     if (familyCard.name.includes("Abuse")) {
@@ -2460,11 +2502,13 @@ class MortalityGameV2 {
       // === BASE WAGE BY EDUCATION ===
       let baseIncome = 10; // Default for no formal education
       
-      if (p.development.education.level === "university") {
+      const eduLevel = p.development.education.level || "none";
+      
+      if (eduLevel.includes("tertiary") || eduLevel.includes("bachelor") || eduLevel.includes("master") || eduLevel === "university") {
         baseIncome = 30; // Professional/graduate degree
-      } else if (p.development.education.level === "secondary") {
+      } else if (eduLevel === "secondary") {
         baseIncome = 18; // High school diploma
-      } else if (p.development.education.level === "primary") {
+      } else if (eduLevel === "primary") {
         baseIncome = 12; // Basic literacy
       }
       
@@ -2500,12 +2544,44 @@ class MortalityGameV2 {
         regionalMultiplier = 0.4; // Low wages
       }
       
-      // === DUAL INCOME (if married) ===
-      let householdIncome = baseIncome * experienceMultiplier * regionalMultiplier;
+      // === PERFORMANCE & CAREER VARIATION ===
+      // Track individual career performance (not everyone is average!)
+      if (!p.economics.income.careerPerformance) {
+        // Initialize career performance: bell curve around 1.0
+        const random1 = Math.random();
+        const random2 = Math.random();
+        // Box-Muller transform for normal distribution
+        const normalRandom = Math.sqrt(-2 * Math.log(random1)) * Math.cos(2 * Math.PI * random2);
+        p.economics.income.careerPerformance = Math.max(0.5, Math.min(2.0, 1.0 + (normalRandom * 0.3)));
+      }
       
-      if (p.relationships.married && Math.random() < 0.7) {
+      // Random career events (promotions, demotions, bonuses)
+      if (Math.random() < 0.05) { // 5% chance per year
+        const event = Math.random();
+        if (event < 0.4 && p.economics.income.careerPerformance < 1.8) {
+          // Promotion/raise (40% of events)
+          p.economics.income.careerPerformance *= 1.1;
+        } else if (event < 0.7 && p.economics.income.careerPerformance > 0.6) {
+          // Setback/demotion (30% of events)
+          p.economics.income.careerPerformance *= 0.9;
+        }
+        // 30% are neutral events (lateral moves, reorganizations)
+      }
+      
+      // === DUAL INCOME (if married) ===
+      let personalIncome = baseIncome * experienceMultiplier * regionalMultiplier * p.economics.income.careerPerformance;
+      let householdIncome = personalIncome;
+      
+      if (p.relationships.social && p.relationships.social.married && Math.random() < 0.7) {
         // 70% of spouses also work (varies by region, but average)
-        const spouseIncome = householdIncome * 0.8; // Spouse earns ~80% on average
+        // Spouse has independent career performance
+        if (!p.economics.income.spousePerformance) {
+          const random1 = Math.random();
+          const random2 = Math.random();
+          const normalRandom = Math.sqrt(-2 * Math.log(random1)) * Math.cos(2 * Math.PI * random2);
+          p.economics.income.spousePerformance = Math.max(0.5, Math.min(2.0, 1.0 + (normalRandom * 0.3)));
+        }
+        const spouseIncome = baseIncome * 0.8 * experienceMultiplier * regionalMultiplier * p.economics.income.spousePerformance;
         householdIncome += spouseIncome;
       }
       
@@ -2543,22 +2619,48 @@ class MortalityGameV2 {
     // If attending, chance to complete stage
     if (shouldAttend.shouldAttend && age >= 18) {
       // Post-secondary: can drop out or complete
-      const completionRate = 0.85; // 85% of those who attend post-secondary complete
-      if (Math.random() < completionRate) {
-        p.development.education.yearsCompleted = (p.development.education.yearsCompleted || 0) + 1;
-        if (p.development.education.yearsCompleted >= 4) {
+      // Initialize tracking if first year at university
+      if (!p.development.education.universityYears) {
+        p.development.education.universityYears = 0;
+      }
+      
+      // Dropout factors: financial stress, mental health, family support
+      const financialStress = p.economics.resources.current < 5 ? 0.15 : 0.05; // Poor students drop out more
+      const mentalHealthIssue = p.health.mental.current < 40 ? 0.10 : 0.02; // Depression affects completion
+      const lackOfSupport = (!p.relationships.birthFamily || p.relationships.birthFamily.income < 20) ? 0.08 : 0.02;
+      
+      const dropoutRisk = financialStress + mentalHealthIssue + lackOfSupport;
+      const baseCompletion = region === "Nordic" ? 0.90 : 0.85; // Nordic has better support
+      const yearlyCompletionRate = baseCompletion - dropoutRisk;
+      
+      if (Math.random() < yearlyCompletionRate) {
+        p.development.education.universityYears += 1;
+        if (p.development.education.universityYears >= 4) {
           p.development.education.level = "tertiary_bachelor";
+          p.development.education.inSchool = false; // Graduated
         }
       } else {
-        p.development.education.inSchool = false; // Drop out
+        // Drop out - set to secondary as highest completed
+        p.development.education.inSchool = false;
+        p.development.education.level = "secondary"; // Has high school diploma only
       }
     } else if (shouldAttend.shouldAttend && age >= 12 && age < 18) {
-      // Secondary school: automatic progression, no dropout
-      p.development.education.yearsCompleted = Math.min(6, age - 11);
-      p.development.education.level = "secondary";
+      // Secondary school: mostly automatic, but some dropout after 16
+      if (age >= 16) {
+        // Ages 16-17: can drop out, especially if poor or working
+        const dropoutRisk = p.economics.resources.current < 10 ? 0.08 : 0.02;
+        if (Math.random() < dropoutRisk) {
+          p.development.education.inSchool = false;
+          // Keep level at secondary if they made it this far
+        } else {
+          p.development.education.level = "secondary";
+        }
+      } else {
+        // Ages 12-15: compulsory, automatic progression
+        p.development.education.level = "secondary";
+      }
     } else if (shouldAttend.shouldAttend && age >= 6 && age < 12) {
       // Primary school: automatic progression
-      p.development.education.yearsCompleted = Math.min(6, age - 5);
       p.development.education.level = "primary";
     }
   }
@@ -3125,7 +3227,9 @@ class MortalityGameV2 {
     for (const deathCard of validDeaths) {
       // Card weight is relative weight, not absolute rate
       // Convert to annual probability: weight is roughly per 10,000 population
-      let baseProbability = (deathCard.weight || 1) / 10000;
+      // ADJUSTED: Reduced from /10000 to /44000 to target ~83 year Nordic lifespan
+      // This calibration achieved 80.6 years with /42000, adjusting to /44000 for final target
+      let baseProbability = (deathCard.weight || 1) / 44000;
       
       // Apply age multiplier
       let probability = baseProbability * ageMultiplier;
@@ -3158,6 +3262,16 @@ class MortalityGameV2 {
     const birthRegion = player.demographics.birthRegion || '';
     const isHighResource = birthRegion.includes('Nordic') || birthRegion.includes('Western Europe');
     const isLowResource = birthRegion.includes('Sub-Saharan') || birthRegion.includes('Conflict');
+    const isTropical = birthRegion.includes('Sub-Saharan') || birthRegion.includes('South Asia') || 
+                       birthRegion.includes('Southeast Asia') || birthRegion.includes('Latin America');
+    
+    // Geographic disease filtering: Tropical diseases don't exist in Nordic/temperate regions
+    if (!isTropical) {
+      if (deathName === "Malaria") return 0.0001; // Essentially impossible in Nordic countries
+      if (deathName === "Dengue Fever") return 0.0001;
+      if (deathName === "Yellow Fever") return 0.0001;
+      if (deathName === "Cholera") return 0.0001;
+    }
     
     // High-resource regions have dramatically lower preventable deaths
     if (isHighResource) {
@@ -3166,11 +3280,15 @@ class MortalityGameV2 {
       if (deathName === "Diarrheal Disease") multiplier *= 0.1; // 10x reduction
       if (deathName === "Preventable Disease") multiplier *= 0.1;
       if (deathName === "Maternal Death (Childbirth)") multiplier *= 0.02; // 50x reduction
-      if (deathName === "Tuberculosis") multiplier *= 0.2; // 5x reduction
-      if (deathName === "HIV/AIDS") multiplier *= 0.3; // 3x reduction
+      if (deathName === "Tuberculosis") multiplier *= 0.1; // 10x reduction
+      if (deathName === "Infectious Disease (HIV/TB)") multiplier *= 0.01; // 100x reduction (excellent treatment + low prevalence)
+      if (deathName === "HIV/AIDS") multiplier *= 0.01; // 100x reduction
       if (deathName.includes("Violence") || deathName === "Homicide") multiplier *= 0.1; // 10x safer
       if (deathName.includes("Armed Conflict")) multiplier *= 0.001; // 1000x reduction (essentially zero)
       if (deathName === "Natural Disaster") multiplier *= 0.2; // Better infrastructure
+      if (deathName === "Traffic Accident") multiplier *= 0.15; // 7x reduction (excellent roads/safety)
+      if (deathName === "Workplace Accident") multiplier *= 0.2; // 5x reduction (strong safety regs)
+      if (deathName === "Diabetes Complications") multiplier *= 0.3; // Better treatment/management
     } else if (isLowResource) {
       if (deathName === "Lack of Medical Care") multiplier *= 3.0;
       if (deathName.includes("Violence") || deathName.includes("Conflict")) multiplier *= 2.5;

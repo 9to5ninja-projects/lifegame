@@ -7,6 +7,12 @@
  * - Romantic relationships (dating, marriage)
  * - Social activities and community integration
  * 
+ * Realistic factors:
+ * - Age-based friendship difficulty (harder to make friends as you age)
+ * - Population density (urban anonymity vs rural community)
+ * - Mental health isolation spirals with intervention/grace events
+ * - Regional social norms (Nordic tight communities, low density)
+ * 
  * Addresses CRITICAL BUG: 100% of deaths have "no social connections"
  * Root cause: friends can only decrease, never increase
  */
@@ -14,6 +20,60 @@
 class RelationshipsSystem {
   constructor() {
     this.initialized = true;
+    
+    // Age-based friendship difficulty multipliers (research-backed)
+    this.ageDifficultyMultipliers = {
+      0: 1.0,    // Childhood: effortless (parents arrange)
+      12: 1.0,   // Adolescence: peak socialization (school)
+      18: 0.9,   // Young adult: still easy (university/work)
+      25: 0.7,   // Adult: getting harder (established routines)
+      35: 0.5,   // Mid-adult: much harder (busy with family/career)
+      45: 0.4,   // Middle age: social circles mostly set
+      55: 0.3,   // Pre-retirement: very hard to make new friends
+      65: 0.4,   // Retirement: slight increase (more free time)
+      75: 0.3,   // Elderly: mobility/health limits
+    };
+    
+    // Population density social modifiers
+    this.densityModifiers = {
+      'Nordic': { density: 'low', community: 1.3, anonymity: 0.7 },           // Low density, tight community
+      'Rural': { density: 'low', community: 1.4, anonymity: 0.6 },            // Tight-knit
+      'Western Europe': { density: 'medium', community: 1.0, anonymity: 1.0 }, // Balanced
+      'Urban': { density: 'high', community: 0.8, anonymity: 1.5 },           // More opportunities but anonymity
+      'Sub-Saharan': { density: 'variable', community: 1.2, anonymity: 0.8 }, // Strong community ties
+    };
+  }
+  
+  /**
+   * Get age-based friendship difficulty multiplier
+   */
+  getAgeDifficulty(age) {
+    // Find the bracket
+    const brackets = Object.keys(this.ageDifficultyMultipliers)
+      .map(k => parseInt(k))
+      .sort((a, b) => a - b);
+    
+    let applicable = brackets[0];
+    for (const bracket of brackets) {
+      if (age >= bracket) applicable = bracket;
+      else break;
+    }
+    
+    return this.ageDifficultyMultipliers[applicable];
+  }
+  
+  /**
+   * Get population density modifier for region
+   */
+  getDensityModifier(birthRegion) {
+    const region = birthRegion || 'Western Europe';
+    
+    // Match region to density profile
+    if (region.includes('Nordic')) return this.densityModifiers['Nordic'];
+    if (region.includes('Rural') || region.includes('Sub-Saharan')) return this.densityModifiers['Rural'];
+    if (region.includes('Urban') || region.includes('City')) return this.densityModifiers['Urban'];
+    
+    return this.densityModifiers['Western Europe']; // Default
   }
 
   /**
@@ -116,9 +176,12 @@ class RelationshipsSystem {
    * Young Adult (18-29): Formation of life partnerships
    */
   updateYoungAdult(player) {
-    // Employment = work friends
+    const ageDifficulty = this.getAgeDifficulty(player.demographics.age);
+    const densityMod = this.getDensityModifier(player.demographics.birthRegion);
+    
+    // Employment = work friends (still relatively easy in 20s)
     if (player.economics.income.employed) {
-      const workFriendChance = 0.25;
+      const workFriendChance = 0.25 * ageDifficulty * densityMod.community;
       if (Math.random() < workFriendChance) {
         player.relationships.social.friends = Math.min(15, player.relationships.social.friends + 1);
       }
@@ -129,9 +192,9 @@ class RelationshipsSystem {
       }
     }
 
-    // University = massive friend opportunities
+    // University = massive friend opportunities (peak socialization)
     if (player.development.education.currentLevel === 'university') {
-      const universityFriendChance = 0.5; // 50% per year
+      const universityFriendChance = 0.5 * densityMod.community; // 50% base
       if (Math.random() < universityFriendChance) {
         player.relationships.social.friends = Math.min(20, player.relationships.social.friends + 2);
       }
@@ -143,6 +206,37 @@ class RelationshipsSystem {
       const meetPartnerChance = 0.15; // 15% per year
       if (Math.random() < meetPartnerChance) {
         this.formPartnership(player);
+      }
+    }
+    
+    // Marriage progression: Partners may marry after 2+ years together
+    if (player.relationships.partner.exists && !player.relationships.social.married) {
+      const yearsTogether = player.demographics.age - player.relationships.partner.since;
+      if (yearsTogether >= 2) {
+        const marriageChance = 0.25; // 25% per year after 2 years
+        if (Math.random() < marriageChance) {
+          player.relationships.social.married = true;
+          player.health.mental.current = Math.min(100, player.health.mental.current + 5);
+        }
+      }
+    }
+    
+    // Children: Married couples may have children
+    if (player.relationships.social.married && player.demographics.age >= 20 && player.demographics.age <= 45) {
+      const existingChildren = player.relationships.children?.length || 0;
+      if (existingChildren < 4) { // Max 4 children
+        const childChance = 0.15; // 15% per year
+        if (Math.random() < childChance) {
+          if (!player.relationships.children) player.relationships.children = [];
+          player.relationships.children.push({
+            age: 0,
+            sex: Math.random() > 0.5 ? 'male' : 'female',
+            born: player.demographics.age
+          });
+          // Mental/physical impact of childbirth
+          player.health.physical.current = Math.max(0, player.health.physical.current - 5);
+          player.health.mental.current = Math.max(20, player.health.mental.current - 10); // Initial stress
+        }
       }
     }
 
@@ -158,14 +252,41 @@ class RelationshipsSystem {
   }
 
   /**
-   * Adult (30-59): Maintenance phase
+   * Adult (30-59): Maintenance phase with age-based difficulty
    */
   updateAdult(player) {
-    // Work friends (slower accumulation)
+    const ageDifficulty = this.getAgeDifficulty(player.demographics.age);
+    const densityMod = this.getDensityModifier(player.demographics.birthRegion);
+    
+    // Work friends (age makes it harder)
     if (player.economics.income.employed) {
-      const workFriendChance = 0.15;
+      const workFriendChance = 0.25 * ageDifficulty * densityMod.community;
       if (Math.random() < workFriendChance) {
         player.relationships.social.friends = Math.min(15, player.relationships.social.friends + 1);
+      }
+    }
+    
+    // Community friends (hobbies, volunteering, neighbors)
+    // Requires decent mental health AND gets harder with age
+    if (player.health.mental.current > 50) {
+      const communityFriendChance = 0.15 * ageDifficulty * densityMod.community;
+      if (Math.random() < communityFriendChance) {
+        player.relationships.social.friends = Math.min(15, player.relationships.social.friends + 1);
+        player.relationships.social.community = Math.min(90, player.relationships.social.community + 1);
+      }
+    }
+    
+    // **INTERVENTION/GRACE EVENTS** - Break isolation spirals
+    // Realistic: community programs, workplace social, chance encounters, therapy success
+    if (player.relationships.social.friends <= 1 && player.relationships.social.isolation) {
+      const interventionChance = 0.08 * densityMod.community; // 8% base, higher in tight communities
+      if (Math.random() < interventionChance) {
+        // Life-changing intervention
+        player.relationships.social.friends += 2;
+        player.relationships.social.community += 15;
+        player.health.mental.current = Math.min(100, player.health.mental.current + 10);
+        player.relationships.social.isolation = false;
+        // Note: Could add event logging here for narrative
       }
     }
 
@@ -177,22 +298,28 @@ class RelationshipsSystem {
       player.relationships.parents.father.relationship += 1;
     }
 
-    // Natural friend attrition (people move, drift apart)
-    if (Math.random() < 0.05) { // 5% per year
+    // Natural friend attrition (life gets busy, people move)
+    // But less attrition in tight communities
+    const attritionRate = 0.03 / densityMod.community;
+    if (Math.random() < attritionRate) {
       player.relationships.social.friends = Math.max(0, player.relationships.social.friends - 1);
     }
 
-    // Marriage gives community boost
+    // Marriage gives community boost and partner's friends
     if (player.relationships.social.married) {
       player.relationships.social.community = Math.min(85, player.relationships.social.community + 2);
+      // Partner's social network (harder to integrate as you age)
+      if (Math.random() < (0.1 * ageDifficulty)) {
+        player.relationships.social.friends = Math.min(15, player.relationships.social.friends + 1);
+      }
     }
 
     // Children give community connections (school, activities)
     if (player.relationships.children.length > 0) {
       player.relationships.social.community = Math.min(90, player.relationships.social.community + 3);
       
-      // Parent friends (meet through kids)
-      if (Math.random() < 0.2) {
+      // Parent friends (meet through kids) - increased from 20% to 30%
+      if (Math.random() < 0.3) {
         player.relationships.social.friends = Math.min(12, player.relationships.social.friends + 1);
       }
     }
@@ -338,22 +465,44 @@ class RelationshipsSystem {
   }
 
   /**
-   * Calculate overall social health score
-   * Used to determine isolation and mental health effects
+   * Calculate overall social health score with personality-based needs
+   * Separates "alone" (neutral) from "lonely" (distressed)
    */
   calculateSocialHealth(player) {
-    let socialScore = 0;
-
-    // Friend count (0-40 points)
-    const friendCount = player.relationships.social.friends || 0;
-    socialScore += Math.min(40, friendCount * 4);
-
-    // Partner relationship (0-30 points)
-    if (player.relationships.partner.exists) {
-      socialScore += (player.relationships.partner.relationship / 100) * 30;
+    // Initialize personality trait if not set (0-100 scale)
+    if (!player.personality) {
+      player.personality = {};
     }
-
-    // Family connections (0-20 points)
+    if (player.personality.socialNeeds === undefined) {
+      // Distribute: ~25% introvert (0-33), ~50% ambivert (34-66), ~25% extrovert (67-100)
+      const roll = Math.random() * 100;
+      player.personality.socialNeeds = roll;
+    }
+    
+    // Calculate ACTUAL social fulfillment (0-100)
+    let socialFulfillment = 0;
+    
+    // Friend count contributes differently based on quality
+    const friendCount = player.relationships.social.friends || 0;
+    if (friendCount === 0) {
+      socialFulfillment += 0;
+    } else if (friendCount <= 2) {
+      // 1-2 close friends: Quality > quantity
+      socialFulfillment += friendCount * 20; // 20-40 points
+    } else if (friendCount <= 5) {
+      // 3-5 friends: Good balance
+      socialFulfillment += 40 + (friendCount - 2) * 5; // 45-55 points
+    } else {
+      // 6+ friends: Diminishing returns
+      socialFulfillment += 55 + Math.min(10, (friendCount - 5) * 2); // 55-65 points max
+    }
+    
+    // Partner relationship (0-25 points)
+    if (player.relationships.partner.exists) {
+      socialFulfillment += (player.relationships.partner.relationship / 100) * 25;
+    }
+    
+    // Family connections (0-10 points)
     let familyAlive = 0;
     if (player.relationships.parents.mother.alive) familyAlive++;
     if (player.relationships.parents.father.alive) familyAlive++;
@@ -361,32 +510,57 @@ class RelationshipsSystem {
     if (player.relationships.siblings) {
       familyAlive += player.relationships.siblings.filter(s => s.alive).length;
     }
-    socialScore += Math.min(20, familyAlive * 4);
-
-    // Community integration (0-10 points)
-    socialScore += (player.relationships.social.community / 100) * 10;
-
-    // Store social health score (0-100)
-    player.relationships.socialHealthScore = socialScore;
-
-    // Update isolation flag based on score
-    if (socialScore < 20) {
+    socialFulfillment += Math.min(10, familyAlive * 2);
+    
+    // Community integration (0-5 points) - background social fabric
+    socialFulfillment += (player.relationships.social.community / 100) * 5;
+    
+    // Cap at 100
+    socialFulfillment = Math.min(100, socialFulfillment);
+    
+    // Calculate LONELINESS = gap between needs and fulfillment
+    // Negative = needs not met (lonely), Positive = needs exceeded (content/social)
+    const socialBalance = socialFulfillment - player.personality.socialNeeds;
+    
+    // Store metrics
+    player.relationships.socialHealthScore = socialFulfillment;
+    player.relationships.socialBalance = socialBalance;
+    player.relationships.loneliness = Math.max(0, -socialBalance); // 0-100, higher = more lonely
+    
+    // Determine isolation: Lonely + distressed (not just "alone")
+    // Introverts with 0 friends and low needs = NOT isolated
+    // Extroverts with 5 friends but high needs = MIGHT BE isolated
+    if (player.relationships.loneliness > 30 && socialFulfillment < 40) {
       player.relationships.social.isolation = true;
-    } else if (socialScore > 40) {
+    } else if (player.relationships.loneliness < 15 || socialFulfillment > 50) {
       player.relationships.social.isolation = false;
     }
-    // Between 20-40 = ambiguous, don't change
-
-    // Mental health boost from social connections
-    if (socialScore > 60) {
-      // Strong social network = mental health buffer
+    // Ambiguous cases: don't change status
+    
+    // Mental health effects based on loneliness (not just friend count!)
+    const lonelinessImpact = player.relationships.loneliness / 10; // 0-10 points
+    
+    if (player.relationships.loneliness > 50) {
+      // Severe loneliness = mental health decline (downward spiral)
+      player.health.mental.current = Math.max(0, player.health.mental.current - lonelinessImpact * 0.5);
+    } else if (player.relationships.loneliness > 30) {
+      // Moderate loneliness = mild decline
+      player.health.mental.current = Math.max(0, player.health.mental.current - 1);
+    } else if (player.relationships.loneliness < 10 && socialFulfillment > 60) {
+      // Well-connected = mental health boost
       player.health.mental.current = Math.min(100, player.health.mental.current + 1);
-    } else if (socialScore < 20) {
-      // Isolation = mental health drain
-      player.health.mental.current = Math.max(0, player.health.mental.current - 2);
+    }
+    
+    // Mental health also affects ability to socialize (feedback loop)
+    // Low mental health makes it harder to maintain relationships
+    if (player.health.mental.current < 30 && friendCount > 0) {
+      // Risk of losing friends when severely depressed
+      if (Math.random() < 0.05) { // 5% chance per year
+        player.relationships.social.friends = Math.max(0, friendCount - 1);
+      }
     }
 
-    return socialScore;
+    return socialFulfillment;
   }
 
   /**
@@ -400,6 +574,13 @@ class RelationshipsSystem {
     const fatherAlive = player.relationships.parents.father.alive;
     const children = player.relationships.children.length;
     const socialHealth = player.relationships.socialHealthScore || 0;
+    const socialNeeds = player.personality?.socialNeeds || 50;
+    const loneliness = player.relationships.loneliness || 0;
+    
+    // Personality type
+    let personalityType = 'ambivert';
+    if (socialNeeds < 33) personalityType = 'introvert';
+    else if (socialNeeds > 66) personalityType = 'extrovert';
 
     return {
       friends: friendCount,
@@ -408,6 +589,9 @@ class RelationshipsSystem {
       children: children,
       community: player.relationships.social.community,
       socialHealth: socialHealth.toFixed(1),
+      socialNeeds: socialNeeds.toFixed(0),
+      loneliness: loneliness.toFixed(1),
+      personality: personalityType,
       isolated: player.relationships.social.isolation
     };
   }
