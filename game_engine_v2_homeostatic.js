@@ -2929,12 +2929,14 @@ class MortalityGameV2 {
 
     if (roll > player.survival) {
       // DEATH
-      // Filter deaths by age range AND exclude "Suicide" (only happens via suicide attempt mechanism)
+      // Filter deaths by age range, gender, AND exclude "Suicide" (only happens via suicide attempt mechanism)
       const validDeaths = this.deathCards.filter((card) => {
         const [minAge, maxAge] = card.ageRange;
-        return player.demographics.age >= minAge && 
-               player.demographics.age <= maxAge && 
-               card.name !== "Suicide"; // Suicide handled separately via calculateSuicideRisk
+        const ageMatch = player.demographics.age >= minAge && player.demographics.age <= maxAge;
+        const notSuicide = card.name !== "Suicide"; // Suicide handled separately via calculateSuicideRisk
+        const genderMatch = !card.genderSpecific || card.genderSpecific === player.demographics.sex;
+        
+        return ageMatch && notSuicide && genderMatch;
       });
 
       // Weight by player state (if diabetic, more likely diabetes death, etc.)
