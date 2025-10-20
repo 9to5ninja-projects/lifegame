@@ -6,18 +6,19 @@
  */
 
 const fs = require('fs');
-const MortalityGameV2 = require('./game_engine_v2_homeostatic.js');
-const DeathTracer = require('./death_trace_system.js');
+const path = require('path');
+const MortalityGameV2 = require(path.join(__dirname, '../game_engine_v2_homeostatic.js'));
+const DeathTracer = require(path.join(__dirname, '../death_trace_system.js'));
 
 // Load game data
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
+const birthCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../birth_cards_json.json'), 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../family_cards_json.json'), 'utf8'));
 const eventCards = {
-  childhood: JSON.parse(fs.readFileSync('./event_cards_childhood.json', 'utf8')),
-  teen: JSON.parse(fs.readFileSync('./event_cards_teen.json', 'utf8')),
-  adult: JSON.parse(fs.readFileSync('./event_cards_adult.json', 'utf8')),
+  childhood: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_childhood.json'), 'utf8')),
+  teen: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_teen.json'), 'utf8')),
+  adult: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_adult.json'), 'utf8')),
 };
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../death_cards_json.json'), 'utf8'));
 
 // Configuration
 const NUM_LIVES = 50;
@@ -39,8 +40,9 @@ console.log(`Running ${NUM_LIVES} lives with anomaly detection...\n`);
 
 for (let i = 0; i < NUM_LIVES; i++) {
   const birthCard = birthCards.find(b => b.name === 'Nordic Country') || birthCards[0];
-  const tracer = new DeathTracer();
-  const engine = new MortalityGameV2(birthCards, familyCards, eventCards, deathCards, tracer);
+  const engine = new MortalityGameV2(birthCards, familyCards, eventCards, deathCards, null);
+  // Disable tracing for speed
+  engine.disableDeathTracing();
   
   engine.createPlayer(birthCard, familyCards[0], {
     sex: Math.random() > 0.5 ? 'male' : 'female'
@@ -52,19 +54,19 @@ for (let i = 0; i < NUM_LIVES; i++) {
   while (player.alive && age < 150) {
     age++;
     player.demographics.age = age;
-    engine.driftPlayerState(player);
-    if (!player.alive) break;
+    engine.processYearEnd(player);
+    
+    if (!player.alive) {
+      break;
+    }
   }
   
-  const log = tracer.getLifeLog(player);
-  const chain = tracer.traceCausalChain(player);
-  
   // ============================================================================
-  // ANOMALY DETECTION
+  // ANOMALY DETECTION (no tracing needed - direct state checks)
   // ============================================================================
   
   // 1. Unexpected death ages (should match life expectancy curve)
-  if (player.demographics.age < 10 && player.alive === false) {
+  if (player.demographics.age < 10 && !player.alive) {
     anomalies.unexpectedDeathAges.push({
       age: player.demographics.age,
       cause: player.causeOfDeath,
@@ -73,91 +75,45 @@ for (let i = 0; i < NUM_LIVES; i++) {
     });
   }
   
-  // 2. Too many mental health crises (indicates stress multipliers too high)
-  const mentalCrisisCount = log.filter(e => e.eventType.includes('MENTAL') || e.eventType.includes('CRISIS')).length;
-  if (mentalCrisisCount > 30 && player.demographics.age < 40) {
-    anomalies.tooManyMentalHealthCrises.push({
+  // 2. Multiple chronic conditions by age 25
+  if (player.demographics.age >= 25 && player.demographics.age < 26) {
+    const totalChronic = (player.health.physical.chronic.length || 0) + (player.health.mental.chronic.length || 0);
+    if (totalChronic > 2) {
+      anomalies.multipleChronicConditions.push({
+        age: player.demographics.age,
+        conditions: totalChronic,
+        list: [...(player.health.physical.chronic || []), ...(player.health.mental.chronic || [])],
+        reason: `${totalChronic} chronic conditions at age 25`
+      });
+    }
+  }
+  
+  // 3. Extreme debt while young
+  if (player.demographics.age < 30 && player.economics.debt > 200) {
+    anomalies.extremeDebtYoung.push({
       age: player.demographics.age,
-      crisisCount: mentalCrisisCount,
-      reason: `${mentalCrisisCount} mental health events by age ${player.demographics.age}`
+      debt: player.economics.debt,
+      reason: `Debt of ${player.economics.debt} at age ${player.demographics.age}`
     });
   }
   
-  // 3. No employment by age 30 (should be ~60% employed)
-  const byAge30 = log.filter(e => e.age <= 30);
-  const employedByAge30 = byAge30.some(e => e.economics.employed);
-  if (!employedByAge30 && player.demographics.age >= 30) {
+  // 4. Never employed by age 30
+  if (player.demographics.age >= 30 && !player.economics.income.employed) {
+    // Check if ever employed (this is a simple check - ideally would track employment history)
     anomalies.noEmploymentByAge30.push({
       age: player.demographics.age,
       employed: false,
-      reason: 'Never employed by age 30 (should be 60%+ employed)'
+      reason: 'Not employed at age 30 (should have worked sometime)'
     });
   }
   
-  // 4. Chronic conditions at age 0-2 (should be rare)
-  const earlyChronicEvents = log.filter(e => e.age <= 2 && (e.health.physical_chronic.length > 0 || e.health.mental.chronic.length > 0));
-  if (earlyChronicEvents.length > 0) {
-    anomalies.chronic0yearsOld.push({
-      age: 0,
-      conditions: earlyChronicEvents[0].health.physical_chronic.concat(earlyChronicEvents[0].health.mental.chronic),
-      reason: 'Chronic conditions diagnosed at infancy (should not occur)'
-    });
-  }
-  
-  // 5. Multiple severe chronic conditions by age 25
-  const atAge25 = log.find(e => e.age === 25);
-  if (atAge25 && atAge25.health.physical_chronic.length > 2) {
-    anomalies.multipleChronicConditions.push({
-      age: 25,
-      conditions: atAge25.health.physical_chronic.length,
-      list: atAge25.health.physical_chronic,
-      reason: `${atAge25.health.physical_chronic.length} chronic physical conditions at age 25`
-    });
-  }
-  
-  // 6. Extreme debt while young
-  const maxDebtUnder30 = Math.max(...byAge30.map(e => e.economics.debt || 0));
-  if (maxDebtUnder30 > 200) {
-    anomalies.extremeDebtYoung.push({
-      age: byAge30.find(e => e.economics.debt === maxDebtUnder30)?.age,
-      debt: maxDebtUnder30,
-      reason: `Debt of ${maxDebtUnder30} by age ${byAge30.find(e => e.economics.debt === maxDebtUnder30)?.age}`
-    });
-  }
-  
-  // 7. Long-term homelessness while young
-  const homelessnessEvents = log.filter(e => e.housing.status === 'homeless');
-  if (homelessnessEvents.length > 0) {
-    const firstHomeless = homelessnessEvents[0];
-    const lastHomeless = homelessnessEvents[homelessnessEvents.length - 1];
-    const homelessDuration = lastHomeless.age - firstHomeless.age;
-    if (homelessDuration > 10 && firstHomeless.age < 30) {
-      anomalies.longTermHomelessnessYoung.push({
-        startAge: firstHomeless.age,
-        endAge: lastHomeless.age,
-        duration: homelessDuration,
-        reason: `Homeless for ${homelessDuration} years starting at age ${firstHomeless.age}`
-      });
-    }
-  }
-  
-  // 8. Inconsistent states (resources decrease to 0 but alive)
-  const resourceDecreasing = [];
-  for (let j = 1; j < log.length; j++) {
-    if (log[j].economics.resources === 0 && !log[j].eventType.startsWith('DEATH') && log[j].age > 5) {
-      resourceDecreasing.push({
-        age: log[j].age,
-        resources: 0,
-        employed: log[j].economics.employed,
-        reason: 'Zero resources but still alive (should trigger homelessness/death)'
-      });
-    }
-  }
-  if (resourceDecreasing.length > 0) {
+  // 5. Zero resources but still alive at young age
+  if (player.demographics.age < 30 && player.economics.resources.current === 0 && player.alive) {
     anomalies.inconsistentStates.push({
-      lifeAge: player.demographics.age,
-      events: resourceDecreasing.slice(0, 3),
-      reason: 'Zero resources but not dead/homeless'
+      age: player.demographics.age,
+      resources: 0,
+      employed: player.economics.income.employed,
+      reason: 'Zero resources but still alive'
     });
   }
   

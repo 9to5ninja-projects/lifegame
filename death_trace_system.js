@@ -23,16 +23,48 @@ class DeathTracer {
    */
   initializeLifeLog(player) {
     const playerId = this.getPlayerId(player);
-    this.lifeLog.set(playerId, []);
+    if (!this.lifeLog.has(playerId)) {
+      this.lifeLog.set(playerId, []);
+    }
     
-    // Log birth
-    this.logEvent(player, 'BIRTH', {
-      birthRegion: player.demographics.birthRegion,
-      lifeExpectancy: player.demographics.lifeExpectancy,
-      sex: player.demographics.sex,
-      survival: player.survival,
-      physicalHealth: player.health.physical.baseline,
-      mentalHealth: player.health.mental.baseline,
+    // Log birth (directly push to avoid recursion)
+    const log = this.lifeLog.get(playerId);
+    log.push({
+      age: player.demographics.age,
+      year: new Date().getFullYear(),
+      eventType: 'BIRTH',
+      context: {
+        birthRegion: player.demographics.birthRegion,
+        lifeExpectancy: player.demographics.lifeExpectancy,
+        sex: player.demographics.sex,
+      },
+      health: {
+        physical: {
+          current: player.health.physical.current,
+          baseline: player.health.physical.baseline,
+        },
+        mental: {
+          current: player.health.mental.current,
+          baseline: player.health.mental.baseline,
+          suicideRisk: player.health.mental.suicideRisk,
+          chronic: [...(player.health.mental.chronic || [])],
+        },
+        physical_chronic: [...(player.health.physical.chronic || [])],
+      },
+      economics: {
+        resources: player.economics?.resources?.current || 0,
+        debt: player.economics?.debt || 0,
+        employed: player.economics?.income?.employed || false,
+      },
+      relationships: {
+        married: player.relationships?.social?.married || false,
+        friends: player.relationships?.social?.friends || 0,
+        children: player.relationships?.family?.children || 0,
+        isolated: player.relationships?.social?.isolation || false,
+      },
+      housing: {
+        status: player.circumstances?.housing?.status || 'stable',
+      }
     });
   }
 
@@ -546,8 +578,13 @@ class DeathTracer {
   // ======== UTILITIES ========
 
   getPlayerId(player) {
-    // Use a combination of birth year and demographics to create unique ID
-    return `${player.demographics.birthYear}_${player.demographics.sex}_${player.demographics.birthRegion}_${Math.random()}`;
+    // Use birth year + sex + region as ID
+    // Since players within same simulation will have same birth year, we need to add something unique
+    // We'll use the object reference which stays the same for a player object
+    if (!player._traceId) {
+      player._traceId = `player_${Math.random().toString(36).substr(2, 9)}`;
+    }
+    return player._traceId;
   }
 }
 

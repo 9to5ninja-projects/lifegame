@@ -7,19 +7,19 @@
 
 const fs = require('fs');
 const path = require('path');
-const MortalityGameV2 = require('./game_engine_v2_homeostatic.js');
-const DeathTracer = require('./death_trace_system.js');
+const MortalityGameV2 = require(path.join(__dirname, '../game_engine_v2_homeostatic.js'));
+const DeathTracer = require(path.join(__dirname, '../death_trace_system.js'));
 
 // Load game data
 console.log('Loading game data...');
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
+const birthCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../birth_cards_json.json'), 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../family_cards_json.json'), 'utf8'));
 const eventCards = {
-  childhood: JSON.parse(fs.readFileSync('./event_cards_childhood.json', 'utf8')),
-  teen: JSON.parse(fs.readFileSync('./event_cards_teen.json', 'utf8')),
-  adult: JSON.parse(fs.readFileSync('./event_cards_adult.json', 'utf8')),
+  childhood: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_childhood.json'), 'utf8')),
+  teen: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_teen.json'), 'utf8')),
+  adult: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_adult.json'), 'utf8')),
 };
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../death_cards_json.json'), 'utf8'));
 
 // Create engine with tracer
 const tracer = new DeathTracer();
@@ -49,9 +49,7 @@ for (let i = 0; i < numLives; i++) {
   
   // Simulate life
   while (player.alive && age < 150) {
-    age++;
-    player.demographics.age = age;
-    lifeEngine.driftPlayerState(player);
+    lifeEngine.processYearEnd(player);
     
     if (!player.alive) {
       break;

@@ -6,18 +6,20 @@
  */
 
 const fs = require('fs');
-const MortalityGameV2 = require('./game_engine_v2_homeostatic.js');
-const DeathTracer = require('./death_trace_system.js');
+const path = require('path');
+const MortalityGameV2 = require(path.join(__dirname, '../game_engine_v2_homeostatic.js'));
+const DeathTracer = require(path.join(__dirname, '../death_trace_system.js'));
 
 // Load game data
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
+console.log(`\n>>> Loading game data from ${path.join(__dirname, '..')}`);
+const birthCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../birth_cards_json.json'), 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../family_cards_json.json'), 'utf8'));
 const eventCards = {
-  childhood: JSON.parse(fs.readFileSync('./event_cards_childhood.json', 'utf8')),
-  teen: JSON.parse(fs.readFileSync('./event_cards_teen.json', 'utf8')),
-  adult: JSON.parse(fs.readFileSync('./event_cards_adult.json', 'utf8')),
+  childhood: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_childhood.json'), 'utf8')),
+  teen: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_teen.json'), 'utf8')),
+  adult: JSON.parse(fs.readFileSync(path.join(__dirname, '../event_cards_adult.json'), 'utf8')),
 };
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync(path.join(__dirname, '../death_cards_json.json'), 'utf8'));
 
 // Create engine and tracer
 const engine = new MortalityGameV2(birthCards, familyCards, eventCards, deathCards);
@@ -36,20 +38,11 @@ tracer.initializeLifeLog(player);
 // Run life year by year, logging events
 let age = 0;
 while (player.alive && age < 150) {
-  age++;
-  player.demographics.age = age;
-
-  // Run drift (this is where most events happen)
-  engine.driftPlayerState(player);
-
-  // Log the state after drift
-  tracer.logEvent(player, 'YEAR_PASSED', {
-    ageGroup: engine.getAgeBracket(age),
-  });
+  engine.processYearEnd(player);
 
   // Check if dead
   if (!player.alive) {
-    console.log(`\n>>> Player died at age ${age} from: ${player.causeOfDeath}`);
+    console.log(`\n>>> Player died at age ${player.demographics.age} from: ${player.causeOfDeath}`);
     break;
   }
 }

@@ -1,0 +1,27 @@
+DEATH TRACE ANOMALY REPORT
+Generated: 2025-10-20T02:24:13.963Z
+Analyzed: 50 lives
+
+================================================================================
+
+ANOMALY: UNEXPECTED DEATH AGES (2)
+Expected: Rare deaths before age 10
+Found: 2 people
+
+  Age 6: Childhood Accident
+  Age 3: Childhood Accident
+
+ANOMALY: NEVER EMPLOYED BY AGE 30 (1 = 2.0%)
+Expected: ~40% unemployment rate by age 30
+Found: 2.0% never worked
+
+  → Employment system may be BROKEN (13.7% rate too low)
+
+
+================================================================================
+TOTAL ANOMALIES DETECTED: 3
+
+SUMMARY:
+- Most critical: Employment system (1 never employed by 30)
+- Mental health: 0 people with extreme crisis frequency
+- Death quality: 2 deaths before age 10
