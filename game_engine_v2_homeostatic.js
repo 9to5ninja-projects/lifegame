@@ -2408,8 +2408,73 @@ class MortalityGameV2 {
     // Track unemployment duration
     if (!p.economics.income.employed) {
       p.economics.income.unemploymentMonths = (p.economics.income.unemploymentMonths || 0) + 12;
+      
+      // Unemployment benefits in high-resource regions (Nordic welfare state)
+      const birthRegion = p.demographics.birthRegion || '';
+      if (birthRegion.includes('Nordic') || birthRegion.includes('Western Europe')) {
+        p.economics.income.current = 8; // Unemployment benefits (~50% of base wage)
+      } else {
+        p.economics.income.current = 0; // No safety net in low-resource regions
+      }
     } else {
       p.economics.income.unemploymentMonths = 0;
+      
+      // CRITICAL FIX: Actually generate income when employed!
+      // Income varies by education, age/experience, and region
+      
+      // === BASE WAGE BY EDUCATION ===
+      let baseIncome = 10; // Default for no formal education
+      
+      if (p.development.education.level === "university") {
+        baseIncome = 30; // Professional/graduate degree
+      } else if (p.development.education.level === "secondary") {
+        baseIncome = 18; // High school diploma
+      } else if (p.development.education.level === "primary") {
+        baseIncome = 12; // Basic literacy
+      }
+      
+      // === EXPERIENCE MULTIPLIER (age-based) ===
+      const age = p.demographics.age;
+      let experienceMultiplier = 1.0;
+      
+      if (age >= 50) {
+        experienceMultiplier = 1.3; // Peak earning years
+      } else if (age >= 35) {
+        experienceMultiplier = 1.2; // Established career
+      } else if (age >= 25) {
+        experienceMultiplier = 1.1; // Early career growth
+      } else {
+        experienceMultiplier = 0.8; // Entry-level wages
+      }
+      
+      // === REGIONAL COST OF LIVING / WAGE MULTIPLIER ===
+      const birthRegion = p.demographics.birthRegion || '';
+      let regionalMultiplier = 1.0;
+      
+      if (birthRegion.includes('Nordic')) {
+        regionalMultiplier = 1.8; // High wages, high cost of living
+      } else if (birthRegion.includes('Western Europe')) {
+        regionalMultiplier = 1.6;
+      } else if (birthRegion.includes('North America')) {
+        regionalMultiplier = 1.5;
+      } else if (birthRegion.includes('East Asia')) {
+        regionalMultiplier = 1.2;
+      } else if (birthRegion.includes('Latin America')) {
+        regionalMultiplier = 0.7;
+      } else if (birthRegion.includes('Sub-Saharan') || birthRegion.includes('Conflict')) {
+        regionalMultiplier = 0.4; // Low wages
+      }
+      
+      // === DUAL INCOME (if married) ===
+      let householdIncome = baseIncome * experienceMultiplier * regionalMultiplier;
+      
+      if (p.relationships.married && Math.random() < 0.7) {
+        // 70% of spouses also work (varies by region, but average)
+        const spouseIncome = householdIncome * 0.8; // Spouse earns ~80% on average
+        householdIncome += spouseIncome;
+      }
+      
+      p.economics.income.current = Math.round(householdIncome);
     }
   }
 
@@ -2925,38 +2990,166 @@ class MortalityGameV2 {
       return { alive: false, cause: cause || "unknown" };
     }
 
-    const roll = Math.floor(Math.random() * 100) + 1;
+    // NEW APPROACH: Instead of guaranteed death roll, calculate individual death probabilities
+    // Mortality = sum of all applicable death causes, not a meta "death" event
+    
+    // Filter deaths by age range, gender (exclude suicide - handled separately)
+    const validDeaths = this.deathCards.filter((card) => {
+      const [minAge, maxAge] = card.ageRange;
+      const ageMatch = player.demographics.age >= minAge && player.demographics.age <= maxAge;
+      const notSuicide = card.name !== "Suicide"; // Suicide handled separately via calculateSuicideRisk
+      const genderMatch = !card.genderSpecific || card.genderSpecific === player.demographics.sex;
+      
+      return ageMatch && notSuicide && genderMatch;
+    });
 
-    if (roll > player.survival) {
-      // DEATH
-      // Filter deaths by age range, gender, AND exclude "Suicide" (only happens via suicide attempt mechanism)
-      const validDeaths = this.deathCards.filter((card) => {
-        const [minAge, maxAge] = card.ageRange;
-        const ageMatch = player.demographics.age >= minAge && player.demographics.age <= maxAge;
-        const notSuicide = card.name !== "Suicide"; // Suicide handled separately via calculateSuicideRisk
-        const genderMatch = !card.genderSpecific || card.genderSpecific === player.demographics.sex;
-        
-        return ageMatch && notSuicide && genderMatch;
-      });
-
-      // Weight by player state (if diabetic, more likely diabetes death, etc.)
-      const causeOfDeath = this.weightedDrawDeath(validDeaths, player);
-
-      return {
-        alive: false,
-        roll,
-        survival: player.survival,
-        age: player.demographics.age,
-        cause: causeOfDeath.name
-      };
+    // Calculate weighted death probabilities based on player state
+    const deathRisks = this.calculateDeathRisks(validDeaths, player);
+    
+    // Check each death cause independently
+    for (const deathRisk of deathRisks) {
+      const roll = Math.random(); // 0-1
+      if (roll < deathRisk.probability) {
+        // DEATH from this specific cause
+        return {
+          alive: false,
+          roll: roll,
+          probability: deathRisk.probability,
+          age: player.demographics.age,
+          cause: deathRisk.name
+        };
+      }
     }
 
+    // Survived all death checks
     return {
       alive: true,
-      roll,
-      survival: player.survival,
       age: player.demographics.age
     };
+  }
+
+  calculateDeathRisks(validDeaths, player) {
+    // Calculate individual death probabilities based on age, health, economics, etc.
+    // Base rates calibrated to real-world mortality data
+    
+    const deathRisks = [];
+    const age = player.demographics.age;
+    
+    // Base mortality multiplier by age (bathtub curve)
+    let ageMultiplier;
+    if (age < 1) ageMultiplier = 15.0;      // Infant: 0.6% baseline
+    else if (age < 5) ageMultiplier = 0.5;  // Early childhood: 0.02%
+    else if (age < 15) ageMultiplier = 0.3; // Childhood: 0.01%
+    else if (age < 25) ageMultiplier = 0.5; // Young adult: 0.05%
+    else if (age < 45) ageMultiplier = 0.8; // Adult: 0.1%
+    else if (age < 65) ageMultiplier = 2.0; // Middle age: 0.5%
+    else if (age < 75) ageMultiplier = 5.0; // Senior: 2%
+    else if (age < 85) ageMultiplier = 10.0; // Elderly: 5%
+    else ageMultiplier = 20.0;              // Very old: 10%
+    
+    for (const deathCard of validDeaths) {
+      // Card weight is relative weight, not absolute rate
+      // Convert to annual probability: weight is roughly per 10,000 population
+      let baseProbability = (deathCard.weight || 1) / 10000;
+      
+      // Apply age multiplier
+      let probability = baseProbability * ageMultiplier;
+      
+      // Amplify based on player circumstances (same logic as weightedDrawDeath)
+      const multiplier = this.getDeathMultiplier(deathCard.name, player);
+      probability *= multiplier;
+      
+      // Cap at reasonable maximum (10% per year for any single cause)
+      probability = Math.min(probability, 0.10);
+      
+      if (probability > 0.000001) { // Only include if non-trivial risk
+        deathRisks.push({
+          name: deathCard.name,
+          probability: probability,
+          baseWeight: deathCard.weight,
+          multiplier: multiplier
+        });
+      }
+    }
+    
+    return deathRisks;
+  }
+  
+  getDeathMultiplier(deathName, player) {
+    // Return risk multiplier for specific death cause based on player state
+    let multiplier = 1.0;
+    
+    // Regional healthcare/safety modifiers (Nordic/high-resource countries have much better outcomes)
+    const birthRegion = player.demographics.birthRegion || '';
+    const isHighResource = birthRegion.includes('Nordic') || birthRegion.includes('Western Europe');
+    const isLowResource = birthRegion.includes('Sub-Saharan') || birthRegion.includes('Conflict');
+    
+    // High-resource regions have dramatically lower preventable deaths
+    if (isHighResource) {
+      if (deathName === "Lack of Medical Care") multiplier *= 0.05; // 20x reduction
+      if (deathName === "Malnutrition/Starvation") multiplier *= 0.01; // 100x reduction
+      if (deathName === "Diarrheal Disease") multiplier *= 0.1; // 10x reduction
+      if (deathName === "Preventable Disease") multiplier *= 0.1;
+      if (deathName === "Maternal Death (Childbirth)") multiplier *= 0.02; // 50x reduction
+      if (deathName === "Tuberculosis") multiplier *= 0.2; // 5x reduction
+      if (deathName === "HIV/AIDS") multiplier *= 0.3; // 3x reduction
+      if (deathName.includes("Violence") || deathName === "Homicide") multiplier *= 0.1; // 10x safer
+      if (deathName.includes("Armed Conflict")) multiplier *= 0.001; // 1000x reduction (essentially zero)
+      if (deathName === "Natural Disaster") multiplier *= 0.2; // Better infrastructure
+    } else if (isLowResource) {
+      if (deathName === "Lack of Medical Care") multiplier *= 3.0;
+      if (deathName.includes("Violence") || deathName.includes("Conflict")) multiplier *= 2.5;
+    }
+    
+    // Poverty chain: malnutrition → disease → preventable death
+    if (player.economics.resources.current < 0) {
+      if (deathName === "Malnutrition/Starvation") multiplier *= 5.0;
+      if (deathName === "Diarrheal Disease") multiplier *= 3.5;
+      if (deathName === "Lack of Medical Care") multiplier *= 3.5;
+      if (deathName === "Preventable Disease") multiplier *= 3.0;
+    } else if (player.economics.resources.current < 5) {
+      if (deathName === "Malnutrition/Starvation") multiplier *= 2.5;
+      if (deathName === "Diarrheal Disease") multiplier *= 2.0;
+      if (deathName === "Lack of Medical Care") multiplier *= 2.0;
+    }
+
+    // Chronic conditions
+    if (player.health.physical.chronic.length > 0) {
+      if (deathName === "Heart Disease") multiplier *= 3.0;
+      if (deathName === "Stroke") multiplier *= 3.0;
+      if (deathName === "Kidney Failure") multiplier *= 2.0;
+    }
+    
+    if (player.health.physical.chronic.includes("diabetes")) {
+      if (deathName === "Heart Disease") multiplier *= 2.5;
+      if (deathName === "Kidney Failure") multiplier *= 4.0;
+      if (deathName === "Stroke") multiplier *= 2.0;
+    }
+
+    if (player.health.physical.chronic.includes("asthma")) {
+      if (deathName === "Pneumonia") multiplier *= 3.0;
+      if (deathName === "Respiratory Failure") multiplier *= 2.5;
+    }
+
+    // Mental health → risky behavior (NOT suicide, that's separate)
+    if (player.demographics.age >= 12) {
+      if (player.health.mental.current < 20) {
+        if (deathName.includes("Accident")) multiplier *= 2.5;
+        if (deathName === "Overdose" || deathName === "Drug Overdose") multiplier *= 3.0;
+      } else if (player.health.mental.current < 30) {
+        if (deathName.includes("Accident")) multiplier *= 1.5;
+      }
+    }
+
+    // Physical health
+    if (player.health.physical.current < 30) {
+      if (deathName.includes("Disease") || deathName.includes("Failure")) multiplier *= 2.5;
+    }
+
+    // Regional/conflict zones (check profileTags if implemented)
+    // TODO: Add regional modifiers based on birth region HDI
+    
+    return multiplier;
   }
 
   weightedDrawDeath(deaths, player) {
