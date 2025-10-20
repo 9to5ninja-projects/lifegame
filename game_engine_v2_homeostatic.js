@@ -9,14 +9,30 @@ const { getEducationStage, shouldAttendEducation, getEducationCost, getStressFro
 const { getCancerIncidence, getStageProgression, getCancerPenalties, shouldDieFromCancer, checkRemission } = require('./cancer_system.js');
 const { getAccidentIncidence, getAccidentDisability, shouldDieFromAccident } = require('./accidents_system.js');
 const { getSubstanceInitiation, getStageProgression: getSubstanceStageProgression, getSubstancePenalties, checkOverdose, checkTreatmentSuccess } = require('./substance_abuse_system.js');
+const DeathTracer = require('./death_trace_system.js');
 
 class MortalityGameV2 {
-  constructor(birthCards, familyCards, eventCards, deathCards) {
+  constructor(birthCards, familyCards, eventCards, deathCards, tracer = null) {
     this.birthCards = birthCards;
     this.familyCards = familyCards;
     this.eventCards = eventCards;
     this.deathCards = deathCards;
     this.player = null;
+    this.deathTracer = tracer || new DeathTracer(); // Enable death tracing by default
+  }
+
+  /**
+   * Enable or replace the death tracer
+   */
+  setDeathTracer(tracer) {
+    this.deathTracer = tracer;
+  }
+
+  /**
+   * Disable death tracing (for performance)
+   */
+  disableDeathTracing() {
+    this.deathTracer = null;
   }
 
   // ============================================================================
@@ -313,6 +329,11 @@ class MortalityGameV2 {
     // Initialize parent current ages (same as age at birth initially since player is age 0)
     this.player.relationships.parents.mother.currentAge = this.player.relationships.parents.mother.ageAtBirth;
     this.player.relationships.parents.father.currentAge = this.player.relationships.parents.father.ageAtBirth;
+
+    // Initialize death tracing if enabled
+    if (this.deathTracer) {
+      this.deathTracer.initializeLifeLog(this.player);
+    }
 
     return this.player;
   }
@@ -1441,6 +1462,17 @@ class MortalityGameV2 {
 
     // Cap and convert to percentage
     p.health.mental.suicideRisk = Math.max(0.0001, Math.min(2.0, suicideRisk * 100));
+
+    // Log mental health crisis if severe
+    if (this.deathTracer) {
+      if (p.health.mental.current < 20) {
+        this.deathTracer.logMentalHealthCrisis(player, 'severe', 
+          `Mental health at critical level (${Math.round(p.health.mental.current)}). Episode duration: ${p.health.mental.episodeDuration} months`);
+      } else if (p.health.mental.current < 35) {
+        this.deathTracer.logMentalHealthCrisis(player, 'moderate',
+          `Mental health crisis developing (${Math.round(p.health.mental.current)}). Chronic conditions: ${p.health.mental.chronic.join(', ') || 'none'}`);
+      }
+    }
   }
 
   // Calculate weighted community/relationship strength (0-1 scale)
@@ -1557,6 +1589,13 @@ class MortalityGameV2 {
     });
 
     if (isFatal) {
+      // Log death by suicide
+      if (this.deathTracer) {
+        this.deathTracer.logDeathBySuicide(player, method.name, {
+          mentalHealth: p.health.mental.current,
+          suicideRisk: p.health.mental.suicideRisk,
+        });
+      }
       return { alive: false, cause: "Suicide", method: method.name };
     } else {
       // Survivor: psychological trauma, physical injury, hospitalization
@@ -1565,6 +1604,14 @@ class MortalityGameV2 {
       p.health.mental.chronic.push("ptsd");
       p.health.mental.treatmentStatus = "hospitalized"; // Automatic hospitalization
       p.economics.debt += 20; // Medical costs
+      
+      // Log survived attempt
+      if (this.deathTracer) {
+        this.deathTracer.logSuicideAttempt(player, true, method.name, {
+          mentalHealth: p.health.mental.current,
+          ptsaAcquired: true,
+        });
+      }
       
       return { alive: true, cause: "suicide_attempt_survived", method: method.name };
     }
