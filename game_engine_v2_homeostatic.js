@@ -10,6 +10,7 @@ const { getCancerIncidence, getStageProgression, getCancerPenalties, shouldDieFr
 const { getAccidentIncidence, getAccidentDisability, shouldDieFromAccident } = require('./accidents_system.js');
 const { getSubstanceInitiation, getStageProgression: getSubstanceStageProgression, getSubstancePenalties, checkOverdose, checkTreatmentSuccess } = require('./substance_abuse_system.js');
 const DeathTracer = require('./death_trace_system.js');
+const { TemporalEffectsSystem } = require('./temporal_effects_system.js');
 
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards, tracer = null) {
@@ -19,6 +20,7 @@ class MortalityGameV2 {
     this.deathCards = deathCards;
     this.player = null;
     this.deathTracer = tracer || new DeathTracer(); // Enable death tracing by default
+    this.temporalEffects = new TemporalEffectsSystem(); // NEW: Temporal effects system
   }
 
   /**
@@ -729,6 +731,29 @@ class MortalityGameV2 {
 
     // 1d. Update education status (compulsory until 16, optional after)
     this.updateEducationStatus(player);
+
+    // 1e. Process temporal effects (NEW: event duration system)
+    const temporalMods = this.temporalEffects.processEffects(player);
+    
+    // Apply temporal effect modifications to player stats
+    if (temporalMods.mentalHealth !== 0) {
+      player.health.mental.current = Math.max(0, Math.min(100, 
+        player.health.mental.current + temporalMods.mentalHealth
+      ));
+    }
+    if (temporalMods.physicalHealth !== 0) {
+      player.health.physical.current = Math.max(0, Math.min(100,
+        player.health.physical.current + temporalMods.physicalHealth
+      ));
+    }
+    if (temporalMods.resources !== 0) {
+      player.economics.resources.current += temporalMods.resources;
+    }
+    if (temporalMods.income !== 0) {
+      player.economics.income.current = Math.max(0,
+        player.economics.income.current + temporalMods.income
+      );
+    }
 
     // 2. Drift all homeostatic systems
     this.driftHealth(player);
