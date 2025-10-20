@@ -1,0 +1,5374 @@
+{
+  "rich": {
+    "label": "RICH",
+    "lives": [
+      {
+        "birthIncome": 109,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 23,
+            "resources": 32,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 0,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 78,
+        "deathAge": 65,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 37,
+            "resources": 400,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 73,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 138,
+            "resources": 2816,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2996,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2886,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 61,
+        "deathAge": 71,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 494.5,
+            "unemploymentMonths": 24
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 493.5,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 115,
+        "deathAge": 79,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 121,
+            "resources": 2067,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2303,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 66,
+        "deathAge": 79,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 171,
+            "resources": 4054,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 4162,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 76,
+        "deathAge": 89,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 35,
+            "resources": 400,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 445,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 325,
+            "unemploymentMonths": 156
+          }
+        }
+      },
+      {
+        "birthIncome": 76,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1696,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1831,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1801,
+            "unemploymentMonths": 96
+          }
+        }
+      },
+      {
+        "birthIncome": 61,
+        "deathAge": 81,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 105,
+            "resources": 1489,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1628,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1368,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 74,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 2425,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2761,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2854,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 87,
+        "deathAge": 69,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 33,
+            "resources": 689,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 70,
+        "deathAge": 92,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 7,
+            "resources": 1009,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1110,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1106,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 77,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 73,
+            "resources": 1086,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1161,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1203,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 106,
+        "deathAge": 68,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 45,
+            "resources": 1447,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 61,
+        "deathAge": 70,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 633,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 96,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 61,
+            "resources": 219,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 61,
+            "resources": 260,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 153,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 69,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 66,
+            "resources": 2057,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2139,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 2135,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 77,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 65,
+            "resources": 2313,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2688,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2655,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 115,
+        "deathAge": 80,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 127,
+            "resources": 2564,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 127,
+            "resources": 3069,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 76,
+        "deathAge": 71,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 103,
+            "resources": 1916,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1976,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 68,
+        "deathAge": 96,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 61,
+            "resources": 1218,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 60,
+            "resources": 1222,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1160,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 65,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 142,
+            "resources": 3137,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3525,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 97,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 69,
+            "resources": 1052,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1166,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1137,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 71,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 136,
+            "resources": 2143,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2405,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2220,
+            "unemploymentMonths": 192
+          }
+        }
+      },
+      {
+        "birthIncome": 72,
+        "deathAge": 88,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 118,
+            "resources": 2035,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2209,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2209,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 67,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 35,
+            "resources": 498,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 570,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 534,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 74,
+        "deathAge": 108,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 43,
+            "resources": 885,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 995,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 860,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 62,
+        "deathAge": 83,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 63,
+            "resources": 2631,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3135,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 3186.35,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 64,
+        "deathAge": 58,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 79,
+        "deathAge": 83,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 134,
+            "resources": 3242,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3445,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 3335,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 69,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 36,
+            "resources": 306,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 273,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 133,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 62,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 75,
+            "resources": 1458,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1636,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1546,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 74,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 53,
+            "resources": 943,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1033,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 934,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 90,
+        "deathAge": 60,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 64,
+        "deathAge": 92,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 35,
+            "resources": 389,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 407,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 317,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 81,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 81,
+            "resources": 1193,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1302,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1182,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 73,
+        "deathAge": 78,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1734,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2003,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 111,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 102,
+            "resources": 3179,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3608,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 3408,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 111,
+        "deathAge": 77,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 3192,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 3339,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 114,
+        "deathAge": 78,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 72,
+            "resources": 708,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 736,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 69,
+        "deathAge": 95,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 34,
+            "resources": 265,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 259,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 139,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 99,
+        "deathAge": 57,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 70,
+        "deathAge": 76,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 101,
+            "resources": 1735,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1966,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 64,
+        "deathAge": 50,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 113,
+        "deathAge": 79,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 136,
+            "resources": 2458,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2554,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 87,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 129,
+            "resources": 2247,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2517,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2525,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 116,
+        "deathAge": 81,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 61,
+            "resources": 1463,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1492,
+            "unemploymentMonths": 60
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1435,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 67,
+        "deathAge": 84,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 97,
+            "resources": 1915,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2138,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1968,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 62,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 53,
+            "resources": 2488,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2890,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2780,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 65,
+        "deathAge": 89,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1618,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1888,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1778,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 104,
+        "deathAge": 90,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 120,
+            "resources": 3027,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 3505,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 3355,
+            "unemploymentMonths": 96
+          }
+        }
+      },
+      {
+        "birthIncome": 77,
+        "deathAge": 89,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 132,
+            "resources": 3869,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 4151,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 4041,
+            "unemploymentMonths": 192
+          }
+        }
+      },
+      {
+        "birthIncome": 89,
+        "deathAge": 73,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 72,
+            "resources": 2111,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2232,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 68,
+        "deathAge": 96,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 43,
+            "resources": 973,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 43,
+            "resources": 938,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 833,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 94,
+        "deathAge": 82,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 69,
+            "resources": 1171,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1187,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1020,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 68,
+        "deathAge": 95,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 87,
+            "resources": 1644,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1908,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1798.35,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 66,
+        "deathAge": 78,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 50,
+            "resources": 1437,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1507,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 94,
+        "deathAge": 42,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 72,
+        "deathAge": 53,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 108,
+        "deathAge": 66,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 68,
+            "resources": 660,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 61,
+        "deathAge": 56,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 78,
+        "deathAge": 70,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 50,
+            "resources": 632,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 61,
+        "deathAge": 71,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1749,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1931,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 76,
+        "deathAge": 98,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 80,
+            "resources": 1827,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1999,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1963,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 63,
+        "deathAge": 81,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 438,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 49,
+            "resources": 476,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 326,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 73,
+        "deathAge": 41,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 109,
+        "deathAge": 80,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 21,
+            "resources": 59,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 20,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 82,
+        "deathAge": 57,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 72,
+        "deathAge": 97,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 71,
+            "resources": 1410,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1487.5,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1442.5,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 65,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 492,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 530,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 380,
+            "unemploymentMonths": 156
+          }
+        }
+      },
+      {
+        "birthIncome": 64,
+        "deathAge": 66,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 57,
+            "resources": 677,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 66,
+        "deathAge": 80,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 84,
+            "resources": 1429,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1537,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 62,
+        "deathAge": 89,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 111,
+            "resources": 1893,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2088,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1985,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 84,
+        "deathAge": 70,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 67,
+            "resources": 1215,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 75,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 63,
+            "resources": 1138,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1305,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1215,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 73,
+        "deathAge": 53,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 73,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1421,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1424,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1433,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 95,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 88,
+            "resources": 1730,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1800,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1600,
+            "unemploymentMonths": 168
+          }
+        }
+      },
+      {
+        "birthIncome": 88,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 494,
+            "unemploymentMonths": 24
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 551,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 361,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 105,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 7,
+            "resources": 936,
+            "unemploymentMonths": 24
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 988,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 64,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 50,
+            "resources": 1018,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1016,
+            "unemploymentMonths": 60
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 866,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 64,
+        "deathAge": 89,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 144,
+            "resources": 3340,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3846,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 3726,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 101,
+        "deathAge": 77,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 63,
+            "resources": 1333,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1408,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 71,
+        "deathAge": 81,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 60,
+            "resources": 1096,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1124,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1098,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 64,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 154,
+            "resources": 3105,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3561,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 3500,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 78,
+        "deathAge": 49,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 62,
+        "deathAge": 49,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 63,
+        "deathAge": 76,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 116,
+            "resources": 2110.5,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2407.5,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 63,
+        "deathAge": 68,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 38,
+            "resources": 669.7,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 74,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 130,
+            "resources": 2210,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2508,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2318,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 61,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 54,
+            "resources": 845.5,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 848.5,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 779.5,
+            "unemploymentMonths": 96
+          }
+        }
+      },
+      {
+        "birthIncome": 77,
+        "deathAge": 82,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 55,
+            "resources": 1629,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1861,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1778,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 64,
+        "deathAge": 91,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 46,
+            "resources": 515.5,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 46,
+            "resources": 492.5,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 377.5,
+            "unemploymentMonths": 120
+          }
+        }
+      },
+      {
+        "birthIncome": 68,
+        "deathAge": 91,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 198,
+            "resources": 4553,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 4780,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 4627,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 89,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 115,
+            "resources": 1799,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2041,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2115,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 110,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 93,
+            "resources": 1844,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2051,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1914,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 91,
+        "deathAge": 99,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 70,
+            "resources": 958,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 70,
+            "resources": 1038,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 848,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 72,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 50,
+            "resources": 903,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 820,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 742,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 63,
+        "deathAge": 90,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 48,
+            "resources": 1202,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1287,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1107,
+            "unemploymentMonths": 96
+          }
+        }
+      },
+      {
+        "birthIncome": 93,
+        "deathAge": 79,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 124,
+            "resources": 2660,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2958,
+            "unemploymentMonths": 60
+          }
+        }
+      }
+    ],
+    "snapshots": {
+      "60": {
+        "employed": 74,
+        "unemployed": 14,
+        "income": [
+          23,
+          37,
+          138,
+          8,
+          121,
+          171,
+          35,
+          8,
+          105,
+          8,
+          33,
+          7,
+          73,
+          45,
+          8,
+          61,
+          66,
+          65,
+          127,
+          103,
+          61,
+          142,
+          69,
+          136,
+          118,
+          35,
+          43,
+          63,
+          134,
+          36,
+          75,
+          53,
+          35,
+          81,
+          8,
+          102,
+          8,
+          72,
+          34,
+          101,
+          136,
+          129,
+          61,
+          97,
+          53,
+          8,
+          120,
+          132,
+          72,
+          43,
+          69,
+          87,
+          50,
+          68,
+          50,
+          8,
+          80,
+          8,
+          21,
+          71,
+          8,
+          57,
+          84,
+          111,
+          67,
+          63,
+          8,
+          88,
+          8,
+          7,
+          50,
+          144,
+          63,
+          60,
+          154,
+          116,
+          38,
+          130,
+          54,
+          55,
+          46,
+          198,
+          115,
+          93,
+          70,
+          50,
+          48,
+          124
+        ],
+        "resources": [
+          32,
+          400,
+          2816,
+          494.5,
+          2067,
+          4054,
+          400,
+          1696,
+          1489,
+          2425,
+          689,
+          1009,
+          1086,
+          1447,
+          633,
+          219,
+          2057,
+          2313,
+          2564,
+          1916,
+          1218,
+          3137,
+          1052,
+          2143,
+          2035,
+          498,
+          885,
+          2631,
+          3242,
+          306,
+          1458,
+          943,
+          389,
+          1193,
+          1734,
+          3179,
+          3192,
+          708,
+          265,
+          1735,
+          2458,
+          2247,
+          1463,
+          1915,
+          2488,
+          1618,
+          3027,
+          3869,
+          2111,
+          973,
+          1171,
+          1644,
+          1437,
+          660,
+          632,
+          1749,
+          1827,
+          438,
+          59,
+          1410,
+          492,
+          677,
+          1429,
+          1893,
+          1215,
+          1138,
+          1421,
+          1730,
+          494,
+          936,
+          1018,
+          3340,
+          1333,
+          1096,
+          3105,
+          2110.5,
+          669.7,
+          2210,
+          845.5,
+          1629,
+          515.5,
+          4553,
+          1799,
+          1844,
+          958,
+          903,
+          1202,
+          2660
+        ]
+      },
+      "70": {
+        "employed": 7,
+        "unemployed": 72,
+        "income": [
+          7,
+          8,
+          8,
+          8,
+          8,
+          7,
+          8,
+          8,
+          8,
+          7,
+          8,
+          61,
+          7,
+          8,
+          127,
+          8,
+          60,
+          8,
+          8,
+          8,
+          8,
+          8,
+          7,
+          8,
+          8,
+          8,
+          7,
+          7,
+          7,
+          8,
+          8,
+          8,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8,
+          7,
+          8,
+          8,
+          8,
+          7,
+          8,
+          7,
+          43,
+          8,
+          8,
+          8,
+          8,
+          8,
+          49,
+          7,
+          8,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          7,
+          8,
+          8,
+          8,
+          7,
+          8,
+          7,
+          8,
+          8,
+          8,
+          46,
+          8,
+          8,
+          7,
+          70,
+          8,
+          8,
+          8
+        ],
+        "resources": [
+          0,
+          2996,
+          493.5,
+          2303,
+          4162,
+          445,
+          1831,
+          1628,
+          2761,
+          1110,
+          1161,
+          260,
+          2139,
+          2688,
+          3069,
+          1976,
+          1222,
+          3525,
+          1166,
+          2405,
+          2209,
+          570,
+          995,
+          3135,
+          3445,
+          273,
+          1636,
+          1033,
+          407,
+          1302,
+          2003,
+          3608,
+          3339,
+          736,
+          259,
+          1966,
+          2554,
+          2517,
+          1492,
+          2138,
+          2890,
+          1888,
+          3505,
+          4151,
+          2232,
+          938,
+          1187,
+          1908,
+          1507,
+          1931,
+          1999,
+          476,
+          20,
+          1487.5,
+          530,
+          1537,
+          2088,
+          1305,
+          1424,
+          1800,
+          551,
+          988,
+          1016,
+          3846,
+          1408,
+          1124,
+          3561,
+          2407.5,
+          2508,
+          848.5,
+          1861,
+          492.5,
+          4780,
+          2041,
+          2051,
+          1038,
+          820,
+          1287,
+          2958
+        ]
+      },
+      "80": {
+        "employed": 0,
+        "unemployed": 58,
+        "income": [
+          8,
+          7,
+          8,
+          8,
+          8,
+          7,
+          8,
+          8,
+          7,
+          8,
+          7,
+          8,
+          8,
+          8,
+          8,
+          7,
+          7,
+          8,
+          7,
+          7,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8,
+          7,
+          8,
+          8,
+          8,
+          7,
+          8,
+          7,
+          7,
+          8,
+          8,
+          8,
+          7,
+          7,
+          8,
+          8,
+          7,
+          8,
+          8,
+          7,
+          8,
+          7,
+          8,
+          8,
+          7,
+          8,
+          7,
+          8,
+          8,
+          7,
+          8,
+          8,
+          8
+        ],
+        "resources": [
+          2886,
+          325,
+          1801,
+          1368,
+          2854,
+          1106,
+          1203,
+          153,
+          2135,
+          2655,
+          1160,
+          1137,
+          2220,
+          2209,
+          534,
+          860,
+          3186.35,
+          3335,
+          133,
+          1546,
+          934,
+          317,
+          1182,
+          3408,
+          139,
+          2525,
+          1435,
+          1968,
+          2780,
+          1778,
+          3355,
+          4041,
+          833,
+          1020,
+          1798.35,
+          1963,
+          326,
+          1442.5,
+          380,
+          1985,
+          1215,
+          1433,
+          1600,
+          361,
+          866,
+          3726,
+          1098,
+          3500,
+          2318,
+          779.5,
+          1778,
+          377.5,
+          4627,
+          2115,
+          1914,
+          848,
+          742,
+          1107
+        ]
+      }
+    }
+  },
+  "poor": {
+    "label": "POOR",
+    "lives": [
+      {
+        "birthIncome": 22.2,
+        "deathAge": 96,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1022,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 71,
+            "resources": 1100,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 926,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 29.4,
+        "deathAge": 91,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 80,
+            "resources": 3640,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 3647.5,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 3402.5,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 100,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 105,
+            "resources": 2219,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 105,
+            "resources": 2761,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 2671,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 104,
+            "resources": 1993,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2225,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 2129,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 67,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 33,
+            "resources": 403,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 8.4,
+        "deathAge": 89,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 30,
+            "resources": 558,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 488,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 258,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 11.4,
+        "deathAge": 85,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 7,
+            "resources": 1986,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2151,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 2036,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 18,
+        "deathAge": 15,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 29,
+        "deathAge": 67,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 63,
+            "resources": 1181,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 69,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1963,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 5,
+        "deathAge": 72,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 78,
+            "resources": 984,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1164,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 5,
+        "deathAge": 97,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 115,
+            "resources": 1218,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1214,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 944,
+            "unemploymentMonths": 120
+          }
+        }
+      },
+      {
+        "birthIncome": 21,
+        "deathAge": 79,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1608,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1843,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10.2,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 96,
+            "resources": 1528,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1534,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1482,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 9.6,
+        "deathAge": 79,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 42,
+            "resources": 1311.5,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1348.5,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 25.2,
+        "deathAge": 94,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 7,
+            "resources": 581,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 644,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 568,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 78,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 2298,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 50,
+            "resources": 2532,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 13.2,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 35,
+            "resources": 448,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 493,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 11.4,
+        "deathAge": 79,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 79,
+            "resources": 1706,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1817,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 5,
+        "deathAge": 82,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 178,
+            "resources": 4169,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 4655,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 4565,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 7,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1175,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1299,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1174,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 13.799999999999999,
+        "deathAge": 91,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 48,
+            "resources": 2125,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2299,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 2189,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 22.2,
+        "deathAge": 92,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 124,
+            "resources": 2328,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2586,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 2688,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 29,
+        "deathAge": 65,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 87,
+            "resources": 1805,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 12,
+        "deathAge": 80,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 228,
+            "unemploymentMonths": 24
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 203,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 9.6,
+        "deathAge": 95,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 69,
+            "resources": 800,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 69,
+            "resources": 915,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 827,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 7,
+            "resources": 2750,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 3420,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 3320,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 5,
+        "deathAge": 77,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 63,
+            "resources": 1517,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1583,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 69,
+            "resources": 1289,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1457,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1412,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 74,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 3006,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3094,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 85,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 151,
+            "resources": 2544,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2876,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2809,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 8,
+        "deathAge": 98,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 53,
+            "resources": 1826,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2082,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1972,
+            "unemploymentMonths": 120
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 57,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 28.799999999999997,
+        "deathAge": 76,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 118,
+            "resources": 2341,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2571,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 10.799999999999999,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 73,
+            "resources": 1644,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1814,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1834,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 28.799999999999997,
+        "deathAge": 90,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 42,
+            "resources": 1453,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1493,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1523,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 8,
+        "deathAge": 71,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 74,
+            "resources": 1896,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2060,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 27,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 7,
+            "resources": 297,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 271,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 212,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 10.799999999999999,
+        "deathAge": 93,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 38,
+            "resources": 682,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 713,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 573,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 15,
+        "deathAge": 97,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 7,
+            "resources": 2112,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2269,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 2268,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 13.2,
+        "deathAge": 91,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 51,
+            "resources": 284,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 182,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 19,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 27.599999999999998,
+        "deathAge": 56,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 28,
+        "deathAge": 85,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 2207,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 108,
+            "resources": 2577,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": true,
+            "income": 107,
+            "resources": 2574.5,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 8,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 154,
+            "resources": 3439,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 154,
+            "resources": 3877,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 24.599999999999998,
+        "deathAge": 40,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 28.799999999999997,
+        "deathAge": 53,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 8,
+        "deathAge": 95,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 108,
+            "resources": 2589,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2709,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 2689,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 43,
+            "resources": 1439,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1565,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1434,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 12,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 45,
+            "resources": 426,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 371.35,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 22.2,
+        "deathAge": 91,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 28,
+            "resources": 655,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 648,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": true,
+            "income": 28,
+            "resources": 448,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 90,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 57,
+            "resources": 699,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 737,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 627,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 26,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 160,
+            "resources": 2732,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3339,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 3249,
+            "unemploymentMonths": 132
+          }
+        }
+      },
+      {
+        "birthIncome": 26,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 90,
+            "resources": 1348,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1561,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1508,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 29.4,
+        "deathAge": 96,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 181,
+            "resources": 3959,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 4442,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 4302,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 9,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 33,
+            "resources": 1230.5,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1294.5,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 18.599999999999998,
+        "deathAge": 73,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 38,
+            "resources": 537,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 597,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 9,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 115,
+            "resources": 2113,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2387,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2384,
+            "unemploymentMonths": 84
+          }
+        }
+      },
+      {
+        "birthIncome": 22,
+        "deathAge": 98,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 84,
+            "resources": 745,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 571,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 327,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 78,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 2617,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 66,
+            "resources": 3133,
+            "unemploymentMonths": 0
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 81,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 53,
+            "resources": 1984,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2019,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 10.5,
+            "resources": 1990.2499999999998,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 25.8,
+        "deathAge": 88,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 107,
+            "resources": 3303,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3825,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 3824,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 24.599999999999998,
+        "deathAge": 92,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1530,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1872,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1769,
+            "unemploymentMonths": 96
+          }
+        }
+      },
+      {
+        "birthIncome": 9,
+        "deathAge": 73,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1597,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1876,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 23,
+        "deathAge": 90,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1737,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1947,
+            "unemploymentMonths": 60
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1857,
+            "unemploymentMonths": 120
+          }
+        }
+      },
+      {
+        "birthIncome": 5,
+        "deathAge": 38,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 8,
+        "deathAge": 87,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 64,
+            "resources": 2636,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2819,
+            "unemploymentMonths": 48
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2644,
+            "unemploymentMonths": 108
+          }
+        }
+      },
+      {
+        "birthIncome": 22.8,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 57,
+            "resources": 1075.5,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1067.85,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 10.5,
+            "resources": 1016.8999999999999,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 28,
+        "deathAge": 77,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 118,
+            "resources": 1640,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1940,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 93,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 46,
+            "resources": 623,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 46,
+            "resources": 635,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 515,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 29,
+        "deathAge": 93,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 53,
+            "resources": 265,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 150,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 0,
+            "unemploymentMonths": 120
+          }
+        }
+      },
+      {
+        "birthIncome": 12,
+        "deathAge": 89,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 82,
+            "resources": 1400,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1606,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 1496,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 19,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 125,
+            "resources": 2461,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 2654,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 86,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 57,
+            "resources": 1156,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1256,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1211,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 72,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 134,
+            "resources": 2562,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2872,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 24,
+        "deathAge": 91,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 23,
+            "resources": 87,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 27,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 0,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 28.2,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 66,
+            "resources": 632,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 652,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 392,
+            "unemploymentMonths": 156
+          }
+        }
+      },
+      {
+        "birthIncome": 22.8,
+        "deathAge": 90,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 111,
+            "resources": 2242,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 65,
+            "resources": 2619,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2545,
+            "unemploymentMonths": 60
+          }
+        }
+      },
+      {
+        "birthIncome": 8.4,
+        "deathAge": 50,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 13.799999999999999,
+        "deathAge": 66,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1981,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 5,
+        "deathAge": 93,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 134,
+            "resources": 2602,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2763,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2749,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 79,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 80,
+            "resources": 1431,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1435,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 73,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 25,
+            "resources": 147,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 38,
+            "unemploymentMonths": 12
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 92,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 93,
+            "resources": 1554,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1589,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1484,
+            "unemploymentMonths": 48
+          }
+        }
+      },
+      {
+        "birthIncome": 20.4,
+        "deathAge": 97,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1723,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1964,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 1804,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 40,
+            "resources": 1017,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1079,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 929,
+            "unemploymentMonths": 96
+          }
+        }
+      },
+      {
+        "birthIncome": 5,
+        "deathAge": 90,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 134,
+            "resources": 3014,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3418,
+            "unemploymentMonths": 60
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 3507,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 23,
+        "deathAge": 81,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 64,
+            "resources": 1173,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1247,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 10.5,
+            "resources": 1281.2499999999998,
+            "unemploymentMonths": 96
+          }
+        }
+      },
+      {
+        "birthIncome": 12.6,
+        "deathAge": 76,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 106,
+            "resources": 1454,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1611,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 27.599999999999998,
+        "deathAge": 84,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 61,
+            "resources": 729.5,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 670.5,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 9.05,
+            "resources": 559.9,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 5,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 1228,
+            "unemploymentMonths": 24
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 1306,
+            "unemploymentMonths": 72
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 57,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 120,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 94,
+            "resources": 1808.5,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 2032.5,
+            "unemploymentMonths": 24
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2003.5,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 8.4,
+        "deathAge": 51,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 25.8,
+        "deathAge": 60,
+        "employmentHistory": {}
+      },
+      {
+        "birthIncome": 10.799999999999999,
+        "deathAge": 82,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 69,
+            "resources": 772,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 683,
+            "unemploymentMonths": 72
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 524,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 75,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 2831,
+            "unemploymentMonths": 24
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 3056,
+            "unemploymentMonths": 24
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 82,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 69,
+            "resources": 759,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 766,
+            "unemploymentMonths": 12
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 456,
+            "unemploymentMonths": 132
+          }
+        }
+      },
+      {
+        "birthIncome": 10,
+        "deathAge": 98,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": true,
+            "income": 130,
+            "resources": 2205,
+            "unemploymentMonths": 0
+          },
+          "70": {
+            "age": 70,
+            "employed": true,
+            "income": 130,
+            "resources": 2551,
+            "unemploymentMonths": 0
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 8,
+            "resources": 2361,
+            "unemploymentMonths": 120
+          }
+        }
+      },
+      {
+        "birthIncome": 28.2,
+        "deathAge": 88,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 8,
+            "resources": 0,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 8,
+            "resources": 0,
+            "unemploymentMonths": 36
+          },
+          "80": {
+            "age": 80,
+            "employed": false,
+            "income": 7,
+            "resources": 0,
+            "unemploymentMonths": 36
+          }
+        }
+      },
+      {
+        "birthIncome": 27,
+        "deathAge": 78,
+        "employmentHistory": {
+          "60": {
+            "age": 60,
+            "employed": false,
+            "income": 7,
+            "resources": 1378,
+            "unemploymentMonths": 12
+          },
+          "70": {
+            "age": 70,
+            "employed": false,
+            "income": 7,
+            "resources": 1542,
+            "unemploymentMonths": 60
+          }
+        }
+      }
+    ],
+    "snapshots": {
+      "60": {
+        "employed": 67,
+        "unemployed": 23,
+        "income": [
+          8,
+          80,
+          105,
+          104,
+          33,
+          30,
+          7,
+          63,
+          8,
+          78,
+          115,
+          8,
+          96,
+          42,
+          7,
+          8,
+          35,
+          79,
+          178,
+          8,
+          48,
+          124,
+          87,
+          8,
+          69,
+          7,
+          63,
+          69,
+          8,
+          151,
+          53,
+          118,
+          73,
+          42,
+          74,
+          7,
+          38,
+          7,
+          51,
+          8,
+          154,
+          108,
+          43,
+          45,
+          28,
+          57,
+          160,
+          90,
+          181,
+          33,
+          38,
+          115,
+          84,
+          8,
+          53,
+          107,
+          8,
+          8,
+          8,
+          64,
+          57,
+          118,
+          46,
+          53,
+          82,
+          125,
+          57,
+          134,
+          23,
+          66,
+          111,
+          8,
+          134,
+          80,
+          25,
+          93,
+          8,
+          40,
+          134,
+          64,
+          106,
+          61,
+          8,
+          94,
+          69,
+          8,
+          69,
+          130,
+          8,
+          7
+        ],
+        "resources": [
+          1022,
+          3640,
+          2219,
+          1993,
+          403,
+          558,
+          1986,
+          1181,
+          1963,
+          984,
+          1218,
+          1608,
+          1528,
+          1311.5,
+          581,
+          2298,
+          448,
+          1706,
+          4169,
+          1175,
+          2125,
+          2328,
+          1805,
+          228,
+          800,
+          2750,
+          1517,
+          1289,
+          3006,
+          2544,
+          1826,
+          2341,
+          1644,
+          1453,
+          1896,
+          297,
+          682,
+          2112,
+          284,
+          2207,
+          3439,
+          2589,
+          1439,
+          426,
+          655,
+          699,
+          2732,
+          1348,
+          3959,
+          1230.5,
+          537,
+          2113,
+          745,
+          2617,
+          1984,
+          3303,
+          1530,
+          1597,
+          1737,
+          2636,
+          1075.5,
+          1640,
+          623,
+          265,
+          1400,
+          2461,
+          1156,
+          2562,
+          87,
+          632,
+          2242,
+          1981,
+          2602,
+          1431,
+          147,
+          1554,
+          1723,
+          1017,
+          3014,
+          1173,
+          1454,
+          729.5,
+          1228,
+          1808.5,
+          772,
+          2831,
+          759,
+          2205,
+          0,
+          1378
+        ]
+      },
+      "70": {
+        "employed": 10,
+        "unemployed": 75,
+        "income": [
+          71,
+          7,
+          105,
+          7,
+          8,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          7,
+          50,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          7,
+          69,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          7,
+          7,
+          7,
+          8,
+          108,
+          154,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          7,
+          7,
+          8,
+          8,
+          66,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          7,
+          8,
+          46,
+          8,
+          8,
+          7,
+          8,
+          8,
+          7,
+          8,
+          65,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          130,
+          8,
+          7
+        ],
+        "resources": [
+          1100,
+          3647.5,
+          2761,
+          2225,
+          488,
+          2151,
+          1164,
+          1214,
+          1843,
+          1534,
+          1348.5,
+          644,
+          2532,
+          493,
+          1817,
+          4655,
+          1299,
+          2299,
+          2586,
+          203,
+          915,
+          3420,
+          1583,
+          1457,
+          3094,
+          2876,
+          2082,
+          2571,
+          1814,
+          1493,
+          2060,
+          271,
+          713,
+          2269,
+          182,
+          2577,
+          3877,
+          2709,
+          1565,
+          371.35,
+          648,
+          737,
+          3339,
+          1561,
+          4442,
+          1294.5,
+          597,
+          2387,
+          571,
+          3133,
+          2019,
+          3825,
+          1872,
+          1876,
+          1947,
+          2819,
+          1067.85,
+          1940,
+          635,
+          150,
+          1606,
+          2654,
+          1256,
+          2872,
+          27,
+          652,
+          2619,
+          2763,
+          1435,
+          38,
+          1589,
+          1964,
+          1079,
+          3418,
+          1247,
+          1611,
+          670.5,
+          1306,
+          2032.5,
+          683,
+          3056,
+          766,
+          2551,
+          0,
+          1542
+        ]
+      },
+      "80": {
+        "employed": 2,
+        "unemployed": 57,
+        "income": [
+          8,
+          8,
+          7,
+          7,
+          8,
+          7,
+          8,
+          7,
+          7,
+          8,
+          8,
+          7,
+          7,
+          8,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8,
+          7,
+          7,
+          7,
+          8,
+          107,
+          7,
+          8,
+          28,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8,
+          10.5,
+          8,
+          8,
+          8,
+          8,
+          10.5,
+          7,
+          8,
+          7,
+          8,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          10.5,
+          9.05,
+          8,
+          8,
+          8,
+          8,
+          7
+        ],
+        "resources": [
+          926,
+          3402.5,
+          2671,
+          2129,
+          258,
+          2036,
+          944,
+          1482,
+          568,
+          4565,
+          1174,
+          2189,
+          2688,
+          827,
+          3320,
+          1412,
+          2809,
+          1972,
+          1834,
+          1523,
+          212,
+          573,
+          2268,
+          19,
+          2574.5,
+          2689,
+          1434,
+          448,
+          627,
+          3249,
+          1508,
+          4302,
+          2384,
+          327,
+          1990.2499999999998,
+          3824,
+          1769,
+          1857,
+          2644,
+          1016.8999999999999,
+          515,
+          0,
+          1496,
+          1211,
+          0,
+          392,
+          2545,
+          2749,
+          1484,
+          1804,
+          929,
+          3507,
+          1281.2499999999998,
+          559.9,
+          2003.5,
+          524,
+          456,
+          2361,
+          0
+        ]
+      }
+    }
+  },
+  "timestamp": "2025-10-20T18:08:30.963Z"
+}
