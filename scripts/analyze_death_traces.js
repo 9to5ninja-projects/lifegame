@@ -28,6 +28,7 @@ const engine = new MortalityGameV2(birthCards, familyCards, eventCards, deathCar
 // Run multiple lives to show different death patterns
 const numLives = 10;
 const deathTraces = [];
+const allPlayers = []; // Store players for analysis
 
 console.log(`\nSimulating ${numLives} lives from Nordic Country...\n`);
 
@@ -56,9 +57,10 @@ for (let i = 0; i < numLives; i++) {
     }
   }
   
-  // Store trace
+  // Store trace and player
   const trace = lifeTracer.exportDeathTrace(player);
   deathTraces.push(trace);
+  allPlayers.push(player);
   
   console.log(`Life ${i + 1}: ${player.demographics.sex} died at ${player.demographics.age} from ${player.causeOfDeath}`);
 }
@@ -71,12 +73,22 @@ console.log('\n' + '='.repeat(80));
 console.log('MORTALITY PATTERN ANALYSIS');
 console.log('='.repeat(80));
 
-const patterns = tracer.analyzeMortalityPatterns(
-  deathTraces.map(t => ({
-    demographics: t.player,
-    causeOfDeath: t.death.context.disease || t.death.context.method || t.death.context.cause || 'Unknown'
-  }))
-);
+// Build patterns from the death traces directly (since each life has its own tracer)
+const patterns = {
+  primaryCauses: {},
+  ageAtDeath: []
+};
+
+for (const trace of deathTraces) {
+  if (!trace.death) {
+    console.log(`  [DEBUG] Trace missing death event for age ${trace.player.age} ${trace.player.sex}`);
+    continue;
+  }
+  
+  const cause = trace.death.context.disease || trace.death.context.cause || trace.death.context.method || 'Unknown';
+  patterns.primaryCauses[cause] = (patterns.primaryCauses[cause] || 0) + 1;
+  patterns.ageAtDeath.push(trace.player.age);
+}
 
 console.log('\nPrimary Causes of Death:');
 for (const [cause, count] of Object.entries(patterns.primaryCauses).sort((a, b) => b[1] - a[1])) {
@@ -85,15 +97,21 @@ for (const [cause, count] of Object.entries(patterns.primaryCauses).sort((a, b) 
 }
 
 console.log(`\nAge Statistics:`);
-console.log(`  Average: ${(patterns.ageAtDeath.reduce((a, b) => a + b, 0) / patterns.ageAtDeath.length).toFixed(1)} years`);
-console.log(`  Min: ${Math.min(...patterns.ageAtDeath)} years`);
-console.log(`  Max: ${Math.max(...patterns.ageAtDeath)} years`);
+if (patterns.ageAtDeath.length > 0) {
+  console.log(`  Average: ${(patterns.ageAtDeath.reduce((a, b) => a + b, 0) / patterns.ageAtDeath.length).toFixed(1)} years`);
+  console.log(`  Min: ${Math.min(...patterns.ageAtDeath)} years`);
+  console.log(`  Max: ${Math.max(...patterns.ageAtDeath)} years`);
+} else {
+  console.log('  No death data available');
+}
 
 // ============================================================================
 // PRINT DETAILED TRACES FOR FIRST 3 LIVES
 // ============================================================================
 
 for (let i = 0; i < Math.min(3, deathTraces.length); i++) {
+  if (!deathTraces[i].death) continue; // Skip if no death event
+  
   console.log('\n\n' + '='.repeat(80));
   console.log(`LIFE #${i + 1} DETAILED TRACE`);
   console.log('='.repeat(80));
@@ -109,7 +127,7 @@ for (let i = 0; i < Math.min(3, deathTraces.length); i++) {
   
   // Show turning points
   const causalChain = deathTraces[i].causalChain;
-  if (causalChain.turningPoints.length > 0) {
+  if (causalChain && causalChain.turningPoints && causalChain.turningPoints.length > 0) {
     console.log('\nCritical Turning Points:');
     for (const point of causalChain.turningPoints.slice(0, 5)) {
       console.log(`  Age ${point.age}: ${point.type}${point.magnitude ? ` (magnitude: ${point.magnitude})` : ''}`);
@@ -117,7 +135,7 @@ for (let i = 0; i < Math.min(3, deathTraces.length); i++) {
   }
   
   // Show lifetime challenges
-  if (causalChain.lifetimeChallenges) {
+  if (causalChain && causalChain.lifetimeChallenges) {
     console.log('\nLifetime Challenges:');
     const challenges = causalChain.lifetimeChallenges;
     if (challenges.economicStruggle > 0) console.log(`  Economic Struggle: ${challenges.economicStruggle} events`);
@@ -128,7 +146,7 @@ for (let i = 0; i < Math.min(3, deathTraces.length); i++) {
   }
   
   // Show factors at death
-  if (causalChain.immediateFactors) {
+  if (causalChain && causalChain.immediateFactors) {
     console.log('\nContributing Factors at Death:');
     const factors = causalChain.immediateFactors;
     if (factors.healthFactors.length > 0) {
@@ -152,10 +170,12 @@ for (let i = 0; i < Math.min(3, deathTraces.length); i++) {
   // Show last few events before death
   console.log('\nLast 10 Life Events:');
   const fullLog = deathTraces[i].fullLog;
-  for (const event of fullLog.slice(-10)) {
-    console.log(`  Age ${event.age}: ${event.eventType}`);
-    if (event.eventType.startsWith('DEATH_')) {
-      console.log(`    → FATAL`);
+  if (fullLog && fullLog.length > 0) {
+    for (const event of fullLog.slice(-10)) {
+      console.log(`  Age ${event.age}: ${event.eventType}`);
+      if (event.eventType.startsWith('DEATH_')) {
+        console.log(`    → FATAL`);
+      }
     }
   }
 }

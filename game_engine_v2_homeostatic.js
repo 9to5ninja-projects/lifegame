@@ -763,6 +763,16 @@ class MortalityGameV2 {
     if (!deathResult.alive) {
       player.alive = false;
       player.causeOfDeath = deathResult.cause;
+      
+      // Log death to tracer (non-suicide deaths)
+      if (this.deathTracer && deathResult.cause !== 'Suicide') {
+        this.deathTracer.logEvent(player, `DEATH_${deathResult.cause.toUpperCase().replace(/[^A-Z0-9]/g, '_')}`, {
+          cause: deathResult.cause,
+          age: player.demographics.age,
+          roll: deathResult.roll,
+          survival: deathResult.survival
+        });
+      }
     }
 
     return deathResult;
