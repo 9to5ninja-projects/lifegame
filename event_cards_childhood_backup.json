@@ -1,0 +1,311 @@
+[
+  {
+    "id": "event_sibling_born",
+    "type": "event",
+    "name": "Sibling is Born",
+    "ageRange": [1, 12],
+    "description": "A new baby arrives in the family.",
+    "weight": 30,
+    "profileTags": ["all"],
+    "effects": {
+      "resourceMod": -3
+    }
+  },
+  {
+    "id": "event_sibling_dies",
+    "type": "event",
+    "name": "Sibling Dies",
+    "ageRange": [0, 12],
+    "description": "Your younger sibling dies from preventable disease. The grief is heavy.",
+    "weight": 5,
+    "profileTags": ["low-resource", "conflict", "unstable"],
+    "profileWeights": {
+      "high-resource": 1,
+      "moderate-resource": 3,
+      "low-resource": 20,
+      "conflict": 30
+    },
+    "effects": {
+      "survivalMod": 2,
+      "resourceMod": 1
+    },
+    "flavorByProfile": {
+      "high-resource": "A rare, devastating tragedy that reshapes your family.",
+      "low-resource": "Grief is familiar here. The family continues."
+    }
+  },
+  {
+    "id": "event_parent_dies",
+    "type": "event",
+    "name": "Parent Dies",
+    "ageRange": [0, 18],
+    "description": "One of your parents dies. Everything changes.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -15,
+      "resourceMod": -15
+    },
+    "ageModifiers": {
+      "0-2": { "survivalMod": -30 },
+      "3-12": { "survivalMod": -15 },
+      "13-18": { "survivalMod": -8 }
+    }
+  },
+  {
+    "id": "event_learn_to_read",
+    "type": "event",
+    "name": "You Learn to Read",
+    "ageRange": [5, 10],
+    "description": "The world opens up to you through words.",
+    "weight": 40,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 3,
+      "tags": ["literate"]
+    }
+  },
+  {
+    "id": "event_start_school",
+    "type": "event",
+    "name": "Start School",
+    "ageRange": [5, 8],
+    "description": "You begin formal education.",
+    "weight": 50,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 80,
+      "moderate-resource": 60,
+      "low-resource": 30,
+      "conflict": 10
+    },
+    "effects": {
+      "survivalMod": 4,
+      "tags": ["educated"]
+    }
+  },
+  {
+    "id": "event_malaria",
+    "type": "event",
+    "name": "Contract Malaria",
+    "ageRange": [0, 12],
+    "description": "You become very sick with malaria. Your survival depends on quick treatment.",
+    "weight": 5,
+    "profileTags": ["low-resource", "rural", "agrarian"],
+    "profileWeights": {
+      "high-resource": 0,
+      "moderate-resource": 1,
+      "low-resource": 25,
+      "rural": 30
+    },
+    "effects": {
+      "survivalMod": -12
+    },
+    "choices": [
+      {
+        "text": "Seek medical treatment",
+        "requires": { "resourceMin": 5 },
+        "effects": {
+          "survivalMod": 8,
+          "resourceMod": -5
+        }
+      },
+      {
+        "text": "Traditional remedies only",
+        "effects": {
+          "survivalMod": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_diarrheal_disease",
+    "type": "event",
+    "name": "Severe Diarrheal Illness",
+    "ageRange": [0, 5],
+    "description": "You contract severe diarrhea. Dehydration is the real danger.",
+    "weight": 8,
+    "profileTags": ["low-resource", "rural"],
+    "profileWeights": {
+      "high-resource": 1,
+      "moderate-resource": 5,
+      "low-resource": 30
+    },
+    "effects": {
+      "survivalMod": -15
+    }
+  },
+  {
+    "id": "event_vaccination",
+    "type": "event",
+    "name": "Vaccination Campaign",
+    "ageRange": [0, 5],
+    "description": "A vaccination team reaches your area. You receive life-saving vaccines.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 8
+    }
+  },
+  {
+    "id": "event_family_migrates",
+    "type": "event",
+    "name": "Family Migrates for Work",
+    "ageRange": [3, 12],
+    "description": "Your family moves seeking better opportunities. You leave everything familiar behind.",
+    "weight": 12,
+    "profileTags": ["emerging", "low-resource"],
+    "effects": {
+      "survivalMod": -3,
+      "resourceMod": 5
+    }
+  },
+  {
+    "id": "event_natural_disaster",
+    "type": "event",
+    "name": "Natural Disaster (Flood/Drought)",
+    "ageRange": [0, 12],
+    "description": "A natural disaster strikes your region. Food and shelter become scarce.",
+    "weight": 10,
+    "profileTags": ["low-resource", "rural", "emerging"],
+    "effects": {
+      "survivalMod": -10,
+      "resourceMod": -10
+    }
+  },
+  {
+    "id": "event_parent_loses_job",
+    "type": "event",
+    "name": "Parent Loses Job",
+    "ageRange": [3, 18],
+    "description": "Economic crisis hits your family. Meals become smaller.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -5,
+      "resourceMod": -10
+    }
+  },
+  {
+    "id": "event_pet_chooses_you",
+    "type": "event",
+    "name": "A Pet Chooses You",
+    "ageRange": [3, 12],
+    "description": "An animal bonds with you and refuses to leave your side.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 2
+    }
+  },
+  {
+    "id": "event_meteor_shower",
+    "type": "event",
+    "name": "Witness Meteor Shower",
+    "ageRange": [5, 100],
+    "description": "On a sleepless night, you witness a spectacular meteor shower. It stays with you.",
+    "weight": 3,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 1
+    }
+  },
+  {
+    "id": "event_minor_accident",
+    "type": "event",
+    "name": "Minor Accident (Injury)",
+    "ageRange": [3, 12],
+    "description": "You have an accident and get hurt. Could be worse, could be better.",
+    "weight": 20,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -3
+    }
+  },
+  {
+    "id": "event_domestic_violence",
+    "type": "event",
+    "name": "Violence in the Home",
+    "ageRange": [0, 18],
+    "description": "There is violence in your household. You are afraid.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 5,
+      "moderate-resource": 15,
+      "low-resource": 25,
+      "conflict": 40
+    },
+    "effects": {
+      "survivalMod": -8
+    }
+  },
+  {
+    "id": "event_befriend_elder",
+    "type": "event",
+    "name": "Befriend a Wise Elder",
+    "ageRange": [6, 12],
+    "description": "An older person in your community takes interest in you and shares their wisdom.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 3,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_witness_death",
+    "type": "event",
+    "name": "Witness a Death",
+    "ageRange": [5, 12],
+    "description": "You see someone die for the first time. Death becomes real to you.",
+    "weight": 12,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 3,
+      "moderate-resource": 10,
+      "low-resource": 25,
+      "conflict": 50
+    },
+    "effects": {
+      "survivalMod": 0
+    }
+  },
+  {
+    "id": "event_make_best_friend",
+    "type": "event",
+    "name": "Make a Best Friend",
+    "ageRange": [5, 12],
+    "description": "You meet someone who becomes your person. They see you.",
+    "weight": 25,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 5
+    }
+  },
+  {
+    "id": "event_discover_talent",
+    "type": "event",
+    "name": "Discover a Talent",
+    "ageRange": [6, 12],
+    "description": "You discover you're good at something. Really good.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 3,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_serious_illness",
+    "type": "event",
+    "name": "Serious Illness (Non-Fatal)",
+    "ageRange": [0, 12],
+    "description": "You become very sick but survive. It changes you.",
+    "weight": 12,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -8
+    }
+  }
+]

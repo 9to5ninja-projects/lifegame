@@ -1,0 +1,307 @@
+[
+  {
+    "id": "event_career_success",
+    "type": "event",
+    "name": "Career Success",
+    "ageRange": [25, 60],
+    "description": "Your work pays off. Promotion, recognition, stability.",
+    "weight": 20,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 5,
+      "resourceMod": 30
+    }
+  },
+  {
+    "id": "event_marriage",
+    "type": "event",
+    "name": "Marriage/Partnership",
+    "ageRange": [20, 50],
+    "description": "You commit to another person. For better or worse.",
+    "weight": 30,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 5,
+      "resourceMod": 10,
+      "tags": ["married"]
+    }
+  },
+  {
+    "id": "event_have_children",
+    "type": "event",
+    "name": "Have Children",
+    "ageRange": [18, 45],
+    "description": "You become a parent. Everything shifts.",
+    "weight": 35,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 3,
+      "resourceMod": -15,
+      "tags": ["parent"]
+    }
+  },
+  {
+    "id": "event_chronic_illness",
+    "type": "event",
+    "name": "Chronic Illness Diagnosis",
+    "ageRange": [30, 80],
+    "description": "Diabetes, hypertension, arthritis. A lifelong condition emerges.",
+    "weight": 25,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -10,
+      "resourceMod": -20
+    }
+  },
+  {
+    "id": "event_parent_dies_adult",
+    "type": "event",
+    "name": "Parent Dies (Elder)",
+    "ageRange": [25, 70],
+    "description": "Your parent passes away. The last safety net is gone.",
+    "weight": 30,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -3
+    }
+  },
+  {
+    "id": "event_lose_job",
+    "type": "event",
+    "name": "Job Loss/Economic Crisis",
+    "ageRange": [25, 65],
+    "description": "You lose your job. Bills pile up, stress mounts.",
+    "weight": 20,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -8,
+      "resourceMod": -25
+    }
+  },
+  {
+    "id": "event_divorce",
+    "type": "event",
+    "name": "Divorce/Separation",
+    "ageRange": [25, 70],
+    "description": "The relationship ends. Assets split, hearts break.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -5,
+      "resourceMod": -20
+    }
+  },
+  {
+    "id": "event_achieve_dream",
+    "type": "event",
+    "name": "Achieve Lifelong Dream",
+    "ageRange": [25, 80],
+    "description": "That thing you always wanted? You finally do it.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 8,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_serious_accident",
+    "type": "event",
+    "name": "Serious Accident/Injury",
+    "ageRange": [25, 70],
+    "description": "A major accident leaves lasting damage.",
+    "weight": 12,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -15,
+      "resourceMod": -15
+    }
+  },
+  {
+    "id": "event_windfall",
+    "type": "event",
+    "name": "Windfall (Inheritance/Lottery)",
+    "ageRange": [25, 80],
+    "description": "Unexpected money arrives. Your circumstances improve dramatically.",
+    "weight": 5,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 10,
+      "resourceMod": 50
+    }
+  },
+  {
+    "id": "event_cancer_diagnosis",
+    "type": "event",
+    "name": "Cancer Diagnosis",
+    "ageRange": [35, 100],
+    "description": "Cancer is found. Treatment begins, if you can access it.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -25
+    },
+    "choices": [
+      {
+        "text": "Aggressive treatment",
+        "requires": { "resourceMin": 20 },
+        "effects": {
+          "survivalMod": 15,
+          "resourceMod": -30
+        }
+      },
+      {
+        "text": "Palliative care only",
+        "effects": {
+          "survivalMod": -15
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_addiction",
+    "type": "event",
+    "name": "Develop Addiction",
+    "ageRange": [20, 60],
+    "description": "Alcohol, drugs, gambling. It has you now.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -18,
+      "resourceMod": -20
+    }
+  },
+  {
+    "id": "event_reconcile",
+    "type": "event",
+    "name": "Reconcile with Estranged Person",
+    "ageRange": [25, 80],
+    "description": "After years of silence, you reconnect. Healing begins.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 5
+    }
+  },
+  {
+    "id": "event_business_success",
+    "type": "event",
+    "name": "Start Successful Business",
+    "ageRange": [25, 60],
+    "description": "Your entrepreneurial risk pays off.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 15,
+      "moderate-resource": 10,
+      "emerging": 12,
+      "low-resource": 5
+    },
+    "effects": {
+      "survivalMod": 8,
+      "resourceMod": 40,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_business_failure",
+    "type": "event",
+    "name": "Business Failure/Bankruptcy",
+    "ageRange": [25, 70],
+    "description": "Your business collapses. Debt crushes you.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": -10,
+      "resourceMod": -40
+    }
+  },
+  {
+    "id": "event_child_dies",
+    "type": "event",
+    "name": "Child Dies",
+    "ageRange": [25, 80],
+    "description": "Your child dies before you. No parent should bury their child.",
+    "weight": 5,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 2,
+      "moderate-resource": 5,
+      "low-resource": 15,
+      "conflict": 25
+    },
+    "effects": {
+      "survivalMod": -20
+    }
+  },
+  {
+    "id": "event_community_leader",
+    "type": "event",
+    "name": "Become Community Leader",
+    "ageRange": [30, 70],
+    "description": "Your community trusts and respects you. You have influence.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "effects": {
+      "survivalMod": 5,
+      "agencyMod": 1
+    }
+  },
+  {
+    "id": "event_home_ownership",
+    "type": "event",
+    "name": "Buy a Home",
+    "ageRange": [25, 50],
+    "description": "You own property. Stability and debt, intertwined.",
+    "weight": 15,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 35,
+      "moderate-resource": 20,
+      "emerging": 12,
+      "low-resource": 5
+    },
+    "effects": {
+      "survivalMod": 5,
+      "resourceMod": 10
+    }
+  },
+  {
+    "id": "event_climate_disaster",
+    "type": "event",
+    "name": "Climate Disaster Strikes",
+    "ageRange": [0, 100],
+    "description": "Hurricane, wildfire, flood. Your home and livelihood are destroyed.",
+    "weight": 8,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 5,
+      "moderate-resource": 10,
+      "low-resource": 20,
+      "rural": 18
+    },
+    "effects": {
+      "survivalMod": -12,
+      "resourceMod": -30
+    }
+  },
+  {
+    "id": "event_pension_secure",
+    "type": "event",
+    "name": "Secure Retirement/Pension",
+    "ageRange": [45, 65],
+    "description": "Your old age will be financially stable. A rare gift.",
+    "weight": 10,
+    "profileTags": ["all"],
+    "profileWeights": {
+      "high-resource": 30,
+      "moderate-resource": 15,
+      "emerging": 8,
+      "low-resource": 2
+    },
+    "effects": {
+      "survivalMod": 8,
+      "resourceMod": 25
+    }
+  }
+]
