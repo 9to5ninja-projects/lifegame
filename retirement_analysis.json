@@ -3,323 +3,111 @@
     "label": "RICH",
     "lives": [
       {
-        "birthIncome": 92,
-        "retirementAge": 73,
-        "retirementStandard": "comfortable",
+        "birthIncome": 117,
+        "retirementAge": 67,
+        "retirementStandard": "adequate",
         "age70Snapshot": {
-          "totalIncome": 10,
+          "totalIncome": 108.59634157268293,
           "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 2013.6999999999998,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 68,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 154.95385200639998,
-          "employmentIncome": 0,
-          "pensionIncome": 140.95385200639998,
+          "pensionIncome": 93.59634157268293,
           "benefitIncome": 15,
-          "wealth": 2613.1847675510153,
+          "wealth": 1647.114636987317,
           "isRetired": true,
-          "retirementStandard": "comfortable"
+          "retirementStandard": "adequate"
         }
       },
       {
-        "birthIncome": 63,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
+        "birthIncome": 98,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 133.577336487936,
+          "totalIncome": 106.76132016798255,
           "employmentIncome": 0,
-          "pensionIncome": 119.57733648793601,
-          "benefitIncome": 15,
-          "wealth": 2262.0107486863362,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 65,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 52.85459586252799,
-          "employmentIncome": 0,
-          "pensionIncome": 52.85459586252799,
+          "pensionIncome": 106.76132016798255,
           "benefitIncome": 0,
-          "wealth": 832.4694924257278,
+          "wealth": 1903.9079607311826,
           "isRetired": true,
-          "retirementStandard": "comfortable"
+          "retirementStandard": "adequate"
         }
       },
       {
-        "birthIncome": 70,
-        "retirementAge": 70,
-        "retirementStandard": "comfortable",
+        "birthIncome": 76,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
         "age70Snapshot": {
-          "totalIncome": 127.7295652173913,
+          "totalIncome": 68.37580140022689,
           "employmentIncome": 0,
-          "pensionIncome": 113.7295652173913,
+          "pensionIncome": 54.37580140022689,
           "benefitIncome": 15,
-          "wealth": 1990.7295652173914,
+          "wealth": 921.5435636786267,
           "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 77,
-        "retirementAge": 68,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 142.24261485714283,
-          "employmentIncome": 0,
-          "pensionIncome": 127.24261485714284,
-          "benefitIncome": 15,
-          "wealth": 2255.5937005714286,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 106,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 154.53239414634146,
-          "employmentIncome": 0,
-          "pensionIncome": 139.53239414634146,
-          "benefitIncome": 15,
-          "wealth": 2547.500784390244,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
+          "retirementStandard": "adequate"
         }
       },
       {
         "birthIncome": 66,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 99.06557308108799,
-          "employmentIncome": 0,
-          "pensionIncome": 85.06557308108799,
-          "benefitIncome": 15,
-          "wealth": 1455.858746262134,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 100,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 141.69421738734934,
-          "employmentIncome": 0,
-          "pensionIncome": 127.69421738734934,
-          "benefitIncome": 15,
-          "wealth": 2235.132985404416,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 65,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 72,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 104,
-        "retirementAge": 67,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 153.01629224585366,
-          "employmentIncome": 0,
-          "pensionIncome": 139.01629224585366,
-          "benefitIncome": 15,
-          "wealth": 2534.435793514146,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 114,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 65.9960284672,
-          "employmentIncome": 0,
-          "pensionIncome": 50.9960284672,
-          "benefitIncome": 15,
-          "wealth": 789.2717401472,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 64,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 204.05592326823339,
-          "employmentIncome": 0,
-          "pensionIncome": 189.05592326823339,
-          "benefitIncome": 15,
-          "wealth": 3507.429614730165,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 113,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 82.37518018731768,
-          "employmentIncome": 0,
-          "pensionIncome": 68.37518018731768,
-          "benefitIncome": 15,
-          "wealth": 1022.8514590638081,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 91,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 115.92933996765406,
-          "employmentIncome": 0,
-          "pensionIncome": 100.92933996765406,
-          "benefitIncome": 15,
-          "wealth": 1559.946622942789,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 85,
-        "retirementAge": 63,
-        "retirementStandard": "poverty",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 68,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 63,
-        "retirementAge": 69,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 149.0710857142857,
-          "employmentIncome": 0,
-          "pensionIncome": 134.0710857142857,
-          "benefitIncome": 15,
-          "wealth": 2372.0625142857143,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 68,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 161.88788800524048,
-          "employmentIncome": 0,
-          "pensionIncome": 146.88788800524048,
-          "benefitIncome": 15,
-          "wealth": 2581.643911665664,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 75,
-        "retirementAge": 72,
+        "retirementAge": 71,
         "retirementStandard": "comfortable",
         "age70Snapshot": {
           "totalIncome": 10,
           "employmentIncome": 0,
           "pensionIncome": 0,
           "benefitIncome": 10,
-          "wealth": 1431,
+          "wealth": 1491,
           "isRetired": false,
           "retirementStandard": null
         }
       },
       {
-        "birthIncome": 107,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 88.00449759684717,
-          "employmentIncome": 0,
-          "pensionIncome": 73.00449759684717,
-          "benefitIncome": 15,
-          "wealth": 1220.880095412763,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 94,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 188.09269977001767,
-          "employmentIncome": 0,
-          "pensionIncome": 174.09269977001767,
-          "benefitIncome": 15,
-          "wealth": 3288.883878230986,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 70,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 96,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 77,
-        "retirementAge": 68,
+        "birthIncome": 111,
+        "retirementAge": 65,
         "retirementStandard": "comfortable",
         "age70Snapshot": {
-          "totalIncome": 64.394048,
+          "totalIncome": 174.9947626601634,
           "employmentIncome": 0,
-          "pensionIncome": 49.394048,
+          "pensionIncome": 160.9947626601634,
           "benefitIncome": 15,
-          "wealth": 758.7837095384615,
+          "wealth": 3032.8111975853003,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 78,
+        "birthIncome": 71,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 203.07676666675204,
+          "employmentIncome": 0,
+          "pensionIncome": 188.07676666675204,
+          "benefitIncome": 15,
+          "wealth": 3596.4574717970913,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 65,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 67,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 80.30507161599999,
+          "employmentIncome": 0,
+          "pensionIncome": 65.30507161599999,
+          "benefitIncome": 15,
+          "wealth": 1030.3164774006154,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 84,
         "retirementAge": 78,
         "retirementStandard": "comfortable",
         "age70Snapshot": {
@@ -327,615 +115,49 @@
           "employmentIncome": 0,
           "pensionIncome": 0,
           "benefitIncome": 10,
-          "wealth": 946.5,
+          "wealth": 1702,
           "isRetired": false,
           "retirementStandard": null
         }
-      },
-      {
-        "birthIncome": 63,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 147.32815427724125,
-          "employmentIncome": 0,
-          "pensionIncome": 132.32815427724125,
-          "benefitIncome": 15,
-          "wealth": 2320.6372743661673,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 96,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 107.90697978250614,
-          "employmentIncome": 0,
-          "pensionIncome": 107.90697978250614,
-          "benefitIncome": 0,
-          "wealth": 1935.4717182475986,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 82,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 165.20303652416297,
-          "employmentIncome": 0,
-          "pensionIncome": 150.20303652416297,
-          "benefitIncome": 15,
-          "wealth": 2853.976624046842,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 93,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 87.93846829056,
-          "employmentIncome": 0,
-          "pensionIncome": 73.93846829056,
-          "benefitIncome": 15,
-          "wealth": 1231.74392555456,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 111,
-        "retirementAge": 80,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 73,
-          "employmentIncome": 73,
-          "pensionIncome": 0,
-          "benefitIncome": 0,
-          "wealth": 1194,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 72,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 93,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 92.45530645728782,
-          "employmentIncome": 0,
-          "pensionIncome": 77.45530645728782,
-          "benefitIncome": 15,
-          "wealth": 1331.3501630114345,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 105,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 113,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 154.27905241452643,
-          "employmentIncome": 0,
-          "pensionIncome": 139.27905241452643,
-          "benefitIncome": 15,
-          "wealth": 2349.9260944850043,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 70,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 104,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 254.42314293236927,
-          "employmentIncome": 0,
-          "pensionIncome": 239.42314293236927,
-          "benefitIncome": 15,
-          "wealth": 4532.704418944304,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 77,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 166.1490381473342,
-          "employmentIncome": 0,
-          "pensionIncome": 151.1490381473342,
-          "benefitIncome": 15,
-          "wealth": 2775.1920650014213,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 100,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 75.545800704,
-          "employmentIncome": 0,
-          "pensionIncome": 61.545800704,
-          "benefitIncome": 15,
-          "wealth": 969.6908183040001,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 63,
-        "retirementAge": 71,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 10,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 1172,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 62,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 101.868869165056,
-          "employmentIncome": 0,
-          "pensionIncome": 86.868869165056,
-          "benefitIncome": 15,
-          "wealth": 1294.0905982914558,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 80,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 106,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 275.977970561024,
-          "employmentIncome": 0,
-          "pensionIncome": 276.977970561024,
-          "benefitIncome": 0,
-          "wealth": 5355.350311509701,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 85,
-        "retirementAge": 71,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 10,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 2426,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 75,
-        "retirementAge": 67,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 154.41899008000001,
-          "employmentIncome": 0,
-          "pensionIncome": 139.41899008000001,
-          "benefitIncome": 15,
-          "wealth": 2482.8937420800003,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 82,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 64,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 105,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 114.18623384371202,
-          "employmentIncome": 0,
-          "pensionIncome": 99.18623384371202,
-          "benefitIncome": 15,
-          "wealth": 1786.8420799365122,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 93,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 153.08586220851203,
-          "employmentIncome": 0,
-          "pensionIncome": 137.03586220851201,
-          "benefitIncome": 15,
-          "wealth": 2356.982417421312,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 68,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 82,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 124.9253014528,
-          "employmentIncome": 0,
-          "pensionIncome": 109.9253014528,
-          "benefitIncome": 15,
-          "wealth": 1991.6828377728002,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 61,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 186.92133462135885,
-          "employmentIncome": 0,
-          "pensionIncome": 172.92133462135885,
-          "benefitIncome": 15,
-          "wealth": 3288.8327489358176,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 63,
-        "retirementAge": 69,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 150.6872,
-          "employmentIncome": 0,
-          "pensionIncome": 136.6872,
-          "benefitIncome": 15,
-          "wealth": 2254.3671999999997,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 72,
-        "retirementAge": 68,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 60.39648,
-          "employmentIncome": 0,
-          "pensionIncome": 45.39648,
-          "benefitIncome": 15,
-          "wealth": 527.5392492307692,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 68,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 259.438236884992,
-          "employmentIncome": 0,
-          "pensionIncome": 244.43823688499202,
-          "benefitIncome": 15,
-          "wealth": 4681.471082086715,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 79,
-        "retirementAge": 64,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 143.81907512934401,
-          "employmentIncome": 0,
-          "pensionIncome": 128.81907512934401,
-          "benefitIncome": 15,
-          "wealth": 2356.5267225937137,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 67,
-        "retirementAge": 63,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 115.34387373436343,
-          "employmentIncome": 0,
-          "pensionIncome": 100.34387373436343,
-          "benefitIncome": 15,
-          "wealth": 1751.7978599505918,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 107,
-        "retirementAge": 63,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 268.41812056279576,
-          "employmentIncome": 0,
-          "pensionIncome": 253.41812056279576,
-          "benefitIncome": 15,
-          "wealth": 4865.686924106374,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 74,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 71,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 144.86561235997257,
-          "employmentIncome": 0,
-          "pensionIncome": 130.86561235997257,
-          "benefitIncome": 15,
-          "wealth": 2302.648778502144,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 67,
-        "retirementAge": 63,
-        "retirementStandard": "poverty",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 75,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
       },
       {
         "birthIncome": 103,
-        "retirementAge": 64,
-        "retirementStandard": "poverty",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 61,
         "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 214.970977132544,
+          "totalIncome": 218.72705575841903,
           "employmentIncome": 0,
-          "pensionIncome": 199.970977132544,
+          "pensionIncome": 203.72705575841903,
           "benefitIncome": 15,
-          "wealth": 3762.620405446144,
+          "wealth": 3820.8764226918674,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 99,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 97,
+        "birthIncome": 115,
         "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 171.13459828940802,
+          "totalIncome": 102.09675950353068,
           "employmentIncome": 0,
-          "pensionIncome": 171.13459828940802,
-          "benefitIncome": 0,
-          "wealth": 3127.3072478323006,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 87,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 152.65348558204346,
-          "employmentIncome": 0,
-          "pensionIncome": 137.65348558204346,
+          "pensionIncome": 87.09675950353068,
           "benefitIncome": 15,
-          "wealth": 2395.8477679902726,
+          "wealth": 1517.9324137584642,
           "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 78,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 124.5805006598244,
-          "employmentIncome": 0,
-          "pensionIncome": 109.5805006598244,
-          "benefitIncome": 15,
-          "wealth": 1923.0686269115317,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 77,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 193.412326227968,
-          "employmentIncome": 0,
-          "pensionIncome": 179.412326227968,
-          "benefitIncome": 15,
-          "wealth": 3404.2204819271683,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 68,
-        "retirementAge": 63,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 185.860284755968,
-          "employmentIncome": 0,
-          "pensionIncome": 170.860284755968,
-          "benefitIncome": 15,
-          "wealth": 3216.9058651936293,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 61,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 215.384017289216,
-          "employmentIncome": 0,
-          "pensionIncome": 200.384017289216,
-          "benefitIncome": 15,
-          "wealth": 3729.1382956734624,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 64,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 64,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 258.793647374336,
-          "employmentIncome": 0,
-          "pensionIncome": 243.793647374336,
-          "benefitIncome": 15,
-          "wealth": 4599.134831732736,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 89,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 69.2688641024,
-          "employmentIncome": 0,
-          "pensionIncome": 54.2688641024,
-          "benefitIncome": 15,
-          "wealth": 730.3654666624,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 72,
-        "retirementAge": 80,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 10,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 2040,
-          "isRetired": false,
-          "retirementStandard": null
+          "retirementStandard": "adequate"
         }
       },
       {
         "birthIncome": 88,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 63,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 75,
-        "retirementAge": 67,
-        "retirementStandard": "comfortable",
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 103.66932960780488,
+          "totalIncome": 256.503223054336,
           "employmentIncome": 0,
-          "pensionIncome": 88.66932960780488,
+          "pensionIncome": 241.503223054336,
           "benefitIncome": 15,
-          "wealth": 1561.0854966321951,
+          "wealth": 4603.237645566582,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
@@ -945,213 +167,475 @@
         "retirementAge": 61,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 169.4737000180682,
+          "totalIncome": 218.9264683113326,
           "employmentIncome": 0,
-          "pensionIncome": 154.4737000180682,
+          "pensionIncome": 203.9264683113326,
           "benefitIncome": 15,
-          "wealth": 2743.0004109960887,
+          "wealth": 3899.731033237504,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 92,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 79,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 66,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 81.72026991211163,
+          "employmentIncome": 0,
+          "pensionIncome": 66.72026991211163,
+          "benefitIncome": 15,
+          "wealth": 1141.9363200404837,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 94,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 73,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 140.52333131541943,
+          "employmentIncome": 0,
+          "pensionIncome": 125.52333131541943,
+          "benefitIncome": 15,
+          "wealth": 2374.963757058048,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 111,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 158.29104059910026,
+          "employmentIncome": 0,
+          "pensionIncome": 143.29104059910026,
+          "benefitIncome": 15,
+          "wealth": 2576.5964673413123,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 89,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 63,
-        "retirementAge": 87,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 10,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 1592,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 73,
-        "retirementAge": 71,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 9,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 482,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 113,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 84.65206255266341,
-          "employmentIncome": 0,
-          "pensionIncome": 69.65206255266341,
-          "benefitIncome": 15,
-          "wealth": 1030.4902117351023,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 76,
-        "retirementAge": 68,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 50.967648,
-          "employmentIncome": 0,
-          "pensionIncome": 35.967648,
-          "benefitIncome": 15,
-          "wealth": 473.033848,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 72,
         "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 92.5456935720029,
+          "totalIncome": 134.46230974054401,
           "employmentIncome": 0,
-          "pensionIncome": 77.5456935720029,
+          "pensionIncome": 120.462309740544,
           "benefitIncome": 15,
-          "wealth": 1114.4607601448029,
+          "wealth": 2153.145053254144,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 85,
-        "retirementAge": 68,
+        "birthIncome": 62,
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 72.74991635284411,
+          "employmentIncome": 0,
+          "pensionIncome": 57.74991635284411,
+          "benefitIncome": 15,
+          "wealth": 568.3897170658387,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 77,
+        "retirementAge": 70,
         "retirementStandard": "comfortable",
         "age70Snapshot": {
-          "totalIncome": 78.21178418604651,
+          "totalIncome": 225.9409090909091,
           "employmentIncome": 0,
-          "pensionIncome": 78.21178418604651,
-          "benefitIncome": 0,
-          "wealth": 1243.3087144186047,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 102,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 252.21734433262384,
-          "employmentIncome": 0,
-          "pensionIncome": 237.21734433262384,
+          "pensionIncome": 210.9409090909091,
           "benefitIncome": 15,
-          "wealth": 4510.65095264822,
+          "wealth": 3911.440909090909,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 71,
+        "birthIncome": 67,
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 122.45155899707474,
+          "employmentIncome": 0,
+          "pensionIncome": 107.45155899707474,
+          "benefitIncome": 15,
+          "wealth": 1990.4033246216177,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 74,
+        "retirementAge": 70,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 64.77297297297298,
+          "employmentIncome": 0,
+          "pensionIncome": 49.77297297297297,
+          "benefitIncome": 15,
+          "wealth": 682.772972972973,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
+      },
+      {
+        "birthIncome": 62,
         "retirementAge": 65,
         "retirementStandard": "comfortable",
         "age70Snapshot": {
-          "totalIncome": 114.526896656384,
+          "totalIncome": 144.48583513330902,
           "employmentIncome": 0,
-          "pensionIncome": 99.526896656384,
+          "pensionIncome": 129.48583513330902,
           "benefitIncome": 15,
-          "wealth": 1758.6993130659841,
+          "wealth": 2448.93403904743,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 100,
-        "retirementAge": 67,
-        "retirementStandard": "comfortable",
+        "birthIncome": 87,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 58.638214455652175,
+          "totalIncome": 140.12914621500232,
           "employmentIncome": 0,
-          "pensionIncome": 44.638214455652175,
-          "benefitIncome": 15,
-          "wealth": 676.9631410643478,
+          "pensionIncome": 140.12914621500232,
+          "benefitIncome": 0,
+          "wealth": 2437.1519192371197,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 106,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 66.47217146148571,
-          "employmentIncome": 0,
-          "pensionIncome": 51.472171461485715,
-          "benefitIncome": 15,
-          "wealth": 780.0621722843429,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 95,
-        "retirementAge": null,
-        "retirementStandard": null,
+        "birthIncome": 75,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
         "age70Snapshot": null
       },
       {
-        "birthIncome": 72,
-        "retirementAge": 63,
+        "birthIncome": 62,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 113,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 68.13880408824686,
+          "employmentIncome": 0,
+          "pensionIncome": 53.13880408824686,
+          "benefitIncome": 15,
+          "wealth": 695.323192008704,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 98,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 68.375411990528,
+          "employmentIncome": 0,
+          "pensionIncome": 53.375411990528,
+          "benefitIncome": 15,
+          "wealth": 848.7607117537282,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 84,
+        "retirementAge": 62,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 140.21811245996975,
+          "totalIncome": 165.74675423553037,
           "employmentIncome": 0,
-          "pensionIncome": 125.21811245996973,
+          "pensionIncome": 150.74675423553037,
           "benefitIncome": 15,
-          "wealth": 2283.9411942294832,
+          "wealth": 2762.0372317454116,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 108,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 133.44304162816,
+          "employmentIncome": 0,
+          "pensionIncome": 118.44304162815999,
+          "benefitIncome": 15,
+          "wealth": 2139.8267746398524,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 101,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 146.9663391855177,
+          "employmentIncome": 0,
+          "pensionIncome": 131.9663391855177,
+          "benefitIncome": 15,
+          "wealth": 2475.5533902520324,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 69,
-        "retirementAge": 74,
-        "retirementStandard": "comfortable",
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
         "age70Snapshot": {
-          "totalIncome": 79,
-          "employmentIncome": 79,
-          "pensionIncome": 0,
+          "totalIncome": 82.88749006233601,
+          "employmentIncome": 0,
+          "pensionIncome": 82.88749006233601,
           "benefitIncome": 0,
-          "wealth": 1480,
-          "isRetired": false,
-          "retirementStandard": null
+          "wealth": 1513.574741620736,
+          "isRetired": true,
+          "retirementStandard": "adequate"
         }
       },
       {
-        "birthIncome": 62,
-        "retirementAge": 68,
-        "retirementStandard": "comfortable",
+        "birthIncome": 98,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 112.9781942857143,
+          "totalIncome": 284.9452481483337,
           "employmentIncome": 0,
-          "pensionIncome": 97.9781942857143,
+          "pensionIncome": 270.9452481483337,
           "benefitIncome": 15,
-          "wealth": 1712.361622857143,
+          "wealth": 5311.505023285248,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 116,
+        "birthIncome": 77,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 63.65866112319554,
+          "employmentIncome": 0,
+          "pensionIncome": 48.65866112319554,
+          "benefitIncome": 15,
+          "wealth": 759.344701398206,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
+      },
+      {
+        "birthIncome": 68,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 121.60361257854652,
+          "employmentIncome": 0,
+          "pensionIncome": 106.60361257854652,
+          "benefitIncome": 15,
+          "wealth": 1851.4044533579993,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 83,
+        "retirementAge": 66,
+        "retirementStandard": "comfortable",
+        "age70Snapshot": {
+          "totalIncome": 166.4008467456,
+          "employmentIncome": 0,
+          "pensionIncome": 152.4008467456,
+          "benefitIncome": 15,
+          "wealth": 2835.4220153856004,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 74,
+        "retirementAge": 78,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 10,
+          "employmentIncome": 0,
+          "pensionIncome": 0,
+          "benefitIncome": 10,
+          "wealth": 1334,
+          "isRetired": false,
+          "retirementStandard": null
+        }
+      },
+      {
+        "birthIncome": 106,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 63,
+        "retirementAge": 67,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 66.47375067428572,
+          "employmentIncome": 0,
+          "pensionIncome": 52.473750674285725,
+          "benefitIncome": 15,
+          "wealth": 832.6746603885715,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 61,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 164.94389335244801,
+          "employmentIncome": 0,
+          "pensionIncome": 164.94389335244801,
+          "benefitIncome": 0,
+          "wealth": 2919.3104579328788,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 66,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 45.95490515373581,
+          "employmentIncome": 0,
+          "pensionIncome": 31.954905153735805,
+          "benefitIncome": 15,
+          "wealth": 447.9738754605455,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
+      },
+      {
+        "birthIncome": 64,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 71.83701171423851,
+          "employmentIncome": 0,
+          "pensionIncome": 57.83701171423851,
+          "benefitIncome": 15,
+          "wealth": 976.413467360899,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 71,
         "retirementAge": 60,
         "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 225.7963557888,
+          "employmentIncome": 0,
+          "pensionIncome": 210.7963557888,
+          "benefitIncome": 15,
+          "wealth": 4043.320635124185,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 76,
+        "retirementAge": 67,
+        "retirementStandard": "comfortable",
+        "age70Snapshot": {
+          "totalIncome": 172.80150528000001,
+          "employmentIncome": 0,
+          "pensionIncome": 157.80150528000001,
+          "benefitIncome": 15,
+          "wealth": 2806.96413728,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 109,
+        "retirementAge": 63,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 208.02335406154472,
+          "employmentIncome": 0,
+          "pensionIncome": 193.02335406154472,
+          "benefitIncome": 15,
+          "wealth": 3763.4253874183446,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 65,
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 79.38330293916295,
+          "employmentIncome": 0,
+          "pensionIncome": 64.38330293916295,
+          "benefitIncome": 15,
+          "wealth": 823.5448237866576,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 66,
+        "retirementAge": 63,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 85.502141308928,
+          "employmentIncome": 0,
+          "pensionIncome": 70.502141308928,
+          "benefitIncome": 15,
+          "wealth": 1174.901827878282,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 61,
+        "retirementAge": null,
+        "retirementStandard": null,
         "age70Snapshot": null
       },
       {
@@ -1159,207 +643,707 @@
         "retirementAge": 63,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 227.22331325235194,
+          "totalIncome": 147.9727277876307,
           "employmentIncome": 0,
-          "pensionIncome": 212.22331325235194,
+          "pensionIncome": 133.9727277876307,
           "benefitIncome": 15,
-          "wealth": 4050.3061445611515,
+          "wealth": 2421.588219775696,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 98,
-        "retirementAge": 69,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 202.58262325581393,
-          "employmentIncome": 0,
-          "pensionIncome": 202.58262325581393,
-          "benefitIncome": 0,
-          "wealth": 3764.450530232558,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 63,
-        "retirementAge": 67,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 60.264890026666656,
-          "employmentIncome": 0,
-          "pensionIncome": 46.264890026666656,
-          "benefitIncome": 15,
-          "wealth": 680.55380736,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 63,
+        "birthIncome": 87,
         "retirementAge": 62,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 102.98230511147887,
+          "totalIncome": 115.5697420012983,
           "employmentIncome": 0,
-          "pensionIncome": 88.98230511147887,
+          "pensionIncome": 100.5697420012983,
           "benefitIncome": 15,
-          "wealth": 1534.754218612736,
+          "wealth": 1781.384720605184,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
+      },
+      {
+        "birthIncome": 116,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 80.41382804957867,
+          "employmentIncome": 0,
+          "pensionIncome": 80.41382804957867,
+          "benefitIncome": 0,
+          "wealth": 1326.676195955712,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 64,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 120.58760857799805,
+          "employmentIncome": 0,
+          "pensionIncome": 106.58760857799805,
+          "benefitIncome": 15,
+          "wealth": 1914.7412376620957,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 67,
+        "retirementAge": 71,
+        "retirementStandard": "comfortable",
+        "age70Snapshot": {
+          "totalIncome": 10,
+          "employmentIncome": 0,
+          "pensionIncome": 0,
+          "benefitIncome": 10,
+          "wealth": 1647.4517791338792,
+          "isRetired": false,
+          "retirementStandard": null
+        }
+      },
+      {
+        "birthIncome": 74,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 105,
+        "retirementAge": 63,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 239.48024635801602,
+          "employmentIncome": 0,
+          "pensionIncome": 224.48024635801602,
+          "benefitIncome": 15,
+          "wealth": 4186.486405308417,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 74,
+        "retirementAge": 63,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 170.53941477844114,
+          "employmentIncome": 0,
+          "pensionIncome": 155.53941477844114,
+          "benefitIncome": 15,
+          "wealth": 2908.810498525184,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 91,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 87.47453378174492,
+          "employmentIncome": 0,
+          "pensionIncome": 72.47453378174492,
+          "benefitIncome": 15,
+          "wealth": 1073.9555253841918,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 117,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 69,
+        "retirementAge": 63,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 125.38508038143999,
+          "employmentIncome": 0,
+          "pensionIncome": 110.38508038143999,
+          "benefitIncome": 15,
+          "wealth": 1935.6370899174399,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 76,
+        "retirementAge": 67,
+        "retirementStandard": "comfortable",
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 91,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 108,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 153.3125846300506,
+          "employmentIncome": 0,
+          "pensionIncome": 139.3125846300506,
+          "benefitIncome": 15,
+          "wealth": 2510.5326057867205,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 92,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 62,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 296.74652664347474,
+          "employmentIncome": 0,
+          "pensionIncome": 281.74652664347474,
+          "benefitIncome": 15,
+          "wealth": 5485.360912242539,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 105,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 82.07756100757449,
+          "employmentIncome": 0,
+          "pensionIncome": 68.07756100757449,
+          "benefitIncome": 15,
+          "wealth": 1130.5300997104503,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 116,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 104.97307746676364,
+          "employmentIncome": 0,
+          "pensionIncome": 104.97307746676364,
+          "benefitIncome": 0,
+          "wealth": 1921.3909232267636,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 74,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 106.38994449347112,
+          "employmentIncome": 0,
+          "pensionIncome": 91.38994449347112,
+          "benefitIncome": 15,
+          "wealth": 1567.0034216951142,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 65,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 124.53065000960004,
+          "employmentIncome": 0,
+          "pensionIncome": 109.53065000960004,
+          "benefitIncome": 15,
+          "wealth": 1791.2969002496004,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 74,
+        "retirementAge": 71,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 10,
+          "employmentIncome": 0,
+          "pensionIncome": 0,
+          "benefitIncome": 10,
+          "wealth": 1479,
+          "isRetired": false,
+          "retirementStandard": null
+        }
+      },
+      {
+        "birthIncome": 75,
+        "retirementAge": 68,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 55.76312685714286,
+          "employmentIncome": 0,
+          "pensionIncome": 40.76312685714286,
+          "benefitIncome": 15,
+          "wealth": 418.1270125714286,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
+      },
+      {
+        "birthIncome": 66,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 77,
+        "retirementAge": 63,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 131.462705057792,
+          "employmentIncome": 0,
+          "pensionIncome": 116.462705057792,
+          "benefitIncome": 15,
+          "wealth": 2111.0303315025917,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 70,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 66,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 154.35139484740264,
+          "employmentIncome": 0,
+          "pensionIncome": 139.35139484740264,
+          "benefitIncome": 15,
+          "wealth": 2510.302932699136,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 103,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 92.99257223168,
+          "employmentIncome": 0,
+          "pensionIncome": 77.99257223168,
+          "benefitIncome": 15,
+          "wealth": 1335.8068780236802,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 102,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 98,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 74.72546542311747,
+          "employmentIncome": 0,
+          "pensionIncome": 75.72546542311747,
+          "benefitIncome": 0,
+          "wealth": 1222.651574685265,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 72,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 72.670293266432,
+          "employmentIncome": 0,
+          "pensionIncome": 57.670293266432,
+          "benefitIncome": 15,
+          "wealth": 920.5045480041551,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 61,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 152.33760615026446,
+          "employmentIncome": 0,
+          "pensionIncome": 137.33760615026446,
+          "benefitIncome": 15,
+          "wealth": 2435.836583436288,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 63,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": {
+          "totalIncome": 10,
+          "employmentIncome": 0,
+          "pensionIncome": 0,
+          "benefitIncome": 10,
+          "wealth": 2747,
+          "isRetired": false,
+          "retirementStandard": null
+        }
+      },
+      {
+        "birthIncome": 89,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 239.673344585728,
+          "employmentIncome": 0,
+          "pensionIncome": 224.673344585728,
+          "benefitIncome": 15,
+          "wealth": 4179.122343844312,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 75,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 88.08880737279999,
+          "employmentIncome": 0,
+          "pensionIncome": 73.08880737279999,
+          "benefitIncome": 15,
+          "wealth": 1259.4339916927997,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 84,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 63,
+        "retirementAge": 71,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 9,
+          "employmentIncome": 0,
+          "pensionIncome": 0,
+          "benefitIncome": 10,
+          "wealth": 548,
+          "isRetired": false,
+          "retirementStandard": null
+        }
+      },
+      {
+        "birthIncome": 94,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 270.2672261302164,
+          "employmentIncome": 0,
+          "pensionIncome": 255.2672261302164,
+          "benefitIncome": 15,
+          "wealth": 4917.316300438259,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 64,
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 82.82676890149463,
+          "employmentIncome": 0,
+          "pensionIncome": 67.82676890149463,
+          "benefitIncome": 15,
+          "wealth": 1162.520381682763,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 63,
+        "retirementAge": 63,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 221.68141538245484,
+          "employmentIncome": 0,
+          "pensionIncome": 206.68141538245484,
+          "benefitIncome": 15,
+          "wealth": 4034.931085658112,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 96,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 184.47565406738073,
+          "employmentIncome": 0,
+          "pensionIncome": 169.47565406738073,
+          "benefitIncome": 15,
+          "wealth": 2904.955241046016,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 65,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 84.17300363263999,
+          "employmentIncome": 0,
+          "pensionIncome": 69.17300363263999,
+          "benefitIncome": 15,
+          "wealth": 1116.8730944486401,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 74,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 88,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 341.14084712146195,
+          "employmentIncome": 0,
+          "pensionIncome": 326.14084712146195,
+          "benefitIncome": 15,
+          "wealth": 6227.319919894852,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 111,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 306.1398678892328,
+          "employmentIncome": 0,
+          "pensionIncome": 291.1398678892328,
+          "benefitIncome": 15,
+          "wealth": 5596.873407225316,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 68,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 112,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 169.39084586871462,
+          "employmentIncome": 0,
+          "pensionIncome": 154.39084586871462,
+          "benefitIncome": 15,
+          "wealth": 2596.578659253247,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 81,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 152.60618571178205,
+          "employmentIncome": 0,
+          "pensionIncome": 137.60618571178205,
+          "benefitIncome": 15,
+          "wealth": 2441.706774452279,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 73,
+        "retirementAge": 67,
+        "retirementStandard": "comfortable",
+        "age70Snapshot": {
+          "totalIncome": 163.36957931243245,
+          "employmentIncome": 0,
+          "pensionIncome": 148.36957931243245,
+          "benefitIncome": 15,
+          "wealth": 2661.6901432043246,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 77,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 103.10253570867201,
+          "employmentIncome": 0,
+          "pensionIncome": 88.10253570867201,
+          "benefitIncome": 15,
+          "wealth": 1550.5120822716258,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 114,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
       }
     ],
-    "avgRetirementAge": 65.08333333333333,
-    "retiredEarly": 34,
-    "retiredStandard": 30,
-    "retiredLate": 20,
-    "neverRetired": 16,
-    "comfortable": 41,
-    "adequate": 0,
-    "struggling": 0,
-    "poverty": 43,
+    "avgRetirementAge": 63.90588235294118,
+    "retiredEarly": 35,
+    "retiredStandard": 41,
+    "retiredLate": 9,
+    "neverRetired": 15,
+    "comfortable": 43,
+    "adequate": 26,
+    "struggling": 4,
+    "poverty": 0,
     "age70": {
-      "avgTotalIncome": 125.25971390856816,
-      "avgEmploymentIncome": 2,
-      "avgPensionIncome": 110.60116127698922,
-      "avgBenefitIncome": 12.894736842105264,
-      "avgWealth": 2171.184306745159,
-      "count": 76
+      "avgTotalIncome": 130.1558257823222,
+      "avgEmploymentIncome": 0,
+      "avgPensionIncome": 117.08082578232225,
+      "avgBenefitIncome": 13.25,
+      "avgWealth": 2246.8610579057054,
+      "count": 80
     }
   },
   "poor": {
     "label": "POOR",
     "lives": [
       {
-        "birthIncome": 10,
+        "birthIncome": 10.2,
         "retirementAge": 62,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 124.01399144038399,
+          "totalIncome": 211.64702722026442,
           "employmentIncome": 0,
-          "pensionIncome": 110.01399144038399,
+          "pensionIncome": 196.64702722026442,
           "benefitIncome": 15,
-          "wealth": 1936.5176236038299,
+          "wealth": 3630.6911287795065,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 27,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
+        "birthIncome": 18.599999999999998,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 82.16981046613334,
+          "totalIncome": 76.33471409356798,
           "employmentIncome": 0,
-          "pensionIncome": 82.16981046613334,
+          "pensionIncome": 76.33471409356798,
           "benefitIncome": 0,
-          "wealth": 1465.0817387861334,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 21,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": {
-          "totalIncome": 9,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 1247,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 7,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 68.653111738368,
-          "employmentIncome": 0,
-          "pensionIncome": 53.653111738368,
-          "benefitIncome": 15,
-          "wealth": 594.980905197568,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 12,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 90.2655604747907,
-          "employmentIncome": 0,
-          "pensionIncome": 75.2655604747907,
-          "benefitIncome": 15,
-          "wealth": 1312.637130484093,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 5,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 94.99577799699051,
-          "employmentIncome": 0,
-          "pensionIncome": 80.99577799699051,
-          "benefitIncome": 15,
-          "wealth": 1441.0413907124507,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 11.4,
-        "retirementAge": 66,
-        "retirementStandard": "adequate",
-        "age70Snapshot": {
-          "totalIncome": 35.52819703188837,
-          "employmentIncome": 0,
-          "pensionIncome": 21.52819703188837,
-          "benefitIncome": 15,
-          "wealth": 197.52382050351625,
+          "wealth": 1205.5487202789218,
           "isRetired": true,
           "retirementStandard": "adequate"
         }
       },
       {
-        "birthIncome": 23.4,
-        "retirementAge": 75,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 10,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 1210,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 5,
+        "birthIncome": 20,
         "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 138.648370733056,
+          "totalIncome": 165.9739336721554,
           "employmentIncome": 0,
-          "pensionIncome": 138.648370733056,
-          "benefitIncome": 0,
-          "wealth": 2520.982639059456,
+          "pensionIncome": 150.9739336721554,
+          "benefitIncome": 15,
+          "wealth": 2712.1794183331835,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 27.599999999999998,
+        "retirementAge": 68,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 69.946368,
+          "employmentIncome": 0,
+          "pensionIncome": 54.94636800000001,
+          "benefitIncome": 15,
+          "wealth": 786.6055680000001,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 14.399999999999999,
+        "retirementAge": 66,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 56.08612160365714,
+          "employmentIncome": 0,
+          "pensionIncome": 41.08612160365714,
+          "benefitIncome": 15,
+          "wealth": 609.0963045522285,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
+      },
+      {
+        "birthIncome": 19,
+        "retirementAge": 65,
+        "retirementStandard": "comfortable",
+        "age70Snapshot": {
+          "totalIncome": 196.26651506138535,
+          "employmentIncome": 0,
+          "pensionIncome": 182.26651506138535,
+          "benefitIncome": 15,
+          "wealth": 3487.9050013521164,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
@@ -1369,41 +1353,47 @@
         "retirementAge": 62,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 320.506503776256,
+          "totalIncome": 248.9114777873233,
           "employmentIncome": 0,
-          "pensionIncome": 305.506503776256,
+          "pensionIncome": 233.9114777873233,
           "benefitIncome": 15,
-          "wealth": 5913.544098182656,
+          "wealth": 4496.710617592356,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 9,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
+        "birthIncome": 17.4,
+        "retirementAge": 69,
+        "retirementStandard": "adequate",
         "age70Snapshot": {
-          "totalIncome": 84.665705152512,
+          "totalIncome": 114.11932631578946,
           "employmentIncome": 0,
-          "pensionIncome": 70.665705152512,
+          "pensionIncome": 99.11932631578946,
           "benefitIncome": 15,
-          "wealth": 1178.683333965312,
+          "wealth": 1591.7340631578948,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 10,
-        "retirementAge": 72,
-        "retirementStandard": "comfortable",
+        "birthIncome": 5,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 14.399999999999999,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 10,
+          "totalIncome": 92.599560265728,
           "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 776,
-          "isRetired": false,
-          "retirementStandard": null
+          "pensionIncome": 77.599560265728,
+          "benefitIncome": 15,
+          "wealth": 1262.8962592166204,
+          "isRetired": true,
+          "retirementStandard": "adequate"
         }
       },
       {
@@ -1413,77 +1403,207 @@
         "age70Snapshot": null
       },
       {
-        "birthIncome": 29.4,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
+        "birthIncome": 23.4,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 64,
+        "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 110.9284807087158,
+          "totalIncome": 110.95925323236526,
           "employmentIncome": 0,
-          "pensionIncome": 96.9284807087158,
+          "pensionIncome": 95.95925323236526,
           "benefitIncome": 15,
-          "wealth": 1680.5089194792422,
+          "wealth": 1735.9893645293018,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 29.4,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 126.60157633097144,
+          "employmentIncome": 0,
+          "pensionIncome": 111.60157633097144,
+          "benefitIncome": 15,
+          "wealth": 1994.4981274624001,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
+      },
+      {
+        "birthIncome": 5,
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 83.40539071078399,
+          "employmentIncome": 0,
+          "pensionIncome": 69.40539071078399,
+          "benefitIncome": 15,
+          "wealth": 1052.852658480384,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 12,
+        "retirementAge": 66,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 56.90486801066666,
+          "employmentIncome": 0,
+          "pensionIncome": 42.90486801066666,
+          "benefitIncome": 15,
+          "wealth": 599.3599016106666,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
+      },
+      {
+        "birthIncome": 5,
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 78.67349562259578,
+          "employmentIncome": 0,
+          "pensionIncome": 64.67349562259578,
+          "benefitIncome": 15,
+          "wealth": 1008.4814744227841,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": null
       },
       {
         "birthIncome": 10,
         "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 141.31503213567999,
+          "totalIncome": 93.060494749696,
           "employmentIncome": 0,
-          "pensionIncome": 126.31503213568,
+          "pensionIncome": 79.060494749696,
           "benefitIncome": 15,
-          "wealth": 2222.19083552768,
+          "wealth": 1278.6497865690192,
           "isRetired": true,
-          "retirementStandard": "comfortable"
+          "retirementStandard": "adequate"
         }
       },
       {
-        "birthIncome": 10,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 74.888355006464,
-          "employmentIncome": 0,
-          "pensionIncome": 60.888355006463996,
-          "benefitIncome": 15,
-          "wealth": 975.5972301680638,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
+        "birthIncome": 18.599999999999998,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
       },
       {
-        "birthIncome": 15,
-        "retirementAge": 63,
+        "birthIncome": 27,
+        "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 208.027579998208,
+          "totalIncome": 79.35190353100799,
           "employmentIncome": 0,
-          "pensionIncome": 193.027579998208,
+          "pensionIncome": 64.35190353100799,
           "benefitIncome": 15,
-          "wealth": 3574.4093876457164,
+          "wealth": 1073.7744918062078,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 20,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 191.764172181504,
+          "employmentIncome": 0,
+          "pensionIncome": 176.764172181504,
+          "benefitIncome": 15,
+          "wealth": 3275.868476719104,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 12,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 59.02140900283733,
+          "employmentIncome": 0,
+          "pensionIncome": 44.02140900283733,
+          "benefitIncome": 15,
+          "wealth": 667.889967407104,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
+      },
+      {
+        "birthIncome": 13,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 127.44037798347756,
+          "employmentIncome": 0,
+          "pensionIncome": 112.44037798347756,
+          "benefitIncome": 15,
+          "wealth": 2120.3273785908245,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 10.799999999999999,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 25,
-        "retirementAge": 64,
+        "retirementAge": 61,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 281.76611384524796,
+          "totalIncome": 277.311618669083,
           "employmentIncome": 0,
-          "pensionIncome": 266.76611384524796,
+          "pensionIncome": 262.311618669083,
           "benefitIncome": 15,
-          "wealth": 5198.793959976447,
+          "wealth": 4937.681032764578,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 21,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 104.95710637535531,
+          "employmentIncome": 0,
+          "pensionIncome": 89.95710637535531,
+          "benefitIncome": 15,
+          "wealth": 1548.8969608811892,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 65,
+        "retirementStandard": "comfortable",
+        "age70Snapshot": {
+          "totalIncome": 320.248594169856,
+          "employmentIncome": 0,
+          "pensionIncome": 305.248594169856,
+          "benefitIncome": 15,
+          "wealth": 5924.463448416255,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
@@ -1496,62 +1616,28 @@
       },
       {
         "birthIncome": 10,
+        "retirementAge": 67,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 91.16042136975611,
+          "employmentIncome": 0,
+          "pensionIncome": 76.16042136975611,
+          "benefitIncome": 15,
+          "wealth": 1246.524614150244,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 26.4,
         "retirementAge": 64,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 106.122199138304,
+          "totalIncome": 173.3597545629373,
           "employmentIncome": 0,
-          "pensionIncome": 91.122199138304,
+          "pensionIncome": 159.3597545629373,
           "benefitIncome": 15,
-          "wealth": 1486.7156391343656,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 28,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 9,
-        "retirementAge": 63,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 99.72609238425599,
-          "employmentIncome": 0,
-          "pensionIncome": 84.72609238425599,
-          "benefitIncome": 15,
-          "wealth": 1538.378401990656,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 9,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 75.83141407948801,
-          "employmentIncome": 0,
-          "pensionIncome": 75.83141407948801,
-          "benefitIncome": 0,
-          "wealth": 1237.6936891436112,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 70.41343576436364,
-          "employmentIncome": 0,
-          "pensionIncome": 56.41343576436364,
-          "benefitIncome": 15,
-          "wealth": 874.703875328,
+          "wealth": 3008.458881794264,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
@@ -1563,299 +1649,277 @@
         "age70Snapshot": null
       },
       {
-        "birthIncome": 5,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 265.7119433051082,
-          "employmentIncome": 0,
-          "pensionIncome": 251.7119433051082,
-          "benefitIncome": 15,
-          "wealth": 4785.69473645913,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 63,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 89.6431830224121,
-          "employmentIncome": 0,
-          "pensionIncome": 74.6431830224121,
-          "benefitIncome": 15,
-          "wealth": 1240.6146504746066,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 12,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 95.04719293674057,
-          "employmentIncome": 0,
-          "pensionIncome": 80.04719293674057,
-          "benefitIncome": 15,
-          "wealth": 1316.8698734981122,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 8,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 77.75298759744938,
-          "employmentIncome": 0,
-          "pensionIncome": 77.75298759744938,
-          "benefitIncome": 0,
-          "wealth": 1370.5532872897813,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 86.47175610368002,
-          "employmentIncome": 0,
-          "pensionIncome": 86.47175610368002,
-          "benefitIncome": 0,
-          "wealth": 1297.5156586956805,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 64,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 100.34008569856,
-          "employmentIncome": 0,
-          "pensionIncome": 86.34008569856,
-          "benefitIncome": 15,
-          "wealth": 1501.09222816256,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 28,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 193.5311688850286,
-          "employmentIncome": 0,
-          "pensionIncome": 178.5311688850286,
-          "benefitIncome": 15,
-          "wealth": 3439.9532481536007,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 21,
-        "retirementAge": 68,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 194.30076104347825,
-          "employmentIncome": 0,
-          "pensionIncome": 179.30076104347825,
-          "benefitIncome": 15,
-          "wealth": 3359.276308869565,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 15,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 78.96160862952728,
-          "employmentIncome": 0,
-          "pensionIncome": 63.96160862952728,
-          "benefitIncome": 15,
-          "wealth": 970.9109152768001,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 11.4,
+        "birthIncome": 25,
         "retirementAge": 62,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 133.02969869926397,
+          "totalIncome": 138.94684806567892,
           "employmentIncome": 0,
-          "pensionIncome": 119.02969869926399,
-          "benefitIncome": 15,
-          "wealth": 2178.92601233471,
+          "pensionIncome": 137.8968480656789,
+          "benefitIncome": 0,
+          "wealth": 2582.8564218006745,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 17.4,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
+        "birthIncome": 9,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
         "age70Snapshot": {
-          "totalIncome": 175.89929324581237,
+          "totalIncome": 68.64465351884799,
           "employmentIncome": 0,
-          "pensionIncome": 160.89929324581237,
+          "pensionIncome": 53.64465351884799,
           "benefitIncome": 15,
-          "wealth": 2867.290715300212,
+          "wealth": 841.2225299515864,
           "isRetired": true,
-          "retirementStandard": "comfortable"
+          "retirementStandard": "adequate"
         }
       },
       {
-        "birthIncome": 26,
-        "retirementAge": 64,
+        "birthIncome": 5,
+        "retirementAge": 62,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 170.7357198010534,
+          "totalIncome": 124.52266076504927,
           "employmentIncome": 0,
-          "pensionIncome": 156.7357198010534,
+          "pensionIncome": 109.52266076504927,
           "benefitIncome": 15,
-          "wealth": 2917.723309421983,
+          "wealth": 1960.1944430491756,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 21,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 26,
-        "retirementAge": 63,
+        "retirementAge": 62,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 85.94785017036799,
+          "totalIncome": 232.55660526591998,
           "employmentIncome": 0,
-          "pensionIncome": 71.94785017036799,
+          "pensionIncome": 217.55660526591998,
           "benefitIncome": 15,
-          "wealth": 1208.6441044295677,
+          "wealth": 4162.356352298535,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 23,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 192.66684788520422,
+          "employmentIncome": 0,
+          "pensionIncome": 177.66684788520422,
+          "benefitIncome": 15,
+          "wealth": 3286.0222555416253,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 5,
-        "retirementAge": 72,
-        "retirementStandard": "comfortable",
+        "retirementAge": 66,
+        "retirementStandard": "struggling",
         "age70Snapshot": {
-          "totalIncome": 10,
+          "totalIncome": 71.13813360639999,
           "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 1071,
-          "isRetired": false,
-          "retirementStandard": null
+          "pensionIncome": 57.13813360639999,
+          "benefitIncome": 15,
+          "wealth": 881.2837814587076,
+          "isRetired": true,
+          "retirementStandard": "adequate"
         }
       },
       {
         "birthIncome": 5,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 221.281662148608,
+          "employmentIncome": 0,
+          "pensionIncome": 206.281662148608,
+          "benefitIncome": 15,
+          "wealth": 3935.448215863808,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 16.8,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 81.14535434909345,
+          "employmentIncome": 0,
+          "pensionIncome": 66.14535434909345,
+          "benefitIncome": 15,
+          "wealth": 888.6816521008202,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 9,
+        "retirementAge": 66,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 67.21346533090232,
+          "employmentIncome": 0,
+          "pensionIncome": 52.21346533090233,
+          "benefitIncome": 15,
+          "wealth": 772.9919590685769,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 25,
         "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 87.84552732720188,
+          "employmentIncome": 0,
+          "pensionIncome": 72.84552732720188,
+          "benefitIncome": 15,
+          "wealth": 1062.7190046248961,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 19.8,
+        "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": null
       },
       {
-        "birthIncome": 23.4,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
+        "birthIncome": 10,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 33.641544531382856,
+          "totalIncome": 129.1734704493643,
           "employmentIncome": 0,
-          "pensionIncome": 33.641544531382856,
-          "benefitIncome": 0,
-          "wealth": 414.3944435302399,
+          "pensionIncome": 114.17347044936429,
+          "benefitIncome": 15,
+          "wealth": 2010.2907194883496,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 5,
+        "retirementAge": 66,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 72.9161598201081,
+          "employmentIncome": 0,
+          "pensionIncome": 58.916159820108106,
+          "benefitIncome": 15,
+          "wealth": 955.3877228903784,
           "isRetired": true,
           "retirementStandard": "adequate"
         }
       },
       {
         "birthIncome": 10,
-        "retirementAge": 66,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 99.68383349350401,
+          "employmentIncome": 0,
+          "pensionIncome": 84.68383349350401,
+          "benefitIncome": 15,
+          "wealth": 1409.779670831104,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 29,
+        "retirementAge": 69,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 87.78217142857143,
+          "employmentIncome": 0,
+          "pensionIncome": 88.78217142857143,
+          "benefitIncome": 0,
+          "wealth": 1499.2650285714285,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 15.6,
+        "retirementAge": 78,
         "retirementStandard": "comfortable",
         "age70Snapshot": {
-          "totalIncome": 63.7828728832,
+          "totalIncome": 10,
           "employmentIncome": 0,
-          "pensionIncome": 49.7828728832,
+          "pensionIncome": 0,
+          "benefitIncome": 10,
+          "wealth": 1746,
+          "isRetired": false,
+          "retirementStandard": null
+        }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 69,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 89.99680000000001,
+          "employmentIncome": 0,
+          "pensionIncome": 74.99680000000001,
           "benefitIncome": 15,
-          "wealth": 781.2296949631999,
+          "wealth": 1139.4168,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 13,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 258.0097813839983,
+          "employmentIncome": 0,
+          "pensionIncome": 243.0097813839983,
+          "benefitIncome": 15,
+          "wealth": 4613.484045713685,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 8,
+        "birthIncome": 10,
         "retirementAge": null,
         "retirementStandard": null,
         "age70Snapshot": null
       },
       {
         "birthIncome": 22.8,
-        "retirementAge": 66,
-        "retirementStandard": "adequate",
-        "age70Snapshot": {
-          "totalIncome": 29.915238502400005,
-          "employmentIncome": 0,
-          "pensionIncome": 14.915238502400005,
-          "benefitIncome": 15,
-          "wealth": 115.79620106240002,
-          "isRetired": true,
-          "retirementStandard": "adequate"
-        }
-      },
-      {
-        "birthIncome": 24,
-        "retirementAge": 62,
+        "retirementAge": 63,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 124.228247113728,
+          "totalIncome": 167.0801874805879,
           "employmentIncome": 0,
-          "pensionIncome": 109.228247113728,
+          "pensionIncome": 152.0801874805879,
           "benefitIncome": 15,
-          "wealth": 1996.8094249569278,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 70.02508524544001,
-          "employmentIncome": 0,
-          "pensionIncome": 70.02508524544001,
-          "benefitIncome": 0,
-          "wealth": 1084.9022163814402,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 5,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 251.1509360194435,
-          "employmentIncome": 0,
-          "pensionIncome": 236.1509360194435,
-          "benefitIncome": 15,
-          "wealth": 4498.290190164067,
+          "wealth": 2904.875572169705,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
@@ -1867,467 +1931,271 @@
         "age70Snapshot": null
       },
       {
-        "birthIncome": 9,
-        "retirementAge": 77,
-        "retirementStandard": "comfortable",
+        "birthIncome": 27.599999999999998,
+        "retirementAge": 70,
+        "retirementStandard": "adequate",
         "age70Snapshot": {
-          "totalIncome": 9,
+          "totalIncome": 87.16571428571427,
           "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 485,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 24,
-        "retirementAge": 72,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 10,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 3634,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 8,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 106.478657067008,
-          "employmentIncome": 0,
-          "pensionIncome": 91.478657067008,
+          "pensionIncome": 72.16571428571427,
           "benefitIncome": 15,
-          "wealth": 1505.570083742208,
+          "wealth": 1125.1657142857143,
           "isRetired": true,
-          "retirementStandard": "comfortable"
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 12.6,
+        "retirementAge": 70,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 90.25565217391305,
+          "employmentIncome": 0,
+          "pensionIncome": 75.25565217391305,
+          "benefitIncome": 15,
+          "wealth": 1212.255652173913,
+          "isRetired": true,
+          "retirementStandard": "adequate"
         }
       },
       {
         "birthIncome": 10,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 208.9814245623916,
-          "employmentIncome": 0,
-          "pensionIncome": 193.9814245623916,
-          "benefitIncome": 15,
-          "wealth": 3666.648617569549,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 5,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 238.9499062892251,
-          "employmentIncome": 0,
-          "pensionIncome": 224.9499062892251,
-          "benefitIncome": 15,
-          "wealth": 4378.483277805568,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 5,
         "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 234.823452991488,
+          "totalIncome": 138.60316092285672,
           "employmentIncome": 0,
-          "pensionIncome": 219.823452991488,
+          "pensionIncome": 123.60316092285672,
           "benefitIncome": 15,
-          "wealth": 4123.025162394073,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 67,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 97.82102272,
-          "employmentIncome": 0,
-          "pensionIncome": 83.82102272,
-          "benefitIncome": 15,
-          "wealth": 1408.22159072,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 64,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 75.29389614226287,
-          "employmentIncome": 0,
-          "pensionIncome": 75.29389614226287,
-          "benefitIncome": 0,
-          "wealth": 1306.85558541312,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 20,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 70.5345340416,
-          "employmentIncome": 0,
-          "pensionIncome": 56.5345340416,
-          "benefitIncome": 15,
-          "wealth": 888.6671158508307,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 27,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 108.94678103654398,
-          "employmentIncome": 0,
-          "pensionIncome": 108.94678103654398,
-          "benefitIncome": 0,
-          "wealth": 1945.6163069501438,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 5,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 27,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 92.791878434816,
-          "employmentIncome": 0,
-          "pensionIncome": 77.791878434816,
-          "benefitIncome": 15,
-          "wealth": 1115.7426854590622,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 144.440581525504,
-          "employmentIncome": 0,
-          "pensionIncome": 129.440581525504,
-          "benefitIncome": 15,
-          "wealth": 2431.580119663104,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 19.8,
-        "retirementAge": 67,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 47.3764608,
-          "employmentIncome": 0,
-          "pensionIncome": 32.3764608,
-          "benefitIncome": 15,
-          "wealth": 399.48028849230764,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": null
-      },
-      {
-        "birthIncome": 20.4,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 96.10636662920533,
-          "employmentIncome": 0,
-          "pensionIncome": 81.10636662920533,
-          "benefitIncome": 15,
-          "wealth": 1366.348865692672,
+          "wealth": 2086.0003658124565,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 29,
-        "retirementAge": 65,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 141.30321227490234,
-          "employmentIncome": 0,
-          "pensionIncome": 141.30321227490234,
-          "benefitIncome": 0,
-          "wealth": 2542.1160772869953,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
         "retirementAge": null,
         "retirementStandard": null,
         "age70Snapshot": null
       },
       {
-        "birthIncome": 10,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
+        "birthIncome": 11.4,
+        "retirementAge": 67,
+        "retirementStandard": "struggling",
         "age70Snapshot": {
-          "totalIncome": 186.53004544243547,
+          "totalIncome": 38.338298879999996,
           "employmentIncome": 0,
-          "pensionIncome": 171.53004544243547,
-          "benefitIncome": 15,
-          "wealth": 3163.321722043863,
+          "pensionIncome": 38.338298879999996,
+          "benefitIncome": 0,
+          "wealth": 535.1803862646153,
           "isRetired": true,
-          "retirementStandard": "comfortable"
+          "retirementStandard": "struggling"
         }
       },
       {
-        "birthIncome": 10,
-        "retirementAge": 74,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 9,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 760.5,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 21,
+        "birthIncome": 20.4,
         "retirementAge": 65,
         "retirementStandard": "comfortable",
         "age70Snapshot": {
-          "totalIncome": 70.29705972021968,
+          "totalIncome": 172.24402348851203,
           "employmentIncome": 0,
-          "pensionIncome": 55.29705972021968,
+          "pensionIncome": 157.24402348851203,
           "benefitIncome": 15,
-          "wealth": 760.0478770500358,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 129.39780937478244,
-          "employmentIncome": 0,
-          "pensionIncome": 114.39780937478244,
-          "benefitIncome": 15,
-          "wealth": 2020.5137754516604,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 124.70029416760183,
-          "employmentIncome": 0,
-          "pensionIncome": 110.70029416760183,
-          "benefitIncome": 15,
-          "wealth": 2004.9914321414312,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 5,
-        "retirementAge": 64,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 91.91002195992975,
-          "employmentIncome": 0,
-          "pensionIncome": 76.91002195992975,
-          "benefitIncome": 15,
-          "wealth": 1342.843497787442,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 5,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 123.92819291984456,
-          "employmentIncome": 0,
-          "pensionIncome": 108.92819291984456,
-          "benefitIncome": 15,
-          "wealth": 1947.275873058816,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10.799999999999999,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 87.76704771653189,
-          "employmentIncome": 0,
-          "pensionIncome": 72.76704771653189,
-          "benefitIncome": 15,
-          "wealth": 1148.0513487379371,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 18.599999999999998,
-        "retirementAge": 61,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 141.2703016000366,
-          "employmentIncome": 0,
-          "pensionIncome": 126.27030160003657,
-          "benefitIncome": 15,
-          "wealth": 2251.170698743808,
+          "wealth": 2856.8446107013124,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 13,
-        "retirementAge": 62,
+        "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 97.336999878656,
+          "totalIncome": 223.90642712985596,
           "employmentIncome": 0,
-          "pensionIncome": 82.336999878656,
-          "benefitIncome": 15,
-          "wealth": 1418.5312276142868,
+          "pensionIncome": 223.90642712985596,
+          "benefitIncome": 0,
+          "wealth": 4199.317105376255,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 13.799999999999999,
-        "retirementAge": 80,
-        "retirementStandard": "comfortable",
+        "birthIncome": 23,
+        "retirementAge": 62,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 117.43335727455084,
+          "employmentIncome": 0,
+          "pensionIncome": 117.43335727455084,
+          "benefitIncome": 0,
+          "wealth": 2122.4815748526075,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 27,
+        "retirementAge": 65,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 71.1550672039161,
+          "employmentIncome": 0,
+          "pensionIncome": 56.15506720391611,
+          "benefitIncome": 15,
+          "wealth": 848.9236391937109,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 5,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 194.52969142609317,
+          "employmentIncome": 0,
+          "pensionIncome": 179.52969142609317,
+          "benefitIncome": 15,
+          "wealth": 3150.9190359019517,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 18,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 127.97659184342325,
+          "employmentIncome": 0,
+          "pensionIncome": 112.97659184342325,
+          "benefitIncome": 15,
+          "wealth": 2044.809992580167,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 19.2,
+        "retirementAge": 66,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 72.24642051413333,
+          "employmentIncome": 0,
+          "pensionIncome": 57.246420514133334,
+          "benefitIncome": 15,
+          "wealth": 854.3236000341333,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 13.2,
+        "retirementAge": 73,
+        "retirementStandard": "struggling",
         "age70Snapshot": {
           "totalIncome": 10,
           "employmentIncome": 0,
           "pensionIncome": 0,
           "benefitIncome": 10,
-          "wealth": 1289,
+          "wealth": 526,
           "isRetired": false,
           "retirementStandard": null
         }
       },
       {
         "birthIncome": 10,
-        "retirementAge": 59,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 48.66191207197059,
-          "employmentIncome": 0,
-          "pensionIncome": 33.66191207197059,
-          "benefitIncome": 15,
-          "wealth": 408.6151192766408,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 28.2,
         "retirementAge": null,
         "retirementStandard": null,
         "age70Snapshot": null
       },
       {
-        "birthIncome": 5,
-        "retirementAge": 71,
-        "retirementStandard": "comfortable",
+        "birthIncome": 21.599999999999998,
+        "retirementAge": 68,
+        "retirementStandard": "struggling",
         "age70Snapshot": {
-          "totalIncome": 9,
+          "totalIncome": 58.66695196097561,
           "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 1385,
-          "isRetired": false,
-          "retirementStandard": null
+          "pensionIncome": 43.66695196097561,
+          "benefitIncome": 15,
+          "wealth": 583.8895314731708,
+          "isRetired": true,
+          "retirementStandard": "struggling"
         }
       },
       {
-        "birthIncome": 12,
-        "retirementAge": 67,
+        "birthIncome": 10,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 8,
+        "retirementAge": 65,
         "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 100.74706456975609,
-          "employmentIncome": 0,
-          "pensionIncome": 85.74706456975609,
-          "benefitIncome": 15,
-          "wealth": 1463.2773373502437,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
+        "age70Snapshot": null
       },
       {
         "birthIncome": 5,
         "retirementAge": 61,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 182.22146414592004,
+          "totalIncome": 178.31733861580804,
           "employmentIncome": 0,
-          "pensionIncome": 167.22146414592004,
+          "pensionIncome": 178.31733861580804,
+          "benefitIncome": 0,
+          "wealth": 3377.2508040110088,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 29,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 125.78360944872475,
+          "employmentIncome": 0,
+          "pensionIncome": 111.78360944872475,
           "benefitIncome": 15,
-          "wealth": 3118.7580677939204,
+          "wealth": 1960.6170889100867,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 10,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": null
+        "retirementAge": 67,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 64.91657867636363,
+          "employmentIncome": 0,
+          "pensionIncome": 49.91657867636363,
+          "benefitIncome": 15,
+          "wealth": 706.3537728581817,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
       },
       {
-        "birthIncome": 14.399999999999999,
-        "retirementAge": 66,
-        "retirementStandard": "comfortable",
+        "birthIncome": 25.2,
+        "retirementAge": 68,
+        "retirementStandard": "adequate",
         "age70Snapshot": {
-          "totalIncome": 45.77280247188837,
+          "totalIncome": 84.29763200000001,
           "employmentIncome": 0,
-          "pensionIncome": 45.77280247188837,
-          "benefitIncome": 0,
-          "wealth": 665.8835619435162,
+          "pensionIncome": 70.29763200000001,
+          "benefitIncome": 15,
+          "wealth": 1145.113432,
           "isRetired": true,
-          "retirementStandard": "comfortable"
+          "retirementStandard": "adequate"
         }
       },
       {
@@ -2335,139 +2203,275 @@
         "retirementAge": 60,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 103.88890572273371,
+          "totalIncome": 133.54692506828798,
           "employmentIncome": 0,
-          "pensionIncome": 88.88890572273371,
+          "pensionIncome": 118.54692506828798,
           "benefitIncome": 15,
-          "wealth": 1372.5401202196479,
+          "wealth": 2018.9700517754877,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 20.4,
-        "retirementAge": 68,
-        "retirementStandard": "comfortable",
-        "age70Snapshot": {
-          "totalIncome": 107.544896,
-          "employmentIncome": 0,
-          "pensionIncome": 92.544896,
-          "benefitIncome": 15,
-          "wealth": 1555.3211421538463,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 18,
-        "retirementAge": null,
-        "retirementStandard": null,
-        "age70Snapshot": {
-          "totalIncome": 10.05,
-          "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 469.05,
-          "isRetired": false,
-          "retirementStandard": null
-        }
-      },
-      {
-        "birthIncome": 12,
-        "retirementAge": 63,
+        "birthIncome": 21,
+        "retirementAge": 62,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 80.27734573816686,
+          "totalIncome": 241.31762902285476,
           "employmentIncome": 0,
-          "pensionIncome": 80.27734573816686,
-          "benefitIncome": 0,
-          "wealth": 1337.425274906624,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 10,
-        "retirementAge": 64,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 115.29874880423435,
-          "employmentIncome": 0,
-          "pensionIncome": 100.29874880423435,
+          "pensionIncome": 226.31762902285476,
           "benefitIncome": 15,
-          "wealth": 1617.389090531715,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 11,
-        "retirementAge": 64,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 89.21259351303314,
-          "employmentIncome": 0,
-          "pensionIncome": 75.21259351303314,
-          "benefitIncome": 15,
-          "wealth": 1267.813145624576,
+          "wealth": 4284.153091436328,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 5,
-        "retirementAge": 64,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 85.24709637851427,
+          "employmentIncome": 0,
+          "pensionIncome": 70.24709637851427,
+          "benefitIncome": 15,
+          "wealth": 969.638791555657,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 26.4,
+        "retirementAge": 71,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 9,
+          "employmentIncome": 0,
+          "pensionIncome": 0,
+          "benefitIncome": 10,
+          "wealth": 890,
+          "isRetired": false,
+          "retirementStandard": null
+        }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 63,
         "retirementStandard": "poverty",
         "age70Snapshot": {
-          "totalIncome": 193.36216267010693,
+          "totalIncome": 266.16286996738694,
           "employmentIncome": 0,
-          "pensionIncome": 179.36216267010693,
-          "benefitIncome": 15,
-          "wealth": 3379.4951767912016,
+          "pensionIncome": 266.16286996738694,
+          "benefitIncome": 0,
+          "wealth": 5041.813566520481,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 69,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 27.71901714285714,
+          "employmentIncome": 0,
+          "pensionIncome": 13.71901714285714,
+          "benefitIncome": 15,
+          "wealth": 69.33730285714284,
+          "isRetired": true,
+          "retirementStandard": "poverty"
+        }
+      },
+      {
+        "birthIncome": 5,
+        "retirementAge": 63,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 95.84502549435733,
+          "employmentIncome": 0,
+          "pensionIncome": 80.84502549435733,
+          "benefitIncome": 15,
+          "wealth": 1322.3039961866239,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 5,
+        "retirementAge": 65,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 113.13479466487698,
+          "employmentIncome": 0,
+          "pensionIncome": 113.13479466487698,
+          "benefitIncome": 0,
+          "wealth": 1993.5316883138287,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 28.799999999999997,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 101.73572187535609,
+          "employmentIncome": 0,
+          "pensionIncome": 87.73572187535609,
+          "benefitIncome": 15,
+          "wealth": 1491.872671198283,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 60,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 114.01611786922666,
+          "employmentIncome": 0,
+          "pensionIncome": 99.01611786922666,
+          "benefitIncome": 15,
+          "wealth": 1736.5857312665598,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 20.4,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 229.2796843025554,
+          "employmentIncome": 0,
+          "pensionIncome": 214.2796843025554,
+          "benefitIncome": 15,
+          "wealth": 4054.628934723584,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
+        }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
       },
       {
         "birthIncome": 10,
         "retirementAge": 65,
         "retirementStandard": "comfortable",
         "age70Snapshot": {
-          "totalIncome": 204.51020393267203,
+          "totalIncome": 186.3289909958333,
           "employmentIncome": 0,
-          "pensionIncome": 189.51020393267203,
+          "pensionIncome": 171.3289909958333,
           "benefitIncome": 15,
-          "wealth": 3496.419148403319,
+          "wealth": 3204.65902904956,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
-        "birthIncome": 8,
-        "retirementAge": 60,
-        "retirementStandard": "poverty",
+        "birthIncome": 23.4,
+        "retirementAge": 67,
+        "retirementStandard": "adequate",
         "age70Snapshot": {
-          "totalIncome": 103.25273574195201,
+          "totalIncome": 73.99080192,
           "employmentIncome": 0,
-          "pensionIncome": 88.25273574195201,
+          "pensionIncome": 58.99080192,
           "benefitIncome": 15,
-          "wealth": 1467.5711292907522,
+          "wealth": 952.1454653046154,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 24.599999999999998,
+        "retirementAge": 66,
+        "retirementStandard": "struggling",
+        "age70Snapshot": {
+          "totalIncome": 56.0307601408,
+          "employmentIncome": 0,
+          "pensionIncome": 42.0307601408,
+          "benefitIncome": 15,
+          "wealth": 547.3382251992616,
+          "isRetired": true,
+          "retirementStandard": "struggling"
+        }
+      },
+      {
+        "birthIncome": 10,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 8.4,
+        "retirementAge": 66,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 84.915909632,
+          "employmentIncome": 0,
+          "pensionIncome": 69.915909632,
+          "benefitIncome": 15,
+          "wealth": 1181.813650432,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 15,
+        "retirementAge": 67,
+        "retirementStandard": "adequate",
+        "age70Snapshot": {
+          "totalIncome": 116.31424256000001,
+          "employmentIncome": 0,
+          "pensionIncome": 101.31424256000001,
+          "benefitIncome": 15,
+          "wealth": 1783.92030656,
           "isRetired": true,
           "retirementStandard": "comfortable"
         }
       },
       {
         "birthIncome": 10,
-        "retirementAge": 76,
-        "retirementStandard": "comfortable",
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 5,
+        "retirementAge": 67,
+        "retirementStandard": "adequate",
         "age70Snapshot": {
-          "totalIncome": 10,
+          "totalIncome": 71.13590428097561,
           "employmentIncome": 0,
-          "pensionIncome": 0,
-          "benefitIncome": 10,
-          "wealth": 2322,
-          "isRetired": false,
-          "retirementStandard": null
+          "pensionIncome": 71.13590428097561,
+          "benefitIncome": 0,
+          "wealth": 1084.1188771590244,
+          "isRetired": true,
+          "retirementStandard": "adequate"
+        }
+      },
+      {
+        "birthIncome": 25,
+        "retirementAge": null,
+        "retirementStandard": null,
+        "age70Snapshot": null
+      },
+      {
+        "birthIncome": 5,
+        "retirementAge": 61,
+        "retirementStandard": "poverty",
+        "age70Snapshot": {
+          "totalIncome": 225.634805645312,
+          "employmentIncome": 0,
+          "pensionIncome": 210.634805645312,
+          "benefitIncome": 15,
+          "wealth": 3979.504946778112,
+          "isRetired": true,
+          "retirementStandard": "comfortable"
         }
       },
       {
@@ -2475,53 +2479,25 @@
         "retirementAge": null,
         "retirementStandard": null,
         "age70Snapshot": null
-      },
-      {
-        "birthIncome": 26,
-        "retirementAge": 63,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 156.5510532096,
-          "employmentIncome": 0,
-          "pensionIncome": 142.5510532096,
-          "benefitIncome": 15,
-          "wealth": 2603.096614218831,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
-      },
-      {
-        "birthIncome": 5,
-        "retirementAge": 62,
-        "retirementStandard": "poverty",
-        "age70Snapshot": {
-          "totalIncome": 92.19118912170667,
-          "employmentIncome": 0,
-          "pensionIncome": 77.19118912170667,
-          "benefitIncome": 15,
-          "wealth": 1301.6375838310403,
-          "isRetired": true,
-          "retirementStandard": "comfortable"
-        }
       }
     ],
-    "avgRetirementAge": 64.31395348837209,
+    "avgRetirementAge": 64.22222222222223,
     "retiredEarly": 34,
-    "retiredStandard": 41,
-    "retiredLate": 11,
-    "neverRetired": 14,
-    "comfortable": 35,
-    "adequate": 2,
-    "struggling": 0,
-    "poverty": 49,
+    "retiredStandard": 35,
+    "retiredLate": 12,
+    "neverRetired": 19,
+    "comfortable": 36,
+    "adequate": 30,
+    "struggling": 7,
+    "poverty": 1,
     "age70": {
-      "avgTotalIncome": 106.84657059897506,
+      "avgTotalIncome": 123.29743448893296,
       "avgEmploymentIncome": 0,
-      "avgPensionIncome": 94.92930869421323,
-      "avgBenefitIncome": 12.202380952380953,
-      "avgWealth": 1851.6115188133112,
-      "count": 84
+      "avgPensionIncome": 110.62146046295895,
+      "avgBenefitIncome": 12.857142857142858,
+      "avgWealth": 1998.0667851303383,
+      "count": 77
     }
   },
-  "timestamp": "2025-10-20T18:13:53.145Z"
+  "timestamp": "2025-10-20T18:23:48.685Z"
 }

@@ -119,15 +119,11 @@ function simulateRetirement(targetIncome, sampleSize, label) {
       if (lifeData.retirementAge < 63) results.retiredEarly++;
       else if (lifeData.retirementAge <= 67) results.retiredStandard++;
       else results.retiredLate++;
-      
-      if (lifeData.retirementStandard === 'comfortable') results.comfortable++;
-      else if (lifeData.retirementStandard === 'adequate') results.adequate++;
-      else if (lifeData.retirementStandard === 'struggling') results.struggling++;
-      else if (lifeData.retirementStandard === 'poverty') results.poverty++;
     } else {
       results.neverRetired++;
     }
     
+    // Count living standards at age 70 (not at retirement time!)
     if (lifeData.age70Snapshot) {
       results.age70.avgTotalIncome += lifeData.age70Snapshot.totalIncome;
       results.age70.avgEmploymentIncome += lifeData.age70Snapshot.employmentIncome;
@@ -135,6 +131,13 @@ function simulateRetirement(targetIncome, sampleSize, label) {
       results.age70.avgBenefitIncome += lifeData.age70Snapshot.benefitIncome;
       results.age70.avgWealth += lifeData.age70Snapshot.wealth;
       results.age70.count++;
+      
+      // Use age 70 standard, not retirement-time standard
+      const standard = lifeData.age70Snapshot.retirementStandard;
+      if (standard === 'comfortable') results.comfortable++;
+      else if (standard === 'adequate') results.adequate++;
+      else if (standard === 'struggling') results.struggling++;
+      else if (standard === 'poverty') results.poverty++;
     }
     
     results.lives.push(lifeData);

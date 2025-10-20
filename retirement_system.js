@@ -88,37 +88,43 @@ const RETIREMENT_WEALTH_THRESHOLDS = {
   }
 };
 
-// Retirement living costs (annual expenses in retirement by region and standard)
+// Retirement living standards based on income thresholds
+// Calibrated from actual retirement income distributions (median Nordic ~140)
+// Standards based on relative position in income distribution:
+// - Comfortable: Top 50% (above median)
+// - Adequate: 60-80th percentile  
+// - Struggling: 40-60th percentile
+// - Poverty: Bottom 40%
 const RETIREMENT_LIVING_COSTS = {
   Nordic: {
-    comfortable: 40,  // Annual cost for comfortable retirement
-    adequate: 25,
-    struggling: 15,
-    poverty: 8
+    comfortable: 112,  // Median retirement income (~50% will achieve)
+    adequate: 67,      // 60% of median (can live decently)
+    struggling: 30,    // 27% of median (making ends meet, but not destitute)
+    poverty: 30        // Below 27% of median (severe hardship - very rare in Nordic)
   },
   Developed: {
-    comfortable: 35,
-    adequate: 22,
-    struggling: 13,
-    poverty: 7
+    comfortable: 100,
+    adequate: 60,
+    struggling: 40,
+    poverty: 40
   },
   Emerging: {
+    comfortable: 70,
+    adequate: 45,
+    struggling: 30,
+    poverty: 30
+  },
+  Developing: {
+    comfortable: 40,
+    adequate: 25,
+    struggling: 15,
+    poverty: 15
+  },
+  Fragile: {
     comfortable: 25,
     adequate: 15,
     struggling: 8,
-    poverty: 4
-  },
-  Developing: {
-    comfortable: 15,
-    adequate: 10,
-    struggling: 5,
-    poverty: 2
-  },
-  Fragile: {
-    comfortable: 10,
-    adequate: 6,
-    struggling: 3,
-    poverty: 1
+    poverty: 8
   }
 };
 

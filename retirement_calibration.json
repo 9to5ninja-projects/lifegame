@@ -1,0 +1,35 @@
+{
+  "currentThresholds": {
+    "comfortable": 112,
+    "adequate": 67,
+    "struggling": 30,
+    "poverty": 30
+  },
+  "proposedThresholds": {
+    "poverty": 46.35618775683085,
+    "struggling": 69.53428163524627,
+    "adequate": 92.7123755136617,
+    "comfortable": 115.89046939207712
+  },
+  "currentDistribution": {
+    "comfortable": 77,
+    "adequate": 47,
+    "struggling": 25,
+    "poverty": 1
+  },
+  "adjustedDistribution": {
+    "comfortable": 75,
+    "adequate": 22,
+    "struggling": 26,
+    "poverty": 27
+  },
+  "incomeStats": {
+    "mean": 130.1826013803445,
+    "median": 115.89046939207712,
+    "p25": 82.00018847743999,
+    "p75": 179.3373641353366,
+    "min": 28.133274947368413,
+    "max": 342.69139491735103
+  },
+  "timestamp": "2025-10-20T18:24:51.193Z"
+}
