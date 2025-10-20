@@ -9,6 +9,7 @@ const { getEducationStage, shouldAttendEducation, getEducationCost, getStressFro
 const { getCancerIncidence, getStageProgression, getCancerPenalties, shouldDieFromCancer, checkRemission } = require('./cancer_system.js');
 const { getAccidentIncidence, getAccidentDisability, shouldDieFromAccident } = require('./accidents_system.js');
 const { getSubstanceInitiation, getStageProgression: getSubstanceStageProgression, getSubstancePenalties, checkOverdose, checkTreatmentSuccess } = require('./substance_abuse_system.js');
+const { processRetirement } = require('./retirement_system.js');
 const DeathTracer = require('./death_trace_system.js');
 const { TemporalEffectsSystem } = require('./temporal_effects_system.js');
 const RelationshipsSystem = require('./relationships_system.js');
@@ -774,6 +775,10 @@ class MortalityGameV2 {
 
     // 1c. Update employment status based on age/gender/region and random turnover
     this.updateEmploymentStatus(player);
+    
+    // 1c2. Process retirement (NEW: retirement decisions, pension income, living standards)
+    const region = this.mapRegionForStatistics(player.demographics.birthRegion);
+    processRetirement(player, region);
 
     // 1d. Update education status (compulsory until 16, optional after)
     this.updateEducationStatus(player);
