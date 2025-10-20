@@ -7,6 +7,8 @@ const { shouldBeEmployed, getUnemploymentPenalty } = require('./employment_by_re
 const { calculateHouseholdCost, calculateHouseholdIncome, calculateHouseholdCashFlow, getPovertyStatus } = require('./cost_of_living.js');
 const { getEducationStage, shouldAttendEducation, getEducationCost, getStressFromIncome } = require('./education_system.js');
 const { getCancerIncidence, getStageProgression, getCancerPenalties, shouldDieFromCancer, checkRemission } = require('./cancer_system.js');
+const { getAccidentIncidence, getAccidentDisability, shouldDieFromAccident } = require('./accidents_system.js');
+const { getSubstanceInitiation, getStageProgression: getSubstanceStageProgression, getSubstancePenalties, checkOverdose, checkTreatmentSuccess } = require('./substance_abuse_system.js');
 
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards) {
@@ -710,9 +712,13 @@ class MortalityGameV2 {
     // 2. Drift all homeostatic systems
     this.driftHealth(player);
     this.driftCancer(player);
+    // TODO: Fix accidents system - currently 100x too lethal
+    // this.driftAccidents(player);
     this.driftEconomics(player);
     this.driftMentalHealthCrisis(player);
     this.driftAddiction(player);
+    // TODO: Fix substance abuse system - overdose rate too high
+    // this.driftSubstanceAbuse(player);
     const crimeResult = this.driftCrimeRisk(player);
     if (crimeResult && crimeResult.cause === "incarceration") {
       // Crime result will be processed in death check if needed
@@ -1011,6 +1017,134 @@ class MortalityGameV2 {
     };
   }
 
+  // ============================================================================
+  // ACCIDENTS DRIFT - Annual accident incidence and disability outcomes
+  // ============================================================================
+
+  driftAccidents(player) {
+    const p = player;
+
+    // Initialize accidents tracking if needed
+    if (!p.health.accidents) {
+      p.health.accidents = {
+        history: [],
+        currentDisabilities: [],
+        totalAccidents: 0
+      };
+    }
+
+    const accidents = p.health.accidents;
+
+    // Check for accident occurrence (age dependent, lower for very young/old)
+    const accidentChance = getAccidentIncidence(
+      p.demographics.age,
+      p.demographics.sex,
+      p.demographics.birthRegion
+    );
+
+    if (accidentChance.hasAccident && Math.random() < accidentChance.probability) {
+      // ACCIDENT OCCURS
+      const type = accidentChance.type;
+      accidents.totalAccidents += 1;
+
+      // Check if accident is fatal
+      if (shouldDieFromAccident(
+        type,
+        p.demographics.age,
+        p.demographics.sex,
+        p.demographics.birthRegion
+      )) {
+        p.alive = false;
+        p.causeOfDeath = `Accident (${type})`;
+        accidents.history.push({
+          type: type,
+          age: p.demographics.age,
+          fatal: true,
+          year: p.demographics.age
+        });
+        return;
+      }
+
+      // Non-fatal accident: check for disability
+      const disability = getAccidentDisability(
+        type,
+        p.demographics.age,
+        p.demographics.sex,
+        p.demographics.birthRegion
+      );
+
+      if (disability.hasDisability) {
+        // Add new disability
+        const newDisability = {
+          type: disability.disabilityType,
+          severity: disability.severity, // "minor", "moderate", "severe"
+          yearAcquired: p.demographics.age,
+          mobilityImpaired: disability.mobilityImpaired,
+          recoveryRate: disability.recoveryRate // How much recovers per year
+        };
+
+        accidents.currentDisabilities.push(newDisability);
+        p.health.physical.disability = true;
+
+        // Physical health impact
+        const healthImpact = {
+          minor: -5,
+          moderate: -15,
+          severe: -30
+        };
+        p.health.physical.current = Math.max(10, p.health.physical.current + (healthImpact[disability.severity] || -10));
+
+        // Mental health impact from disability
+        p.health.mental.current = Math.max(10, p.health.mental.current + (healthImpact[disability.severity] * 0.5));
+
+        // If mobility impaired, increase isolation risk
+        if (disability.mobilityImpaired) {
+          p.relationships.social.isolation = true;
+        }
+      }
+
+      // Track accident in history
+      accidents.history.push({
+        type: type,
+        age: p.demographics.age,
+        fatal: false,
+        disability: disability.hasDisability,
+        disabilityType: disability.disabilityType || null,
+        severity: disability.severity || null
+      });
+    }
+
+    // Process disability recovery/improvement over time
+    if (accidents.currentDisabilities && accidents.currentDisabilities.length > 0) {
+      for (let i = accidents.currentDisabilities.length - 1; i >= 0; i--) {
+        const disability = accidents.currentDisabilities[i];
+
+        // Some disabilities improve slightly each year
+        if (disability.recoveryRate && disability.recoveryRate > 0) {
+          if (Math.random() < disability.recoveryRate) {
+            // Partial recovery
+            if (disability.severity === "severe") {
+              disability.severity = "moderate";
+            } else if (disability.severity === "moderate") {
+              disability.severity = "minor";
+            } else if (disability.severity === "minor") {
+              // Remove minor disability
+              accidents.currentDisabilities.splice(i, 1);
+              // Physical recovery
+              p.health.physical.current = Math.min(100, p.health.physical.current + 3);
+            }
+          }
+        }
+      }
+
+      // If no disabilities left, update physical disability status
+      if (accidents.currentDisabilities.length === 0) {
+        p.health.physical.disability = false;
+        p.relationships.social.isolation = false;
+      }
+    }
+  }
+
   driftEconomics(player) {
     const p = player;
 
@@ -1228,96 +1362,166 @@ class MortalityGameV2 {
     const p = player;
     
     // Get global baseline suicide risk for this age/gender (WHO data)
-    // Then apply regional multiplier
-    // This is "double-fold probability": global baseline * regional factor
-    
     const region = this.mapRegionForStatistics(p.demographics.birthRegion);
     const baseline = getAdjustedProbability("suicide", p.demographics.age, p.demographics.sex, region);
     
-    let suicideRisk = baseline; // Start with global baseline * regional multiplier
+    let suicideRisk = baseline;
 
-    // Individual mental health crisis factors (modifiers on top of baseline)
-    // These represent acute mental health episodes, not chronic conditions
-    
+    // ===== MENTAL HEALTH CRISIS FACTORS =====
     // ACUTE CRISIS: Low mental health indicates current episode
     if (p.health.mental.current < 20) {
-      suicideRisk *= 1.8;  // Severe crisis, very moderate multiplier
+      suicideRisk *= 1.8;  // Severe crisis
     } else if (p.health.mental.current < 35) {
-      suicideRisk *= 1.2;  // Moderate crisis, slight multiplier
+      suicideRisk *= 1.2;  // Moderate crisis
     } else if (p.health.mental.current < 50) {
-      suicideRisk *= 1.05; // Mild crisis, very slight
+      suicideRisk *= 1.05; // Mild crisis
     }
 
     // Duration of low mental health (vulnerability accumulation)
     if (p.health.mental.episodeDuration >= 12 && p.health.mental.current < 40) {
-      suicideRisk *= 1.5;  // Chronic low mood increases risk
+      suicideRisk *= 1.5;  // Chronic low mood
     } else if (p.health.mental.episodeDuration >= 6 && p.health.mental.current < 40) {
       suicideRisk *= 1.2;
     }
 
-    // Social isolation (powerful psychological risk factor - loneliness kills)
-    if (p.relationships.social.isolation) {
-      suicideRisk *= 2.2;  // Isolation significantly increases risk
-    }
+    // ===== RELATIONSHIP & COMMUNITY STRENGTH =====
+    // Calculate total protective support from relationships
+    let communityStrength = this.calculateCommunityStrength(player);
     
-    // Loneliness without partner (distinct from formal "isolation" state)
-    if (!p.relationships.partner.exists && p.demographics.age >= 18) {
-      suicideRisk *= 1.3;  // Being unpartnered increases risk
-    }
+    // Community strength ranges 0-1 (0=isolated, 1=strong support network)
+    // Convert to suicide risk multiplier: 
+    // - Strong community (0.8+): 0.5x risk (50% protection)
+    // - Moderate (0.5-0.8): 0.7x risk (30% protection)
+    // - Weak (0.2-0.5): 1.0x risk (no change)
+    // - Isolated (<0.2): 1.3x risk (30% increased risk)
     
-    // Few or no friends (weak social support network)
-    if (p.relationships.social.friends === 0) {
-      suicideRisk *= 1.8;  // No social support is strong risk
-    } else if (p.relationships.social.friends === 1) {
-      suicideRisk *= 1.3;  // Minimal support
+    if (communityStrength >= 0.8) {
+      suicideRisk *= 0.5;
+    } else if (communityStrength >= 0.5) {
+      suicideRisk *= 0.7;
+    } else if (communityStrength < 0.2) {
+      suicideRisk *= 1.3;
     }
-    
-    // Protective factor: marriage/partnership
-    if (p.relationships.social.married) {
-      suicideRisk *= 0.5;  // Marriage provides 50% protection
-    }
+    // else 0.2-0.5: stays same (1.0x)
 
-    // Prior suicide attempts (sensitization - previous attempt is strongest predictor)
-    // Each prior attempt increases risk
+    // Prior suicide attempts (sensitization)
     if (p.health.mental.suicideHistory.length > 0) {
       const multiplier = 1.0 + (p.health.mental.suicideHistory.length * 0.8);
       suicideRisk *= multiplier;
     }
 
-    // Substance abuse co-occurrence (powerful risk multiplier)
+    // Substance abuse co-occurrence
     if (p.addiction.stage === "dependent") {
-      suicideRisk *= 2.5;  // Severe multiplier for addiction
+      suicideRisk *= 2.5;
     } else if (p.addiction.stage === "regular") {
       suicideRisk *= 1.5;
     }
 
     // Chronic mental illness (untreated)
     if (p.health.mental.chronic.includes("depression") && p.health.mental.treatmentStatus === "none") {
-      suicideRisk *= 1.6;  // 60% increased risk
+      suicideRisk *= 1.6;
     }
     if (p.health.mental.chronic.includes("anxiety") && p.health.mental.treatmentStatus === "none") {
       suicideRisk *= 1.3;
     }
     if (p.health.mental.chronic.includes("ptsd") && p.health.mental.treatmentStatus === "none") {
-      suicideRisk *= 2.0;  // PTSD strong risk factor
+      suicideRisk *= 2.0;
     }
 
-    // Treatment protective factors (evidence-based)
+    // Treatment protective factors
     if (p.health.mental.treatmentStatus === "medicated") {
-      suicideRisk *= 0.6;  // 40% risk reduction
+      suicideRisk *= 0.6;
     }
     if (p.health.mental.treatmentStatus === "therapy") {
-      suicideRisk *= 0.5;  // 50% risk reduction
+      suicideRisk *= 0.5;
     }
     if (p.health.mental.treatmentStatus === "hospitalized") {
-      suicideRisk *= 0.3;  // 70% risk reduction (emergency care)
+      suicideRisk *= 0.3;
     }
 
-    // Cap at realistic range (suicides never exceed certain bounds)
-    // Max would be extreme case: severe crisis + addiction + isolation + no treatment
-    // suicideRisk is stored as a PERCENTAGE (0-100 scale)
-    // Convert from decimal probability to percentage: 0.0002268 → 0.02268%
+    // Cap and convert to percentage
     p.health.mental.suicideRisk = Math.max(0.0001, Math.min(2.0, suicideRisk * 100));
+  }
+
+  // Calculate weighted community/relationship strength (0-1 scale)
+  // Family (most important) → Friends → Employment/Community
+  calculateCommunityStrength(player) {
+    const p = player;
+    let strength = 0;
+
+    // ===== FAMILY BONDS (weighted 50%) =====
+    let familyScore = 0;
+    
+    // Spouse/partner is strongest family bond
+    if (p.relationships.partner.exists && p.relationships.social.married) {
+      familyScore += 0.4; // Strong marital bond
+    } else if (p.relationships.partner.exists) {
+      familyScore += 0.25; // Partnership without marriage
+    }
+    
+    // Children (creates mutual care responsibility)
+    if (p.relationships.children.length > 0) {
+      familyScore += 0.3 * Math.min(1, p.relationships.children.length / 3); // Cap at 0.3 for 3+ kids
+    }
+    
+    // Parents/siblings still living (especially important for young people)
+    if (p.demographics.age < 25) {
+      if (p.relationships.parents.mother.alive || p.relationships.parents.father.alive) {
+        familyScore += 0.2;
+      }
+      if (p.relationships.siblings && p.relationships.siblings.length > 0) {
+        familyScore += 0.15;
+      }
+    }
+    
+    // Cap family score at 1.0
+    familyScore = Math.min(1.0, familyScore);
+    strength += familyScore * 0.5; // Family is 50% of total community strength
+
+    // ===== FRIENDS (weighted 30%) =====
+    let friendScore = 0;
+    
+    const friendCount = p.relationships.social.friends || 0;
+    if (friendCount >= 5) {
+      friendScore = 1.0; // Strong friend network
+    } else if (friendCount >= 3) {
+      friendScore = 0.7; // Moderate friend network
+    } else if (friendCount >= 1) {
+      friendScore = 0.3; // One or two friends
+    }
+    // else 0 friends = 0 score
+    
+    strength += friendScore * 0.3; // Friends are 30% of total
+
+    // ===== EMPLOYMENT / COMMUNITY (weighted 20%) =====
+    let communityScore = 0;
+    
+    // Employment creates social structure and community
+    if (p.economics.income.employed) {
+      communityScore += 0.5; // Regular social interaction through work
+    }
+    
+    // Reduce community score if unemployed (isolation increases)
+    if (!p.economics.income.employed && p.demographics.age >= 18) {
+      communityScore -= 0.2;
+    }
+    
+    // Community engagement (in events, groups, etc)
+    // This is represented by lack of isolation state
+    if (!p.relationships.social.isolation) {
+      communityScore += 0.3;
+    } else {
+      communityScore -= 0.2;
+    }
+    
+    // Clamp to 0-1
+    communityScore = Math.max(0, Math.min(1, communityScore));
+    strength += communityScore * 0.2; // Community is 20% of total
+
+    // Final strength score is 0-1
+    // 0 = completely isolated (0 family, 0 friends, unemployed, isolated)
+    // 1 = strong support (married + kids + friends + employed)
+    return Math.max(0, Math.min(1, strength));
   }
 
   attemptSuicide(player) {
@@ -1511,6 +1715,174 @@ class MortalityGameV2 {
       stimulants: 2.5
     };
     return costs[substance] || 2;
+  }
+
+  // ============================================================================
+  // SUBSTANCE ABUSE SYSTEM - Separate from addiction (comprehensive drug use model)
+  // ============================================================================
+
+  driftSubstanceAbuse(player) {
+    const p = player;
+
+    // Initialize substance abuse tracking if needed
+    if (!p.health.substanceAbuse) {
+      p.health.substanceAbuse = {
+        activeSubstances: [],
+        history: [],
+        totalOverdoses: 0
+      };
+    }
+
+    const substance = p.health.substanceAbuse;
+
+    // Check for new substance initiation (age 12-50, highest risk 18-30)
+    const initiationChance = getSubstanceInitiation(
+      p.demographics.age,
+      p.demographics.sex,
+      p.demographics.birthRegion
+    );
+
+    if (initiationChance.initiates) {
+      // Check if already using this substance
+      const alreadyUsing = substance.activeSubstances.some(s => s.name === initiationChance.substance);
+
+      if (!alreadyUsing && p.demographics.age >= 12 && p.demographics.age <= 50) {
+        // NEW SUBSTANCE INITIATION
+        const newSubstance = {
+          name: initiationChance.substance,
+          stage: "casual",
+          monthsActive: 0,
+          initiationAge: p.demographics.age,
+          yearsSinceInitiation: 0
+        };
+
+        substance.activeSubstances.push(newSubstance);
+
+        // Initial mental health consequence (experimental phase)
+        p.health.mental.current = Math.max(10, p.health.mental.current - 2);
+      }
+    }
+
+    // Process each active substance
+    if (substance.activeSubstances && substance.activeSubstances.length > 0) {
+      for (let i = substance.activeSubstances.length - 1; i >= 0; i--) {
+        const sub = substance.activeSubstances[i];
+        sub.monthsActive += 1;
+        sub.yearsSinceInitiation = sub.monthsActive / 12;
+
+        // Progression through stages (casual → regular → dependent)
+        const progression = getSubstanceStageProgression(
+          sub.name,
+          sub.stage,
+          sub.yearsSinceInitiation,
+          p.demographics.birthRegion
+        );
+
+        if (progression.progress) {
+          sub.stage = progression.nextStage;
+          sub.monthsActive = 0; // Reset progression counter
+
+          // Mental health impact from escalation
+          const mentalImpact = {
+            "casual": -1,
+            "regular": -5,
+            "dependent": -15
+          };
+          p.health.mental.current = Math.max(10, p.health.mental.current + (mentalImpact[sub.stage] || -5));
+        }
+
+        // Apply penalties from substance use at this stage
+        const penalties = getSubstancePenalties(
+          sub.name,
+          sub.stage,
+          p.demographics.birthRegion
+        );
+
+        // Physical health decline
+        p.health.physical.current = Math.max(10, p.health.physical.current + penalties.physical);
+
+        // Mental health decline
+        p.health.mental.current = Math.max(10, p.health.mental.current + penalties.mental);
+
+        // Employment impact (reduced income for regular/dependent stages)
+        if (sub.stage === "regular" || sub.stage === "dependent") {
+          const employmentPenalty = penalties.employment * -1;
+          p.economics.income.current = Math.max(0, p.economics.income.current + employmentPenalty);
+        }
+
+        // Overdose risk check (increases dramatically at dependent stage)
+        if (sub.stage === "dependent") {
+          const overdoseChance = checkOverdose(
+            sub.name,
+            sub.yearsSinceInitiation,
+            p.demographics.birthRegion
+          );
+
+          if (overdoseChance.overdoses && Math.random() < overdoseChance.probability) {
+            substance.totalOverdoses += 1;
+
+            // Check if overdose is fatal
+            if (overdoseChance.fatal) {
+              p.alive = false;
+              p.causeOfDeath = `Overdose (${sub.name})`;
+              substance.history.push({
+                substance: sub.name,
+                stage: sub.stage,
+                fatal: true,
+                ageAtDeath: p.demographics.age,
+                yearActive: sub.yearsSinceInitiation
+              });
+              return;
+            } else {
+              // Non-fatal overdose: medical intervention, hospitalization
+              p.health.physical.current = Math.max(10, p.health.physical.current - 25);
+              p.health.mental.current = Math.max(10, p.health.mental.current - 10);
+              p.health.mental.chronic.push("ptsd");
+              p.health.mental.treatmentStatus = "hospitalized";
+              p.economics.debt += 30; // Medical costs
+            }
+          }
+        }
+
+        // Treatment attempt (if dependent and conditions favorable)
+        if (sub.stage === "dependent") {
+          // Treatment success varies by region and substance
+          const treatmentSuccess = checkTreatmentSuccess(
+            sub.name,
+            p.demographics.birthRegion,
+            p.health.mental.treatmentStatus
+          );
+
+          if (treatmentSuccess.succeeds && Math.random() < treatmentSuccess.probability) {
+            // RECOVERY: Remove substance from active list
+            substance.history.push({
+              substance: sub.name,
+              stage: sub.stage,
+              recovered: true,
+              ageAtRecovery: p.demographics.age,
+              yearActive: sub.yearsSinceInitiation
+            });
+
+            substance.activeSubstances.splice(i, 1);
+
+            // Mental health boost from recovery
+            p.health.mental.current = Math.min(100, p.health.mental.current + 20);
+
+            // Continue to next substance in loop
+            continue;
+          }
+        }
+      }
+    }
+
+    // Overall substance abuse burden (more substances = more impact)
+    if (substance.activeSubstances.length > 1) {
+      // Polydrug use has additional mental health impact
+      p.health.mental.current = Math.max(10, p.health.mental.current - (substance.activeSubstances.length * 2));
+
+      // Polydrug use also increases isolation
+      p.relationships.social.isolation = true;
+    }
   }
 
   // ============================================================================
