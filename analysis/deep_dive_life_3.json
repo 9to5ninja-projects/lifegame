@@ -1,0 +1,58 @@
+{
+  "lifeNum": 3,
+  "region": "Urban South Asia",
+  "sex": "female",
+  "ageAtDeath": 69,
+  "cause": "Stroke",
+  "lifeExpectancy": 69,
+  "yearsVsExpected": 0,
+  "systemsActive": 6,
+  "totalSystems": 11,
+  "systems": {
+    "chronicDiseases": true,
+    "congenitalConditions": false,
+    "acuteCrises": true,
+    "cancer": false,
+    "accidents": false,
+    "mentalHealth": true,
+    "retirement": false,
+    "employment": false,
+    "housing": true,
+    "relationships": true,
+    "substanceAbuse": true
+  },
+  "events": [
+    {
+      "age": 0,
+      "event": "[RELATIONSHIPS] Tracked"
+    },
+    {
+      "age": 22,
+      "event": "[MENTAL CRISIS] Mental: 69.3 → 50.7"
+    },
+    {
+      "age": 24,
+      "event": "[MENTAL CRISIS] Mental: 48.1 → 29.6"
+    },
+    {
+      "age": 27,
+      "event": "[MENTAL CRISIS] Mental: 46.0 → 26.4"
+    },
+    {
+      "age": 29,
+      "event": "[SUBSTANCE] opioids - Stage: casual"
+    },
+    {
+      "age": 40,
+      "event": "[MENTAL CRISIS] Mental: 38.1 → 20.3"
+    },
+    {
+      "age": 44,
+      "event": "[MENTAL CRISIS] Mental: 35.5 → 18.7"
+    },
+    {
+      "age": 50,
+      "event": "[MENTAL CRISIS] Mental: 37.6 → 15.9"
+    }
+  ]
+}

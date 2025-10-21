@@ -3,20 +3,20 @@
  * Quick Test: Run a 100-year game and log any errors
  */
 
-const MortalityGameV2 = require('./game_engine_v2_homeostatic.js');
-const MortalityGameIntegrated = require('./game_engine_integrated.js');
+const MortalityGameV2 = require('../game_engine_v2_homeostatic.js');
+const MortalityGameIntegrated = require('../game_engine_integrated.js');
 
 // Load minimal data
-const BIRTH_CARDS = require('./birth_cards_json.json');
-const FAMILY_CARDS = require('./family_cards_json.json');
-const DEATH_CARDS = require('./death_cards_json.json');
+const BIRTH_CARDS = require('../data/birth_cards_json.json');
+const FAMILY_CARDS = require('../data/family_cards_json.json');
+const DEATH_CARDS = require('../data/death_cards_json.json');
 
 // Load v2 events
 let EVENT_CARDS = [];
 try {
-  const childhood = require('./event_cards_childhood_v2.json');
-  const teen = require('./event_cards_teen_v2.json');
-  const adult = require('./event_cards_adult_v2.json');
+  const childhood = require('../data/event_cards_childhood_v2.json');
+  const teen = require('../data/event_cards_teen_v2.json');
+  const adult = require('../data/event_cards_adult_v2.json');
   EVENT_CARDS = [...childhood, ...teen, ...adult];
   console.log(`✓ Loaded ${EVENT_CARDS.length} event cards`);
 } catch (err) {
@@ -85,3 +85,4 @@ try {
   console.error(err.stack);
   process.exit(1);
 }
+

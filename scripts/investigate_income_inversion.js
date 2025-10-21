@@ -13,12 +13,12 @@
 const MortalityGameV2 = require('../game_engine_v2_homeostatic.js');
 const fs = require('fs');
 
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
-const eventCardsChildhood = JSON.parse(fs.readFileSync('./event_cards_childhood.json', 'utf8'));
-const eventCardsTeen = JSON.parse(fs.readFileSync('./event_cards_teen.json', 'utf8'));
-const eventCardsAdult = JSON.parse(fs.readFileSync('./event_cards_adult.json', 'utf8'));
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const birthCards = JSON.parse(fs.readFileSync('../data/birth_cards_json.json', 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync('../data/family_cards_json.json', 'utf8'));
+const eventCardsChildhood = JSON.parse(fs.readFileSync('../data/event_cards_childhood.json', 'utf8'));
+const eventCardsTeen = JSON.parse(fs.readFileSync('../data/event_cards_teen.json', 'utf8'));
+const eventCardsAdult = JSON.parse(fs.readFileSync('../data/event_cards_adult.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync('../data/death_cards_json.json', 'utf8'));
 
 const allEventCards = [...eventCardsChildhood, ...eventCardsTeen, ...eventCardsAdult];
 
@@ -195,3 +195,4 @@ fs.writeFileSync('late_life_income_analysis.json', JSON.stringify({
 }, null, 2));
 
 console.log('📊 Full data exported to late_life_income_analysis.json\n');
+

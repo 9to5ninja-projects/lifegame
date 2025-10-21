@@ -2,10 +2,10 @@ const GameEngine = require('../game_engine_v2_homeostatic.js');
 const fs = require('fs');
 
 // Load cards
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
+const birthCards = JSON.parse(fs.readFileSync('../data/birth_cards_json.json', 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync('../data/family_cards_json.json', 'utf8'));
 const allEvents = [];
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync('../data/death_cards_json.json', 'utf8'));
 
 const engine = new GameEngine(birthCards, familyCards, allEvents, deathCards);
 
@@ -104,3 +104,4 @@ console.log(`Suicide count: ${suicideCount} out of 500 players`);
 console.log(`Suicide rate: ${suicideRate.toFixed(1)}/100K`);
 console.log(`Expected: 10-15/100K`);
 console.log(`Status: ${suicideRate > 50 ? 'STILL TOO HIGH' : suicideRate < 5 ? 'TOO LOW' : 'IN RANGE'}`);
+

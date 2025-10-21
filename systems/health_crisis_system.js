@@ -101,10 +101,10 @@ const CHRONIC_DISEASES = {
       Fragile: 0.1
     },
     ageGroups: {
-      "0-30": 0.01,
-      "30-50": 0.15,
-      "50-70": 0.60,
-      "70+": 0.24
+      "0-20": 0.01,
+      "20-40": 0.15,
+      "40-60": 0.60,
+      "60+": 0.24
     },
     riskFactors: {
       smoking: 2.5,
@@ -142,6 +142,12 @@ const CHRONIC_DISEASES = {
       Developing: 0.08,
       Fragile: 0.05
     },
+    ageGroups: {
+      "0-20": 0.20,
+      "20-40": 0.40,
+      "40-60": 0.30,
+      "60+": 0.10
+    },
     genderRatio: {
       female: 0.75, // 75% of autoimmune patients are female
       male: 0.25
@@ -172,6 +178,12 @@ const CHRONIC_DISEASES = {
       Emerging: 0.6,
       Developing: 0.3,
       Fragile: 0.1
+    },
+    ageGroups: {
+      "0-20": 0.05,
+      "20-40": 0.25,
+      "40-60": 0.50,
+      "60+": 0.20
     },
     causes: ["arthritis", "fibromyalgia", "neuropathy", "trauma"],
     penalties: {
@@ -853,6 +865,241 @@ function applyCaregiverBurden(caregiver, region, years = 1) {
 }
 
 // ============================================================================
+// ACUTE CRISIS CHECKS
+// ============================================================================
+
+/**
+ * Check if player experiences acute crisis (stroke, MI, kidney injury)
+ * @param {object} player - Player object
+ * @param {string} region - Mapped region code
+ * @returns {object} {hasCrisis, crisis, riskFactors, mortality} or {hasCrisis: false}
+ */
+function checkAcuteCrisis(player, region) {
+  const age = player.demographics.age;
+  const crises = ['stroke', 'heartAttack', 'acuteRenalFailure'];
+
+  // Only applicable for ages 30+
+  if (age < 30) return { hasCrisis: false };
+
+  for (const crisisName of crises) {
+    const crisis = ACUTE_CRISES[crisisName];
+    if (!crisis) continue;
+
+    // Get age group for this crisis
+    let ageGroup = '0-50';
+    if (crisisName === 'stroke') {
+      if (age < 50) ageGroup = '0-50';
+      else if (age < 65) ageGroup = '50-65';
+      else if (age < 80) ageGroup = '65-80';
+      else ageGroup = '80+';
+    } else if (crisisName === 'heartAttack') {
+      if (age < 40) ageGroup = '0-40';
+      else if (age < 60) ageGroup = '40-60';
+      else if (age < 80) ageGroup = '60-80';
+      else ageGroup = '80+';
+    }
+
+    // Base incidence for this region and age
+    // Note: incidence values represent per 100,000 population per year (e.g., 0.15 = 150 per 100k)
+    // Convert to decimal probability: divide by 100,000 to get decimal, multiply by ageGroup proportion
+    let baseRate = (crisis.incidence[region] || 0.02) / 100; // 150 per 100k → 0.15 per year → 0.0015 probability
+    let ageMultiplier = crisis.ageGroups && crisis.ageGroups[ageGroup] || 0.1;
+    let incidence = baseRate * ageMultiplier;
+
+    // Apply risk factors
+    if (crisis.riskFactors) {
+      // Check for hypertension
+      if (crisis.riskFactors.hypertension && player.health?.chronic?.hypertension) {
+        incidence *= crisis.riskFactors.hypertension;
+      }
+
+      // Check for diabetes
+      if (crisis.riskFactors.diabetes && player.health?.chronic?.active) {
+        const hasDiabetes = player.health.chronic.active.some(d => 
+          d.disease.includes('Diabetes') || d.disease === 'type1Diabetes' || d.disease === 'type2Diabetes'
+        );
+        if (hasDiabetes) incidence *= crisis.riskFactors.diabetes;
+      }
+
+      // Check for smoking
+      if (crisis.riskFactors.smoking && player.addiction?.substance === 'tobacco') {
+        incidence *= crisis.riskFactors.smoking;
+      }
+
+      // Check for previous condition
+      if (crisisName === 'stroke' && crisis.riskFactors.previousStroke && 
+          player.health?.crises?.previousStroke) {
+        incidence *= crisis.riskFactors.previousStroke;
+      }
+
+      if (crisisName === 'heartAttack' && crisis.riskFactors.previousHD && 
+          player.health?.chronic?.active?.some(d => d.disease === 'heartDisease')) {
+        incidence *= crisis.riskFactors.previousHD;
+      }
+    }
+
+    // Roll for crisis event
+    if (Math.random() < incidence) {
+      // Determine outcome based on region's treatment access or mortality
+      let mortality = 0;
+      let outcomeDistribution = {};
+      
+      if (crisis.mortality) {
+        // Stroke and MI have mortality
+        mortality = crisis.mortality[region] || 0.15;
+        outcomeDistribution = crisis.outcomes || {};
+      } else if (crisis.recovery) {
+        // Kidney injury uses recovery-based outcomes
+        outcomeDistribution = crisis.recovery;
+        // Estimate mortality based on treatment access
+        const access = crisis.treatmentAccess[region] || 0.5;
+        mortality = 1 - access; // Higher mortality with less access
+      }
+      
+      let outcome = 'full_recovery';
+      const rand = Math.random();
+      
+      // Check for death
+      if (rand < mortality) {
+        outcome = 'death';
+      } else {
+        // Distribute outcomes based on survival
+        const total = Object.values(outcomeDistribution).reduce((a, b) => a + b, 0);
+        if (total > 0) {
+          let cumulative = 0;
+          const rand2 = Math.random() * total;
+          
+          for (const [key, val] of Object.entries(outcomeDistribution)) {
+            cumulative += val;
+            if (rand2 < cumulative) {
+              outcome = key;
+              break;
+            }
+          }
+        }
+      }
+
+      return {
+        hasCrisis: true,
+        crisis: crisisName,
+        outcome,
+        mortality: mortality,
+        disabilityImpacts: crisis.disabilityImpacts,
+        causesCaregiver: crisis.causesCaregiver,
+        healthImpacts: crisis.healthImpacts
+      };
+    }
+  }
+
+  return { hasCrisis: false };
+}
+
+/**
+ * Apply acute crisis outcomes to player
+ * @param {object} player - Player object
+ * @param {object} crisisData - Result from checkAcuteCrisis
+ * @returns {boolean} true if died from crisis
+ */
+function applyAcuteCrisis(player, crisisData) {
+  if (!crisisData.crisisData || !crisisData.crisisData.hasCrisis) return false;
+
+  const crisis = crisisData.crisisData;
+  const crisisName = crisis.crisis;
+
+  // Track the crisis event
+  if (!player.health.crises) {
+    player.health.crises = {};
+  }
+
+  // Record crisis
+  if (!player.health.crises[crisisName]) {
+    player.health.crises[crisisName] = {
+      occurrences: 0,
+      outcomes: []
+    };
+  }
+
+  player.health.crises[crisisName].occurrences++;
+  player.health.crises[crisisName].outcomes.push({
+    outcome: crisis.outcome,
+    age: player.demographics.age,
+    year: new Date().getFullYear()
+  });
+
+  // Handle outcome
+  if (crisis.outcome === 'death') {
+    return true; // Signal death
+  }
+
+  // Apply disability impacts
+  if (crisis.disabilityImpacts) {
+    if (crisis.disabilityImpacts.physical) {
+      player.health.physical.current = Math.max(
+        5, 
+        player.health.physical.current + crisis.disabilityImpacts.physical
+      );
+    }
+
+    if (crisis.disabilityImpacts.employment) {
+      // Apply employment penalty
+      const empPenalty = crisis.disabilityImpacts.employment * 100; // Convert to percentage
+      if (player.employment?.status === 'employed') {
+        // 80% chance of job loss or downgrade
+        if (Math.random() < 0.8) {
+          player.employment.status = Math.random() < 0.5 ? 'unemployed' : 'part-time';
+        }
+      }
+    }
+
+    if (crisis.disabilityImpacts.lifespan) {
+      player.demographics.lifeExpectancy = Math.max(
+        30,
+        player.demographics.lifeExpectancy + crisis.disabilityImpacts.lifespan
+      );
+    }
+  }
+
+  if (crisis.healthImpacts) {
+    if (crisis.healthImpacts.physical) {
+      player.health.physical.current = Math.max(
+        5,
+        player.health.physical.current + crisis.healthImpacts.physical
+      );
+    }
+
+    if (crisis.healthImpacts.employment) {
+      const empPenalty = crisis.healthImpacts.employment * 100;
+      if (player.employment?.status === 'employed') {
+        if (Math.random() < 0.5) {
+          player.employment.status = 'part-time';
+        }
+      }
+    }
+
+    if (crisis.healthImpacts.lifespan) {
+      player.demographics.lifeExpectancy = Math.max(
+        30,
+        player.demographics.lifeExpectancy + crisis.healthImpacts.lifespan
+      );
+    }
+  }
+
+  // Mental health impact from crisis
+  player.health.mental.current = Math.max(
+    10,
+    player.health.mental.current - 25 // Severe trauma
+  );
+
+  // If crisis causes caregiver need, that's handled separately by applyDiagnosisToRelationships
+  if (crisis.causesCaregiver) {
+    // Flag for family to potentially become caregiver
+    player.health.needsCaregiver = true;
+  }
+
+  return false; // Did not die
+}
+
+// ============================================================================
 // EXPORTS
 // ============================================================================
 
@@ -863,6 +1110,8 @@ module.exports = {
   RELATIONSHIP_IMPACTS,
   checkChronicDiseaseOnset,
   checkCongenitalCondition,
+  checkAcuteCrisis,
+  applyAcuteCrisis,
   applyDiagnosisToRelationships,
   applyCaregiverBurden
 };

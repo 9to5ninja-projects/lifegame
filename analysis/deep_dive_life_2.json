@@ -1,0 +1,74 @@
+{
+  "lifeNum": 2,
+  "region": "Urban China",
+  "sex": "male",
+  "ageAtDeath": 88,
+  "cause": "Cancer",
+  "lifeExpectancy": 77,
+  "yearsVsExpected": 11,
+  "systemsActive": 6,
+  "totalSystems": 11,
+  "systems": {
+    "chronicDiseases": true,
+    "congenitalConditions": false,
+    "acuteCrises": true,
+    "cancer": false,
+    "accidents": false,
+    "mentalHealth": true,
+    "retirement": false,
+    "employment": false,
+    "housing": true,
+    "relationships": true,
+    "substanceAbuse": true
+  },
+  "events": [
+    {
+      "age": 0,
+      "event": "[RELATIONSHIPS] Tracked"
+    },
+    {
+      "age": 18,
+      "event": "[SUBSTANCE] alcohol - Stage: casual"
+    },
+    {
+      "age": 19,
+      "event": "[MENTAL CRISIS] Mental: 64.9 → 41.7"
+    },
+    {
+      "age": 22,
+      "event": "[MENTAL CRISIS] Mental: 40.8 → 25.5"
+    },
+    {
+      "age": 25,
+      "event": "[ACUTE CRISIS] Health drop: -6.0"
+    },
+    {
+      "age": 27,
+      "event": "[MENTAL CRISIS] Mental: 42.0 → 20.6"
+    },
+    {
+      "age": 35,
+      "event": "[MENTAL CRISIS] Mental: 44.2 → 26.9"
+    },
+    {
+      "age": 37,
+      "event": "[MENTAL CRISIS] Mental: 42.6 → 26.8"
+    },
+    {
+      "age": 38,
+      "event": "[ACUTE CRISIS] Health drop: -6.5"
+    },
+    {
+      "age": 39,
+      "event": "[ACUTE CRISIS] Health drop: -6.5"
+    },
+    {
+      "age": 40,
+      "event": "[ACUTE CRISIS] Health drop: -6.5"
+    },
+    {
+      "age": 41,
+      "event": "[ACUTE CRISIS] Health drop: -6.5"
+    }
+  ]
+}

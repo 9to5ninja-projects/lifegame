@@ -2,12 +2,12 @@ const GameEngine = require('../game_engine_v2_homeostatic.js');
 const fs = require('fs');
 
 // Load all card types
-const eventCardsAdult = JSON.parse(fs.readFileSync('./event_cards_adult_v2.json', 'utf8'));
-const eventCardsChildhood = JSON.parse(fs.readFileSync('./event_cards_childhood_v2.json', 'utf8'));
-const eventCardsTeens = JSON.parse(fs.readFileSync('./event_cards_teen_v2.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const eventCardsAdult = JSON.parse(fs.readFileSync('../data/event_cards_adult_v2.json', 'utf8'));
+const eventCardsChildhood = JSON.parse(fs.readFileSync('../data/event_cards_childhood_v2.json', 'utf8'));
+const eventCardsTeens = JSON.parse(fs.readFileSync('../data/event_cards_teen_v2.json', 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync('../data/family_cards_json.json', 'utf8'));
+const birthCards = JSON.parse(fs.readFileSync('../data/birth_cards_json.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync('../data/death_cards_json.json', 'utf8'));
 
 // Combine all events
 const allEvents = [...eventCardsAdult, ...eventCardsChildhood, ...eventCardsTeens];
@@ -158,3 +158,4 @@ console.log('Target Achievement:');
 console.log(`  Addiction: ${addictionRate}% vs 4% target = ${Math.abs(4 - parseFloat(addictionRate)) <= 0.5 ? '✓ PASS' : '✗ FAIL'}`);
 console.log(`  Suicide: ${suicideRate}/100K vs 10-15/100K target = ${parseFloat(suicideRate) > 5 ? '✓ IMPROVING' : '⏳ NEEDS WORK'}`);
 console.log(`  Crime: ${crimeRate}/100K vs 140/100K target = ${parseFloat(crimeRate) > 50 ? '✓ IMPROVING' : '⏳ NEEDS WORK'}`);
+

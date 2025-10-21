@@ -1,0 +1,106 @@
+[
+  {
+    "lifeNumber": 1,
+    "age": 67,
+    "deathCause": "Cancer",
+    "totalCrises": 0,
+    "crisisList": [],
+    "hadCrisis": false
+  },
+  {
+    "lifeNumber": 2,
+    "age": 141,
+    "deathCause": "Cancer (colon)",
+    "totalCrises": 1,
+    "crisisList": [
+      {
+        "age": 116,
+        "crisis": "stroke",
+        "outcome": "partial_recovery"
+      }
+    ],
+    "hadCrisis": true
+  },
+  {
+    "lifeNumber": 3,
+    "age": 73,
+    "deathCause": "Dementia/Alzheimer's",
+    "totalCrises": 0,
+    "crisisList": [],
+    "hadCrisis": false
+  },
+  {
+    "lifeNumber": 4,
+    "age": 62,
+    "deathCause": "Heart Disease",
+    "totalCrises": 0,
+    "crisisList": [],
+    "hadCrisis": false
+  },
+  {
+    "lifeNumber": 5,
+    "age": 86,
+    "deathCause": "Cancer",
+    "totalCrises": 0,
+    "crisisList": [],
+    "hadCrisis": false
+  },
+  {
+    "lifeNumber": 6,
+    "age": 91,
+    "deathCause": "Cancer",
+    "totalCrises": 1,
+    "crisisList": [
+      {
+        "age": 68,
+        "crisis": "heartAttack",
+        "outcome": "full_recovery"
+      }
+    ],
+    "hadCrisis": true
+  },
+  {
+    "lifeNumber": 7,
+    "age": 87,
+    "deathCause": "Heart Disease",
+    "totalCrises": 1,
+    "crisisList": [
+      {
+        "age": 72,
+        "crisis": "heartAttack",
+        "outcome": "full_recovery"
+      }
+    ],
+    "hadCrisis": true
+  },
+  {
+    "lifeNumber": 8,
+    "age": 75,
+    "deathCause": "Lack of Medical Care",
+    "totalCrises": 0,
+    "crisisList": [],
+    "hadCrisis": false
+  },
+  {
+    "lifeNumber": 9,
+    "age": 91,
+    "deathCause": "Heart Disease",
+    "totalCrises": 1,
+    "crisisList": [
+      {
+        "age": 68,
+        "crisis": "heartAttack",
+        "outcome": "full_recovery"
+      }
+    ],
+    "hadCrisis": true
+  },
+  {
+    "lifeNumber": 10,
+    "age": 61,
+    "deathCause": "Lack of Medical Care",
+    "totalCrises": 0,
+    "crisisList": [],
+    "hadCrisis": false
+  }
+]

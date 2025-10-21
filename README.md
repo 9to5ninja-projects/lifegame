@@ -9,6 +9,21 @@ A card game about being born. Based on real-world mortality statistics. Roll the
 
 ---
 
+## 📁 PROJECT ORGANIZATION
+
+This project is now organized into logical directories:
+
+- **`systems/`** - Core game systems (health, retirement, relationships, etc.)
+- **`data/`** - Game data files (JSON: birth cards, events, parameters)
+- **`tests/`** - Comprehensive test suite (30+ test files)
+- **`analysis/`** - Test outputs and analysis results
+- **`docs/`** - Detailed system documentation
+- **`game_engine_v2_homeostatic.js`** - Main game engine (3,970 lines)
+
+See [`DIRECTORY_STRUCTURE.md`](DIRECTORY_STRUCTURE.md) for complete directory guide.
+
+---
+
 ## ⚡ PLAY NOW
 
 **Zero setup:** Open `standalone_html_game.html` → click "DRAW YOUR BIRTH" → play

@@ -1,14 +1,14 @@
 // Comprehensive gameplay test - extended play to find edge cases
-const MortalityGameIntegrated = require('./game_engine_integrated.js');
+const MortalityGameIntegrated = require('../game_engine_integrated.js');
 const fs = require('fs');
 
 // Load cards
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
-const eventCardsChildhood = JSON.parse(fs.readFileSync('./event_cards_childhood_v2.json', 'utf8'));
-const eventCardsTeens = JSON.parse(fs.readFileSync('./event_cards_teen_v2.json', 'utf8'));
-const eventCardsAdult = JSON.parse(fs.readFileSync('./event_cards_adult_v2.json', 'utf8'));
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const birthCards = JSON.parse(fs.readFileSync('../data/birth_cards_json.json', 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync('../data/family_cards_json.json', 'utf8'));
+const eventCardsChildhood = JSON.parse(fs.readFileSync('../data/event_cards_childhood_v2.json', 'utf8'));
+const eventCardsTeens = JSON.parse(fs.readFileSync('../data/event_cards_teen_v2.json', 'utf8'));
+const eventCardsAdult = JSON.parse(fs.readFileSync('../data/event_cards_adult_v2.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync('../data/death_cards_json.json', 'utf8'));
 
 // Combine event cards
 const allEventCards = [
@@ -119,3 +119,5 @@ if (stats.errors.length > 0) {
 } else {
   console.log(`\n✅ NO ERRORS`);
 }
+
+

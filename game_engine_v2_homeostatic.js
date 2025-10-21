@@ -2,18 +2,29 @@
 // Replaces simple tag-based model with rich, interconnected state
 // Enables complex event chains, realistic progression, and emergent gameplay
 
-const { getGlobalBaseline, getAdjustedProbability, getSuicideMethodsForRegion } = require('./global_statistics_v2.js');
-const { shouldBeEmployed, getUnemploymentPenalty } = require('./employment_by_region.js');
-const { calculateHouseholdCost, calculateHouseholdIncome, calculateHouseholdCashFlow, getPovertyStatus } = require('./cost_of_living.js');
-const { getEducationStage, shouldAttendEducation, getEducationCost, getStressFromIncome } = require('./education_system.js');
-const { getCancerIncidence, getStageProgression, getCancerPenalties, shouldDieFromCancer, checkRemission } = require('./cancer_system.js');
-const { getAccidentIncidence, getAccidentDisability, shouldDieFromAccident } = require('./accidents_system.js');
-const { getSubstanceInitiation, getStageProgression: getSubstanceStageProgression, getSubstancePenalties, checkOverdose, checkTreatmentSuccess } = require('./substance_abuse_system.js');
-const { processRetirement } = require('./retirement_system.js');
-const DeathTracer = require('./death_trace_system.js');
-const { TemporalEffectsSystem } = require('./temporal_effects_system.js');
-const RelationshipsSystem = require('./relationships_system.js');
-const HousingSystem = require('./housing_system.js');
+const { getGlobalBaseline, getAdjustedProbability, getSuicideMethodsForRegion } = require('./systems/global_statistics_v2.js');
+const { shouldBeEmployed, getUnemploymentPenalty } = require('./systems/employment_by_region.js');
+const { calculateHouseholdCost, calculateHouseholdIncome, calculateHouseholdCashFlow, getPovertyStatus } = require('./systems/cost_of_living.js');
+const { getEducationStage, shouldAttendEducation, getEducationCost, getStressFromIncome } = require('./systems/education_system.js');
+const { getCancerIncidence, getStageProgression, getCancerPenalties, shouldDieFromCancer, checkRemission } = require('./systems/cancer_system.js');
+const { getAccidentIncidence, getAccidentDisability, shouldDieFromAccident } = require('./systems/accidents_system.js');
+const { getSubstanceInitiation, getStageProgression: getSubstanceStageProgression, getSubstancePenalties, checkOverdose, checkTreatmentSuccess } = require('./systems/substance_abuse_system.js');
+const { processRetirement } = require('./systems/retirement_system.js');
+const {
+  checkChronicDiseaseOnset,
+  checkCongenitalCondition,
+  checkAcuteCrisis,
+  applyAcuteCrisis,
+  applyDiagnosisToRelationships,
+  applyCaregiverBurden,
+  RELATIONSHIP_IMPACTS,
+  CHRONIC_DISEASES,
+  CONGENITAL_CONDITIONS
+} = require('./systems/health_crisis_system.js');
+const DeathTracer = require('./systems/death_trace_system.js');
+const { TemporalEffectsSystem } = require('./systems/temporal_effects_system.js');
+const RelationshipsSystem = require('./systems/relationships_system.js');
+const HousingSystem = require('./systems/housing_system.js');
 
 class MortalityGameV2 {
   constructor(birthCards, familyCards, eventCards, deathCards, tracer = null) {
@@ -164,7 +175,7 @@ class MortalityGameV2 {
           suicideHistory: [] // [{age, method, survived}]
         },
         reproductive: {
-          fertile: sex === "female" ? true : false,
+          fertile: true, // Both men and women start fertile
           pregnant: false,
           childrenBorn: 0,
           menarche: sex === "female" ? false : null,
@@ -184,6 +195,35 @@ class MortalityGameV2 {
           complications: [], // ["metastasis", "treatmentToxicity", "recurrence"]
           lastStageProgression: 0, // Last year stage progressed
           history: [] // [{type, stage, yearsSinceDiagnosis, outcome}]
+        },
+
+        // ========== CHRONIC DISEASES SYSTEM ==========
+        chronic: {
+          active: [],  // [{disease, onsetAge, severity, complications: []}]
+          diabetes: null,  // {type, stage, yearsSinceDiagnosis, medicated}
+          heartDisease: null,  // {stage, yearsSinceDiagnosis, complications}
+          autoimmune: null,  // {type, flareFrequency}
+          chronicPain: null,  // {severity, location, medications}
+          treatmentAccess: false,  // Can access treatment for chronic diseases
+          history: []  // [{disease, onsetAge, resolved}]
+        },
+
+        // ========== CONGENITAL CONDITIONS SYSTEM ==========
+        congenital: {
+          hasCondition: false,  // True if born with condition
+          condition: null,  // "cerebralPalsy", "downSyndrome", "autism", etc
+          severity: null,  // "mild", "moderate", "severe"
+          requiresCaregiver: false,  // Does condition require ongoing care
+          impacts: {
+            physical: 0,  // Reduction in physical capacity
+            employment: 0,  // Employment disadvantage multiplier
+            education: 0,  // Education barrier
+            mobility: null,  // null, "restricted", "severe"
+            intellectual: 0  // Intellectual disability impact
+          },
+          treatmentAccess: false,  // Can access treatment/accommodation
+          surgeryNeeded: false,  // For conditions like cleft palate
+          surgeryCompleted: false
         }
       },
 
@@ -284,6 +324,7 @@ class MortalityGameV2 {
           stages: [], // Track education stages: [{stage: "primary", completed: true, years: 6}]
           cost: 0, // Annual education cost
           stress: 0, // Stress from being in school
+          familyBudgetAtAge18: null, // Frozen at age 18: represents total family wealth available for tertiary education decisions
         },
         skills: [], // ["farming", "trade", "music", "medicine"]
         cognitive: {
@@ -339,6 +380,44 @@ class MortalityGameV2 {
 
     // Apply birth card base effects
     this.applyBirthCardEffects(birthCard);
+
+    // ========== CHECK FOR CONGENITAL CONDITIONS AT BIRTH ==========
+    const region = this.mapRegionForStatistics(birthCard.name);
+    const maternalAge = this.player.relationships.parents.mother.ageAtBirth || 30;
+    const congenitalCheck = checkCongenitalCondition(this.player, region, maternalAge);
+    
+    if (congenitalCheck.hasCondition) {
+      const condition = CONGENITAL_CONDITIONS[congenitalCheck.condition];
+      this.player.health.congenital.hasCondition = true;
+      this.player.health.congenital.condition = congenitalCheck.condition;
+      this.player.health.congenital.severity = condition.severity;
+      this.player.health.congenital.requiresCaregiver = condition.requiresCaregiver;
+      
+      // Apply impacts to player
+      if (condition.impacts) {
+        this.player.health.congenital.impacts = { ...condition.impacts };
+        
+        // Apply physical health impact if present
+        if (condition.impacts.physical) {
+          this.player.health.physical.current = Math.max(10, this.player.health.physical.current + condition.impacts.physical);
+          this.player.health.physical.baseline = Math.max(10, this.player.health.physical.baseline + condition.impacts.physical);
+        }
+        
+        // Apply lifespan reduction
+        if (condition.impacts.lifespan) {
+          this.player.demographics.lifeExpectancy = Math.max(30, this.player.demographics.lifeExpectancy + condition.impacts.lifespan);
+        }
+      }
+      
+      // Set treatment access based on region
+      const treatmentAccess = condition.treatmentAccess || {};
+      this.player.health.congenital.treatmentAccess = treatmentAccess[region] || 0;
+      
+      // Flag surgery needs for specific conditions
+      if (congenitalCheck.condition === 'cleftPalateLip') {
+        this.player.health.congenital.surgeryNeeded = true;
+      }
+    }
 
     // Initialize parent current ages (same as age at birth initially since player is age 0)
     this.player.relationships.parents.mother.currentAge = this.player.relationships.parents.mother.ageAtBirth;
@@ -774,11 +853,141 @@ class MortalityGameV2 {
     }
 
     // 1c. Update employment status based on age/gender/region and random turnover
+    // DEBUG DISABLED - uncomment to trace income changes
+    if (player.demographics.age >= 18 && player.demographics.age <= 25) {
+      console.log(`[${player.demographics.age}] Before updateEmploymentStatus: employed=${player.economics.income.employed}, income=${player.economics.income.current}`);
+    }
     this.updateEmploymentStatus(player);
+    if (player.demographics.age >= 18 && player.demographics.age <= 25) {
+      console.log(`[${player.demographics.age}] After updateEmploymentStatus: employed=${player.economics.income.employed}, income=${player.economics.income.current}`);
+    }
     
     // 1c2. Process retirement (NEW: retirement decisions, pension income, living standards)
     const region = this.mapRegionForStatistics(player.demographics.birthRegion);
+    // if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+    //   console.log(`[${player.demographics.age}] Before processRetirement: income=${player.economics.income.current}`);
+    // }
     processRetirement(player, region);
+    // if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+    //   console.log(`[${player.demographics.age}] After processRetirement: income=${player.economics.income.current}`);
+    // }
+
+    // 1c3. Check for chronic disease onset (age 15+)
+    if (player.demographics.age >= 15) {
+      const diseaseCheck = checkChronicDiseaseOnset(player, region);
+      
+      if (diseaseCheck.hasDiease) {
+        // NEW DIAGNOSIS
+        const disease = CHRONIC_DISEASES[diseaseCheck.disease];
+        
+        // Only diagnose if not already have this disease
+        const alreadyHas = player.health.chronic.active.some(d => d.disease === diseaseCheck.disease);
+        if (!alreadyHas) {
+          // Add to active diseases
+          player.health.chronic.active.push({
+            disease: diseaseCheck.disease,
+            onsetAge: player.demographics.age,
+            severity: diseaseCheck.severity || 'moderate',
+            yearsSinceDiagnosis: 0,
+            complications: []
+          });
+          
+          // Record in history
+          player.health.chronic.history.push({
+            disease: diseaseCheck.disease,
+            onsetAge: player.demographics.age,
+            resolved: false
+          });
+          
+          // Initial mental health hit from diagnosis
+          player.health.mental.current = Math.max(10, player.health.mental.current - 15);
+          
+          // Apply relationship impacts (family stress, caregiver decisions, etc)
+          applyDiagnosisToRelationships([player], player);
+        }
+      }
+    }
+
+    // 1c4. Check for acute crises (stroke, heart attack, kidney injury - age 30+)
+    if (player.demographics.age >= 30) {
+      const crisisCheck = checkAcuteCrisis(player, region);
+      
+      if (crisisCheck.hasCrisis) {
+        // ACUTE EVENT
+        const crisisName = crisisCheck.crisis;
+        const outcome = crisisCheck.outcome;
+        
+        // Record acute crisis
+        if (!player.health.crises) {
+          player.health.crises = {};
+        }
+        if (!player.health.crises[crisisName]) {
+          player.health.crises[crisisName] = {
+            count: 0,
+            lastOutcome: null
+          };
+        }
+        
+        player.health.crises[crisisName].count++;
+        player.health.crises[crisisName].lastOutcome = outcome;
+        player.health.crises[crisisName].lastAge = player.demographics.age;
+        
+        // Apply crisis impacts based on outcome
+        if (outcome === 'death') {
+          // Will be caught in death check below
+          player.alive = false;
+          player.causeOfDeath = crisisCheck.crisis === 'stroke' ? 'Stroke' : 
+                                crisisCheck.crisis === 'heartAttack' ? 'Heart Attack' : 'Kidney Failure';
+          return { alive: false, cause: player.causeOfDeath };
+        }
+        
+        // Non-fatal outcomes
+        if (crisisCheck.disabilityImpacts) {
+          if (crisisCheck.disabilityImpacts.physical) {
+            player.health.physical.current = Math.max(5, 
+              player.health.physical.current + crisisCheck.disabilityImpacts.physical);
+          }
+          if (crisisCheck.disabilityImpacts.lifespan) {
+            player.demographics.lifeExpectancy = Math.max(30,
+              player.demographics.lifeExpectancy + crisisCheck.disabilityImpacts.lifespan);
+          }
+        }
+        
+        if (crisisCheck.healthImpacts) {
+          if (crisisCheck.healthImpacts.physical) {
+            player.health.physical.current = Math.max(5,
+              player.health.physical.current + crisisCheck.healthImpacts.physical);
+          }
+          if (crisisCheck.healthImpacts.lifespan) {
+            player.demographics.lifeExpectancy = Math.max(30,
+              player.demographics.lifeExpectancy + crisisCheck.healthImpacts.lifespan);
+          }
+        }
+        
+        // Mental health trauma from crisis
+        player.health.mental.current = Math.max(10, 
+          player.health.mental.current - 25);
+        
+        // Disability means employment may change
+        if (outcome === 'permanent_disability' || outcome === 'chronic_heart_failure') {
+          if (player.employment?.status === 'employed') {
+            player.employment.status = 'unemployed';
+          }
+        } else if (outcome === 'partial_recovery') {
+          if (player.employment?.status === 'employed') {
+            // 60% chance of downgrade to part-time
+            if (Math.random() < 0.6) {
+              player.employment.status = 'part-time';
+            }
+          }
+        }
+        
+        // If crisis causes caregiver needs, family may step in
+        if (crisisCheck.causesCaregiver) {
+          applyDiagnosisToRelationships([player], player);
+        }
+      }
+    }
 
     // 1d. Update education status (compulsory until 16, optional after)
     this.updateEducationStatus(player);
@@ -813,16 +1022,39 @@ class MortalityGameV2 {
     this.housingSystem.processYearlyHousing(player);
 
     // 2. Drift all homeostatic systems
+    // DEBUG DISABLED - comment back in to trace income changes
+    // if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+    //   console.log(`[${player.demographics.age}] Before driftHealth: income=${player.economics.income.current}`);
+    // }
     this.driftHealth(player);
+    // if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+    //   console.log(`[${player.demographics.age}] After driftHealth: income=${player.economics.income.current}`);
+    // }
     this.driftCancer(player);
+    // if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+    //   console.log(`[${player.demographics.age}] After driftCancer: income=${player.economics.income.current}`);
+    // }
+    this.driftChronicDiseases(player);  // NEW: Apply chronic disease penalties
+    // if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+    //   console.log(`[${player.demographics.age}] After driftChronicDiseases: income=${player.economics.income.current}`);
+    // }
     // TODO: Fix accidents system - currently 100x too lethal
     // this.driftAccidents(player);
+    if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+      console.log(`[${player.demographics.age}] Before driftEconomics: income=${player.economics.income.current}`);
+    }
     this.driftEconomics(player);
+    if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+      console.log(`[${player.demographics.age}] After driftEconomics: income=${player.economics.income.current}`);
+    }
     this.driftMentalHealthCrisis(player);
     this.driftAddiction(player);
     // TODO: Fix substance abuse system - overdose rate too high
     // this.driftSubstanceAbuse(player);
     const crimeResult = this.driftCrimeRisk(player);
+    if (player.demographics.age >= 19 && player.demographics.age <= 26) {
+      console.log(`[${player.demographics.age}] After driftCrimeRisk: income=${player.economics.income.current}`);
+    }
     if (crimeResult && crimeResult.cause === "incarceration") {
       // Crime result will be processed in death check if needed
     }
@@ -1114,6 +1346,142 @@ class MortalityGameV2 {
     return mapping[birthRegion] || "developing";
   }
 
+  // ============================================================================
+  // CHRONIC DISEASES DRIFT - Annual penalties from chronic conditions
+  // ============================================================================
+
+  driftChronicDiseases(player) {
+    const p = player;
+    const chronic = p.health.chronic;
+
+    // Determine treatment access
+    const hasAccess = this.getRegionalModifiers()[p.demographics.birthRegion]?.treatmentAccess > 0.5 || false;
+    chronic.treatmentAccess = hasAccess;
+
+    // ===== APPLY PENALTIES FROM ACTIVE CHRONIC DISEASES =====
+    if (chronic.active && chronic.active.length > 0) {
+      chronic.active.forEach(activeDisease => {
+        const diseaseData = CHRONIC_DISEASES[activeDisease.disease];
+        if (!diseaseData) return;
+
+        activeDisease.yearsSinceDiagnosis++;
+
+        // Get treatment access modifier for this disease
+        const modifiers = diseaseData.treatmentAccessModifier || {};
+        const region = this.mapRegionForStatistics(p.demographics.birthRegion);
+        const modifier = modifiers[region] || 1.0;
+
+        // Apply annual penalties
+        const penalties = diseaseData.penalties || {};
+
+        // Physical health decline
+        const physicalPenalty = (penalties.physical || 0) * modifier;
+        p.health.physical.current = Math.max(5, p.health.physical.current + physicalPenalty);
+        p.health.physical.baseline = Math.max(10, p.health.physical.baseline + physicalPenalty * 0.2);
+
+        // Mental health decline (higher for conditions with psychological impact)
+        const mentalPenalty = (penalties.mental || 0) * modifier;
+        p.health.mental.current = Math.max(10, p.health.mental.current + mentalPenalty);
+
+        // Employment impact
+        if (penalties.employment) {
+          const employmentPenalty = penalties.employment * -1 * modifier;
+          p.economics.income.current = Math.max(0, p.economics.income.current + employmentPenalty);
+        }
+
+        // Fertility impact for reproductive-age population
+        if (penalties.fertility && p.demographics.age >= 15 && p.demographics.age <= 50) {
+          if (p.health.reproductive.fertile && Math.random() < Math.abs(penalties.fertility * modifier)) {
+            p.health.reproductive.fertile = false;
+          }
+        }
+
+        // Medical costs (deduct from resources, not income)
+        // FIXED: Medical expenses should reduce savings, not employment income
+        // This prevents the unrealistic scenario where medical costs reduce income to 0
+        const region_key = p.demographics.birthRegion;
+        const medicalCosts = RELATIONSHIP_IMPACTS.financialImpact.directMedicalCosts;
+        const regionCosts = medicalCosts[region] || medicalCosts.Developing;
+        const annualCost = (regionCosts[activeDisease.disease] || 1000) / 100; // Convert to per-capita income units
+        
+        // DEBUG DISABLED - see medical cost impacts ages 19-26
+        // if (p.demographics.age >= 19 && p.demographics.age <= 26) {
+        //   console.log(`[CHRONIC DISEASE AGE ${p.demographics.age}] ${activeDisease.disease}: resources before=${p.economics.resources.current.toFixed(1)}, medicalCost=${annualCost.toFixed(2)}`);
+        // }
+        
+        // Medical costs come OUT OF RESOURCES (savings/emergency funds), not employment income
+        p.economics.resources.current = Math.max(0, p.economics.resources.current - annualCost);
+        // If resources depleted, debt accumulates
+        if (p.economics.resources.current === 0 && annualCost > 0) {
+          const uncoveredCost = annualCost - (p.economics.resources.current + annualCost);
+          p.economics.debt += Math.max(0, uncoveredCost);
+        }
+        
+        // if (p.demographics.age >= 19 && p.demographics.age <= 26) {
+        //   console.log(`[CHRONIC DISEASE AGE ${p.demographics.age}] ${activeDisease.disease}: resources after=${p.economics.resources.current.toFixed(1)}, debt=${p.economics.debt.toFixed(1)}`);
+        // }
+
+        // Check for chronic pain suicide risk
+        if (activeDisease.disease === 'chronicPain' && p.demographics.age >= 15) {
+          // Higher suicide risk for chronic pain patients
+          p.health.mental.suicideRisk = Math.min(100, (p.health.mental.suicideRisk || 0) + 5);
+        }
+      });
+    }
+
+    // ===== CONGENITAL CONDITION MANAGEMENT =====
+    if (p.health.congenital.hasCondition) {
+      // Apply ongoing congenital penalties
+      if (p.health.congenital.impacts.physical) {
+        // Already applied at birth, but may worsen over time for some conditions
+        if (['cerebralPalsy', 'cysticFibrosis'].includes(p.health.congenital.condition)) {
+          // These conditions may progressively worsen
+          if (Math.random() < 0.1) { // 10% annual worsening chance
+            p.health.physical.current = Math.max(5, p.health.physical.current - 1);
+            p.health.physical.baseline = Math.max(10, p.health.physical.baseline - 0.5);
+          }
+        }
+      }
+
+      // Medical costs for congenital conditions
+      if (p.health.congenital.requiresCaregiver && p.demographics.age > 18) {
+        // Adult care needs are expensive
+        const caregiverSupport = Math.random() > 0.5; // 50% get family support, 50% must pay
+        if (!caregiverSupport) {
+          const carerCost = 20 / 100; // Significant annual expense
+          p.economics.income.current = Math.max(0, p.economics.income.current - carerCost);
+        }
+      }
+
+      // Surgical treatment tracking (cleft palate, etc)
+      if (p.health.congenital.surgeryNeeded && !p.health.congenital.surgeryCompleted) {
+        if (hasAccess && Math.random() < 0.7) { // 70% chance surgery happens if access available
+          p.health.congenital.surgeryCompleted = true;
+          p.health.congenital.surgeryNeeded = false;
+          // Surgery improves outcomes
+          p.health.physical.current = Math.min(100, p.health.physical.current + 5);
+        }
+      }
+    }
+  }
+
+  // Helper: Get region code from birth region name
+  getRegionCode(birthRegion) {
+    const mapping = {
+      "Nordic Country": "nordic",
+      "Western Europe": "developed",
+      "Japan/South Korea": "developed",
+      "North America - Middle Class": "developed",
+      "Eastern Europe": "emerging",
+      "Urban China": "emerging",
+      "Urban Latin America": "developing",
+      "Southeast Asia": "developing",
+      "Rural India": "developing",
+      "Sub-Saharan Africa": "fragile"
+    };
+    return mapping[birthRegion] || "developing";
+  }
+
   // Helper: Get regional modifiers
   getRegionalModifiers() {
     return {
@@ -1302,7 +1670,8 @@ class MortalityGameV2 {
       }
     }    let childrenCost = p.relationships.children.length * 5;
     let medicalCost = p.health.physical.chronic.length * 3;
-    let houseCost = p.circumstances.housing.quality / 10;
+    // Use housing system's actual costs if available, fall back to old system
+    let houseCost = (p.housing && p.housing.cost) ? p.housing.cost : (p.circumstances.housing.quality / 10);
 
     // ===== RESOURCE DRIFT BY LIFE STAGE =====
     let drift = 0;
@@ -2363,7 +2732,25 @@ class MortalityGameV2 {
     }
 
     // Friend loss (death, moving, breakup)
-    if (p.relationships.social.friends > 0 && Math.random() < 0.05) {
+    // Natural attrition is much higher for unemployed/isolated people
+    // Employed people in stable housing maintain more friendships
+    let attritionRate = 0.05; // Base 5% annual loss
+    
+    // Reduce attrition for employed stable people
+    if (p.economics.income.employed && !p.relationships.social.isolation) {
+      attritionRate = 0.02; // Employed: 2% loss only
+    } else if (p.economics.income.employed && p.housing.status !== 'homeless' && p.housing.status !== 'shelter') {
+      attritionRate = 0.03; // Employed with stable housing: 3% loss
+    } else if (!p.economics.income.employed && (p.housing.status === 'homeless' || p.housing.status === 'shelter')) {
+      attritionRate = 0.15; // Unemployed homeless: 15% loss - friends drift away
+    } else if (!p.economics.income.employed) {
+      attritionRate = 0.08; // Unemployed: 8% loss - harder to maintain
+    }
+    
+    if (p.relationships.social.friends > 0 && Math.random() < attritionRate) {
+      if (p.demographics.age >= 18 && p.demographics.age <= 25) {
+        console.log(`[DRIFT-ISOLATION AGE ${p.demographics.age}] Removing friend via natural attrition (rate=${attritionRate.toFixed(2)}). Friends: ${p.relationships.social.friends} -> ${p.relationships.social.friends - 1}`);
+      }
       p.relationships.social.friends = Math.max(0, p.relationships.social.friends - 1);
     }
 
@@ -2458,7 +2845,11 @@ class MortalityGameV2 {
     }
   }
 
-  // Update employment status based on age, gender, region, and random job turnover
+  // Update employment status based on age, gender, region, and job tenure
+  // Real data: Average job tenure is 4-8 years globally
+  // Young workers (15-24): 1-2 years
+  // Prime working age (25-54): 5-8 years
+  // Older workers (55+): 8-12 years
   updateEmploymentStatus(player) {
     const p = player;
     const age = p.demographics.age;
@@ -2466,30 +2857,127 @@ class MortalityGameV2 {
     const region = this.mapRegionForStatistics(p.demographics.birthRegion);
 
     // Get expected employment probability for this age/gender/region
-    const employmentProbability = shouldBeEmployed(age, gender, region);
+    const shouldBeEmployedNow = shouldBeEmployed(age, gender, region);
 
-    // 85% of people stay in their current employment status
-    // 15% have turnover (employed→unemployed or unemployed→employed)
-    const turnoverRate = 0.15;
-    const hasTurnover = Math.random() < turnoverRate;
-
-    if (hasTurnover) {
-      // Job transition: flip status with probability
-      p.economics.income.employed = employmentProbability;
-      if (employmentProbability) {
+    // Initialize job tenure tracking if needed
+    if (!p.economics.income.currentJobTenureYears) {
+      p.economics.income.currentJobTenureYears = 0;
+      p.economics.income.employed = shouldBeEmployedNow;
+      if (shouldBeEmployedNow) {
         p.economics.income.lastEmploymentChange = age;
-        p.economics.income.unemploymentMonths = 0;
-      } else {
-        p.economics.income.unemploymentMonths = 0; // Just became unemployed
       }
-    } else {
-      // No turnover: stick with structural employment rate
-      p.economics.income.employed = employmentProbability;
     }
 
-    // Track unemployment duration
-    if (!p.economics.income.employed) {
+    // Determine expected tenure based on age and region
+    // Nordic/Western Europe: longer tenure (7-10 years prime age)
+    // Other regions: shorter tenure (4-6 years)
+    let expectedTenure = 5; // Default
+    let tenureVariance = 2; // ± years
+    
+    if (region === 'Nordic' || region === 'Developed') {
+      if (age >= 25 && age <= 54) {
+        expectedTenure = 8; // Prime working age: 8 year average
+        tenureVariance = 3; // 5-11 years
+      } else if (age >= 55) {
+        expectedTenure = 10; // Older workers: 10 year average
+        tenureVariance = 2; // 8-12 years
+      } else {
+        expectedTenure = 2; // Young workers: 2 year average
+        tenureVariance = 1; // 1-3 years
+      }
+    } else {
+      if (age >= 25 && age <= 54) {
+        expectedTenure = 6; // Prime working age
+        tenureVariance = 2;
+      } else if (age >= 55) {
+        expectedTenure = 8;
+        tenureVariance = 2;
+      } else {
+        expectedTenure = 1.5; // Young workers shorter tenure
+        tenureVariance = 0.5;
+      }
+    }
+
+    // Initialize target tenure for current job if needed
+    if (!p.economics.income.targetJobTenure) {
+      const variation = (Math.random() - 0.5) * tenureVariance * 2;
+      p.economics.income.targetJobTenure = Math.max(1, expectedTenure + variation);
+    }
+
+    // Increment tenure for currently employed
+    if (p.economics.income.employed) {
+      p.economics.income.currentJobTenureYears++;
+    }
+
+    // Check if job change is due
+    const jobTenureExpired = p.economics.income.currentJobTenureYears >= p.economics.income.targetJobTenure;
+
+    // Job change events:
+    // 1. Tenure expired: 40% chance to change jobs (stay employed but new job)
+    // 2. Tenure expired: 20% chance to become unemployed (layoff/burnout)
+    // 3. Otherwise: 5% annual voluntary job change chance
+    // NOTE: Only ONE employment state change per year to avoid unrealistic rapid transitions
+    // NOTE: Students (inSchool=true) should NOT experience job tenure expiration - they have stable part-time work
+    let employmentStateChanged = false;
+
+    const isStudent = p.development && p.development.education && p.development.education.inSchool === true;
+
+    if (jobTenureExpired && p.economics.income.employed && !isStudent) {
+      // Tenure expired - job change decision
+      const changeDecision = Math.random();
+      if (changeDecision < 0.40) {
+        // New job (stay employed)
+        p.economics.income.currentJobTenureYears = 0;
+        const variation = (Math.random() - 0.5) * tenureVariance * 2;
+        p.economics.income.targetJobTenure = Math.max(1, expectedTenure + variation);
+        p.economics.income.lastEmploymentChange = age;
+        employmentStateChanged = true;
+      } else if (changeDecision < 0.60) {
+        // Unemployed (layoff, burnout)
+        p.economics.income.employed = false;
+        p.economics.income.currentJobTenureYears = 0;
+        p.economics.income.unemploymentMonths = 0;
+        employmentStateChanged = true;
+      }
+      // Otherwise: 40% stay in current job despite expired tenure (people don't always leave)
+    } else if (!jobTenureExpired && p.economics.income.employed && !isStudent) {
+      // Tenure not expired - rare voluntary job change (5% annual)
+      // SKIP for students - stable part-time work during education
+      if (Math.random() < 0.05) {
+        p.economics.income.currentJobTenureYears = 0;
+        const variation = (Math.random() - 0.5) * tenureVariance * 2;
+        p.economics.income.targetJobTenure = Math.max(1, expectedTenure + variation);
+        p.economics.income.lastEmploymentChange = age;
+        employmentStateChanged = true;
+      }
+    }
+
+    // Unemployment to employment transitions
+    // ONLY process if employment state didn't change above (no double transitions in one year)
+    if (!p.economics.income.employed && !employmentStateChanged) {
       p.economics.income.unemploymentMonths = (p.economics.income.unemploymentMonths || 0) + 12;
+      
+      // Job search: After 6 months unemployment, 60% annual chance to find job
+      // After 1 year: 70%, After 2 years: 80% (people desperate to work)
+      let jobFindingChance = 0.15; // First 6 months: low
+      if (p.economics.income.unemploymentMonths >= 6 && p.economics.income.unemploymentMonths < 12) {
+        jobFindingChance = 0.60;
+      } else if (p.economics.income.unemploymentMonths >= 12 && p.economics.income.unemploymentMonths < 24) {
+        jobFindingChance = 0.70;
+      } else if (p.economics.income.unemploymentMonths >= 24) {
+        jobFindingChance = 0.80;
+      }
+
+      // Also factor in structural employment probability
+      if (shouldBeEmployedNow && Math.random() < jobFindingChance) {
+        // Found a job!
+        p.economics.income.employed = true;
+        p.economics.income.currentJobTenureYears = 0;
+        p.economics.income.unemploymentMonths = 0;
+        p.economics.income.lastEmploymentChange = age;
+        const variation = (Math.random() - 0.5) * tenureVariance * 2;
+        p.economics.income.targetJobTenure = Math.max(1, expectedTenure + variation);
+      }
       
       // Unemployment benefits in high-resource regions (Nordic welfare state)
       const birthRegion = p.demographics.birthRegion || '';
@@ -2498,8 +2986,12 @@ class MortalityGameV2 {
       } else {
         p.economics.income.current = 0; // No safety net in low-resource regions
       }
-    } else {
-      p.economics.income.unemploymentMonths = 0;
+    } else if (p.economics.income.employed) {
+      // Only increment unemployment months if we were already unemployed and didn't find a job this year
+      if (!employmentStateChanged) {
+        p.economics.income.unemploymentMonths = 0;
+      }
+
       
       // CRITICAL FIX: Actually generate income when employed!
       // Income varies by education, age/experience, and region
@@ -2590,6 +3082,11 @@ class MortalityGameV2 {
         householdIncome += spouseIncome;
       }
       
+      // DEBUG DISABLED - uncomment to see income calculation
+      if (p.demographics.age >= 18 && p.demographics.age <= 25) {
+        console.log(`[INCOME AGE ${p.demographics.age}] employed=${p.economics.income.employed}, baseIncome=${baseIncome}, expMult=${experienceMultiplier.toFixed(2)}, regMult=${regionalMultiplier.toFixed(2)}, careerPerf=${p.economics.income.careerPerformance.toFixed(2)}, personal=${personalIncome.toFixed(2)}, household=${Math.round(householdIncome)}`);
+      }
+      
       p.economics.income.current = Math.round(householdIncome);
     }
   }
@@ -2610,11 +3107,23 @@ class MortalityGameV2 {
       return;
     }
 
+    // FREEZE FAMILY BUDGET AT AGE 18: Represents total family wealth available for post-secondary education
+    // This implements the insight that tertiary education access is determined by family resources
+    // at the independence milestone (age 18), not by current spending
+    if (age === 18 && p.development.education.familyBudgetAtAge18 === null) {
+      p.development.education.familyBudgetAtAge18 = Math.max(0, p.economics.resources.current + p.economics.resources.baseline);
+    }
+
     // Check if should attend (compulsory ages 6-15 in most regions)
+    // For tertiary (18+), use frozen family budget; for younger use current resources
+    const familyResourcesForDecision = age >= 18 && p.development.education.familyBudgetAtAge18 !== null
+      ? p.development.education.familyBudgetAtAge18
+      : p.economics.resources.current + p.economics.resources.baseline;
+
     const shouldAttend = shouldAttendEducation(
       age,
       region,
-      p.economics.resources.current + p.economics.resources.baseline, // Estimate family resources
+      familyResourcesForDecision,
       p.development.education.level
     );
 

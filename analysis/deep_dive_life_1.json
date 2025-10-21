@@ -1,0 +1,66 @@
+{
+  "lifeNum": 1,
+  "region": "Western Europe",
+  "sex": "male",
+  "ageAtDeath": 72,
+  "cause": "Cancer",
+  "lifeExpectancy": 82,
+  "yearsVsExpected": -10,
+  "systemsActive": 6,
+  "totalSystems": 11,
+  "systems": {
+    "chronicDiseases": true,
+    "congenitalConditions": false,
+    "acuteCrises": true,
+    "cancer": false,
+    "accidents": false,
+    "mentalHealth": true,
+    "retirement": false,
+    "employment": false,
+    "housing": true,
+    "relationships": true,
+    "substanceAbuse": true
+  },
+  "events": [
+    {
+      "age": 0,
+      "event": "[RELATIONSHIPS] Tracked"
+    },
+    {
+      "age": 6,
+      "event": "[MENTAL CRISIS] Mental: 78.2 → 49.1"
+    },
+    {
+      "age": 11,
+      "event": "[SUBSTANCE] stimulants - Stage: casual"
+    },
+    {
+      "age": 20,
+      "event": "[CHRONIC] Diagnosed: chronicPain"
+    },
+    {
+      "age": 26,
+      "event": "[MENTAL CRISIS] Mental: 42.1 → 26.7"
+    },
+    {
+      "age": 28,
+      "event": "[MENTAL CRISIS] Mental: 42.1 → 26.4"
+    },
+    {
+      "age": 30,
+      "event": "[MENTAL CRISIS] Mental: 42.4 → 25.2"
+    },
+    {
+      "age": 31,
+      "event": "[ACUTE CRISIS] Health drop: -7.1"
+    },
+    {
+      "age": 40,
+      "event": "[MENTAL CRISIS] Mental: 42.9 → 9.4"
+    },
+    {
+      "age": 68,
+      "event": "[MENTAL CRISIS] Mental: 39.0 → 18.8"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "region": "Western Europe",
+  "timestamp": "2025-10-20T21:10:58.556Z",
+  "numLives": 5,
+  "stats": {
+    "totalDeaths": 5,
+    "avgAge": 363,
+    "minAge": 11,
+    "maxAge": 118,
+    "marriageCount": 3,
+    "divorceCount": 0,
+    "totalChildren": 0,
+    "employmentRateAtAge30": 1,
+    "healthCrisesTotal": 6
+  },
+  "lives": [
+    {
+      "lifeNumber": 1,
+      "birthFamily": {
+        "structure": "Two Parents - Extreme Poverty",
+        "motherAlive": true,
+        "fatherAlive": true,
+        "siblings": 2
+      },
+      "deathAge": 11,
+      "deathCause": "Suicide",
+      "yearsVsExpectancy": "-71.0",
+      "marriages": 0,
+      "children": 0,
+      "employmentChanges": 0,
+      "events": 2
+    },
+    {
+      "lifeNumber": 2,
+      "birthFamily": {
+        "structure": "Single Mother - With Support",
+        "motherAlive": true,
+        "fatherAlive": true,
+        "siblings": 1
+      },
+      "deathAge": 73,
+      "deathCause": "Heart Disease",
+      "yearsVsExpectancy": "-9.0",
+      "marriages": 0,
+      "children": 0,
+      "employmentChanges": 8,
+      "events": 2
+    },
+    {
+      "lifeNumber": 3,
+      "birthFamily": {
+        "structure": "Single Teen Mother - Limited Support",
+        "motherAlive": true,
+        "fatherAlive": true,
+        "siblings": 1
+      },
+      "deathAge": 95,
+      "deathCause": "Heart Disease",
+      "yearsVsExpectancy": "13.0",
+      "marriages": 1,
+      "children": 0,
+      "employmentChanges": 6,
+      "events": 2
+    },
+    {
+      "lifeNumber": 4,
+      "birthFamily": {
+        "structure": "Single Mother - With Support",
+        "motherAlive": false,
+        "fatherAlive": true,
+        "siblings": 1
+      },
+      "deathAge": 118,
+      "deathCause": "Cancer (colon)",
+      "yearsVsExpectancy": "36.0",
+      "marriages": 1,
+      "children": 0,
+      "employmentChanges": 14,
+      "events": 2
+    },
+    {
+      "lifeNumber": 5,
+      "birthFamily": {
+        "structure": "Two Parents - Working Class",
+        "motherAlive": true,
+        "fatherAlive": true,
+        "siblings": 2
+      },
+      "deathAge": 66,
+      "deathCause": "Cancer",
+      "yearsVsExpectancy": "-16.0",
+      "marriages": 1,
+      "children": 0,
+      "employmentChanges": 11,
+      "events": 2
+    }
+  ]
+}

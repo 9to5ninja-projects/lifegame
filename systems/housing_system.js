@@ -35,7 +35,7 @@ class HousingSystem {
         description: 'Emergency/temporary shelter'
       },
       overcrowded: {
-        cost: 15,
+        cost: 5,
         physicalHealthMod: -8,
         mentalHealthMod: -5,
         socialIsolationRisk: 0.2,
@@ -43,7 +43,7 @@ class HousingSystem {
         description: 'Shared space, many occupants per room'
       },
       basic_rental: {
-        cost: 25,
+        cost: 10,
         physicalHealthMod: 0,
         mentalHealthMod: 0,
         socialIsolationRisk: 0.1,
@@ -51,7 +51,7 @@ class HousingSystem {
         description: 'Basic apartment/house rental'
       },
       quality_rental: {
-        cost: 40,
+        cost: 20,
         physicalHealthMod: 2,
         mentalHealthMod: 3,
         socialIsolationRisk: 0.05,
@@ -59,7 +59,7 @@ class HousingSystem {
         description: 'Quality rental with amenities'
       },
       owned_home: {
-        cost: 35,
+        cost: 15,
         physicalHealthMod: 5,
         mentalHealthMod: 8,
         socialIsolationRisk: 0.03,
@@ -67,7 +67,7 @@ class HousingSystem {
         description: 'Owned home with stability'
       },
       owned_quality: {
-        cost: 50,
+        cost: 25,
         physicalHealthMod: 8,
         mentalHealthMod: 12,
         socialIsolationRisk: 0.01,
@@ -147,7 +147,8 @@ class HousingSystem {
     }
     
     // Adults choose housing based on affordability
-    // Rule: housing should be <40% of income
+    // Rule: housing should be <40% of income, BUT low-income people need subsidy
+    // Real-world: welfare, housing subsidies, family support bridge the gap
     const affordableHousingCost = income * 0.4;
     
     let housingType = 'homeless';
@@ -162,13 +163,34 @@ class HousingSystem {
       housingType = 'basic_rental';
     } else if (affordableHousingCost >= 15) {
       housingType = 'overcrowded';
-    } else if (affordableHousingCost > 0 || resources > 10) {
+    } else if (income > 5) {
+      // Low income employed: overcrowded is unaffordable by strict math, but needed for survival
+      // In reality: family support, welfare, subsidies, roommates help bridge gap
+      // Cost 15 vs afford 6 = must use savings or debt (modeled as resources drain)
+      housingType = 'overcrowded';
+    } else if (resources > 20) {
+      // Very low income but has savings: can afford overcrowded for a while
+      housingType = 'overcrowded';
+    } else if (income > 0 || resources > 5) {
+      // Minimal income/resources: shelter (cost 0, but isolation penalty)
       housingType = 'shelter';
+    } else {
+      // No income, no resources: homeless
+      housingType = 'homeless';
     }
     
     // Update player housing
     player.housing.status = housingType;
     player.housing.cost = this.HOUSING_TYPES[housingType].cost;
+    
+    if (age >= 18 && age <= 25) {
+      console.log(`[HOUSING AGE ${age}] income=${income.toFixed(2)}, affordableBudget=${affordableHousingCost.toFixed(2)}, assigned=${housingType}, cost=${player.housing.cost}`);
+    }
+    
+    // DEBUG: Log housing assignment for ages 18-25
+    if (age >= 18 && age <= 25) {
+      console.log(`[HOUSING AGE ${age}] income=${income.toFixed(2)}, affordable=${affordableHousingCost.toFixed(2)}, resources=${resources.toFixed(2)} → ${housingType} (cost=${this.HOUSING_TYPES[housingType].cost})`);
+    }
   }
 
   /**
@@ -195,6 +217,9 @@ class HousingSystem {
     
     // Social isolation risk (bad housing = harder to socialize)
     if (housingType.socialIsolationRisk > 0.5 && Math.random() < housingType.socialIsolationRisk * 0.1) {
+      if (player.demographics.age >= 18 && player.demographics.age <= 25) {
+        console.log(`[HOUSING AGE ${player.demographics.age}] Removing friend via isolation risk. Housing status=${player.housing.status}, isolationRisk=${housingType.socialIsolationRisk}. Friends: ${player.relationships.social.friends} -> ${Math.max(0, player.relationships.social.friends - 1)}`);
+      }
       player.relationships.social.friends = Math.max(0, player.relationships.social.friends - 1);
     }
     

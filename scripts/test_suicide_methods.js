@@ -3,10 +3,10 @@ const fs = require('fs');
 const { getSuicideMethodsForRegion } = require('../global_statistics.js');
 
 // Load cards
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
+const birthCards = JSON.parse(fs.readFileSync('../data/birth_cards_json.json', 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync('../data/family_cards_json.json', 'utf8'));
 const allEvents = [];
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync('../data/death_cards_json.json', 'utf8'));
 
 const engine = new GameEngine(birthCards, familyCards, allEvents, deathCards);
 
@@ -78,3 +78,4 @@ console.log('Developed: 8%');
 console.log('Emerging:  15%');
 console.log('Developing: 25%');
 console.log('Fragile:   35% (worst services)');
+

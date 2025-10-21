@@ -1,0 +1,237 @@
+{
+  "stats": {
+    "avgAge": 71.4,
+    "minAge": 40,
+    "maxAge": 96,
+    "totalMarriages": 11,
+    "avgMarriages": 0.55,
+    "totalChildren": 0,
+    "avgChildren": 0,
+    "totalJobChanges": 137,
+    "avgJobChanges": 6.85,
+    "totalCrises": 3,
+    "avgCrises": 0.15
+  },
+  "lives": [
+    {
+      "lifeNumber": 1,
+      "age": 48,
+      "deathCause": "Heart Disease",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 7,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 2,
+      "age": 40,
+      "deathCause": "Cancer",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 4,
+      "crisisCount": 0,
+      "sex": "male",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 3,
+      "age": 47,
+      "deathCause": "Stroke",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 2,
+      "crisisCount": 0,
+      "sex": "male",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 4,
+      "age": 67,
+      "deathCause": "Heart Disease",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 5,
+      "crisisCount": 0,
+      "sex": "male",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 5,
+      "age": 76,
+      "deathCause": "Heart Disease",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 8,
+      "crisisCount": 0,
+      "sex": "male",
+      "education": "tertiary_bachelor"
+    },
+    {
+      "lifeNumber": 6,
+      "age": 85,
+      "deathCause": "Heart Disease",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 9,
+      "crisisCount": 0,
+      "sex": "male",
+      "education": "tertiary_bachelor"
+    },
+    {
+      "lifeNumber": 7,
+      "age": 86,
+      "deathCause": "Old Age (Natural Causes)",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 10,
+      "crisisCount": 1,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 8,
+      "age": 79,
+      "deathCause": "Heart Disease",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 7,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 9,
+      "age": 90,
+      "deathCause": "Cancer",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 10,
+      "crisisCount": 0,
+      "sex": "male",
+      "education": "tertiary_bachelor"
+    },
+    {
+      "lifeNumber": 10,
+      "age": 96,
+      "deathCause": "Heart Disease",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 8,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 11,
+      "age": 77,
+      "deathCause": "Pneumonia (Elderly)",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 7,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 12,
+      "age": 48,
+      "deathCause": "Heart Attack",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 4,
+      "crisisCount": 1,
+      "sex": "male",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 13,
+      "age": 81,
+      "deathCause": "Heart Disease",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 7,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 14,
+      "age": 73,
+      "deathCause": "Dementia/Alzheimer's",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 11,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "tertiary_bachelor"
+    },
+    {
+      "lifeNumber": 15,
+      "age": 72,
+      "deathCause": "Heart Disease",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 6,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 16,
+      "age": 65,
+      "deathCause": "Liver Disease (Alcohol)",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 7,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "tertiary_bachelor"
+    },
+    {
+      "lifeNumber": 17,
+      "age": 87,
+      "deathCause": "Pneumonia (Elderly)",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 7,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 18,
+      "age": 75,
+      "deathCause": "Old Age (Natural Causes)",
+      "marriages": 1,
+      "children": 0,
+      "jobChanges": 7,
+      "crisisCount": 1,
+      "sex": "male",
+      "education": "tertiary_bachelor"
+    },
+    {
+      "lifeNumber": 19,
+      "age": 85,
+      "deathCause": "Heart Disease",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 7,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    },
+    {
+      "lifeNumber": 20,
+      "age": 51,
+      "deathCause": "Stroke",
+      "marriages": 0,
+      "children": 0,
+      "jobChanges": 4,
+      "crisisCount": 0,
+      "sex": "female",
+      "education": "secondary"
+    }
+  ]
+}

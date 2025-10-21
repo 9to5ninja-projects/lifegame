@@ -2,10 +2,10 @@ const GameEngine = require('../game_engine_v2_homeostatic.js');
 const fs = require('fs');
 
 // Load cards
-const birthCards = JSON.parse(fs.readFileSync('./birth_cards_json.json', 'utf8'));
-const familyCards = JSON.parse(fs.readFileSync('./family_cards_json.json', 'utf8'));
+const birthCards = JSON.parse(fs.readFileSync('../data/birth_cards_json.json', 'utf8'));
+const familyCards = JSON.parse(fs.readFileSync('../data/family_cards_json.json', 'utf8'));
 const allEvents = [];
-const deathCards = JSON.parse(fs.readFileSync('./death_cards_json.json', 'utf8'));
+const deathCards = JSON.parse(fs.readFileSync('../data/death_cards_json.json', 'utf8'));
 
 const engine = new GameEngine(birthCards, familyCards, allEvents, deathCards);
 
@@ -68,3 +68,4 @@ console.log('\n=== Birth card distribution ===');
 birthCards.forEach((card, i) => {
   console.log(`${i}: ${card.name} (weight: ${card.weight})`);
 });
+
